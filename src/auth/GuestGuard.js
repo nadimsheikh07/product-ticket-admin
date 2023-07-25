@@ -1,0 +1,36 @@
+"use client";
+import PropTypes from "prop-types";
+import { useEffect } from "react";
+// next
+import { useRouter } from "next/navigation";
+// routes
+import { PATH_DASHBOARD } from "../routes/paths";
+// components
+import LoadingScreen from "../components/loading-screen";
+//
+import { useAuthContext } from "./useAuthContext";
+
+// ----------------------------------------------------------------------
+
+GuestGuard.propTypes = {
+  children: PropTypes.node,
+};
+
+export default function GuestGuard({ children }) {
+  const router = useRouter();
+
+  const { isAuthenticated, isInitialized } = useAuthContext();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push(PATH_DASHBOARD.app);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated]);
+
+  if (isInitialized === isAuthenticated) {
+    return <LoadingScreen />;
+  }
+
+  return <> {children} </>;
+}
