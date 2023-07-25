@@ -4,8 +4,7 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 export default function useActiveLink(path, deep = true) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const router = useRouter();
-  const checkPath = path.startsWith("#");
+  const checkPath = path && path?.startsWith("#");
 
   const currentPath = path === "/" ? "/" : `${path}/`;
 
@@ -19,6 +18,6 @@ export default function useActiveLink(path, deep = true) {
 
   return {
     active: deep ? deepActive : normalActive,
-    isExternalLink: path.includes("http"),
+    isExternalLink: path && path?.includes("http"),
   };
 }

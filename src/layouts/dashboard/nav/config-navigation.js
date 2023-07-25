@@ -40,7 +40,7 @@ const navConfig = [
   // DIGITALMENU MASTER
   // ----------------------------------------------------------------------
   {
-    subheader: "One Way Taxi",
+    subheader: "Product Ticket",
     items: [
       {
         title: "dashboard",
@@ -60,7 +60,7 @@ const navConfig = [
         title: "user",
         path: PATH_DASHBOARD.user.root,
         icon: ICONS.user,
-        children: [{ title: "users", path: PATH_DASHBOARD.user.users }],
+        children: [{ title: "users", path: PATH_DASHBOARD.user.user }],
       },
     ],
   },
