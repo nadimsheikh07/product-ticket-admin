@@ -18,7 +18,7 @@ const CompanyEmployeesPageForm = () => {
   const { id } = useParams();
   const title = "Company Employees Form";
   const backUrl = `${PATH_DASHBOARD.user.user}`;
-  const actionUrl = "admin/company/company_employees";
+  const actionUrl = "admin/catalog/company_employees";
 
 
   const formik = useFormik({

@@ -90,6 +90,6 @@ export default function DashboardLayout({ children }) {
       </>
     );
   };
-  return <AuthGuard>{renderContent()}</AuthGuard>;
-    // return <>{renderContent()}</>;
+  // return <AuthGuard>{renderContent()}</AuthGuard>;
+    return <>{renderContent()}</>;
 }

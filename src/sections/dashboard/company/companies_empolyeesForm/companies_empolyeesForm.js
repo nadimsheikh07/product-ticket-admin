@@ -16,7 +16,7 @@ const CompanyEmpolyeesFormSection = ({ formik, id }) => {
           label="Company"
           placeholder="Select company"
           name="company_id"
-          url="companies"
+          url="catalog/companies"
           value={formik.values.company_id}
           getOptionLabel="name"
           getOptionValue="id"
