@@ -1,10 +1,30 @@
-import { DragDrop, PasswordBox, TextBox } from "@/components/form";
+import {
+  DragDrop,
+  MuiAutocompleteBox,
+  PasswordBox,
+  TextBox,
+} from "@/components/form";
 import { Grid } from "@mui/material";
 import React from "react";
 
-const Companies_empolyeesFormSection = ({ formik, id }) => {
+const CompanyEmpolyeesFormSection = ({ formik, id }) => {
   return (
     <Grid container spacing={2}>
+      <Grid item lg={6} md={6} sm={12} xs={12}>
+        <MuiAutocompleteBox
+          fullWidth
+          label="Company"
+          placeholder="Select company"
+          name="company_id"
+          url="companies"
+          value={formik.values.company_id}
+          getOptionLabel="name"
+          getOptionValue="id"
+          onChange={(e) => formik.setFieldValue("company_id", e)}
+          error={formik.touched.company_id && formik.errors.company_id}
+          helperText={formik.touched.company_id && formik.errors.company_id}
+        />
+      </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
@@ -70,4 +90,4 @@ const Companies_empolyeesFormSection = ({ formik, id }) => {
   );
 };
 
-export default Companies_empolyeesFormSection;
+export default CompanyEmpolyeesFormSection;

@@ -2,25 +2,28 @@
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import { UserFormSection } from "@/sections/dashboard/user/users";
+import CompanyEmpolyeesFormSection from "@/sections/dashboard/company/companies_empolyeesForm/companies_empolyeesForm";
 import axiosInstance from "@/utils/axios";
 import { LoadingButton } from "@mui/lab";
 import { Container, Stack } from "@mui/material";
 import { useFormik } from "formik";
 import { useParams, useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
+
 import React from "react";
 
-const Company_employeesPageForm = () => {
+const CompanyEmployeesPageForm = () => {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
   const { id } = useParams();
-  const title = "company_employees Form";
+  const title = "Company Employees Form";
   const backUrl = `${PATH_DASHBOARD.user.user}`;
   const actionUrl = "admin/company/company_employees";
 
+
   const formik = useFormik({
     initialValues: {
+      company_id:  "",
       name: "",
       email: "",
       password: "",
@@ -28,6 +31,9 @@ const Company_employeesPageForm = () => {
     },
     validate: (values) => {
       const errors = {};
+      if (!values.company_id) {
+        errors.company_id = "Company is Required";
+      }
       if (!values.name) {
         errors.name = "Name is required";
       }
@@ -130,7 +136,7 @@ const Company_employeesPageForm = () => {
         ]}
       />
       <form noValidate onSubmit={formik.handleSubmit}>
-        <UserFormSection formik={formik} id={id} />
+        <CompanyEmpolyeesFormSection formik={formik} id={id} />
         <Stack alignItems="flex-end" sx={{ mt: 3 }}>
           <LoadingButton
             type="submit"
@@ -145,4 +151,4 @@ const Company_employeesPageForm = () => {
   );
 };
 
-export default Company_employeesPageForm;
+export default CompanyEmployeesPageForm;

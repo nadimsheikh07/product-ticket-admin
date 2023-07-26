@@ -14,7 +14,7 @@ const CompanyList = () => {
   const { push } = useRouter();
   const title = "Company List";
   const formUrl = `${PATH_DASHBOARD.company.companies}/form`;
-  const actionUrl = "admin/company/companies";
+  const actionUrl = "admin/catalog/companies";
   const columns = [
     {
       field: "actions",

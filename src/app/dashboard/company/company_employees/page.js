@@ -10,11 +10,11 @@ import { ContainerComponent } from "@/components/container";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
 
-const Company_employeesList = () => {
+const CompanyEmployeesList = () => {
   const { push } = useRouter();
   const title = "Company Employees";
   const formUrl = `${PATH_DASHBOARD.company.company_employees}/form`;
-  const actionUrl = "admin/company/company_employees";
+  const actionUrl = "admin/catalog/company_employees";
   const columns = [
     {
       field: "actions",
@@ -33,6 +33,14 @@ const Company_employeesList = () => {
           onClick={() => push(`${formUrl}/${params.id}`)}
         />,
       ],
+    },
+    {
+      field: "company_id",
+      headerName: "Company",
+      width: 140,
+      renderCell: ({ row }) => {
+        return row?.company?.name;
+      },
     },
     {
       field: "name",
@@ -67,7 +75,7 @@ const Company_employeesList = () => {
               href: PATH_DASHBOARD.app,
             },
             {
-              name: "company_employees",
+              name: "CompanyEmployees",
               // href: "#",
             },
             {
@@ -101,4 +109,4 @@ const Company_employeesList = () => {
   );
 };
 
-export default Company_employeesList;
+export default CompanyEmployeesList;
