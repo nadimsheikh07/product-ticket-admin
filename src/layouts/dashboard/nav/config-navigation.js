@@ -62,6 +62,18 @@ const navConfig = [
         icon: ICONS.user,
         children: [{ title: "users", path: PATH_DASHBOARD.user.user }],
       },
+
+      // COMPANY
+      {
+        title: "Company",
+        path: PATH_DASHBOARD.company.root,
+        icon: ICONS.user,
+        children: [
+          { title: "Companies", path: PATH_DASHBOARD.company.companies },
+          { title: "Company Employees", path: PATH_DASHBOARD.company.company_employees},
+        ],
+      },
+     
     ],
   },
 ];

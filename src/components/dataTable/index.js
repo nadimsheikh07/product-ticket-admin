@@ -101,7 +101,7 @@ export const DataTable = (props) => {
       .catch((error) => {
         setLoading(false);
         const { response } = error;
-        if (response && response?.data) {
+        if (response && response?.data && response?.data?.message) {
           enqueueSnackbar(response?.data?.message, {
             variant: "error",
           });
@@ -110,7 +110,7 @@ export const DataTable = (props) => {
   };
   React.useEffect(() => {
     getRowData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     filterModel,
     sortModel,
