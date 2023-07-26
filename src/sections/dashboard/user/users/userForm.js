@@ -29,7 +29,7 @@ const UserFormSection = ({ formik, id }) => {
           required
         />
       </Grid>
-      <Grid item lg={6} md={6} sm={12} xs={12}>
+      {/* <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
           label="Phone"
@@ -40,7 +40,7 @@ const UserFormSection = ({ formik, id }) => {
           helperText={formik.touched.phone && formik.errors.phone}
           required
         />
-      </Grid>
+      </Grid> */}
       {id === "new" && (
         <Grid item lg={6} md={6} sm={12} xs={12}>
           <PasswordBox
@@ -55,7 +55,7 @@ const UserFormSection = ({ formik, id }) => {
           />
         </Grid>
       )}
-      <Grid item lg={6} md={6} sm={12} xs={12}>
+      {/* <Grid item lg={6} md={6} sm={12} xs={12}>
         <DragDrop
           fullWidth={true}
           name="photo"
@@ -65,7 +65,7 @@ const UserFormSection = ({ formik, id }) => {
             formik.setFieldValue("photo", e);
           }}
         />
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };

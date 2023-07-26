@@ -17,7 +17,7 @@ const CompanyPageForm = () => {
   const { id } = useParams();
   const title = "Company Form";
   const backUrl = `${PATH_DASHBOARD.company.companies}`;
-  const actionUrl = "admin/company/companies";
+  const actionUrl = "admin/catalog/companies";
 
   const formik = useFormik({
     initialValues: {

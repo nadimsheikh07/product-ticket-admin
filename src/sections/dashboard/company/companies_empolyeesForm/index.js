@@ -1,1 +1,1 @@
-export { default as Company_employeesFormSection } from "./companies_empolyeesForm";
+export { default as CompanyEmployeesFormSection } from "./companies_empolyeesForm";
