@@ -25,18 +25,14 @@ export const CountryCode = [
     value: "+44",
   },
 ];
-export const ShopTimeStatus = [
+export const Status = [
   {
-    label: "Open",
-    value: "open",
+    label: "Ready",
+    value: "ready",
   },
   {
-    label: "Close",
-    value: "close",
-  },
-  {
-    label: "Half",
-    value: "half",
+    label: "Pending",
+    value: "pending",
   },
 ];
 

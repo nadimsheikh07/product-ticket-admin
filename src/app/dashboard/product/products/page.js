@@ -9,12 +9,13 @@ import NextLink from "next/link";
 import { ContainerComponent } from "@/components/container";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
+import moment from "moment";
 
-const CompanyEmployeesList = () => {
+const ProductsList = () => {
   const { push } = useRouter();
-  const title = "Company Employees";
-  const formUrl = `${PATH_DASHBOARD.company.company_employees}/form`;
-  const actionUrl = "admin/catalog/company_employees";
+  const title = "Products";
+  const formUrl = `${PATH_DASHBOARD.product.products}/form`;
+  const actionUrl = "admin/catalog/products";
   const columns = [
     {
       field: "actions",
@@ -39,7 +40,7 @@ const CompanyEmployeesList = () => {
       headerName: "Company",
       width: 140,
       renderCell: ({ row }) => {
-        return row?.company?.name;
+        return row?.product?.name;
       },
     },
     {
@@ -48,34 +49,51 @@ const CompanyEmployeesList = () => {
       width: "200",
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: "code",
+      headerName: "Code",
       width: "200",
     },
     {
-      field: "password",
-      headerName: "Password",
+      field: "model",
+      headerName: "Models",
       width: "200",
     },
-    // {
-    //   field: "phone",
-    //   headerName: "Phone",
-    //   width: "200",
-    // },
+    {
+      field: "warranty_start",
+      headerName: "Warranty Date",
+      type: "any",
+      width: 200,
+      renderCell: ({ row }) => {
+        return moment(row?.created_at, "DD-MM-YYYY").format("DD-MM-YYYY");
+      },
+    },
+    {
+      field: "warranty_end",
+      headerName: "Warranty End Date",
+      type: "any",
+      width: 200,
+      renderCell: ({ row }) => {
+        return moment(row?.created_at, "DD-MM-YYYY").format("DD-MM-YYYY");
+      },
+    },
+    {
+      field: "details",
+      headerName: "Details",
+      width: "200",
+    },
   ];
-
   return (
     <>
       <ContainerComponent>
         <CustomBreadcrumbs
-          heading="Company Employee List"
+          heading="Product List"
           links={[
             {
               name: "Dashboard",
               href: PATH_DASHBOARD.app,
             },
             {
-              name: "CompanyEmployees",
+              name: "Products",
               // href: "#",
             },
             {
@@ -89,11 +107,10 @@ const CompanyEmployeesList = () => {
               variant="contained"
               startIcon={<Iconify icon="eva:plus-fill" />}
             >
-              New Employee
+              New Product
             </Button>
           }
         />
-
         <DataTable
           title={title}
           actionUrl={actionUrl}
@@ -109,4 +126,4 @@ const CompanyEmployeesList = () => {
   );
 };
 
-export default CompanyEmployeesList;
+export default ProductsList;
