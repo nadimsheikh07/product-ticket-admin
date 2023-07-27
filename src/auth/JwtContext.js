@@ -79,7 +79,7 @@ export function AuthProvider({ children }) {
   const initialize = useCallback(async () => {
     try {
       const accessToken = storageAvailable
-        ? localStorage.getItem(process.env.NEXT_PUBLIC_ACCESS_Token)
+        ? localStorage.getItem(process.env.NEXT_PUBLIC_ACCESS_TOKEN)
         : "";
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
@@ -153,7 +153,7 @@ export function AuthProvider({ children }) {
     });
     const { accessToken, user } = response.data;
 
-    localStorage.setItem(process.env.NEXT_PUBLIC_ACCESS_Token, accessToken);
+    localStorage.setItem(process.env.NEXT_PUBLIC_ACCESS_TOKEN, accessToken);
 
     dispatch({
       type: "REGISTER",

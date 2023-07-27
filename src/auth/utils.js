@@ -61,7 +61,7 @@ export const isValidToken = (accessToken) => {
 
 export const setSession = (accessToken) => {
   if (accessToken) {
-    localStorage.setItem(process.env.NEXT_PUBLIC_ACCESS_Token, accessToken);
+    localStorage.setItem(process.env.NEXT_PUBLIC_ACCESS_TOKEN, accessToken);
 
     axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 
@@ -69,7 +69,7 @@ export const setSession = (accessToken) => {
     // const { exp } = jwtDecode(accessToken); // ~3 days by Jobportal server
     // tokenExpired(exp);
   } else {
-    localStorage.removeItem(process.env.NEXT_PUBLIC_ACCESS_Token);
+    localStorage.removeItem(process.env.NEXT_PUBLIC_ACCESS_TOKEN);
     delete axios.defaults.headers.common.Authorization;
   }
 };
