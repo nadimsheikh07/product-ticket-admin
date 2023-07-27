@@ -48,7 +48,7 @@ const TicketsFormSection = ({ formik, id }) => {
           label="User"
           placeholder="Select User"
           name="user_id"
-          url="catalog/users"
+          url="user/users"
           value={formik.values.users_id}
           getOptionLabel="name"
           getOptionValue="id"

@@ -49,11 +49,11 @@ const UserList = () => {
     //   headerName: "Password",
     //   width: "200",
     // },
-    {
-      field: "phone",
-      headerName: "Phone",
-      width: "200",
-    },
+    // {
+    //   field: "phone",
+    //   headerName: "Phone",
+    //   width: "200",
+    // },
   ];
 
   return (
