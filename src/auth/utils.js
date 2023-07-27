@@ -22,6 +22,7 @@ import axios from "@/utils/axios";
 // ----------------------------------------------------------------------
 
 export const isValidToken = (accessToken) => {
+  console.log("accessToken", accessToken);
   if (!accessToken) {
     return false;
   } else {
@@ -61,7 +62,7 @@ export const isValidToken = (accessToken) => {
 
 export const setSession = (accessToken) => {
   if (accessToken) {
-    localStorage.setItem(process.env.NEXT_PUBLIC_ACCESS_TOKEN, accessToken);
+    localStorage.setItem("accessToken", accessToken);
 
     axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 
@@ -69,7 +70,7 @@ export const setSession = (accessToken) => {
     // const { exp } = jwtDecode(accessToken); // ~3 days by Jobportal server
     // tokenExpired(exp);
   } else {
-    localStorage.removeItem(process.env.NEXT_PUBLIC_ACCESS_TOKEN);
+    localStorage.removeItem("accessToken");
     delete axios.defaults.headers.common.Authorization;
   }
 };
