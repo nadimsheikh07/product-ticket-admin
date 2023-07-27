@@ -3,18 +3,19 @@ import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs
 import { DataTable } from "@/components/dataTable";
 import Iconify from "@/components/iconify/Iconify";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import { Button, Container, Tooltip } from "@mui/material";
+import { Button, Chip, Container, Tooltip } from "@mui/material";
 import React from "react";
 import NextLink from "next/link";
 import { ContainerComponent } from "@/components/container";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
+import moment from "moment";
 
-const CompanyEmployeesList = () => {
+const TicketsList = () => {
   const { push } = useRouter();
-  const title = "Company Employees";
-  const formUrl = `${PATH_DASHBOARD.company.company_employees}/form`;
-  const actionUrl = "admin/catalog/company_employees";
+  const title = "Tickets";
+  const formUrl = `${PATH_DASHBOARD.ticket.tickets}/form`;
+  const actionUrl = "admin/catalog/tickets";
   const columns = [
     {
       field: "actions",
@@ -39,43 +40,78 @@ const CompanyEmployeesList = () => {
       headerName: "Company",
       width: 140,
       renderCell: ({ row }) => {
-        return row?.company?.name;
+        return row?.ticket?.name;
       },
     },
     {
-      field: "name",
-      headerName: "Name",
+      field: "product_id",
+      headerName: "Product",
+      width: 140,
+      renderCell: ({ row }) => {
+        return row?.ticket?.name;
+      },
+    },
+    {
+      field: "user_id",
+      headerName: "User",
+      width: 140,
+      renderCell: ({ row }) => {
+        return row?.ticket?.name;
+      },
+    },
+    {
+      field: "datetime",
+      headerName: "Date Time",
+      type: "any",
+      width: 120,
+      renderCell: ({ row }) => {
+        return moment(row?.created_at, "DD-MM-YYYY").format("DD-MM-YYYY");
+      },
+    },
+    {
+      field: "details",
+      headerName: "Details",
       width: "200",
     },
     {
-      field: "email",
-      headerName: "Email",
-      width: "200",
+      field: "status",
+      headerName: "Status",
+      width: 120,
+      renderCell: ({ row }) => {
+        if (row?.status === "open") {
+          return (
+            <Chip
+              sx={{ textTransform: "capitalize" }}
+              label={row?.status}
+              variant="outlined"
+              color="success"
+            />
+          );
+        } else {
+          return (
+            <Chip
+              sx={{ textTransform: "capitalize" }}
+              label={row?.status}
+              variant="outlined"
+              color="warning"
+            />
+          );
+        }
+      },
     },
-    {
-      field: "password",
-      headerName: "Password",
-      width: "200",
-    },
-    // {
-    //   field: "phone",
-    //   headerName: "Phone",
-    //   width: "200",
-    // },
   ];
-
   return (
     <>
       <ContainerComponent>
         <CustomBreadcrumbs
-          heading="Company Employee List"
+          heading="Ticket List"
           links={[
             {
               name: "Dashboard",
               href: PATH_DASHBOARD.app,
             },
             {
-              name: "CompanyEmployees",
+              name: "Tickets",
               // href: "#",
             },
             {
@@ -89,11 +125,10 @@ const CompanyEmployeesList = () => {
               variant="contained"
               startIcon={<Iconify icon="eva:plus-fill" />}
             >
-              New Employee
+              New Ticket
             </Button>
           }
         />
-
         <DataTable
           title={title}
           actionUrl={actionUrl}
@@ -109,4 +144,4 @@ const CompanyEmployeesList = () => {
   );
 };
 
-export default CompanyEmployeesList;
+export default TicketsList;

@@ -3,6 +3,7 @@ import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import CompanyEmpolyeesFormSection from "@/sections/dashboard/company/companies_empolyeesForm/companies_empolyeesForm";
+import { ProductsFormSection } from "@/sections/dashboard/product/products";
 import axiosInstance from "@/utils/axios";
 import { LoadingButton } from "@mui/lab";
 import { Container, Stack } from "@mui/material";
@@ -12,22 +13,21 @@ import { useSnackbar } from "notistack";
 
 import React from "react";
 
-const CompanyEmployeesPageForm = () => {
+const ProductsPageForm = () => {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
   const { id } = useParams();
-  const title = "Company Employees Form";
-  const backUrl = `${PATH_DASHBOARD.company.company_employees}`;
-  const actionUrl = "admin/catalog/company_employees";
-
+  const title = "Product Form";
+  const backUrl = `${PATH_DASHBOARD.product.products}`;
+  const actionUrl = "admin/catalog/products";
 
   const formik = useFormik({
     initialValues: {
-      company_id:  "",
+      company_id: "",
       name: "",
-      email: "",
-      password: "",
-      
+      code: "",
+      model: "",
+      details: "",
     },
     validate: (values) => {
       const errors = {};
@@ -37,26 +37,12 @@ const CompanyEmployeesPageForm = () => {
       if (!values.name) {
         errors.name = "Name is required";
       }
-      if (!values.email) {
-        errors.email = "Email is required";
-      } else if (
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-      ) {
-        errors.email = "Invalid email address";
+      if (!values.code) {
+        errors.code = "Code is required";
       }
-      if (id === "new") {
-        if (!values.password) {
-          errors.password = "Password is required";
-        }
+      if (!values.model) {
+        errors.model = "Model is required";
       }
-      // const phoneRegex = /^\d+$/i;
-      // if (!values.phone) {
-      //   errors.phone = "Phone is required";
-      // } else if (!phoneRegex.test(values.phone)) {
-      //   errors.phone = "Invalid phone number";
-      // } else if (values.phone.length < 10 || values.phone.length > 10) {
-      //   errors.phone = "Phone number must be 10 digit";
-      // }
       return errors;
     },
     onSubmit: async (values) => {
@@ -129,21 +115,21 @@ const CompanyEmployeesPageForm = () => {
             href: PATH_DASHBOARD.app,
           },
           {
-            name: "Company",
+            name: "Product",
             href: backUrl,
           },
           { name: title },
         ]}
       />
       <form noValidate onSubmit={formik.handleSubmit}>
-        <CompanyEmpolyeesFormSection formik={formik} id={id} />
+        <ProductsFormSection formik={formik} id={id} />
         <Stack alignItems="flex-end" sx={{ mt: 3 }}>
           <LoadingButton
             type="submit"
             variant="contained"
             loading={formik?.isSubmitting}
           >
-            {id === "new" ? "Create company" : "Update company"}
+            {id === "new" ? "Create product" : "Update product"}
           </LoadingButton>
         </Stack>
       </form>
@@ -151,4 +137,4 @@ const CompanyEmployeesPageForm = () => {
   );
 };
 
-export default CompanyEmployeesPageForm;
+export default ProductsPageForm;

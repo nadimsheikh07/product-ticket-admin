@@ -70,10 +70,30 @@ const navConfig = [
         icon: ICONS.user,
         children: [
           { title: "Companies", path: PATH_DASHBOARD.company.companies },
-          { title: "Company Employees", path: PATH_DASHBOARD.company.company_employees},
+          {
+            title: "Company Employees",
+            path: PATH_DASHBOARD.company.company_employees,
+          },
         ],
       },
-     
+      // PRODUCT
+      {
+        title: "Product",
+        path: PATH_DASHBOARD.product.root,
+        icon: ICONS.user,
+        children: [
+          { title: "products", path: PATH_DASHBOARD.product.products },
+        ],
+      },
+         // TICKET
+         {
+          title: "Ticket",
+          path: PATH_DASHBOARD.ticket.root,
+          icon: ICONS.user,
+          children: [
+            { title: "tickets", path: PATH_DASHBOARD.ticket.tickets },
+          ],
+        },
     ],
   },
 ];
