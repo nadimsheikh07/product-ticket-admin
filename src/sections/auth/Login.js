@@ -6,11 +6,12 @@ import { Tooltip, Stack, Typography, Link, Box } from "@mui/material";
 // auth
 import { useAuthContext } from "@/auth/useAuthContext";
 // layouts
-import LoginLayout from "@/layouts/login/LoginLayout";
+// import LoginLayout from "@/layouts/login/LoginLayout";
 // routes
 import { PATH_AUTH } from "@/routes/paths";
 //
 import AuthLoginForm from "./AuthLoginForm";
+import LoginLayout from "@/layouts/login/LoginLayout";
 // import AuthWithSocial from './AuthWithSocial';
 
 // ----------------------------------------------------------------------
