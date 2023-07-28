@@ -37,7 +37,7 @@ const TicketsFormSection = ({ formik, id }) => {
           value={formik.values.products_id}
           getOptionLabel="name"
           getOptionValue="id"
-          onChange={(e) => formik.setFieldValue("products_id", e)}
+          onChange={(e) => formik.setFieldValue("product_id", e)}
           error={formik.touched.products_id && formik.errors.products_id}
           helperText={formik.touched.products_id && formik.errors.products_id}
         />
