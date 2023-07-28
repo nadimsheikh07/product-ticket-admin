@@ -49,12 +49,12 @@ const TicketsFormSection = ({ formik, id }) => {
           placeholder="Select User"
           name="user_id"
           url="user/users"
-          value={formik.values.users_id}
+          value={formik.values.user_id}
           getOptionLabel="name"
           getOptionValue="id"
           onChange={(e) => formik.setFieldValue("user_id", e)}
-          error={formik.touched.users_id && formik.errors.users_id}
-          helperText={formik.touched.users_id && formik.errors.users_id}
+          error={formik.touched.user_id && formik.errors.user_id}
+          helperText={formik.touched.user_id && formik.errors.user_id}
         />
       </Grid>
       <Grid item lg={12} md={12} sm={12} xs={12}>
