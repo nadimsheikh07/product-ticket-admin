@@ -36,7 +36,7 @@ const CompanyEmployeesList = () => {
     },
     {
       field: "company_id",
-      headerName: "Company",
+      headerName: "Company Name",
       width: 140,
       renderCell: ({ row }) => {
         return row?.company?.name;
@@ -44,7 +44,7 @@ const CompanyEmployeesList = () => {
     },
     {
       field: "name",
-      headerName: "Name",
+      headerName: "Employee Name",
       width: "200",
     },
     {

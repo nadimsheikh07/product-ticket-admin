@@ -11,7 +11,7 @@ import React from "react";
 
 const TicketsFormSection = ({ formik, id }) => {
   return (
-    <Grid container spacing={2}>                                                             
+    <Grid container spacing={2}>
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <MuiAutocompleteBox
           fullWidth
@@ -73,7 +73,7 @@ const TicketsFormSection = ({ formik, id }) => {
         <SelectBox
           fullWidth
           label="Status"
-          placeholder="Enter Select"
+          placeholder="Select"
           name="status"
           options={Status}
           value={formik.values.status}

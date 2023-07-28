@@ -25,10 +25,10 @@ const TicketsPageForm = () => {
   const formik = useFormik({
     initialValues: {
       company_id: "",
-      product_id:"",
-      user_id:"",
+      product_id: "",
+      user_id: "",
       details: "",
-      status:"open",
+      status: "open",
     },
     validate: (values) => {
       const errors = {};

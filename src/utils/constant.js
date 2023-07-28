@@ -27,12 +27,20 @@ export const CountryCode = [
 ];
 export const Status = [
   {
-    label: "Ready",
-    value: "ready",
-  },
-  {
     label: "Pending",
     value: "pending",
+  },
+  {
+    label: "Processing",
+    value: "processing",
+  },
+  {
+    label: "Cancled",
+    value: "cancled",
+  },
+  {
+    label: "Closed",
+    value: "closed",
   },
 ];
 
