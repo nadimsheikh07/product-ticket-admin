@@ -3,9 +3,10 @@ import { m } from 'framer-motion';
 // @mui
 import { Box } from '@mui/material';
 // hooks
-import useResponsive from '../../hooks/useResponsive';
+// import useResponsive from '../../hooks/useResponsive';
 //
 import { varContainer } from './variants';
+import useResponsive from '@/hooks/useResponsive';
 
 // ----------------------------------------------------------------------
 

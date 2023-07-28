@@ -6,11 +6,12 @@ import { Tooltip, Stack, Typography, Link, Box } from "@mui/material";
 // auth
 import { useAuthContext } from "@/auth/useAuthContext";
 // layouts
-import LoginLayout from "@/layouts/login/LoginLayout";
+// import LoginLayout from "@/layouts/login/LoginLayout";
 // routes
 import { PATH_AUTH } from "@/routes/paths";
 //
 import AuthLoginForm from "./AuthLoginForm";
+import LoginLayout from "@/layouts/login/LoginLayout";
 // import AuthWithSocial from './AuthWithSocial';
 
 // ----------------------------------------------------------------------
@@ -21,7 +22,7 @@ export default function Login() {
   return (
     <LoginLayout>
       <Stack spacing={2} sx={{ mb: 5, position: "relative" }}>
-        <Typography variant="h4">Sign in to Digital Menu</Typography>
+        <Typography variant="h4">Sign in to Product Ticket</Typography>
 
         <Stack direction="row" spacing={0.5}>
           <Typography variant="body2">New user?</Typography>

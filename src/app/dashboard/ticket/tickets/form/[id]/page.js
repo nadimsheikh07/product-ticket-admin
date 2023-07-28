@@ -28,7 +28,7 @@ const TicketsPageForm = () => {
       product_id:"",
       user_id:"",
       details: "",
-      statue:"open",
+      status:"open",
     },
     validate: (values) => {
       const errors = {};

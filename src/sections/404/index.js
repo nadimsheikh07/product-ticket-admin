@@ -23,7 +23,7 @@ export default function Page404() {
   return (
     <>
       <Head>
-        <title> 404 Page Not Found | Digital Menu</title>
+        <title> 404 Page Not Found | Product Ticket</title>
       </Head>
       <CompactLayout>
         <MotionContainer>
