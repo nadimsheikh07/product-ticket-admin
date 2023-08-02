@@ -25,15 +25,15 @@ const TicketsPageForm = () => {
   const formik = useFormik({
     initialValues: {
       company_id: "",
-      product_id:"",
-      user_id:"",
+      product_id: "",
+      user_id: "",
       details: "",
-      status:"open",
+      status: "open",
     },
     validate: (values) => {
       const errors = {};
-      if (!values.company_id) {
-        errors.company_id = "Company is Required";
+      if (!values.client_id) {
+        errors.client_id = "Client is Required";
       }
       if (!values.product_id) {
         errors.product_id = "Product is Required";

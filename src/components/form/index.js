@@ -5,3 +5,4 @@ export { default as ToggleBox } from "./toggle";
 export { default as MuiAutocompleteBox } from "./autocomplete";
 export { default as FormControl } from "./formControl";
 export { default as DateTimePickerBox } from "./dateTimePicker";
+export { default as DatePickerBox } from "./datePicker";

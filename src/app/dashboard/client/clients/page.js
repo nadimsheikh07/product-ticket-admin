@@ -12,8 +12,8 @@ import { useRouter } from "next/navigation";
 
 const CompanyEmployeesList = () => {
   const { push } = useRouter();
-  const title = "Company Employees";
-  const formUrl = `${PATH_DASHBOARD.company.company_employees}/form`;
+  const title = "Client";
+  const formUrl = `${PATH_DASHBOARD.client.clients}/form`;
   const actionUrl = "admin/catalog/company_employees";
   const columns = [
     {
@@ -35,14 +35,6 @@ const CompanyEmployeesList = () => {
       ],
     },
     {
-      field: "company_id",
-      headerName: "Company",
-      width: 140,
-      renderCell: ({ row }) => {
-        return row?.company?.name;
-      },
-    },
-    {
       field: "name",
       headerName: "Name",
       width: "200",
@@ -53,8 +45,13 @@ const CompanyEmployeesList = () => {
       width: "200",
     },
     {
-      field: "password",
-      headerName: "Password",
+      field: "phone",
+      headerName: "Phone",
+      width: "200",
+    },
+    {
+      field: "address",
+      headerName: "Address",
       width: "200",
     },
     // {
@@ -68,14 +65,14 @@ const CompanyEmployeesList = () => {
     <>
       <ContainerComponent>
         <CustomBreadcrumbs
-          heading="Company Employee List"
+          heading="Client List"
           links={[
             {
               name: "Dashboard",
               href: PATH_DASHBOARD.app,
             },
             {
-              name: "CompanyEmployees",
+              name: "Clients",
               // href: "#",
             },
             {
@@ -89,7 +86,7 @@ const CompanyEmployeesList = () => {
               variant="contained"
               startIcon={<Iconify icon="eva:plus-fill" />}
             >
-              New Employee
+              New Client
             </Button>
           }
         />

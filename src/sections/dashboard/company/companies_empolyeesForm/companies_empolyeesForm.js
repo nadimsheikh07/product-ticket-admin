@@ -11,21 +11,6 @@ const CompanyEmpolyeesFormSection = ({ formik, id }) => {
   return (
     <Grid container spacing={2}>
       <Grid item lg={6} md={6} sm={12} xs={12}>
-        <MuiAutocompleteBox
-          fullWidth
-          label="Company"
-          placeholder="Select company"
-          name="company_id"
-          url="catalog/companies"
-          value={formik.values.company_id}
-          getOptionLabel="name"
-          getOptionValue="id"
-          onChange={(e) => formik.setFieldValue("company_id", e)}
-          error={formik.touched.company_id && formik.errors.company_id}
-          helperText={formik.touched.company_id && formik.errors.company_id}
-        />
-      </Grid>
-      <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
           label="Name"
@@ -49,7 +34,7 @@ const CompanyEmpolyeesFormSection = ({ formik, id }) => {
           required
         />
       </Grid>
-      {/* <Grid item lg={6} md={6} sm={12} xs={12}>
+      <Grid item lg={12} md={12} sm={12} xs={12}>
         <TextBox
           fullWidth
           label="Phone"
@@ -60,32 +45,21 @@ const CompanyEmpolyeesFormSection = ({ formik, id }) => {
           helperText={formik.touched.phone && formik.errors.phone}
           required
         />
-      </Grid> */}
-      {id === "new" && (
-        <Grid item lg={6} md={6} sm={12} xs={12}>
-          <PasswordBox
-            fullWidth
-            label="Password"
-            name="password"
-            value={formik?.values?.password}
-            onChange={formik.handleChange}
-            error={formik.touched.password && formik.errors.password}
-            helperText={formik.touched.password && formik.errors.password}
-            required
-          />
-        </Grid>
-      )}
-      {/* <Grid item lg={6} md={6} sm={12} xs={12}>
-        <DragDrop
-          fullWidth={true}
-          name="photo"
-          url="admin/upload/image"
-          value={formik.values.photo}
-          onChange={(e) => {
-            formik.setFieldValue("photo", e);
-          }}
+      </Grid>
+      <Grid item lg={12} md={12} sm={12} xs={12}>
+        <TextBox
+          fullWidth
+          label="Address"
+          multiline={true}
+          rows={3}
+          name="address"
+          value={formik?.values?.address}
+          onChange={formik.handleChange}
+          error={formik.touched.address && formik.errors.address}
+          helperText={formik.touched.address && formik.errors.address}
+          required
         />
-      </Grid> */}
+      </Grid>
     </Grid>
   );
 };

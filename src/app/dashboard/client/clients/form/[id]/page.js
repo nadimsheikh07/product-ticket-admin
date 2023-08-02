@@ -16,24 +16,19 @@ const CompanyEmployeesPageForm = () => {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
   const { id } = useParams();
-  const title = "Company Employees Form";
-  const backUrl = `${PATH_DASHBOARD.company.company_employees}`;
+  const title = "Client Form";
+  const backUrl = `${PATH_DASHBOARD.client.clients}`;
   const actionUrl = "admin/catalog/company_employees";
-
 
   const formik = useFormik({
     initialValues: {
-      company_id:  "",
+      phone: "",
       name: "",
       email: "",
-      password: "",
-      
+      address: "",
     },
     validate: (values) => {
       const errors = {};
-      if (!values.company_id) {
-        errors.company_id = "Company is Required";
-      }
       if (!values.name) {
         errors.name = "Name is required";
       }
@@ -44,19 +39,20 @@ const CompanyEmployeesPageForm = () => {
       ) {
         errors.email = "Invalid email address";
       }
-      if (id === "new") {
-        if (!values.password) {
-          errors.password = "Password is required";
-        }
+
+      const phoneRegex = /^\d+$/i;
+      if (!values.phone) {
+        errors.phone = "Phone is required";
+      } else if (!phoneRegex.test(values.phone)) {
+        errors.phone = "Invalid phone number";
+      } else if (values.phone.length < 10 || values.phone.length > 10) {
+        errors.phone = "Phone number must be 10 digit";
       }
-      // const phoneRegex = /^\d+$/i;
-      // if (!values.phone) {
-      //   errors.phone = "Phone is required";
-      // } else if (!phoneRegex.test(values.phone)) {
-      //   errors.phone = "Invalid phone number";
-      // } else if (values.phone.length < 10 || values.phone.length > 10) {
-      //   errors.phone = "Phone number must be 10 digit";
-      // }
+
+      if (!values.address) {
+        errors.address = "Address is required";
+      }
+
       return errors;
     },
     onSubmit: async (values) => {
@@ -129,7 +125,7 @@ const CompanyEmployeesPageForm = () => {
             href: PATH_DASHBOARD.app,
           },
           {
-            name: "Company",
+            name: "Clients",
             href: backUrl,
           },
           { name: title },
@@ -143,7 +139,7 @@ const CompanyEmployeesPageForm = () => {
             variant="contained"
             loading={formik?.isSubmitting}
           >
-            {id === "new" ? "Create company" : "Update company"}
+            {id === "new" ? "Create client" : "Update client"}
           </LoadingButton>
         </Stack>
       </form>

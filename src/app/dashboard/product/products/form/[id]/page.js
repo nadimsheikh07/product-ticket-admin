@@ -23,19 +23,23 @@ const ProductsPageForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      company_id: "",
+      client_id: "",
       name: "",
       code: "",
       model: "",
       details: "",
+      warranty_start: null,
+      warranty_end: null,
+      invoice_number: "",
+      invoice_date: null,
     },
     validate: (values) => {
       const errors = {};
-      if (!values.company_id) {
-        errors.company_id = "Company is Required";
+      if (!values.client_id) {
+        errors.client_id = "Client is Required";
       }
       if (!values.name) {
-        errors.name = "Name is required";
+        errors.name = "Product name is required";
       }
       if (!values.code) {
         errors.code = "Code is required";
@@ -87,6 +91,37 @@ const ProductsPageForm = () => {
     },
   });
 
+  const generateCode = async () => {
+    await axiosInstance
+      .get(`/admin/catalog/generate-auto-code`, formik.values)
+      .then((response) => {
+        console.log("responseresponse", response);
+        const { data, status } = response;
+        if (status == 200) {
+          if (data) {
+            formik.setFieldValue("code", data.code);
+          }
+        }
+      })
+      .catch((error) => {
+        const { response } = error;
+
+        enqueueSnackbar(response?.data?.message, {
+          variant: "error",
+        });
+
+        // set server error
+        if (response.status === 422) {
+          // eslint-disable-next-line no-unused-vars
+          for (const [key] of Object.entries(response.data.errors)) {
+            if (response.data.errors[key]) {
+              formik.setErrors({ [key]: response.data.errors[key][0] });
+            }
+          }
+        }
+      });
+  };
+
   const bindData = async (id) => {
     await axiosInstance.get(`${actionUrl}/${id}`).then((response) => {
       if (response.status === 200) {
@@ -122,7 +157,11 @@ const ProductsPageForm = () => {
         ]}
       />
       <form noValidate onSubmit={formik.handleSubmit}>
-        <ProductsFormSection formik={formik} id={id} />
+        <ProductsFormSection
+          generateCode={generateCode}
+          formik={formik}
+          id={id}
+        />
         <Stack alignItems="flex-end" sx={{ mt: 3 }}>
           <LoadingButton
             type="submit"

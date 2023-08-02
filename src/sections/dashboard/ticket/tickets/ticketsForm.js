@@ -29,21 +29,21 @@ const TicketsFormSection = ({ formik, id }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <MuiAutocompleteBox
           fullWidth
-          label="Company"
-          placeholder="Select company"
-          name="company_id"
-          url="catalog/companies"
-          value={formik.values.company_id}
+          label="Client"
+          placeholder="Select client"
+          name="client_id"
+          url="catalog/company_employees"
+          value={formik.values.client_id}
           getOptionLabel="name"
           getOptionValue="id"
           onChange={(e) => {
             if (e) {
-              formik.setFieldValue("company_id", e);
+              formik.setFieldValue("client_id", e);
               formik.setFieldValue("product_id", null);
             }
           }}
-          error={formik.touched.company_id && formik.errors.company_id}
-          helperText={formik.touched.company_id && formik.errors.company_id}
+          error={formik.touched.client_id && formik.errors.client_id}
+          helperText={formik.touched.client_id && formik.errors.client_id}
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -55,8 +55,8 @@ const TicketsFormSection = ({ formik, id }) => {
           url="catalog/products"
           value={formik.values.product_id}
           paramsID={useMemo(() => {
-            return { company_id: formik?.values?.company_id };
-          }, [formik?.values?.company_id])}
+            return { client_id: formik?.values?.client_id };
+          }, [formik?.values?.client_id])}
           getOptionLabel="name"
           getOptionValue="id"
           onChange={(e) => formik.setFieldValue("product_id", e)}
