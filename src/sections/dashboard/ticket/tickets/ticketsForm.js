@@ -1,17 +1,31 @@
-import {
-  DragDrop,
-  MuiAutocompleteBox,
-  PasswordBox,
-  TextBox,
-} from "@/components/form";
+import { MuiAutocompleteBox, TextBox } from "@/components/form";
 import SelectBox from "@/components/form/select";
 import { Status } from "@/utils/constant";
 import { Grid } from "@mui/material";
-import React from "react";
+import React, { useMemo } from "react";
 
 const TicketsFormSection = ({ formik, id }) => {
   return (
-    <Grid container spacing={2}>                                                             
+    <Grid container spacing={2}>
+      <Grid item lg={6} md={6} sm={12} xs={12}>
+        <MuiAutocompleteBox
+          fullWidth
+          label="User"
+          placeholder="Select user"
+          name="user_id"
+          url="user/users"
+          value={formik.values.user_id}
+          getOptionLabel="name"
+          getOptionValue="id"
+          onChange={(e) => {
+            if (e) {
+              formik.setFieldValue("user_id", e);
+            }
+          }}
+          error={formik.touched.user_id && formik.errors.user_id}
+          helperText={formik.touched.user_id && formik.errors.user_id}
+        />
+      </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <MuiAutocompleteBox
           fullWidth
@@ -22,7 +36,12 @@ const TicketsFormSection = ({ formik, id }) => {
           value={formik.values.company_id}
           getOptionLabel="name"
           getOptionValue="id"
-          onChange={(e) => formik.setFieldValue("company_id", e)}
+          onChange={(e) => {
+            if (e) {
+              formik.setFieldValue("company_id", e);
+              formik.setFieldValue("product_id", null);
+            }
+          }}
           error={formik.touched.company_id && formik.errors.company_id}
           helperText={formik.touched.company_id && formik.errors.company_id}
         />
@@ -34,29 +53,18 @@ const TicketsFormSection = ({ formik, id }) => {
           placeholder="Select Product"
           name="product_id"
           url="catalog/products"
-          value={formik.values.products_id}
+          value={formik.values.product_id}
+          paramsID={useMemo(() => {
+            return { company_id: formik?.values?.company_id };
+          }, [formik?.values?.company_id])}
           getOptionLabel="name"
           getOptionValue="id"
           onChange={(e) => formik.setFieldValue("product_id", e)}
-          error={formik.touched.products_id && formik.errors.products_id}
-          helperText={formik.touched.products_id && formik.errors.products_id}
+          error={formik.touched.product_id && formik.errors.product_id}
+          helperText={formik.touched.product_id && formik.errors.product_id}
         />
       </Grid>
-      <Grid item lg={6} md={6} sm={12} xs={12}>
-        <MuiAutocompleteBox
-          fullWidth
-          label="User"
-          placeholder="Select User"
-          name="user_id"
-          url="user/users"
-          value={formik.values.user_id}
-          getOptionLabel="name"
-          getOptionValue="id"
-          onChange={(e) => formik.setFieldValue("user_id", e)}
-          error={formik.touched.user_id && formik.errors.user_id}
-          helperText={formik.touched.user_id && formik.errors.user_id}
-        />
-      </Grid>
+
       <Grid item lg={12} md={12} sm={12} xs={12}>
         <TextBox
           fullWidth

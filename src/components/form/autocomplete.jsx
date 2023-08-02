@@ -121,10 +121,10 @@ const MuiAutocompleteBox = (props) => {
   }, [filter]);
 
   React.useEffect(() => {
-    if (paramsID && paramsID?.from_city_id) {
+    if (paramsID && paramsID?.company_id) {
       getData();
     }
-  }, [paramsID, paramsID?.from_city_id]);
+  }, [paramsID, paramsID?.company_id]);
 
   const delayedQuery = React.useCallback(debounce(getData, 1000), []);
 

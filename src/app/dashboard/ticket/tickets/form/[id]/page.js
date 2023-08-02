@@ -38,9 +38,6 @@ const TicketsPageForm = () => {
       if (!values.product_id) {
         errors.product_id = "Product is Required";
       }
-      if (!values.user_id) {
-        errors.user_id = "User is Required";
-      }
       return errors;
     },
     onSubmit: async (values) => {
