@@ -81,7 +81,7 @@ const ProductsList = () => {
       },
     },
     {
-      field: "details",
+      field: "detail",
       headerName: "Details",
       width: "200",
     },

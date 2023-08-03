@@ -76,7 +76,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
-        <DateTimePickerBox
+        <DatePickerBox
           fullWidth
           label="Warranty Start"
           name="warranty_start"
@@ -84,7 +84,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
-        <DateTimePickerBox
+        <DatePickerBox
           fullWidth
           label="Warranty End"
           name="warranty_end"

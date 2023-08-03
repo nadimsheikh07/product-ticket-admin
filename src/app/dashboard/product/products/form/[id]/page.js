@@ -27,7 +27,7 @@ const ProductsPageForm = () => {
       name: "",
       code: "",
       model: "",
-      details: "",
+      detail: "",
       warranty_start: null,
       warranty_end: null,
       invoice_number: "",
