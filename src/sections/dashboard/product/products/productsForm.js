@@ -18,7 +18,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           label="Client"
           placeholder="Select client"
           name="client_id"
-          url="catalog/company_employees"
+          url="catalog/clients"
           value={formik.values.client_id}
           getOptionLabel="name"
           getOptionValue="id"

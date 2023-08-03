@@ -32,7 +32,7 @@ const TicketsFormSection = ({ formik, id }) => {
           label="Client"
           placeholder="Select client"
           name="client_id"
-          url="catalog/company_employees"
+          url="catalog/clients"
           value={formik.values.client_id}
           getOptionLabel="name"
           getOptionValue="id"
@@ -65,18 +65,6 @@ const TicketsFormSection = ({ formik, id }) => {
         />
       </Grid>
 
-      <Grid item lg={12} md={12} sm={12} xs={12}>
-        <TextBox
-          fullWidth
-          label="Detail"
-          placeholder="Enter detail"
-          name="detail"
-          value={formik.values.detail}
-          onChange={formik.handleChange}
-          error={formik.touched.detail && formik.errors.detail}
-          helperText={formik.touched.detail && formik.errors.detail}
-        />
-      </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <SelectBox
           fullWidth
@@ -88,6 +76,21 @@ const TicketsFormSection = ({ formik, id }) => {
           onChange={formik.handleChange}
           error={formik.touched.status && formik.errors.status}
           helperText={formik.touched.status && formik.errors.status}
+        />
+      </Grid>
+
+      <Grid item lg={12} md={12} sm={12} xs={12}>
+        <TextBox
+          fullWidth
+          label="Detail"
+          placeholder="Enter detail"
+          multiline={true}
+          rows={3}
+          name="detail"
+          value={formik.values.detail}
+          onChange={formik.handleChange}
+          error={formik.touched.detail && formik.errors.detail}
+          helperText={formik.touched.detail && formik.errors.detail}
         />
       </Grid>
     </Grid>

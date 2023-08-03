@@ -27,7 +27,7 @@ const TicketsPageForm = () => {
       company_id: "",
       product_id: "",
       user_id: "",
-      details: "",
+      detail: "",
       status: "open",
     },
     validate: (values) => {
