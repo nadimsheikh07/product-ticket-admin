@@ -69,7 +69,7 @@ const TicketsList = () => {
       },
     },
     {
-      field: "details",
+      field: "detail",
       headerName: "Details",
       width: "200",
     },
