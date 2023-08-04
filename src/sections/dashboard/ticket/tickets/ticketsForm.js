@@ -32,7 +32,7 @@ const TicketsFormSection = ({ formik, id }) => {
           label="Client"
           placeholder="Select client"
           name="client_id"
-          url="catalog/clients"
+          url="client/clients"
           value={formik.values.client_id}
           getOptionLabel="name"
           getOptionValue="id"

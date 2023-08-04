@@ -7,9 +7,11 @@ import {
   TextBox,
 } from "@/components/form";
 import { Box, Button, Grid, Stack } from "@mui/material";
+import { useParams } from "next/navigation";
 import React from "react";
 
 const ProductsFormSection = ({ formik, generateCode }) => {
+  const { id } = useParams();
   return (
     <Grid container spacing={2}>
       <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -18,7 +20,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           label="Client"
           placeholder="Select client"
           name="client_id"
-          url="catalog/clients"
+          url="client/clients"
           value={formik.values.client_id}
           getOptionLabel="name"
           getOptionValue="id"
@@ -31,6 +33,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
         <Stack direction="row" spacing={2} alignItems="center">
           <TextBox
             fullWidth
+            disabled={id !== "new"}
             label="Code"
             name="code"
             value={formik?.values?.code}
@@ -41,6 +44,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           />
           <Box>
             <Button
+              disabled={id !== "new"}
               variant="outlined"
               color="primary"
               onClick={() => generateCode()}
