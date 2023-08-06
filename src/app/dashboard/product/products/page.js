@@ -10,6 +10,7 @@ import { ContainerComponent } from "@/components/container";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
 import moment from "moment";
+import { QrActionColumn } from "@/module/qrActionColumn";
 
 const ProductsList = () => {
   const { push } = useRouter();
@@ -36,11 +37,11 @@ const ProductsList = () => {
       ],
     },
     {
-      field: "company_id",
-      headerName: "Company",
+      field: "client_id",
+      headerName: "Client",
       width: 140,
       renderCell: ({ row }) => {
-        return row?.product?.name;
+        return row?.client?.name;
       },
     },
     {
@@ -52,6 +53,9 @@ const ProductsList = () => {
       field: "code",
       headerName: "Code",
       width: "200",
+    },
+    {
+      ...QrActionColumn(),
     },
     {
       field: "model",
@@ -77,11 +81,12 @@ const ProductsList = () => {
       },
     },
     {
-      field: "details",
+      field: "detail",
       headerName: "Details",
       width: "200",
     },
   ];
+
   return (
     <>
       <ContainerComponent>

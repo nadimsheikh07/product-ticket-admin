@@ -1,13 +1,8 @@
-import {
-  DragDrop,
-  MuiAutocompleteBox,
-  PasswordBox,
-  TextBox,
-} from "@/components/form";
+import { MuiAutocompleteBox, TextBox } from "@/components/form";
 import SelectBox from "@/components/form/select";
 import { Status } from "@/utils/constant";
 import { Grid } from "@mui/material";
-import React from "react";
+import React, { useMemo } from "react";
 
 const TicketsFormSection = ({ formik, id }) => {
   return (
@@ -15,16 +10,40 @@ const TicketsFormSection = ({ formik, id }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <MuiAutocompleteBox
           fullWidth
-          label="Company"
-          placeholder="Select company"
-          name="company_id"
-          url="catalog/companies"
-          value={formik.values.company_id}
+          label="User"
+          placeholder="Select user"
+          name="user_id"
+          url="user/users"
+          value={formik.values.user_id}
           getOptionLabel="name"
           getOptionValue="id"
-          onChange={(e) => formik.setFieldValue("company_id", e)}
-          error={formik.touched.company_id && formik.errors.company_id}
-          helperText={formik.touched.company_id && formik.errors.company_id}
+          onChange={(e) => {
+            if (e) {
+              formik.setFieldValue("user_id", e);
+            }
+          }}
+          error={formik.touched.user_id && formik.errors.user_id}
+          helperText={formik.touched.user_id && formik.errors.user_id}
+        />
+      </Grid>
+      <Grid item lg={6} md={6} sm={12} xs={12}>
+        <MuiAutocompleteBox
+          fullWidth
+          label="Client"
+          placeholder="Select client"
+          name="client_id"
+          url="client/clients"
+          value={formik.values.client_id}
+          getOptionLabel="name"
+          getOptionValue="id"
+          onChange={(e) => {
+            if (e) {
+              formik.setFieldValue("client_id", e);
+              formik.setFieldValue("product_id", null);
+            }
+          }}
+          error={formik.touched.client_id && formik.errors.client_id}
+          helperText={formik.touched.client_id && formik.errors.client_id}
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -34,41 +53,18 @@ const TicketsFormSection = ({ formik, id }) => {
           placeholder="Select Product"
           name="product_id"
           url="catalog/products"
-          value={formik.values.products_id}
+          value={formik.values.product_id}
+          paramsID={useMemo(() => {
+            return { client_id: formik?.values?.client_id };
+          }, [formik?.values?.client_id])}
           getOptionLabel="name"
           getOptionValue="id"
           onChange={(e) => formik.setFieldValue("product_id", e)}
-          error={formik.touched.products_id && formik.errors.products_id}
-          helperText={formik.touched.products_id && formik.errors.products_id}
+          error={formik.touched.product_id && formik.errors.product_id}
+          helperText={formik.touched.product_id && formik.errors.product_id}
         />
       </Grid>
-      <Grid item lg={6} md={6} sm={12} xs={12}>
-        <MuiAutocompleteBox
-          fullWidth
-          label="User"
-          placeholder="Select User"
-          name="user_id"
-          url="user/users"
-          value={formik.values.user_id}
-          getOptionLabel="name"
-          getOptionValue="id"
-          onChange={(e) => formik.setFieldValue("user_id", e)}
-          error={formik.touched.user_id && formik.errors.user_id}
-          helperText={formik.touched.user_id && formik.errors.user_id}
-        />
-      </Grid>
-      <Grid item lg={12} md={12} sm={12} xs={12}>
-        <TextBox
-          fullWidth
-          label="Detail"
-          placeholder="Enter detail"
-          name="detail"
-          value={formik.values.detail}
-          onChange={formik.handleChange}
-          error={formik.touched.detail && formik.errors.detail}
-          helperText={formik.touched.detail && formik.errors.detail}
-        />
-      </Grid>
+
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <SelectBox
           fullWidth
@@ -80,6 +76,21 @@ const TicketsFormSection = ({ formik, id }) => {
           onChange={formik.handleChange}
           error={formik.touched.status && formik.errors.status}
           helperText={formik.touched.status && formik.errors.status}
+        />
+      </Grid>
+
+      <Grid item lg={12} md={12} sm={12} xs={12}>
+        <TextBox
+          fullWidth
+          label="Detail"
+          placeholder="Enter detail"
+          multiline={true}
+          rows={3}
+          name="detail"
+          value={formik.values.detail}
+          onChange={formik.handleChange}
+          error={formik.touched.detail && formik.errors.detail}
+          helperText={formik.touched.detail && formik.errors.detail}
         />
       </Grid>
     </Grid>

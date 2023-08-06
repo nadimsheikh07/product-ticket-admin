@@ -35,8 +35,13 @@ export const Status = [
     value: "processing",
   },
   {
+<<<<<<< HEAD
     label: "Cancled",
     value: "cancled",
+=======
+    label: "Cancelled",
+    value: "cancelled",
+>>>>>>> d6ad183e3fc38350aad10c52944139f6129a1ffe
   },
   {
     label: "Closed",

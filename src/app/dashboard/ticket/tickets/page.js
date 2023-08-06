@@ -36,11 +36,11 @@ const TicketsList = () => {
       ],
     },
     {
-      field: "company_id",
-      headerName: "Company",
+      field: "client_id",
+      headerName: "Client",
       width: 140,
       renderCell: ({ row }) => {
-        return row?.ticket?.name;
+        return row?.client?.name;
       },
     },
     {
@@ -48,7 +48,7 @@ const TicketsList = () => {
       headerName: "Product",
       width: 140,
       renderCell: ({ row }) => {
-        return row?.ticket?.name;
+        return row?.product?.name;
       },
     },
     {
@@ -56,7 +56,7 @@ const TicketsList = () => {
       headerName: "User",
       width: 140,
       renderCell: ({ row }) => {
-        return row?.ticket?.name;
+        return row?.user?.name;
       },
     },
     {
@@ -69,7 +69,7 @@ const TicketsList = () => {
       },
     },
     {
-      field: "details",
+      field: "detail",
       headerName: "Details",
       width: "200",
     },

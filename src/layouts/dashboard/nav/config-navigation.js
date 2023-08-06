@@ -63,18 +63,25 @@ const navConfig = [
         children: [{ title: "users", path: PATH_DASHBOARD.user.user }],
       },
 
+      // // COMPANY
+      // {
+      //   title: "Company",
+      //   path: PATH_DASHBOARD.company.root,
+      //   icon: ICONS.user,
+      //   children: [
+      //     { title: "Companies", path: PATH_DASHBOARD.company.companies },
+      //     {
+      //       title: "Company Employees",
+      //       path: PATH_DASHBOARD.company.company_employees,
+      //     },
+      //   ],
+      // },
       // COMPANY
       {
-        title: "Company",
-        path: PATH_DASHBOARD.company.root,
+        title: "Client",
+        path: PATH_DASHBOARD.client.clients,
         icon: ICONS.user,
-        children: [
-          { title: "Companies", path: PATH_DASHBOARD.company.companies },
-          {
-            title: "Company Employees",
-            path: PATH_DASHBOARD.company.company_employees,
-          },
-        ],
+        // children: [{ title: "Clients", path: PATH_DASHBOARD.client.clients }],
       },
       // PRODUCT
       {
@@ -85,15 +92,13 @@ const navConfig = [
           { title: "products", path: PATH_DASHBOARD.product.products },
         ],
       },
-         // TICKET
-         {
-          title: "Ticket",
-          path: PATH_DASHBOARD.ticket.root,
-          icon: ICONS.user,
-          children: [
-            { title: "tickets", path: PATH_DASHBOARD.ticket.tickets },
-          ],
-        },
+      // TICKET
+      {
+        title: "Ticket",
+        path: PATH_DASHBOARD.ticket.root,
+        icon: ICONS.user,
+        children: [{ title: "tickets", path: PATH_DASHBOARD.ticket.tickets }],
+      },
     ],
   },
 ];
