@@ -49,9 +49,9 @@ const CompanyEmployeesPageForm = () => {
         errors.phone = "Phone number must be 10 digit";
       }
 
-      if (!values.address) {
-        errors.address = "Address is required";
-      }
+      // if (!values.address) {
+      //   errors.address = "Address is required";
+      // }
 
       return errors;
     },

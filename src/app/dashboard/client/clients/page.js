@@ -35,17 +35,6 @@ const CompanyEmployeesList = () => {
       ],
     },
     {
-<<<<<<< HEAD:src/app/dashboard/company/company_employees/page.js
-      field: "company_id",
-      headerName: "Company Name",
-      width: 140,
-      renderCell: ({ row }) => {
-        return row?.company?.name;
-      },
-    },
-    {
-=======
->>>>>>> d6ad183e3fc38350aad10c52944139f6129a1ffe:src/app/dashboard/client/clients/page.js
       field: "name",
       headerName: "Employee Name",
       width: "200",

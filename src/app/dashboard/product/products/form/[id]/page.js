@@ -35,13 +35,13 @@ const ProductsPageForm = () => {
     },
     validate: (values) => {
       const errors = {};
-      if (!values.client_id) {
-        errors.client_id = "Client is Required";
-      }
+      // if (!values.client_id) {
+      //   errors.client_id = "Client is Required";
+      // }
       if (!values.name) {
         errors.name = "Product name is required";
       }
-      if (!values.code) {
+      if (!values.code) { 
         errors.code = "Code is required";
       }
       if (!values.model) {

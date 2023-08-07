@@ -27,20 +27,19 @@ const TicketsPageForm = () => {
       company_id: "",
       product_id: "",
       user_id: "",
-<<<<<<< HEAD
-      details: "",
-=======
       detail: "",
->>>>>>> d6ad183e3fc38350aad10c52944139f6129a1ffe
-      status: "open",
+      status: "pending",
     },
     validate: (values) => {
       const errors = {};
-      if (!values.client_id) {
-        errors.client_id = "Client is Required";
-      }
+      // if (!values.client_id) {
+      //   errors.client_id = "Client is Required";
+      // }
       if (!values.product_id) {
         errors.product_id = "Product is Required";
+      }
+      if (!values.user_id) {
+        errors.user_id = "User is Required";
       }
       return errors;
     },
