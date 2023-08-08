@@ -14,7 +14,7 @@ const CompanyEmployeesList = () => {
   const { push } = useRouter();
   const title = "Client";
   const formUrl = `${PATH_DASHBOARD.client.clients}/form`;
-  const actionUrl = "admin/client/clients";
+  const actionUrl = "admin/user/clients";
   const columns = [
     {
       field: "actions",
