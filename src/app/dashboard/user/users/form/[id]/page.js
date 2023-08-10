@@ -26,6 +26,7 @@ const UserPageForm = () => {
       password: "",
       phone: "",
       photo: "",
+      user_type: "user",
     },
     validate: (values) => {
       const errors = {};
