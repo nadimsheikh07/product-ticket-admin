@@ -27,6 +27,7 @@ const TicketsPageForm = () => {
       client_id: "",
       product_id: "",
       user_id: "",
+      photo: "",
       detail: "",
       status: "pending",
     },
