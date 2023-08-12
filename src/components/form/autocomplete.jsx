@@ -64,8 +64,8 @@ const MuiAutocompleteBox = (props) => {
 
     const params = {
       search: search,
-      page: 1,
-      pageSize: 10,
+      // page: 1,
+      // pageSize: 10,
       defaultValue: value,
       isActive: true,
       ...paramsID,
@@ -83,8 +83,8 @@ const MuiAutocompleteBox = (props) => {
       .get(`/admin/${url}`, { params })
       .then((response) => {
         if (response.status === 200) {
-          if (response.data.data) {
-            response.data.data.forEach((element) => {
+          if (response.data) {    
+            response.data.forEach((element) => {
               if (isFilterData) {
                 options.push({
                   label: element?.to_city?.name,

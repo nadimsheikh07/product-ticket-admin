@@ -69,7 +69,7 @@ const TicketsFormSection = ({ formik, id }) => {
         <SelectBox
           fullWidth
           label="Status"
-          placeholder="Enter Select"
+          placeholder="Select"
           name="status"
           options={Status}
           value={formik.values.status}

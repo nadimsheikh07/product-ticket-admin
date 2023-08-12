@@ -32,11 +32,11 @@ export const Status = [
   },
   {
     label: "Processing",
-    value: "processing",
+    value: "processing ",
   },
   {
-    label: "Cancelled",
-    value: "cancelled",
+    label: "Cancled",
+    value: "cancled",
   },
   {
     label: "Closed",

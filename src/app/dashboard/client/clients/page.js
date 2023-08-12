@@ -36,7 +36,7 @@ const CompanyEmployeesList = () => {
     },
     {
       field: "name",
-      headerName: "Name",
+      headerName: "Employee Name",
       width: "200",
     },
     {

@@ -28,15 +28,18 @@ const TicketsPageForm = () => {
       product_id: "",
       user_id: "",
       detail: "",
-      status: "open",
+      status: "pending",
     },
     validate: (values) => {
       const errors = {};
-      if (!values.client_id) {
-        errors.client_id = "Client is Required";
-      }
+      // if (!values.client_id) {
+      //   errors.client_id = "Client is Required";
+      // }
       if (!values.product_id) {
         errors.product_id = "Product is Required";
+      }
+      if (!values.user_id) {
+        errors.user_id = "User is Required";
       }
       return errors;
     },
@@ -99,6 +102,7 @@ const TicketsPageForm = () => {
       bindData(id);
     }
   }, [id]);
+  console.log("yaya",formik.values)
 
   return (
     <ContainerComponent>

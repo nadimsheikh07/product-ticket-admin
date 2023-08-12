@@ -36,7 +36,7 @@ const CompanyList = () => {
     },
     {
       field: "name",
-      headerName: "Name",
+      headerName: "Company Name",
       width: "200",
     },
     {
@@ -44,11 +44,11 @@ const CompanyList = () => {
       headerName: "Email",
       width: "200",
     },
-    {
-      field: "password",
-      headerName: "Password",
-      width: "200",
-    },
+    // {
+    //   field: "password",
+    //   headerName: "Password",
+    //   width: "200",
+    // },
     {
       field: "phone",
       headerName: "Phone",

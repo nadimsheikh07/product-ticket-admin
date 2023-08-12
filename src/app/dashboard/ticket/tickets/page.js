@@ -78,16 +78,7 @@ const TicketsList = () => {
       headerName: "Status",
       width: 120,
       renderCell: ({ row }) => {
-        if (row?.status === "open") {
-          return (
-            <Chip
-              sx={{ textTransform: "capitalize" }}
-              label={row?.status}
-              variant="outlined"
-              color="success"
-            />
-          );
-        } else {
+        if (row?.status == "pending") {
           return (
             <Chip
               sx={{ textTransform: "capitalize" }}
@@ -96,10 +87,50 @@ const TicketsList = () => {
               color="warning"
             />
           );
+        } else if (row?.status === "processing") {
+          return (
+            <Chip
+              sx={{ textTransform: "capitalize" }}
+              label={row?.status}
+              variant="outlined"
+              color="success"
+            />
+          );
+        } else if (row?.status == "cancled") {
+          return (
+            <Chip
+              sx={{ textTransform: "capitalize" }}
+              label={row?.status}
+              variant="outlined"
+              color="error"
+            />
+          );
+        } else if (row?.status == "closed") {
+          return (
+            <Chip
+              sx={{
+                textTransform: "capitalize",
+                color: (theme) => theme.palette.error.darker,
+                borderColor: (theme) => theme.palette.error.darker,
+              }}
+              label={row?.status}
+              variant="outlined"
+            />
+          );
+        } else {
+          return (
+            <Chip
+              sx={{ textTransform: "capitalize" }}
+              label={row?.status}
+              variant="outlined"
+              color="N/A"
+            />
+          );
         }
       },
     },
   ];
+  
   return (
     <>
       <ContainerComponent>
