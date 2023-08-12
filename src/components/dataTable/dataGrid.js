@@ -46,6 +46,11 @@ const DataGridTable = (props) => {
       }}
       // INITIAL STATE END
 
+      // ROW SELECTABLE START
+      disableRowSelectionOnClick
+      isRowSelectable={(params) => params.row.id !== 1}
+      // ROW SELECTABLE END
+
       // CHECKBOXSELECTION START
       checkboxSelection={checkboxSelection}
       // CHECKBOXSELECTION END

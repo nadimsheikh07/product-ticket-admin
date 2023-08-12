@@ -95,9 +95,9 @@ const UserList = () => {
           }}
           columns={columns}
           checkboxSelection={true}
-          params={{
-            user_type: "user",
-          }}
+          // params={{
+          //   user_type: "user",
+          // }}
         />
       </ContainerComponent>
     </>
