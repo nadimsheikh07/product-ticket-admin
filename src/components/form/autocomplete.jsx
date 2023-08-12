@@ -66,7 +66,7 @@ const MuiAutocompleteBox = (props) => {
       search: search,
       // page: 1,
       // pageSize: 10,
-      defaultValue: value,
+      // defaultValue: value,
       isActive: true,
       ...paramsID,
     };

@@ -24,7 +24,7 @@ const TicketsPageForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      company_id: "",
+      client_id: "",
       product_id: "",
       user_id: "",
       detail: "",
@@ -91,7 +91,14 @@ const TicketsPageForm = () => {
         const { data } = response;
         // bind form data from server
         for (const [key] of Object.entries(formik.values)) {
-          formik.setFieldValue([key], data[key]);
+          console.log("key", key);
+          // if (key === "client_id") {
+          //   formik.setFieldValue("client_id", data?.client_id);
+          // } else if (key === "status") {
+          //   formik.setFieldValue("status", data?.status);
+          // } else {
+            formik.setFieldValue(key, data[key]);
+          // }
         }
       }
     });
@@ -102,7 +109,7 @@ const TicketsPageForm = () => {
       bindData(id);
     }
   }, [id]);
-  console.log("yaya",formik.values)
+  console.log("yaya", formik.values);
 
   return (
     <ContainerComponent>

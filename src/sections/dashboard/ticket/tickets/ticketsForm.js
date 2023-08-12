@@ -1,10 +1,11 @@
 import { MuiAutocompleteBox, TextBox } from "@/components/form";
 import SelectBox from "@/components/form/select";
-import { Status } from "@/utils/constant";
+import { status } from "@/utils/constant";
 import { Grid } from "@mui/material";
 import React, { useMemo } from "react";
 
 const TicketsFormSection = ({ formik, id }) => {
+  console.log("formik.values.status", formik.values);
   return (
     <Grid container spacing={2}>
       <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -33,7 +34,7 @@ const TicketsFormSection = ({ formik, id }) => {
           placeholder="Select client"
           name="client_id"
           url="user/clients"
-          value={formik.values.client_id}
+          value={Number(formik.values.client_id)}
           getOptionLabel="name"
           getOptionValue="id"
           onChange={(e) => {
@@ -71,8 +72,8 @@ const TicketsFormSection = ({ formik, id }) => {
           label="Status"
           placeholder="Select"
           name="status"
-          options={Status}
-          value={formik.values.status}
+          options={status}
+          value={String(formik.values.status)}
           onChange={formik.handleChange}
           error={formik.touched.status && formik.errors.status}
           helperText={formik.touched.status && formik.errors.status}

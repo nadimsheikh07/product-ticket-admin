@@ -25,17 +25,17 @@ export const CountryCode = [
     value: "+44",
   },
 ];
-export const Status = [
+export const status = [
   {
     label: "Pending",
     value: "pending",
   },
   {
     label: "Processing",
-    value: "processing ",
+    value: "processing",
   },
   {
-    label: "Cancled",
+    label: "Cancelled",
     value: "cancled",
   },
   {
