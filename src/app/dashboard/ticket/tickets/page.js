@@ -3,7 +3,7 @@ import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs
 import { DataTable } from "@/components/dataTable";
 import Iconify from "@/components/iconify/Iconify";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import { Button, Chip, Container, Tooltip } from "@mui/material";
+import { Avatar, Button, Chip, Container, Tooltip } from "@mui/material";
 import React from "react";
 import NextLink from "next/link";
 import { ContainerComponent } from "@/components/container";
@@ -57,6 +57,29 @@ const TicketsList = () => {
       width: 140,
       renderCell: ({ row }) => {
         return row?.user?.name;
+      },
+    },
+    {
+      field: "photo",
+      headerName: "Image",
+      width: 140,
+      renderCell: ({ row }) => {
+        return (
+          <Avatar
+          url="api/upload/image"
+            variant="rounded"
+            sx={{
+              "&.MuiAvatar-root": {
+                width: "100px",
+                "& .MuiAvatar-img": {
+                  objectFit: "contain",
+                },
+              },
+            }}
+            src={row?.photo}
+            alt={row?.name}
+          />
+        );
       },
     },
     {
