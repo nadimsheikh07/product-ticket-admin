@@ -123,8 +123,9 @@ export const DataTable = (props) => {
   ]);
 
   const handleDeleteRows = async () => {
+    console.log("selectionModel",selectionModel);
     await axiosInstance
-      .delete(`${actionUrl}/${selectionModel.join(",")}`)
+      .delete(`${actionUrl}/${selectionModel.filter((item) => item !== 1).join(",")}`)
       .then((response) => {
         if (response.status === 200) {
           enqueueSnackbar(response?.data?.message, {
