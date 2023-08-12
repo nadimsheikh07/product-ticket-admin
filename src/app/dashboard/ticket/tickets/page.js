@@ -66,18 +66,18 @@ const TicketsList = () => {
       renderCell: ({ row }) => {
         return (
           <Avatar
-          url="api/upload/image"
+            url="api/upload/image"
             variant="rounded"
             sx={{
               "&.MuiAvatar-root": {
-                width: "100px",
+                width: "80px !important",
                 "& .MuiAvatar-img": {
                   objectFit: "contain",
                 },
               },
             }}
-            src={row?.photo}
-            alt={row?.name}
+            src={row?.file}
+            alt={row?.product?.name}
           />
         );
       },
@@ -153,7 +153,7 @@ const TicketsList = () => {
       },
     },
   ];
-  
+
   return (
     <>
       <ContainerComponent>

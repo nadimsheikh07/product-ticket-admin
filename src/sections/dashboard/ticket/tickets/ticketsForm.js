@@ -27,18 +27,7 @@ const TicketsFormSection = ({ formik, id }) => {
           helperText={formik.touched.user_id && formik.errors.user_id}
         />
       </Grid>
-      <Grid item lg={12} md={12} sm={12} xs={12}>
-        <DragDrop
-          fullWidth={true}
-          title="Image"
-          name="photo"
-          url="api/upload/image"
-          value={formik.values.photo}
-          onChange={(e) => {
-            formik.setFieldValue("photo", e);
-          }}
-        />
-      </Grid>
+
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <MuiAutocompleteBox
           fullWidth
@@ -89,6 +78,19 @@ const TicketsFormSection = ({ formik, id }) => {
           onChange={formik.handleChange}
           error={formik.touched.status && formik.errors.status}
           helperText={formik.touched.status && formik.errors.status}
+        />
+      </Grid>
+
+      <Grid item lg={12} md={12} sm={12} xs={12}>
+        <DragDrop
+          fullWidth={true}
+          title="Image"
+          name="photo"
+          url="api/upload/image"
+          value={formik.values.photo}
+          onChange={(e) => {
+            formik.setFieldValue("photo", e);
+          }}
         />
       </Grid>
 
