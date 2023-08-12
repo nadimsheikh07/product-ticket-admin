@@ -130,6 +130,7 @@ const TicketsList = () => {
       },
     },
   ];
+  
   return (
     <>
       <ContainerComponent>

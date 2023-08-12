@@ -40,6 +40,11 @@ const UserList = () => {
       width: "200",
     },
     {
+      field: "user_type",
+      headerName: "User Type",
+      width: "200",
+    },
+    {
       field: "email",
       headerName: "Email",
       width: "200",
@@ -54,6 +59,7 @@ const UserList = () => {
       headerName: "Phone",
       width: "200",
     },
+   
   ];
 
   return (

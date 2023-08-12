@@ -121,7 +121,7 @@ const ProductsPageForm = () => {
         }
       });
   };
-
+console.log("tata",formik.values)
   const bindData = async (id) => {
     await axiosInstance.get(`${actionUrl}/${id}`).then((response) => {
       if (response.status === 200) {

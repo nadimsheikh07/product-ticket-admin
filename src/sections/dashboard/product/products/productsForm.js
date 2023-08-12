@@ -33,7 +33,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
         <Stack direction="row" spacing={2} alignItems="center">
           <TextBox
             fullWidth
-            disabled={id !== "new"}
+            disabled={true}
             label="Code"
             name="code"
             value={formik?.values?.code}
@@ -80,22 +80,6 @@ const ProductsFormSection = ({ formik, generateCode }) => {
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
-        <DatePickerBox
-          fullWidth
-          label="Warranty Start"
-          name="warranty_start"
-          formik={formik}
-        />
-      </Grid>
-      <Grid item lg={6} md={6} sm={12} xs={12}>
-        <DatePickerBox
-          fullWidth
-          label="Warranty End"
-          name="warranty_end"
-          formik={formik}
-        />
-      </Grid>
-      <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
           label="Invoice No."
@@ -114,6 +98,22 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           fullWidth
           label="Invoice Date"
           name="invoice_date"
+          formik={formik}
+        />
+      </Grid>
+      <Grid item lg={6} md={6} sm={12} xs={12}>
+        <DatePickerBox
+          fullWidth
+          label="Warranty Start"
+          name="warranty_start"
+          formik={formik}
+        />
+      </Grid>
+      <Grid item lg={6} md={6} sm={12} xs={12}>
+        <DatePickerBox
+          fullWidth
+          label="Warranty End"
+          name="warranty_end"
           formik={formik}
         />
       </Grid>
