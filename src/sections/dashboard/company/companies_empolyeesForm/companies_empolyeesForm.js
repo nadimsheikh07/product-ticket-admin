@@ -16,7 +16,7 @@ const CompanyEmpolyeesFormSection = ({ formik, id }) => {
           label="Name"
           name="name"
           value={formik?.values?.name}
-          onChange={formik.handleChange}
+          onChange={(e)=>{formik.setFieldValue("name",e.target.value.trimStart())}}
           error={formik.touched.name && formik.errors.name}
           helperText={formik.touched.name && formik.errors.name}
           required
@@ -39,9 +39,13 @@ const CompanyEmpolyeesFormSection = ({ formik, id }) => {
           fullWidth
           label="Phone"
           name="phone"
+          isMaxLenght={10}
           value={formik?.values?.phone}
-          onChange={formik.handleChange}
-          error={formik.touched.phone && formik.errors.phone}
+          onChange={(e) => {
+            if (e) {
+              formik.setFieldValue("phone", e.target.value.replace(/\D/gm, ""));
+            }
+          }}          error={formik.touched.phone && formik.errors.phone}
           helperText={formik.touched.phone && formik.errors.phone}
           required
         />

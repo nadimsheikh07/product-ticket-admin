@@ -11,7 +11,7 @@ const UserFormSection = ({ formik, id }) => {
           label="Name"
           name="name"
           value={formik?.values?.name}
-          onChange={formik.handleChange}
+          onChange={(e)=>{formik.setFieldValue("name",e.target.value.trimStart())}}
           error={formik.touched.name && formik.errors.name}
           helperText={formik.touched.name && formik.errors.name}
           required
@@ -34,8 +34,13 @@ const UserFormSection = ({ formik, id }) => {
           fullWidth
           label="Phone"
           name="phone"
+          isMaxLenght={10}
           value={formik?.values?.phone}
-          onChange={formik.handleChange}
+          onChange={(e) => {
+            if (e) {
+              formik.setFieldValue("phone", e.target.value.replace(/\D/gm, ""));
+            }
+          }}
           error={formik.touched.phone && formik.errors.phone}
           helperText={formik.touched.phone && formik.errors.phone}
           required
@@ -48,7 +53,7 @@ const UserFormSection = ({ formik, id }) => {
             label="Password"
             name="password"
             value={formik?.values?.password}
-            onChange={formik.handleChange}
+            onChange={(e)=>{formik.setFieldValue("password",e.target.value.trim())}}
             error={formik.touched.password && formik.errors.password}
             helperText={formik.touched.password && formik.errors.password}
             required
