@@ -45,12 +45,10 @@ const UserPageForm = () => {
           errors.password = "Password is required";
         }
       }
-      const phoneRegex = /^\d+$/i;
+ 
       if (!values.phone) {
         errors.phone = "Phone is required";
-      } else if (!phoneRegex.test(values.phone)) {
-        errors.phone = "Invalid phone number";
-      } else if (values.phone.length < 10 || values.phone.length > 10) {
+      } else if (values.phone.length < 10) {
         errors.phone = "Phone number must be 10 digit";
       }
       return errors;

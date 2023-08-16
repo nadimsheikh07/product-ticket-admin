@@ -35,14 +35,26 @@ const ProductsPageForm = () => {
     },
     validate: (values) => {
       const errors = {};
-      // if (!values.client_id) {
-      //   errors.client_id = "Client is Required";
-      // }
+      if (!values.client_id) {
+        errors.client_id = "Client is Required";
+      }
       if (!values.name) {
         errors.name = "Product name is required";
       }
       if (!values.code) { 
         errors.code = "Code is required";
+      }
+      if (!values.warranty_start) {
+        errors.warranty_start = "Warranty start date is required";
+      }
+      if (!values.warranty_end) {
+        errors.warranty_end = "Warranty end date is required";
+      }
+      if (!values.invoice_number) {
+        errors.invoice_number = "Invoice Number is required";
+      }
+      if (!values.invoice_date) {
+        errors.invoice_date = "Invoice Date is required";
       }
       if (!values.model) {
         errors.model = "Model is required";

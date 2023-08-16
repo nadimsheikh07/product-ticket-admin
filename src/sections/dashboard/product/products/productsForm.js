@@ -61,7 +61,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           label="Product Name"
           name="name"
           value={formik?.values?.name}
-          onChange={formik.handleChange}
+          onChange={(e)=>{formik.setFieldValue("name",e.target.value.trimStart())}}
           error={formik.touched.name && formik.errors.name}
           helperText={formik.touched.name && formik.errors.name}
           required
@@ -99,6 +99,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           label="Invoice Date"
           name="invoice_date"
           formik={formik}
+          onChange={(e)=>{formik.setFieldValue("password",e.target.value.trim())}}
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -107,6 +108,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           label="Warranty Start"
           name="warranty_start"
           formik={formik}
+          onChange={(e)=>{formik.setFieldValue("password",e.target.value.trim())}}
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -114,7 +116,8 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           fullWidth
           label="Warranty End"
           name="warranty_end"
-          formik={formik}
+          formik={formik} 
+          onChange={(e)=>{formik.setFieldValue("password",e.target.value.trim())}}
         />
       </Grid>
       <Grid item lg={12} md={12} sm={12} xs={12}>

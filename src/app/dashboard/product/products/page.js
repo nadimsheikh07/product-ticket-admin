@@ -63,12 +63,21 @@ const ProductsList = () => {
       width: "200",
     },
     {
+      field: "invoice_number",
+      headerName: "Invoice Date",
+      type: "any",
+      width: 200,
+      renderCell: ({ row }) => {
+        return moment(row?.invoice_date, "YYYY-MM-DD").format("YYYY-MM-DD");
+      },
+    },
+    {
       field: "warranty_start",
       headerName: "Warranty Date",
       type: "any",
       width: 200,
       renderCell: ({ row }) => {
-        return moment(row?.created_at, "DD-MM-YYYY").format("DD-MM-YYYY");
+        return moment(row?.warranty_start, "YYYY-MM-DD").format("YYYY-MM-DD");
       },
     },
     {
@@ -77,7 +86,7 @@ const ProductsList = () => {
       type: "any",
       width: 200,
       renderCell: ({ row }) => {
-        return moment(row?.created_at, "DD-MM-YYYY").format("DD-MM-YYYY");
+        return moment(row?.warranty_end, "YYYY-MM-DD").format("YYYY-MM-DD");
       },
     },
     {

@@ -5,6 +5,7 @@ import { Grid } from "@mui/material";
 import React, { useMemo } from "react";
 
 const TicketsFormSection = ({ formik, id }) => {
+  
   console.log("formik.values.status", formik.values);
   return (
     <Grid container spacing={2}>
@@ -34,7 +35,8 @@ const TicketsFormSection = ({ formik, id }) => {
           label="Client"
           placeholder="Select client"
           name="client_id"
-          url="user/clients"
+          url="user/clients" 
+          disabled={id !== "new"?true:false}
           value={Number(formik.values.client_id)}
           getOptionLabel="name"
           getOptionValue="id"
@@ -55,6 +57,7 @@ const TicketsFormSection = ({ formik, id }) => {
           placeholder="Select Product"
           name="product_id"
           url="catalog/products"
+          disabled={id !== "new"?true:false}
           value={formik.values.product_id}
           paramsID={useMemo(() => {
             return { client_id: formik?.values?.client_id };

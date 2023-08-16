@@ -92,7 +92,7 @@ const TextBox = (props) => {
               color: "#637381!important",
             }}
           >
-            {`Must be characters limit ${isMaxLenght}`}
+            {/* {`Must be characters limit ${isMaxLenght}`} */}
           </FormHelperText>
         )}
       </Box>

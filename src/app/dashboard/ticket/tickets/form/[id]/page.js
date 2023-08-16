@@ -33,9 +33,9 @@ const TicketsPageForm = () => {
     },
     validate: (values) => {
       const errors = {};
-      // if (!values.client_id) {
-      //   errors.client_id = "Client is Required";
-      // }
+      if (!values.client_id) {
+        errors.client_id = "Client is Required";
+      }
       if (!values.product_id) {
         errors.product_id = "Product is Required";
       }
