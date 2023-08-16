@@ -11,7 +11,9 @@ const UserFormSection = ({ formik, id }) => {
           label="Name"
           name="name"
           value={formik?.values?.name}
-          onChange={(e)=>{formik.setFieldValue("name",e.target.value.trimStart())}}
+          onChange={(e) => {
+            formik.setFieldValue("name", e.target.value.trimStart());
+          }}
           error={formik.touched.name && formik.errors.name}
           helperText={formik.touched.name && formik.errors.name}
           required
@@ -53,7 +55,9 @@ const UserFormSection = ({ formik, id }) => {
             label="Password"
             name="password"
             value={formik?.values?.password}
-            onChange={(e)=>{formik.setFieldValue("password",e.target.value.trim())}}
+            onChange={(e) => {
+              formik.setFieldValue("password", e.target.value.trim());
+            }}
             error={formik.touched.password && formik.errors.password}
             helperText={formik.touched.password && formik.errors.password}
             required
