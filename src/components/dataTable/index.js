@@ -31,6 +31,8 @@ export const DataTable = (props) => {
     isDate,
     isSearch,
     isClear,
+    isRowSelectable,
+    disableRowSelectionOnClick,
   } = props;
 
   const [filterStatus, setFilterStatus] = React.useState("all");
@@ -123,9 +125,9 @@ export const DataTable = (props) => {
   ]);
 
   const handleDeleteRows = async () => {
-    console.log("selectionModel",selectionModel);
+    console.log("selectionModel", selectionModel);
     await axiosInstance
-      .delete(`${actionUrl}/${selectionModel.filter((item) => item !== 1).join(",")}`)
+      .delete(`${actionUrl}/${selectionModel.join(",")}`)
       .then((response) => {
         if (response.status === 200) {
           enqueueSnackbar(response?.data?.message, {
@@ -190,6 +192,8 @@ export const DataTable = (props) => {
           onFilterSearch={onFilterSearch}
           onResetFilter={onResetFilter}
           handleOpenConfirm={handleOpenConfirm}
+          isRowSelectable={isRowSelectable}
+          disableRowSelectionOnClick={disableRowSelectionOnClick}
         />
       </Card>
 

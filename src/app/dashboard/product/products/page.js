@@ -134,6 +134,7 @@ const ProductsList = () => {
           }}
           columns={columns}
           checkboxSelection={true}
+          disableRowSelectionOnClick={true}
         />
       </ContainerComponent>
     </>
