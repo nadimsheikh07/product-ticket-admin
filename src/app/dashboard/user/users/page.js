@@ -59,7 +59,6 @@ const UserList = () => {
       headerName: "Phone",
       width: "200",
     },
-   
   ];
 
   return (
@@ -101,6 +100,8 @@ const UserList = () => {
           }}
           columns={columns}
           checkboxSelection={true}
+          isRowSelectable={(params) => params?.row?.id !== 1}
+          disableRowSelectionOnClick={true}
           // params={{
           //   user_type: "user",
           // }}

@@ -37,6 +37,8 @@ const DataGridTable = (props) => {
     onResetFilter,
     page,
     handleOpenConfirm,
+    isRowSelectable,
+    disableRowSelectionOnClick,
   } = props;
   return (
     <DataGrid
@@ -47,8 +49,8 @@ const DataGridTable = (props) => {
       // INITIAL STATE END
 
       // ROW SELECTABLE START
-      disableRowSelectionOnClick
-      isRowSelectable={(params) => params.row.id !== 1}
+      disableRowSelectionOnClick={disableRowSelectionOnClick}
+      isRowSelectable={isRowSelectable}
       // ROW SELECTABLE END
 
       // CHECKBOXSELECTION START

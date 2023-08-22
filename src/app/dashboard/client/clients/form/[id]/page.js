@@ -26,6 +26,7 @@ const CompanyEmployeesPageForm = () => {
       name: "",
       email: "",
       address: "",
+      password:"",
     },
     validate: (values) => {
       const errors = {};

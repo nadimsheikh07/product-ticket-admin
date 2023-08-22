@@ -59,7 +59,7 @@ const CompanyFormSection = ({ formik, id }) => {
           required
         />
       </Grid>
-      {/* {id === "new" && (
+      {id === "new" && (
         <Grid item lg={6} md={6} sm={12} xs={12}>
           <PasswordBox
             fullWidth
@@ -72,7 +72,7 @@ const CompanyFormSection = ({ formik, id }) => {
             required
           />
         </Grid>
-      )} */}
+      )}
       {/* <Grid item lg={6} md={6} sm={12} xs={12}>
         <DragDrop
           fullWidth={true}

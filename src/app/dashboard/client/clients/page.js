@@ -100,6 +100,7 @@ const CompanyEmployeesList = () => {
           }}
           columns={columns}
           checkboxSelection={true}
+          disableRowSelectionOnClick={true}
         />
       </ContainerComponent>
     </>
