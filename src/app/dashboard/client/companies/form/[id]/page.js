@@ -2,7 +2,7 @@
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import { CompanyFormSection } from "@/sections/dashboard/company/companies";
+import { CompanyFormSection } from "@/sections/dashboard/client/companies";
 import axiosInstance from "@/utils/axios";
 import { LoadingButton } from "@mui/lab";
 import { Container, Stack } from "@mui/material";

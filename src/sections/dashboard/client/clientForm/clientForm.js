@@ -1,8 +1,13 @@
-import { DragDrop, PasswordBox, TextBox } from "@/components/form";
+import {
+  DragDrop,
+  MuiAutocompleteBox,
+  PasswordBox,
+  TextBox,
+} from "@/components/form";
 import { Grid } from "@mui/material";
 import React from "react";
 
-const CompanyFormSection = ({ formik, id }) => {
+const ClientFormSection = ({ formik, id }) => {
   return (
     <Grid container spacing={2}>
       <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -45,20 +50,6 @@ const CompanyFormSection = ({ formik, id }) => {
           required
         />
       </Grid>
-      <Grid item lg={12} md={12} sm={12} xs={12}>
-        <TextBox
-          fullWidth
-          label="Address"
-          name="address"
-          multiline
-          rows={3}
-          value={formik?.values?.address}
-          onChange={formik.handleChange}
-          error={formik.touched.address && formik.errors.address}
-          helperText={formik.touched.address && formik.errors.address}
-          required
-        />
-      </Grid>
       {id === "new" && (
         <Grid item lg={6} md={6} sm={12} xs={12}>
           <PasswordBox
@@ -73,19 +64,23 @@ const CompanyFormSection = ({ formik, id }) => {
           />
         </Grid>
       )}
-      {/* <Grid item lg={6} md={6} sm={12} xs={12}>
-        <DragDrop
-          fullWidth={true}
-          name="photo"
-          url="admin/upload/image"
-          value={formik.values.photo}
-          onChange={(e) => {
-            formik.setFieldValue("photo", e);
-          }}
+      <Grid item lg={12} md={12} sm={12} xs={12}>
+        <TextBox
+          fullWidth
+          label="Address"
+          multiline={true}
+          rows={3}
+          name="address"
+          value={formik?.values?.address}
+          onChange={formik.handleChange}
+          error={formik.touched.address && formik.errors.address}
+          helperText={formik.touched.address && formik.errors.address}
+          required
         />
-      </Grid> */}
+      </Grid>
+     
     </Grid>
   );
 };
 
-export default CompanyFormSection;
+export default ClientFormSection;

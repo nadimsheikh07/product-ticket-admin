@@ -2,7 +2,8 @@
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import CompanyEmpolyeesFormSection from "@/sections/dashboard/company/companies_empolyeesForm/companies_empolyeesForm";
+import ClientFormSection from "@/sections/dashboard/client/clientForm/clientForm";
+import CompanyEmpolyeesFormSection from "@/sections/dashboard/client/clientForm/clientForm";
 import axiosInstance from "@/utils/axios";
 import { LoadingButton } from "@mui/lab";
 import { Container, Stack } from "@mui/material";
@@ -133,7 +134,7 @@ const CompanyEmployeesPageForm = () => {
         ]}
       />
       <form noValidate onSubmit={formik.handleSubmit}>
-        <CompanyEmpolyeesFormSection formik={formik} id={id} />
+        <ClientFormSection formik={formik} id={id} />
         <Stack alignItems="flex-end" sx={{ mt: 3 }}>
           <LoadingButton
             type="submit"

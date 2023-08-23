@@ -2,7 +2,7 @@
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import CompanyEmpolyeesFormSection from "@/sections/dashboard/company/companies_empolyeesForm/companies_empolyeesForm";
+import CompanyEmpolyeesFormSection from "@/sections/dashboard/client/clientForm/clientForm";
 import { ProductsFormSection } from "@/sections/dashboard/product/products";
 import { TicketsFormSection } from "@/sections/dashboard/ticket/tickets";
 import axiosInstance from "@/utils/axios";
