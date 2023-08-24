@@ -40,7 +40,8 @@ const UserFormSection = ({ formik, id }) => {
           value={formik?.values?.phone}
           onChange={(e) => {
             if (e) {
-              formik.setFieldValue("phone", e.target.value.replace(/\D/gm, ""));
+              let value = e.target.value.replace(/\D/gm, "");
+              formik.setFieldValue("phone", value);
             }
           }}
           error={formik.touched.phone && formik.errors.phone}
