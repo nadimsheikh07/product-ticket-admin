@@ -88,11 +88,11 @@ const TicketsFormSection = ({ formik, id }) => {
         <DragDrop
           fullWidth={true}
           title="Image"
-          name="photo"
+          name="file"
           url="api/upload/image"
-          value={formik.values.photo}
+          value={formik.values.file}
           onChange={(e) => {
-            formik.setFieldValue("photo", e);
+            formik.setFieldValue("file", e);
           }}
         />
       </Grid>
