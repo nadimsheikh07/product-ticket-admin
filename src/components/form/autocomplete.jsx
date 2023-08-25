@@ -126,6 +126,18 @@ const MuiAutocompleteBox = (props) => {
     }
   }, [paramsID, paramsID?.client_id]);
 
+  React.useEffect(() => {
+    if (paramsID && paramsID?.user_type) {
+      getData();
+    }
+  }, [paramsID, paramsID?.user_type]);
+
+  React.useEffect(() => {
+    if (paramsID && paramsID?.phone) {
+      getData();
+    }
+  }, [paramsID, paramsID?.phone]);
+
   const delayedQuery = React.useCallback(debounce(getData, 1000), []);
 
   const handleOnChange = (value) => {

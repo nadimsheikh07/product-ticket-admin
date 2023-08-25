@@ -10,6 +10,7 @@ import { ContainerComponent } from "@/components/container";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
 
+
 const UserList = () => {
   const { push } = useRouter();
   const title = "User List";
@@ -41,8 +42,11 @@ const UserList = () => {
     },
     {
       field: "user_type",
-      headerName: "User Type",
-      width: "200",
+      headerName: "User",
+      width: 140,
+      renderCell: ({ row }) => {
+        return row?.user_type?.user_type;
+      },
     },
     {
       field: "email",

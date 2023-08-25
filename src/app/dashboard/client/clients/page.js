@@ -9,6 +9,7 @@ import NextLink from "next/link";
 import { ContainerComponent } from "@/components/container";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
+// import Head from "next/document";
 
 const CompanyEmployeesList = () => {
   const { push } = useRouter();
@@ -63,6 +64,11 @@ const CompanyEmployeesList = () => {
 
   return (
     <>
+    {/* <Head>
+      <title>
+        login
+      </title>
+    </Head> */}
       <ContainerComponent>
         <CustomBreadcrumbs
           heading="Client List"

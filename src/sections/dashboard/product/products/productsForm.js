@@ -56,12 +56,32 @@ const ProductsFormSection = ({ formik, generateCode }) => {
         </Stack>
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
+        <MuiAutocompleteBox
+        //  disabled={id === "new"}
+          fullWidth
+          isMaxLenght={10}
+          label="Phone"
+          placeholder="Select client Phone"
+          name="phone"
+          url="user/clients"
+          value={formik.values.phone}
+          getOptionLabel="phone"
+          getOptionValue="id"
+          onChange={(e) => formik.setFieldValue("phone", e)}
+          error={formik.touched.phone && formik.errors.phone}
+          helperText={formik.touched.phone && formik.errors.phone}
+        />
+      </Grid>
+      <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
+          isMaxLenght={20}
           label="Product Name"
           name="name"
           value={formik?.values?.name}
-          onChange={(e)=>{formik.setFieldValue("name",e.target.value.trimStart())}}
+          onChange={(e) => {
+            formik.setFieldValue("name", e.target.value.trimStart());
+          }}
           error={formik.touched.name && formik.errors.name}
           helperText={formik.touched.name && formik.errors.name}
           required
@@ -71,6 +91,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
         <TextBox
           fullWidth
           label="Model"
+          isMaxLenght={10}
           name="model"
           value={formik?.values?.model}
           onChange={formik.handleChange}
@@ -83,6 +104,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
         <TextBox
           fullWidth
           label="Invoice No."
+          isMaxLenght={30}
           name="invoice_number"
           value={formik?.values?.invoice_number}
           onChange={formik.handleChange}
@@ -99,7 +121,9 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           label="Invoice Date"
           name="invoice_date"
           formik={formik}
-          onChange={(e)=>{formik.setFieldValue("password",e.target.value.trim())}}
+          onChange={(e) => {
+            formik.setFieldValue("password", e.target.value.trim());
+          }}
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -108,7 +132,9 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           label="Warranty Start"
           name="warranty_start"
           formik={formik}
-          onChange={(e)=>{formik.setFieldValue("password",e.target.value.trim())}}
+          onChange={(e) => {
+            formik.setFieldValue("password", e.target.value.trim());
+          }}
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -116,14 +142,17 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           fullWidth
           label="Warranty End"
           name="warranty_end"
-          formik={formik} 
-          onChange={(e)=>{formik.setFieldValue("password",e.target.value.trim())}}
+          formik={formik}
+          onChange={(e) => {
+            formik.setFieldValue("password", e.target.value.trim());
+          }}
         />
       </Grid>
       <Grid item lg={12} md={12} sm={12} xs={12}>
         <TextBox
           fullWidth
           label="Detail"
+          isMaxLenght={250}
           placeholder="Enter detail"
           name="detail"
           multiline={true}

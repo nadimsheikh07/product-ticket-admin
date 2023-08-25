@@ -58,6 +58,14 @@ const ProductsList = () => {
       ...QrActionColumn(),
     },
     {
+      field: "phone",
+      headerName: "Phone",
+      width: "200",
+      renderCell: ({ row }) => {
+        return row?.client?.phone;
+      },
+    },
+    {
       field: "model",
       headerName: "Models",
       width: "200",

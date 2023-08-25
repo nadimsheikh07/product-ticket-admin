@@ -31,8 +31,8 @@ const PasswordBox = props => {
         required={required}
         value={value}
         disabled={disabled}
-        // autoComplete={"false"} //MUI pickUp the string value on autoComplete
-        autoComplete="new-password"
+        autoComplete={"false"} //MUI pickUp the string value on autoComplete
+        // autoComplete="new-password"
         onChange={e => props.onChange(e)}
         InputProps={{
           endAdornment: (

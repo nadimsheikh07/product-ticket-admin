@@ -44,6 +44,14 @@ const TicketsList = () => {
       },
     },
     {
+      field: "phone",
+      headerName: "Phone",
+      width: "200",
+      renderCell: ({ row }) => {
+        return row?.client?.phone;
+      },
+    },
+    {
       field: "product_id",
       headerName: "Product",
       width: 140,
