@@ -33,6 +33,9 @@ const UserPageForm = () => {
       if (!values.name) {
         errors.name = "Name is required";
       }
+      if (!values.user_type) {
+        errors.user_type = "User Type is required";
+      }
       if (!values.email) {
         errors.email = "Email is required";
       } else if (

@@ -12,6 +12,7 @@ import { PATH_AUTH } from "@/routes/paths";
 //
 import AuthLoginForm from "./AuthLoginForm";
 import LoginLayout from "@/layouts/login/LoginLayout";
+import { projectName } from "@/utils/constant";
 // import AuthWithSocial from './AuthWithSocial';
 
 // ----------------------------------------------------------------------
@@ -22,9 +23,9 @@ export default function Login() {
   return (
     <LoginLayout>
       <Stack spacing={2} sx={{ mb: 5, position: "relative" }}>
-        <Typography variant="h4">Sign in to Product Ticket</Typography>
+        <Typography variant="h4">Sign in to {projectName}</Typography>
 
-        <Stack direction="row" spacing={0.5}>
+        {/* <Stack direction="row" spacing={0.5}>
           <Typography variant="body2">New user?</Typography>
 
           <Link
@@ -34,7 +35,7 @@ export default function Login() {
           >
             Create an account
           </Link>
-        </Stack>
+        </Stack> */}
 
         <Tooltip title={method} placement="left">
           <Box

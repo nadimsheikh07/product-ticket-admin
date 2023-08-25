@@ -26,6 +26,7 @@ const ProductsPageForm = () => {
       client_id: "",
       name: "",
       code: "",
+      phone: "",
       model: "",
       detail: "",
       warranty_start: null,
@@ -43,6 +44,8 @@ const ProductsPageForm = () => {
       }
       if (!values.code) { 
         errors.code = "Code is required";
+      }if (!values.phone) {
+        errors.phone = "Phone is required";
       }
       if (!values.warranty_start) {
         errors.warranty_start = "Warranty start date is required";

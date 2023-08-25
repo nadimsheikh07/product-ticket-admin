@@ -87,8 +87,8 @@ export default function AccountPopover() {
       >
         <CustomAvatar
           src={user?.photoURL}
-          alt={user?.displayName}
-          name={user?.displayName}
+          alt={user?.name}
+          name={user?.name}
         />
       </IconButtonAnimate>
 
@@ -109,7 +109,7 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: "dashed" }} />
 
-        <Stack sx={{ p: 1 }}>
+        {/* <Stack sx={{ p: 1 }}>
           {OPTIONS.map((option) => (
             <MenuItem
               key={option.label}
@@ -118,7 +118,7 @@ export default function AccountPopover() {
               {option.label}
             </MenuItem>
           ))}
-        </Stack>
+        </Stack> */}
 
         <Divider sx={{ borderStyle: "dashed" }} />
 

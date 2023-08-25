@@ -55,7 +55,7 @@ export default function AuthLoginForm() {
       await login(data.email, data.password);
     } catch (error) {
       console.error(error);
-      enqueueSnackbar("Error", {
+      enqueueSnackbar("Please Check Your Email or Password", {
         variant: "error",
       });
       reset();

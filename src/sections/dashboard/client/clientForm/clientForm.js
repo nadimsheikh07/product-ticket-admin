@@ -13,6 +13,7 @@ const ClientFormSection = ({ formik, id }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
+          isMaxLenght={20}
           label="Name"
           name="name"
           value={formik?.values?.name}
@@ -27,6 +28,7 @@ const ClientFormSection = ({ formik, id }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
+          isMaxLenght={50}
           label="Email"
           name="email"
           value={formik?.values?.email}
@@ -70,6 +72,7 @@ const ClientFormSection = ({ formik, id }) => {
       <Grid item lg={12} md={12} sm={12} xs={12}>
         <TextBox
           fullWidth
+          isMaxLenght={250}
           label="Address"
           multiline={true}
           rows={3}
