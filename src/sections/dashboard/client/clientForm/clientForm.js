@@ -16,7 +16,9 @@ const ClientFormSection = ({ formik, id }) => {
           label="Name"
           name="name"
           value={formik?.values?.name}
-          onChange={(e)=>{formik.setFieldValue("name",e.target.value.trimStart())}}
+          onChange={(e) => {
+            formik.setFieldValue("name", e.target.value.trimStart());
+          }}
           error={formik.touched.name && formik.errors.name}
           helperText={formik.touched.name && formik.errors.name}
           required
@@ -45,25 +47,26 @@ const ClientFormSection = ({ formik, id }) => {
             if (e) {
               formik.setFieldValue("phone", e.target.value.replace(/\D/gm, ""));
             }
-          }}          error={formik.touched.phone && formik.errors.phone}
+          }}
+          error={formik.touched.phone && formik.errors.phone}
           helperText={formik.touched.phone && formik.errors.phone}
           required
         />
       </Grid>
-      {id === "new" && (
-        <Grid item lg={6} md={6} sm={12} xs={12}>
-          <PasswordBox
-            fullWidth
-            label="Password"
-            name="password"
-            value={formik?.values?.password}
-            onChange={formik.handleChange}
-            error={formik.touched.password && formik.errors.password}
-            helperText={formik.touched.password && formik.errors.password}
-            required
-          />
-        </Grid>
-      )}
+      {/* {id === "new" && ( */}
+      <Grid item lg={6} md={6} sm={12} xs={12}>
+        <PasswordBox
+          fullWidth
+          label="Password"
+          name="password"
+          value={formik?.values?.password}
+          onChange={formik.handleChange}
+          error={formik.touched.password && formik.errors.password}
+          helperText={formik.touched.password && formik.errors.password}
+          required
+        />
+      </Grid>
+      {/* )} */}
       <Grid item lg={12} md={12} sm={12} xs={12}>
         <TextBox
           fullWidth
@@ -78,7 +81,6 @@ const ClientFormSection = ({ formik, id }) => {
           required
         />
       </Grid>
-     
     </Grid>
   );
 };
