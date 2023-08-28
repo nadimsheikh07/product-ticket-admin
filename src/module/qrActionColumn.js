@@ -59,11 +59,11 @@ const ActionMenu = ({ row, field }) => {
               Download Qr Code
             </MenuItem>
           )}
-          {row[field].url && (
+          {/* {row[field].url && (
             <MenuItem onClick={() => openUrl(`${row[field].url}`)}>
               Open Qr Code
             </MenuItem>
-          )}
+          )} */}
           {row[field].view_url && (
             <MenuItem onClick={() => viewUrl(`${row[field].view_url}`)}>
               View Url
