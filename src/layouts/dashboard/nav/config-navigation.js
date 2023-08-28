@@ -42,7 +42,7 @@ const navConfig = [
   // DIGITALMENU MASTER
   // ----------------------------------------------------------------------
   {
-    subheader:{projectName},
+    subheader:projectName,
     items: [
       {
         title: "dashboard",
