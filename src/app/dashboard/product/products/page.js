@@ -70,8 +70,13 @@ const ProductsList = () => {
       headerName: "Models",
       width: "200",
     },
-    {
+     {
       field: "invoice_number",
+      headerName: "Invoice Number",
+      width: "200",
+    },
+    {
+      field: "invoic_date",
       headerName: "Invoice Date",
       type: "any",
       width: 200,
