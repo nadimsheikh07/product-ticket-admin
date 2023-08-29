@@ -49,11 +49,11 @@ export const status = [
 export const userType = [
   {
     label: "Admin",
-    value: "admin",
+    value: 1,
   },
   {
     label: "User/Employe",
-    value: "user_type",
+    value: 2,
   },
 ];
 

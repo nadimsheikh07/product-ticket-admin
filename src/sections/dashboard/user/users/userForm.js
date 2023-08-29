@@ -11,11 +11,12 @@ const UserFormSection = ({ formik, id }) => {
         <SelectBox
           options={userType}
           fullWidth
+          disabled
           label="User Type"
           placeholder="Select user"
           name="user_type"
           value={formik.values.user_type}
-          onChange={(e) => formik.setFieldValue("user_type", e)}
+          onChange={(e) => formik.setFieldValue("user_type", e.target.value)}
           error={formik.touched.user_type && formik.errors.user_type}
           helperText={formik.touched.user_type && formik.errors.user_type}
         />

@@ -48,7 +48,7 @@ const TicketsList = () => {
       headerName: "Phone",
       width: "200",
       renderCell: ({ row }) => {
-        return row?.client?.phone;
+        return row?.client?.phone  || "N/A";
       },
     },
     {
