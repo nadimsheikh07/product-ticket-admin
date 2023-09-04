@@ -58,9 +58,31 @@ const ProductsList = () => {
       ...QrActionColumn(),
     },
     {
+      field: "phone",
+      headerName: "Phone",
+      width: "200",
+      renderCell: ({ row }) => {
+        return row?.client?.phone || "N/A";
+      },
+    },
+    {
       field: "model",
       headerName: "Models",
       width: "200",
+    },
+     {
+      field: "invoice_number",
+      headerName: "Invoice Number",
+      width: "200",
+    },
+    {
+      field: "invoic_date",
+      headerName: "Invoice Date",
+      type: "any",
+      width: 200,
+      renderCell: ({ row }) => {
+        return moment(row?.invoice_date, "YYYY-MM-DD").format("YYYY-MM-DD");
+      },
     },
     {
       field: "warranty_start",
@@ -68,7 +90,7 @@ const ProductsList = () => {
       type: "any",
       width: 200,
       renderCell: ({ row }) => {
-        return moment(row?.created_at, "DD-MM-YYYY").format("DD-MM-YYYY");
+        return moment(row?.warranty_start, "YYYY-MM-DD").format("YYYY-MM-DD");
       },
     },
     {
@@ -77,7 +99,7 @@ const ProductsList = () => {
       type: "any",
       width: 200,
       renderCell: ({ row }) => {
-        return moment(row?.created_at, "DD-MM-YYYY").format("DD-MM-YYYY");
+        return moment(row?.warranty_end, "YYYY-MM-DD").format("YYYY-MM-DD");
       },
     },
     {
@@ -125,6 +147,7 @@ const ProductsList = () => {
           }}
           columns={columns}
           checkboxSelection={true}
+          disableRowSelectionOnClick={true}
         />
       </ContainerComponent>
     </>

@@ -1,5 +1,8 @@
+import { id } from "date-fns/locale";
 import dayjs from "dayjs";
 import { get } from "lodash";
+
+export const projectName="Product Ticket"
 
 export const CurrencyCode = [
   {
@@ -25,7 +28,7 @@ export const CountryCode = [
     value: "+44",
   },
 ];
-export const Status = [
+export const status = [
   {
     label: "Pending",
     value: "pending",
@@ -36,11 +39,21 @@ export const Status = [
   },
   {
     label: "Cancelled",
-    value: "cancelled",
+    value: "cancled",
   },
   {
     label: "Closed",
     value: "closed",
+  },
+];
+export const userType = [
+  {
+    label: "Admin",
+    value: 1,
+  },
+  {
+    label: "User/Employe",
+    value: 2,
   },
 ];
 

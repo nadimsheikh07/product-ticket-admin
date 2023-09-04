@@ -47,39 +47,7 @@ const AppSection = () => {
                 alignItems="center"
                 justifyContent="space-between"
               >
-                <Avatar
-                  sx={{
-                    width: { lg: "80px", md: "80px", sm: "50px", xs: "50px" },
-                    height: {
-                      lg: "80px",
-                      md: "80px",
-                      sm: "50px",
-                      xs: "50px",
-                    },
-                    bgcolor: (theme) => alpha(theme.palette.primary.main, 0.1),
-                  }}
-                  variant="rounded"
-                  color
-                >
-                  <Person
-                    sx={{
-                      width: {
-                        lg: "50px",
-                        md: "50px",
-                        sm: "25px",
-                        xs: "25px",
-                      },
-                      height: {
-                        lg: "50px",
-                        md: "50px",
-                        sm: "25px",
-                        xs: "25px",
-                      },
-                      color: (theme) => alpha(theme.palette.primary.main, 1),
-                    }}
-                    fontSize="large"
-                  />
-                </Avatar>
+               {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" /> */}
                 <Stack spacing={{ lg: 1.2, md: 1.2, sm: 1, xs: 1 }}>
                   <Typography
                     component="h4"

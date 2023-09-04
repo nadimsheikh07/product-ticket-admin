@@ -2,6 +2,8 @@
 import { PATH_DASHBOARD } from "@/routes/paths";
 // components
 import SvgColor from "@/components/svg-color";
+import { projectName } from "@/utils/constant";
+
 
 // ----------------------------------------------------------------------
 
@@ -40,7 +42,7 @@ const navConfig = [
   // DIGITALMENU MASTER
   // ----------------------------------------------------------------------
   {
-    subheader: "Product Ticket",
+    subheader:projectName,
     items: [
       {
         title: "dashboard",
@@ -53,7 +55,7 @@ const navConfig = [
   // MANAGEMENT
   // ----------------------------------------------------------------------
   {
-    subheader: "management",
+    subheader: "menu",
     items: [
       // USER
       {

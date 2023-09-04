@@ -2,7 +2,8 @@
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import CompanyEmpolyeesFormSection from "@/sections/dashboard/company/companies_empolyeesForm/companies_empolyeesForm";
+import ClientFormSection from "@/sections/dashboard/client/clientForm/clientForm";
+import CompanyEmpolyeesFormSection from "@/sections/dashboard/client/clientForm/clientForm";
 import axiosInstance from "@/utils/axios";
 import { LoadingButton } from "@mui/lab";
 import { Container, Stack } from "@mui/material";
@@ -26,6 +27,7 @@ const CompanyEmployeesPageForm = () => {
       name: "",
       email: "",
       address: "",
+      password: "",
     },
     validate: (values) => {
       const errors = {};
@@ -39,7 +41,6 @@ const CompanyEmployeesPageForm = () => {
       ) {
         errors.email = "Invalid email address";
       }
-
       const phoneRegex = /^\d+$/i;
       if (!values.phone) {
         errors.phone = "Phone is required";
@@ -49,8 +50,15 @@ const CompanyEmployeesPageForm = () => {
         errors.phone = "Phone number must be 10 digit";
       }
 
-      if (!values.address) {
-        errors.address = "Address is required";
+      const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+      if (!values.password) {
+        errors.password = "Password is required";
+      } else if (values.password.length > 10) {
+        errors.password = "Password must be less than 10 characters";
+      } else if (!passwordRegex.test(values.password)) {
+        errors.password =
+          "Must Contain 10 Characters, One Uppercase, One Lowercase, One Number and one special case Character";
       }
 
       return errors;
@@ -103,7 +111,11 @@ const CompanyEmployeesPageForm = () => {
         const { data } = response;
         // bind form data from server
         for (const [key] of Object.entries(formik.values)) {
-          formik.setFieldValue([key], data[key]);
+          if (data[key]) {
+            formik.setFieldValue([key], data[key]);
+          } else {
+            formik.setFieldError(key, "");
+          }
         }
       }
     });
@@ -132,7 +144,7 @@ const CompanyEmployeesPageForm = () => {
         ]}
       />
       <form noValidate onSubmit={formik.handleSubmit}>
-        <CompanyEmpolyeesFormSection formik={formik} id={id} />
+        <ClientFormSection formik={formik} id={id} />
         <Stack alignItems="flex-end" sx={{ mt: 3 }}>
           <LoadingButton
             type="submit"

@@ -31,6 +31,8 @@ export const DataTable = (props) => {
     isDate,
     isSearch,
     isClear,
+    isRowSelectable,
+    disableRowSelectionOnClick,
   } = props;
 
   const [filterStatus, setFilterStatus] = React.useState("all");
@@ -123,6 +125,7 @@ export const DataTable = (props) => {
   ]);
 
   const handleDeleteRows = async () => {
+    console.log("selectionModel", selectionModel);
     await axiosInstance
       .delete(`${actionUrl}/${selectionModel.join(",")}`)
       .then((response) => {
@@ -189,6 +192,8 @@ export const DataTable = (props) => {
           onFilterSearch={onFilterSearch}
           onResetFilter={onResetFilter}
           handleOpenConfirm={handleOpenConfirm}
+          isRowSelectable={isRowSelectable}
+          disableRowSelectionOnClick={disableRowSelectionOnClick}
         />
       </Card>
 

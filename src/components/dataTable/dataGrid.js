@@ -37,6 +37,8 @@ const DataGridTable = (props) => {
     onResetFilter,
     page,
     handleOpenConfirm,
+    isRowSelectable,
+    disableRowSelectionOnClick,
   } = props;
   return (
     <DataGrid
@@ -45,6 +47,11 @@ const DataGridTable = (props) => {
         pagination: { paginationModel: { pageSize: pageSize, page: page } },
       }}
       // INITIAL STATE END
+
+      // ROW SELECTABLE START
+      disableRowSelectionOnClick={disableRowSelectionOnClick}
+      isRowSelectable={isRowSelectable}
+      // ROW SELECTABLE END
 
       // CHECKBOXSELECTION START
       checkboxSelection={checkboxSelection}

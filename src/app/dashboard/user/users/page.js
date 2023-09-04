@@ -10,6 +10,7 @@ import { ContainerComponent } from "@/components/container";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
 
+
 const UserList = () => {
   const { push } = useRouter();
   const title = "User List";
@@ -40,6 +41,14 @@ const UserList = () => {
       width: "200",
     },
     {
+      field: "user_type",
+      headerName: "User",
+      width: 140,
+      renderCell: ({ row }) => {
+        return row?.user_type?.user_type;
+      },
+    },
+    {
       field: "email",
       headerName: "Email",
       width: "200",
@@ -49,11 +58,11 @@ const UserList = () => {
     //   headerName: "Password",
     //   width: "200",
     // },
-    // {
-    //   field: "phone",
-    //   headerName: "Phone",
-    //   width: "200",
-    // },
+    {
+      field: "phone",
+      headerName: "Phone",
+      width: "200",
+    },
   ];
 
   return (
@@ -95,9 +104,11 @@ const UserList = () => {
           }}
           columns={columns}
           checkboxSelection={true}
-          params={{
-            user_type: "user",
-          }}
+          isRowSelectable={(params) => params?.row?.id !== 1}
+          disableRowSelectionOnClick={true}
+          // params={{
+          //   user_type: "user",
+          // }}
         />
       </ContainerComponent>
     </>

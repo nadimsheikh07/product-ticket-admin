@@ -2,7 +2,7 @@
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import CompanyEmpolyeesFormSection from "@/sections/dashboard/company/companies_empolyeesForm/companies_empolyeesForm";
+import CompanyEmpolyeesFormSection from "@/sections/dashboard/client/clientForm/clientForm";
 import { ProductsFormSection } from "@/sections/dashboard/product/products";
 import axiosInstance from "@/utils/axios";
 import { LoadingButton } from "@mui/lab";
@@ -26,6 +26,7 @@ const ProductsPageForm = () => {
       client_id: "",
       name: "",
       code: "",
+      phone: "",
       model: "",
       detail: "",
       warranty_start: null,
@@ -41,8 +42,22 @@ const ProductsPageForm = () => {
       if (!values.name) {
         errors.name = "Product name is required";
       }
-      if (!values.code) {
+      if (!values.code) { 
         errors.code = "Code is required";
+      }if (!values.phone) {
+        errors.phone = "Phone is required";
+      }
+      if (!values.warranty_start) {
+        errors.warranty_start = "Warranty start date is required";
+      }
+      if (!values.warranty_end) {
+        errors.warranty_end = "Warranty end date is required";
+      }
+      if (!values.invoice_number) {
+        errors.invoice_number = "Invoice Number is required";
+      }
+      if (!values.invoice_date) {
+        errors.invoice_date = "Invoice Date is required";
       }
       if (!values.model) {
         errors.model = "Model is required";
@@ -121,7 +136,7 @@ const ProductsPageForm = () => {
         }
       });
   };
-
+console.log("tata",formik.values)
   const bindData = async (id) => {
     await axiosInstance.get(`${actionUrl}/${id}`).then((response) => {
       if (response.status === 200) {

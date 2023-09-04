@@ -3,7 +3,7 @@ import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs
 import { DataTable } from "@/components/dataTable";
 import Iconify from "@/components/iconify/Iconify";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import { Button, Chip, Container, Tooltip } from "@mui/material";
+import { Avatar, Button, Chip, Container, Tooltip } from "@mui/material";
 import React from "react";
 import NextLink from "next/link";
 import { ContainerComponent } from "@/components/container";
@@ -44,6 +44,14 @@ const TicketsList = () => {
       },
     },
     {
+      field: "phone",
+      headerName: "Phone",
+      width: "200",
+      renderCell: ({ row }) => {
+        return row?.client?.phone  || "N/A";
+      },
+    },
+    {
       field: "product_id",
       headerName: "Product",
       width: 140,
@@ -57,6 +65,29 @@ const TicketsList = () => {
       width: 140,
       renderCell: ({ row }) => {
         return row?.user?.name;
+      },
+    },
+    {
+      field: "photo",
+      headerName: "Image",
+      width: 140,
+      renderCell: ({ row }) => {
+        return (
+          <Avatar
+            url="api/upload/image"
+            variant="rounded"
+            sx={{
+              "&.MuiAvatar-root": {
+                width: "80px !important",
+                "& .MuiAvatar-img": {
+                  objectFit: "contain",
+                },
+              },
+            }}
+            src={row?.file}
+            alt={row?.product?.name}
+          />
+        );
       },
     },
     {
@@ -78,16 +109,7 @@ const TicketsList = () => {
       headerName: "Status",
       width: 120,
       renderCell: ({ row }) => {
-        if (row?.status === "open") {
-          return (
-            <Chip
-              sx={{ textTransform: "capitalize" }}
-              label={row?.status}
-              variant="outlined"
-              color="success"
-            />
-          );
-        } else {
+        if (row?.status == "pending") {
           return (
             <Chip
               sx={{ textTransform: "capitalize" }}
@@ -96,10 +118,50 @@ const TicketsList = () => {
               color="warning"
             />
           );
+        } else if (row?.status === "processing") {
+          return (
+            <Chip
+              sx={{ textTransform: "capitalize" }}
+              label={row?.status}
+              variant="outlined"
+              color="success"
+            />
+          );
+        } else if (row?.status == "cancled") {
+          return (
+            <Chip
+              sx={{ textTransform: "capitalize" }}
+              label={row?.status}
+              variant="outlined"
+              color="error"
+            />
+          );
+        } else if (row?.status == "closed") {
+          return (
+            <Chip
+              sx={{
+                textTransform: "capitalize",
+                color: (theme) => theme.palette.error.darker,
+                borderColor: (theme) => theme.palette.error.darker,
+              }}
+              label={row?.status}
+              variant="outlined"
+            />
+          );
+        } else {
+          return (
+            <Chip
+              sx={{ textTransform: "capitalize" }}
+              label={row?.status}
+              variant="outlined"
+              color="N/A"
+            />
+          );
         }
       },
     },
   ];
+
   return (
     <>
       <ContainerComponent>
@@ -138,6 +200,7 @@ const TicketsList = () => {
           }}
           columns={columns}
           checkboxSelection={true}
+          disableRowSelectionOnClick={true}
         />
       </ContainerComponent>
     </>

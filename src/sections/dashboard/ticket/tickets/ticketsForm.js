@@ -1,10 +1,12 @@
-import { MuiAutocompleteBox, TextBox } from "@/components/form";
+import { DragDrop, MuiAutocompleteBox, TextBox } from "@/components/form";
 import SelectBox from "@/components/form/select";
-import { Status } from "@/utils/constant";
+import { status } from "@/utils/constant";
 import { Grid } from "@mui/material";
 import React, { useMemo } from "react";
 
 const TicketsFormSection = ({ formik, id }) => {
+  
+  console.log("formik.values.status", formik.values);
   return (
     <Grid container spacing={2}>
       <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -26,14 +28,16 @@ const TicketsFormSection = ({ formik, id }) => {
           helperText={formik.touched.user_id && formik.errors.user_id}
         />
       </Grid>
+
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <MuiAutocompleteBox
           fullWidth
           label="Client"
           placeholder="Select client"
           name="client_id"
-          url="user/clients"
-          value={formik.values.client_id}
+          url="user/clients" 
+          disabled={id !== "new"?true:false}
+          value={Number(formik.values.client_id)}
           getOptionLabel="name"
           getOptionValue="id"
           onChange={(e) => {
@@ -46,6 +50,23 @@ const TicketsFormSection = ({ formik, id }) => {
           helperText={formik.touched.client_id && formik.errors.client_id}
         />
       </Grid>
+       <Grid item lg={6} md={6} sm={12} xs={12}>
+        <MuiAutocompleteBox
+        //  disabled={id === "new"}
+          fullWidth
+          isMaxLenght={10}
+          label="Phone"
+          placeholder="Select client Phone"
+          name="phone"
+          url="user/clients"
+          value={formik.values.phone}
+          getOptionLabel="phone"
+          getOptionValue="id"
+          onChange={(e) => formik.setFieldValue("phone", e)}
+          error={formik.touched.phone && formik.errors.phone}
+          helperText={formik.touched.phone && formik.errors.phone}
+        />
+      </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <MuiAutocompleteBox
           fullWidth
@@ -53,6 +74,7 @@ const TicketsFormSection = ({ formik, id }) => {
           placeholder="Select Product"
           name="product_id"
           url="catalog/products"
+          disabled={id !== "new"?true:false}
           value={formik.values.product_id}
           paramsID={useMemo(() => {
             return { client_id: formik?.values?.client_id };
@@ -69,10 +91,10 @@ const TicketsFormSection = ({ formik, id }) => {
         <SelectBox
           fullWidth
           label="Status"
-          placeholder="Enter Select"
+          placeholder="Select"
           name="status"
-          options={Status}
-          value={formik.values.status}
+          options={status}
+          value={String(formik.values.status)}
           onChange={formik.handleChange}
           error={formik.touched.status && formik.errors.status}
           helperText={formik.touched.status && formik.errors.status}
@@ -80,9 +102,23 @@ const TicketsFormSection = ({ formik, id }) => {
       </Grid>
 
       <Grid item lg={12} md={12} sm={12} xs={12}>
+        <DragDrop
+          fullWidth={true}
+          title="Image"
+          name="file"
+          url="api/upload/image"
+          value={formik.values.file}
+          onChange={(e) => {
+            formik.setFieldValue("file", e);
+          }}
+        />
+      </Grid>
+
+      <Grid item lg={12} md={12} sm={12} xs={12}>
         <TextBox
           fullWidth
           label="Detail"
+          isMaxLenght={250}
           placeholder="Enter detail"
           multiline={true}
           rows={3}

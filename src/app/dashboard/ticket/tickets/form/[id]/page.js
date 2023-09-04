@@ -2,7 +2,7 @@
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import CompanyEmpolyeesFormSection from "@/sections/dashboard/company/companies_empolyeesForm/companies_empolyeesForm";
+import CompanyEmpolyeesFormSection from "@/sections/dashboard/client/clientForm/clientForm";
 import { ProductsFormSection } from "@/sections/dashboard/product/products";
 import { TicketsFormSection } from "@/sections/dashboard/ticket/tickets";
 import axiosInstance from "@/utils/axios";
@@ -24,11 +24,13 @@ const TicketsPageForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      company_id: "",
+      client_id: "",
       product_id: "",
+      phone: "",
       user_id: "",
+      file: "",
       detail: "",
-      status: "open",
+      status: "pending",
     },
     validate: (values) => {
       const errors = {};
@@ -37,6 +39,12 @@ const TicketsPageForm = () => {
       }
       if (!values.product_id) {
         errors.product_id = "Product is Required";
+      }
+      if (!values.user_id) {
+        errors.user_id = "User is Required";
+      }
+      if (!values.phone) {
+        errors.phone = "Phone is required";
       }
       return errors;
     },
@@ -88,7 +96,14 @@ const TicketsPageForm = () => {
         const { data } = response;
         // bind form data from server
         for (const [key] of Object.entries(formik.values)) {
-          formik.setFieldValue([key], data[key]);
+          console.log("key", key);
+          // if (key === "client_id") {
+          //   formik.setFieldValue("client_id", data?.client_id);
+          // } else if (key === "status") {
+          //   formik.setFieldValue("status", data?.status);
+          // } else {
+            formik.setFieldValue(key, data[key]);
+          // }
         }
       }
     });
@@ -99,6 +114,7 @@ const TicketsPageForm = () => {
       bindData(id);
     }
   }, [id]);
+  console.log("yaya", formik.values);
 
   return (
     <ContainerComponent>

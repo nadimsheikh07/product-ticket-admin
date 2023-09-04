@@ -11,7 +11,7 @@ const DatePickerBox = (props) => {
     label,
     fullWidth,
     isRequired,
-    disablePast = true,
+    disablePast = false,
   } = props;
 
   let error = formik.touched[name] && formik.errors[name];

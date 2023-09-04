@@ -64,9 +64,9 @@ const MuiAutocompleteBox = (props) => {
 
     const params = {
       search: search,
-      page: 1,
-      pageSize: 10,
-      defaultValue: value,
+      // page: 1,
+      // pageSize: 10,
+      // defaultValue: value,
       isActive: true,
       ...paramsID,
     };
@@ -83,8 +83,8 @@ const MuiAutocompleteBox = (props) => {
       .get(`/admin/${url}`, { params })
       .then((response) => {
         if (response.status === 200) {
-          if (response.data.data) {
-            response.data.data.forEach((element) => {
+          if (response.data) {    
+            response.data.forEach((element) => {
               if (isFilterData) {
                 options.push({
                   label: element?.to_city?.name,
@@ -125,6 +125,18 @@ const MuiAutocompleteBox = (props) => {
       getData();
     }
   }, [paramsID, paramsID?.client_id]);
+
+  React.useEffect(() => {
+    if (paramsID && paramsID?.user_type) {
+      getData();
+    }
+  }, [paramsID, paramsID?.user_type]);
+
+  React.useEffect(() => {
+    if (paramsID && paramsID?.phone) {
+      getData();
+    }
+  }, [paramsID, paramsID?.phone]);
 
   const delayedQuery = React.useCallback(debounce(getData, 1000), []);
 
