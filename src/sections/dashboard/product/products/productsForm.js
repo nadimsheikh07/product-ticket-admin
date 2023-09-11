@@ -118,7 +118,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
         <DatePickerBox
           disablePast={true}
           fullWidth
-          label="Warranty Date"
+          label="Warranty Start"
           name="warranty_start"
           value={formik.values.warranty_start}
           onChange={(e) => {
