@@ -26,7 +26,6 @@ const ProductsPageForm = () => {
       client_id: "",
       name: "",
       code: "",
-      phone: "",
       model: "",
       detail: "",
       warranty_start: null,
@@ -42,10 +41,8 @@ const ProductsPageForm = () => {
       if (!values.name) {
         errors.name = "Product name is required";
       }
-      if (!values.code) { 
+      if (!values.code) {
         errors.code = "Code is required";
-      }if (!values.phone) {
-        errors.phone = "Phone is required";
       }
       if (!values.warranty_start) {
         errors.warranty_start = "Warranty start date is required";
@@ -136,7 +133,7 @@ const ProductsPageForm = () => {
         }
       });
   };
-console.log("tata",formik.values)
+  console.log("tata", formik.values);
   const bindData = async (id) => {
     await axiosInstance.get(`${actionUrl}/${id}`).then((response) => {
       if (response.status === 200) {

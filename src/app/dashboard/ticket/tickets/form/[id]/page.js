@@ -26,7 +26,6 @@ const TicketsPageForm = () => {
     initialValues: {
       client_id: "",
       product_id: "",
-      phone: "",
       user_id: "",
       file: "",
       detail: "",
@@ -42,9 +41,6 @@ const TicketsPageForm = () => {
       }
       if (!values.user_id) {
         errors.user_id = "User is Required";
-      }
-      if (!values.phone) {
-        errors.phone = "Phone is required";
       }
       return errors;
     },
@@ -102,7 +98,7 @@ const TicketsPageForm = () => {
           // } else if (key === "status") {
           //   formik.setFieldValue("status", data?.status);
           // } else {
-            formik.setFieldValue(key, data[key]);
+          formik.setFieldValue(key, data[key]);
           // }
         }
       }

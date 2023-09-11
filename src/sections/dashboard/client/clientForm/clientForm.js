@@ -55,20 +55,20 @@ const ClientFormSection = ({ formik, id }) => {
           required
         />
       </Grid>
-      {/* {id === "new" && ( */}
-      <Grid item lg={6} md={6} sm={12} xs={12}>
-        <PasswordBox
-          fullWidth
-          label="Password"
-          name="password"
-          value={formik?.values?.password}
-          onChange={formik.handleChange}
-          error={formik.touched.password && formik.errors.password}
-          helperText={formik.touched.password && formik.errors.password}
-          required
-        />
-      </Grid>
-      {/* )} */}
+      {id === "new" && (
+        <Grid item lg={6} md={6} sm={12} xs={12}>
+          <PasswordBox
+            fullWidth
+            label="Password"
+            name="password"
+            value={formik?.values?.password}
+            onChange={formik.handleChange}
+            error={formik.touched.password && formik.errors.password}
+            helperText={formik.touched.password && formik.errors.password}
+            required
+          />
+        </Grid>
+      )}
       <Grid item lg={12} md={12} sm={12} xs={12}>
         <TextBox
           fullWidth

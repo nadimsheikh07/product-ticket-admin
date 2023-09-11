@@ -5,7 +5,6 @@ import { Grid } from "@mui/material";
 import React, { useMemo } from "react";
 
 const TicketsFormSection = ({ formik, id }) => {
-  
   console.log("formik.values.status", formik.values);
   return (
     <Grid container spacing={2}>
@@ -35,8 +34,8 @@ const TicketsFormSection = ({ formik, id }) => {
           label="Client"
           placeholder="Select client"
           name="client_id"
-          url="user/clients" 
-          disabled={id !== "new"?true:false}
+          url="user/clients"
+          disabled={id !== "new" ? true : false}
           value={Number(formik.values.client_id)}
           getOptionLabel="name"
           getOptionValue="id"
@@ -50,23 +49,6 @@ const TicketsFormSection = ({ formik, id }) => {
           helperText={formik.touched.client_id && formik.errors.client_id}
         />
       </Grid>
-       <Grid item lg={6} md={6} sm={12} xs={12}>
-        <MuiAutocompleteBox
-        //  disabled={id === "new"}
-          fullWidth
-          isMaxLenght={10}
-          label="Phone"
-          placeholder="Select client Phone"
-          name="phone"
-          url="user/clients"
-          value={formik.values.phone}
-          getOptionLabel="phone"
-          getOptionValue="id"
-          onChange={(e) => formik.setFieldValue("phone", e)}
-          error={formik.touched.phone && formik.errors.phone}
-          helperText={formik.touched.phone && formik.errors.phone}
-        />
-      </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <MuiAutocompleteBox
           fullWidth
@@ -74,7 +56,7 @@ const TicketsFormSection = ({ formik, id }) => {
           placeholder="Select Product"
           name="product_id"
           url="catalog/products"
-          disabled={id !== "new"?true:false}
+          disabled={id !== "new" ? true : false}
           value={formik.values.product_id}
           paramsID={useMemo(() => {
             return { client_id: formik?.values?.client_id };
