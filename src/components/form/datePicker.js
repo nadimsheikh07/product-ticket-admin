@@ -2,49 +2,63 @@ import TextField from "@mui/material/TextField";
 import moment from "moment";
 import PropTypes from "prop-types";
 import FormControl from "./formControl";
-import { DatePicker } from "@mui/x-date-pickers";
-
+import React from "react";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
+import { FormHelperText } from "@mui/material";
 const DatePickerBox = (props) => {
   const {
-    formik,
     name,
     label,
     fullWidth,
-    isRequired,
     disablePast = false,
+    value,
+    error,
+    helperText,
+    format,
+    placeholder,
   } = props;
 
-  let error = formik.touched[name] && formik.errors[name];
+  const [defaultValue, setDefaultValue] = React.useState(null);
 
-  let helperText = formik.touched[name] && formik.errors[name];
+  React.useEffect(() => {
+    if (value) {
+      setDefaultValue(dayjs(value));
+    } else {
+      setDefaultValue(null);
+    }
+  }, [value]);
 
   return (
-    <FormControl key={`key${name}`} fullWidth={fullWidth} error={error}>
-      <DatePicker
-        disablePast={disablePast}
-        minDateMessage=" "
-        inputFormat={"dd/MM/yyyy"}
-        label={label}
-        error={error}
-        value={formik.values[name]}
-        onChange={(newValue) => {
-          let datetimeFormat = "YYYY-MM-DD";
-          formik.setFieldValue(name, moment(newValue).format(datetimeFormat));
-        }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            error={error}
-            helperText={helperText}
-            required={isRequired}
-            inputProps={{
-              ...params.inputProps,
-              placeholder: "dd/mm/yyyy",
-            }}
-          />
-        )}
-      />
-    </FormControl>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <FormControl
+        key={`key${name}`}
+        error={helperText ? true : false}
+        fullWidth={fullWidth}
+      >
+        <DatePicker
+          disablePast={disablePast}
+          minDateMessage=" "
+          format={format}
+          label={label}
+          error={error}
+          value={defaultValue}
+          onChange={(newValue) => props.onChange(newValue)}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              inputProps={{
+                ...params.inputProps,
+                placeholder: placeholder,
+              }}
+            />
+          )}
+        />
+        {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      </FormControl>
+    </LocalizationProvider>
   );
 };
 

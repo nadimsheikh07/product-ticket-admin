@@ -3,7 +3,7 @@ import { AuthProvider } from "@/auth/JwtContext";
 import "./globals.css";
 import { CollapseDrawerProvider } from "@/contexts/CollapseDrawerContext";
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { SettingsProvider, ThemeSettings } from "@/components/settings";
 import { MotionLazyContainer } from "@/components/animate";
 import ThemeProvider from "@/theme";
@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <ThemeProvider>
             <CollapseDrawerProvider>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <SettingsProvider>
                   <MotionLazyContainer>
                     <ThemeSettings>

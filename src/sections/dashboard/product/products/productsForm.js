@@ -7,6 +7,7 @@ import {
   TextBox,
 } from "@/components/form";
 import { Box, Button, Grid, Stack } from "@mui/material";
+import dayjs from "dayjs";
 import { useParams } from "next/navigation";
 import React from "react";
 
@@ -100,35 +101,52 @@ const ProductsFormSection = ({ formik, generateCode }) => {
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <DatePickerBox
+          disablePast={true}
           fullWidth
           label="Invoice Date"
           name="invoice_date"
-          formik={formik}
+          value={formik.values.invoice_date}
           onChange={(e) => {
-            formik.setFieldValue("password", e.target.value.trim());
+            formik.setFieldValue("invoice_date", dayjs(e).format("YYYY-MM-DD"));
           }}
+          format="DD/MM/YYYY"
+          placeholder="DD/MM/YYYY"
+          helperText={formik.touched.invoice_date && formik.errors.invoice_date}
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <DatePickerBox
+          disablePast={true}
           fullWidth
-          label="Warranty Start"
+          label="Warranty Date"
           name="warranty_start"
-          formik={formik}
+          value={formik.values.warranty_start}
           onChange={(e) => {
-            formik.setFieldValue("password", e.target.value.trim());
+            formik.setFieldValue(
+              "warranty_start",
+              dayjs(e).format("YYYY-MM-DD")
+            );
           }}
+          format="DD/MM/YYYY"
+          placeholder="DD/MM/YYYY"
+          helperText={
+            formik.touched.warranty_start && formik.errors.warranty_start
+          }
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <DatePickerBox
+          disablePast={true}
           fullWidth
           label="Warranty End"
           name="warranty_end"
-          formik={formik}
+          value={formik.values.warranty_end}
           onChange={(e) => {
-            formik.setFieldValue("password", e.target.value.trim());
+            formik.setFieldValue("warranty_end", dayjs(e).format("YYYY-MM-DD"));
           }}
+          format="DD/MM/YYYY"
+          placeholder="DD/MM/YYYY"
+          helperText={formik.touched.warranty_end && formik.errors.warranty_end}
         />
       </Grid>
       <Grid item lg={12} md={12} sm={12} xs={12}>
