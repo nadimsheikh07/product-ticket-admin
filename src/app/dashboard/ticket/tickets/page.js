@@ -3,7 +3,14 @@ import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs
 import { DataTable } from "@/components/dataTable";
 import Iconify from "@/components/iconify/Iconify";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import { Avatar, Button, Chip, Container, Tooltip } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  Chip,
+  Container,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import NextLink from "next/link";
 import { ContainerComponent } from "@/components/container";
@@ -46,75 +53,7 @@ const TicketsList = () => {
         />,
       ],
     },
-    {
-      field: "client_id",
-      headerName: "Client",
-      width: 140,
-      renderCell: ({ row }) => {
-        return row?.client?.name;
-      },
-    },
-    {
-      field: "phone",
-      headerName: "Phone",
-      width: "200",
-      renderCell: ({ row }) => {
-        return row?.client?.phone || "N/A";
-      },
-    },
-    {
-      field: "product_id",
-      headerName: "Product",
-      width: 140,
-      renderCell: ({ row }) => {
-        return row?.product?.name;
-      },
-    },
-    {
-      field: "user_id",
-      headerName: "User",
-      width: 140,
-      renderCell: ({ row }) => {
-        return row?.user?.name;
-      },
-    },
-    {
-      field: "photo",
-      headerName: "Image",
-      width: 140,
-      renderCell: ({ row }) => {
-        return (
-          <Avatar
-            url="api/upload/image"
-            variant="rounded"
-            sx={{
-              "&.MuiAvatar-root": {
-                width: "80px !important",
-                "& .MuiAvatar-img": {
-                  objectFit: "contain",
-                },
-              },
-            }}
-            src={row?.file}
-            alt={row?.product?.name}
-          />
-        );
-      },
-    },
-    {
-      field: "datetime",
-      headerName: "Date Time",
-      type: "any",
-      width: 120,
-      renderCell: ({ row }) => {
-        return moment(row?.created_at, "DD-MM-YYYY").format("DD-MM-YYYY");
-      },
-    },
-    {
-      field: "detail",
-      headerName: "Details",
-      width: "200",
-    },
+
     {
       field: "status",
       headerName: "Status",
@@ -169,6 +108,75 @@ const TicketsList = () => {
             />
           );
         }
+      },
+    },
+    {
+      field: "datetime",
+      headerName: "Date Time",
+      type: "date",
+      width: 120,
+      renderCell: ({ row }) => {
+        return moment(row?.created_at, "DD-MM-YYYY").format("DD-MMM-YYYY");
+      },
+    },
+    {
+      field: "detail",
+      headerName: "Details",
+      width: "200",
+    },
+    {
+      field: "client_id",
+      headerName: "Client",
+      width: 140,
+      renderCell: ({ row }) => {
+        return row?.client?.name;
+      },
+    },
+    {
+      field: "product_id",
+      headerName: "Product",
+      width: 140,
+      renderCell: ({ row }) => {
+        return row?.product?.name;
+      },
+    },
+    {
+      field: "user_id",
+      headerName: "Ticket Assign To",
+      width: 140,
+      renderCell: ({ row }) => {
+        return row?.user?.name;
+      },
+    },
+    {
+      field: "phone",
+      headerName: "Phone",
+      width: "200",
+      renderCell: ({ row }) => {
+        return row?.client?.phone || "N/A";
+      },
+    },
+    {
+      field: "photo",
+      headerName: "Image",
+      width: 140,
+      renderCell: ({ row }) => {
+        return (
+          <Avatar
+            url="api/upload/image"
+            variant="rounded"
+            sx={{
+              "&.MuiAvatar-root": {
+                width: "80px !important",
+                "& .MuiAvatar-img": {
+                  objectFit: "contain",
+                },
+              },
+            }}
+            src={row?.file}
+            alt={row?.product?.name}
+          />
+        );
       },
     },
   ];
