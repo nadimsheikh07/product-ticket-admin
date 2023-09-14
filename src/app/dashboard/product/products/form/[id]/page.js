@@ -47,6 +47,15 @@ const ProductsPageForm = () => {
       if (!values.warranty_start) {
         errors.warranty_start = "Warranty start date is required";
       }
+
+      if (
+        values.warranty_start &&
+        values.warranty_end &&
+        values.warranty_start > values.warranty_end
+      ) {
+        errors.warranty_end =
+          "Warranty end date must be greater than warranty start date";
+      }
       if (!values.warranty_end) {
         errors.warranty_end = "Warranty end date is required";
       }
@@ -102,7 +111,7 @@ const ProductsPageForm = () => {
         });
     },
   });
-
+  console.log("formik.values", formik.values);
   const generateCode = async () => {
     await axiosInstance
       .get(`/admin/catalog/generate-auto-code`, formik.values)

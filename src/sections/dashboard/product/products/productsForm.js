@@ -116,7 +116,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <DatePickerBox
-          disablePast={true}
+          disablePast={false}
           fullWidth
           label="Warranty Start"
           name="warranty_start"
@@ -126,6 +126,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
               "warranty_start",
               dayjs(e).format("YYYY-MM-DD")
             );
+            formik.setFieldValue("warranty_end", null);
           }}
           format="DD/MM/YYYY"
           placeholder="DD/MM/YYYY"
@@ -136,7 +137,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <DatePickerBox
-          disablePast={true}
+          disablePast={false}
           fullWidth
           label="Warranty End"
           name="warranty_end"
@@ -147,6 +148,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           format="DD/MM/YYYY"
           placeholder="DD/MM/YYYY"
           helperText={formik.touched.warranty_end && formik.errors.warranty_end}
+          minDate={formik.values.warranty_start}
         />
       </Grid>
       <Grid item lg={12} md={12} sm={12} xs={12}>

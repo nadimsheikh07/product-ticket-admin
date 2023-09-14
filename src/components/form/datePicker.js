@@ -19,6 +19,7 @@ const DatePickerBox = (props) => {
     helperText,
     format,
     placeholder,
+    ...rest
   } = props;
 
   const [defaultValue, setDefaultValue] = React.useState(null);
@@ -39,6 +40,7 @@ const DatePickerBox = (props) => {
         fullWidth={fullWidth}
       >
         <DatePicker
+          {...rest}
           disablePast={disablePast}
           minDateMessage=" "
           format={format}
