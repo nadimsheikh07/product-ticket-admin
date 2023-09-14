@@ -32,7 +32,7 @@ export const DataTable = (props) => {
     isSearch,
     isClear,
     isRowSelectable,
-    disableRowSelectionOnClick,
+    disableRowSelectionOnClick = true,
   } = props;
 
   const [filterStatus, setFilterStatus] = React.useState("all");

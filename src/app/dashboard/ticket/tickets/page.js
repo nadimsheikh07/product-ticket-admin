@@ -15,6 +15,7 @@ const TicketsList = () => {
   const { push } = useRouter();
   const title = "Tickets";
   const formUrl = `${PATH_DASHBOARD.ticket.tickets}/form`;
+  const chatUrl = `${PATH_DASHBOARD.ticket.tickets}/chat`;
   const actionUrl = "admin/catalog/tickets";
   const columns = [
     {
@@ -33,6 +34,16 @@ const TicketsList = () => {
           label="Edit"
           onClick={() => push(`${formUrl}/${params.id}`)}
         />,
+        <GridActionsCellItem
+          key="chat"
+          icon={
+            <Tooltip title="Chat">
+              <Iconify icon="material-symbols:chat-outline" width={25} />
+            </Tooltip>
+          }
+          label="Chat"
+          onClick={() => push(`${chatUrl}/${params.id}`)}
+        />,
       ],
     },
     {
@@ -48,7 +59,7 @@ const TicketsList = () => {
       headerName: "Phone",
       width: "200",
       renderCell: ({ row }) => {
-        return row?.client?.phone  || "N/A";
+        return row?.client?.phone || "N/A";
       },
     },
     {
