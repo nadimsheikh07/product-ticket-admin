@@ -17,7 +17,7 @@ export const DataTable = (props) => {
     checkboxSelection,
     defaultFilterModel,
     actionUrl,
-    title = "One Way Taxi",
+    title = "Product Ticket",
     Tabs = [
       {
         value: "all",
