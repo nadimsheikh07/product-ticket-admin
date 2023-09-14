@@ -111,7 +111,6 @@ const ProductsPageForm = () => {
         });
     },
   });
-  console.log("formik.values", formik.values);
   const generateCode = async () => {
     await axiosInstance
       .get(`/admin/catalog/generate-auto-code`, formik.values)
