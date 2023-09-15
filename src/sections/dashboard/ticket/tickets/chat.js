@@ -4,23 +4,24 @@ import { Box, Card, CardContent } from "@mui/material";
 import React from "react";
 import { MessageBox } from "react-chat-elements";
 
-const ChatSection = ({ formik, id }) => {
+const ChatSection = ({ formik, id, ticketChat }) => {
   return (
     <Box>
       <Card>
         <CardContent>
-          <MessageBox
-            position={"left"}
-            type={"text"}
-            title={"Message Box Title"}
-            text="Here is a text type message box"
-          />
-          <MessageBox
-            position={"right"}
-            type={"text"}
-            title={"Message Box Title"}
-            text="Here is a text type message box"
-          />
+          {ticketChat &&
+            ticketChat?.length > 0 &&
+            ticketChat.map((item, index) => {
+              return (
+                <MessageBox
+                  key={`TicketChatAdmin-${index}`}
+                  position={item?.is_reply ? "right" : "left"}
+                  type={"text"}
+                  title={item?.user?.name}
+                  text={item?.message}
+                />
+              );
+            })}
 
           <Box sx={{ mt: 2 }}>
             <TextBox
@@ -30,11 +31,11 @@ const ChatSection = ({ formik, id }) => {
               placeholder="Enter message"
               multiline={true}
               rows={3}
-              name="detail"
-              value={formik.values.detail}
+              name="message"
+              value={formik.values.message}
               onChange={formik.handleChange}
-              error={formik.touched.detail && formik.errors.detail}
-              helperText={formik.touched.detail && formik.errors.detail}
+              error={formik.touched.message && formik.errors.message}
+              helperText={formik.touched.message && formik.errors.message}
               icon={<Iconify icon="wpf:sent" />}
               onIconClick={formik.handleSubmit}
             />
