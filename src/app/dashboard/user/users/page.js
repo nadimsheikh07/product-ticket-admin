@@ -10,7 +10,6 @@ import { ContainerComponent } from "@/components/container";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
 
-
 const UserList = () => {
   const { push } = useRouter();
   const title = "User List";
@@ -106,9 +105,9 @@ const UserList = () => {
           checkboxSelection={true}
           isRowSelectable={(params) => params?.row?.id !== 1}
           disableRowSelectionOnClick={true}
-          // params={{
-          //   user_type: "user",
-          // }}
+          params={{
+            user_type: "admin",
+          }}
         />
       </ContainerComponent>
     </>

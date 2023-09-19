@@ -15,7 +15,7 @@ const CompanyEmployeesList = () => {
   const { push } = useRouter();
   const title = "Client";
   const formUrl = `${PATH_DASHBOARD.client.clients}/form`;
-  const actionUrl = "admin/user/clients";
+  const actionUrl = "admin/user/users";
   const columns = [
     {
       field: "actions",
@@ -64,7 +64,7 @@ const CompanyEmployeesList = () => {
 
   return (
     <>
-    {/* <Head>
+      {/* <Head>
       <title>
         login
       </title>
@@ -107,6 +107,9 @@ const CompanyEmployeesList = () => {
           columns={columns}
           checkboxSelection={true}
           disableRowSelectionOnClick={true}
+          params={{
+            user_type: "client",
+          }}
         />
       </ContainerComponent>
     </>

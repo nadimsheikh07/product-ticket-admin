@@ -19,7 +19,7 @@ const CompanyEmployeesPageForm = () => {
   const { id } = useParams();
   const title = "Client Form";
   const backUrl = `${PATH_DASHBOARD.client.clients}`;
-  const actionUrl = "admin/user/clients";
+  const actionUrl = "admin/user/users";
 
   const formik = useFormik({
     initialValues: {
@@ -27,7 +27,9 @@ const CompanyEmployeesPageForm = () => {
       name: "",
       email: "",
       address: "",
+      user_type: "client",
       password: "",
+      address: "",
     },
     validate: (values) => {
       const errors = {};

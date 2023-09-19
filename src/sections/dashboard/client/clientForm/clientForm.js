@@ -38,7 +38,13 @@ const ClientFormSection = ({ formik, id }) => {
           required
         />
       </Grid>
-      <Grid item lg={6} md={6} sm={12} xs={12}>
+      <Grid
+        item
+        lg={id === "new" ? 6 : 12}
+        md={id === "new" ? 6 : 12}
+        sm={12}
+        xs={12}
+      >
         <TextBox
           fullWidth
           label="Phone"

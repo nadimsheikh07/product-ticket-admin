@@ -121,10 +121,9 @@ export function AuthProvider({ children }) {
   }, [initialize, pathname]);
 
   // LOGIN
-  const login = useCallback(async (email, password) => {
+  const login = useCallback(async (values) => {
     const response = await axiosInstance.post("admin/auth/signin", {
-      email,
-      password,
+      ...values,
     });
     const { accessToken, user } = response.data;
 

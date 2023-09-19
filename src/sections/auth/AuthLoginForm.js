@@ -36,6 +36,7 @@ export default function AuthLoginForm() {
   const defaultValues = {
     email: "",
     password: "",
+    user_type: "admin",
   };
 
   const methods = useForm({
@@ -52,7 +53,7 @@ export default function AuthLoginForm() {
 
   const onSubmit = async (data) => {
     try {
-      await login(data.email, data.password);
+      await login(data);
     } catch (error) {
       console.error(error);
       enqueueSnackbar("Please Check Your Email or Password", {
