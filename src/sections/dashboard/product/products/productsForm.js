@@ -9,7 +9,7 @@ import {
 import { Box, Button, Grid, Stack } from "@mui/material";
 import dayjs from "dayjs";
 import { useParams } from "next/navigation";
-import React from "react";
+import React, { useMemo } from "react";
 
 const ProductsFormSection = ({ formik, generateCode }) => {
   const { id } = useParams();
@@ -21,10 +21,16 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           label="Client"
           placeholder="Select client"
           name="client_id"
-          url="user/clients"
+          url="user/users"
           value={formik.values.client_id}
           getOptionLabel="name"
           getOptionValue="id"
+          paramsID={useMemo(
+            () => ({
+              user_type: "client",
+            }),
+            []
+          )}
           onChange={(e) => formik.setFieldValue("client_id", e)}
           error={formik.touched.client_id && formik.errors.client_id}
           helperText={formik.touched.client_id && formik.errors.client_id}

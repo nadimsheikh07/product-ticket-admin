@@ -19,6 +19,12 @@ const TicketsFormSection = ({ formik, id }) => {
           value={formik.values.user_id}
           getOptionLabel="name"
           getOptionValue="id"
+          paramsID={useMemo(
+            () => ({
+              admin_client: "admin_client",
+            }),
+            []
+          )}
           onChange={(e) => {
             if (e) {
               formik.setFieldValue("user_id", e);
@@ -29,19 +35,24 @@ const TicketsFormSection = ({ formik, id }) => {
         />
       </Grid>
 
-        {/* <RelationModule formik={formik} /> */}
-        
+      {/* <RelationModule formik={formik} /> */}
+
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <MuiAutocompleteBox
           fullWidth
           label="Client"
           placeholder="Select client"
           name="client_id"
-          url="user/clients"
-          disabled={id !== "new" ? true : false}
-          value={Number(formik.values.client_id)}
+          url="user/users"
+          value={formik.values.client_id}
           getOptionLabel="name"
           getOptionValue="id"
+          paramsID={useMemo(
+            () => ({
+              user_type: "client",
+            }),
+            []
+          )}
           onChange={(e) => {
             if (e) {
               formik.setFieldValue("client_id", e);
