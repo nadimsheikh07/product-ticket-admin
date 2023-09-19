@@ -4,7 +4,6 @@ import { PATH_DASHBOARD } from "@/routes/paths";
 import SvgColor from "@/components/svg-color";
 import { projectName } from "@/utils/constant";
 
-
 // ----------------------------------------------------------------------
 
 const icon = (name) => (
@@ -42,7 +41,7 @@ const navConfig = [
   // DIGITALMENU MASTER
   // ----------------------------------------------------------------------
   {
-    subheader:projectName,
+    subheader: projectName,
     items: [
       {
         title: "dashboard",
@@ -100,6 +99,24 @@ const navConfig = [
         path: PATH_DASHBOARD.ticket.root,
         icon: ICONS.user,
         children: [{ title: "tickets", path: PATH_DASHBOARD.ticket.tickets }],
+      },
+      // NOTIFICATION
+      {
+        title: "Settings",
+        path: PATH_DASHBOARD.settings.root,
+        icon: ICONS.user,
+        children: [
+          { title: "Notification", path: PATH_DASHBOARD.settings.notification },
+        ],
+      },
+      // CONFIGURATION
+      {
+        title: "Configuration",
+        path: PATH_DASHBOARD.configuration.root,
+        icon: ICONS.user,
+        children: [
+          { title: "Email", path: PATH_DASHBOARD.configuration.email },
+        ],
       },
     ],
   },

@@ -61,4 +61,12 @@ export const PATH_DASHBOARD = {
     root: path(ROOTS_DASHBOARD, "/ticket"),
     tickets: path(ROOTS_DASHBOARD, "/ticket/tickets"),
   },
+  settings: {
+    root: path(ROOTS_DASHBOARD, "/settings"),
+    notification: path(ROOTS_DASHBOARD, "/settings/notification"),
+  },
+  configuration: {
+    root: path(ROOTS_DASHBOARD, "/configuration"),
+    email: path(ROOTS_DASHBOARD, "/configuration/email"),
+  },
 };
