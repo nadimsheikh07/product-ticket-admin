@@ -26,7 +26,7 @@ const UserPageForm = () => {
       password: "",
       phone: "",
       photo: "",
-      user_type: "user",
+      user_type: "",
     },
     validate: (values) => {
       const errors = {};
@@ -44,8 +44,15 @@ const UserPageForm = () => {
         errors.email = "Invalid email address";
       }
       if (id === "new") {
+        const passwordRegex =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
         if (!values.password) {
           errors.password = "Password is required";
+        } else if (values.password.length > 10) {
+          errors.password = "Password must be less than 10 characters";
+        } else if (!passwordRegex.test(values.password)) {
+          errors.password =
+            "Must Contain 10 Characters, One Uppercase, One Lowercase, One Number and one special case Character";
         }
       }
  

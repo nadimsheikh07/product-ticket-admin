@@ -1,7 +1,8 @@
 import { DragDrop, MuiAutocompleteBox, TextBox } from "@/components/form";
 import SelectBox from "@/components/form/select";
+import { RelationModule } from "@/module/relational_dropdown/relation";
 import { status } from "@/utils/constant";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import React, { useMemo } from "react";
 
 const TicketsFormSection = ({ formik, id }) => {
@@ -28,6 +29,8 @@ const TicketsFormSection = ({ formik, id }) => {
         />
       </Grid>
 
+        {/* <RelationModule formik={formik} /> */}
+        
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <MuiAutocompleteBox
           fullWidth

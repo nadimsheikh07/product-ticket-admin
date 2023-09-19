@@ -1,4 +1,5 @@
-import AppSection from "@/sections/dashboard/app";
+// import AppSection from "@/sections/dashboard/app";
+import DashboardSection from "@/sections/dashboard/app";
 import React from "react";
 export const metadata = {
   title: 'Product Ticket Dashboard',
@@ -6,7 +7,7 @@ export const metadata = {
 }
 
 const App = () => {
-  return <AppSection />;
+  return <DashboardSection/>;
 };
 
 export default App;
