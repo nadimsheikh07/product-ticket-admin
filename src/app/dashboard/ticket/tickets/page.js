@@ -120,11 +120,6 @@ const TicketsList = () => {
       },
     },
     {
-      field: "detail",
-      headerName: "Details",
-      width: "200",
-    },
-    {
       field: "client_id",
       headerName: "Client",
       width: 140,
@@ -178,6 +173,11 @@ const TicketsList = () => {
           />
         );
       },
+    },
+    {
+      field: "detail",
+      headerName: "Details",
+      width: "200",
     },
   ];
 
