@@ -2,7 +2,7 @@ import { id } from "date-fns/locale";
 import dayjs from "dayjs";
 import { get } from "lodash";
 
-export const projectName="Product Ticket"
+export const projectName = "Product Ticket";
 
 export const CurrencyCode = [
   {
@@ -49,11 +49,11 @@ export const status = [
 export const userType = [
   {
     label: "Admin",
-    value: 1,
+    value: "admin",
   },
   {
     label: "User/Employe",
-    value: 2,
+    value: "user",
   },
 ];
 

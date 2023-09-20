@@ -4,7 +4,7 @@ import { DataTable } from "@/components/dataTable";
 import Iconify from "@/components/iconify/Iconify";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import { Button, Container, Tooltip } from "@mui/material";
-import React from "react";
+import React, { useMemo } from "react";
 import NextLink from "next/link";
 import { ContainerComponent } from "@/components/container";
 import { GridActionsCellItem } from "@mui/x-data-grid";
@@ -105,9 +105,12 @@ const UserList = () => {
           checkboxSelection={true}
           isRowSelectable={(params) => params?.row?.id !== 1}
           disableRowSelectionOnClick={true}
-          params={{
-            user_type: "admin",
-          }}
+          params={useMemo(
+            () => ({
+              admin_client: "admin_client",
+            }),
+            []
+          )}
         />
       </ContainerComponent>
     </>
