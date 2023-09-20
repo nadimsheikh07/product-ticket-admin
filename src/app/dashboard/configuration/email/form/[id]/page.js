@@ -22,30 +22,21 @@ const CompanyEmployeesPageForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      phone: "",
       name: "",
       email: "",
-      address: "",
+      hours: "",
     },
     validate: (values) => {
       const errors = {};
       if (!values.name) {
         errors.name = "Name is required";
       }
+      if (!values.hours) {
+        errors.hours = "Hourse is required";
+      }
+
       if (!values.email) {
         errors.email = "Email is required";
-      } else if (
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-      ) {
-        errors.email = "Invalid email address";
-      }
-      const phoneRegex = /^\d+$/i;
-      if (!values.phone) {
-        errors.phone = "Phone is required";
-      } else if (!phoneRegex.test(values.phone)) {
-        errors.phone = "Invalid phone number";
-      } else if (values.phone.length < 10 || values.phone.length > 10) {
-        errors.phone = "Phone number must be 10 digit";
       }
 
       return errors;
