@@ -12,11 +12,12 @@ const TicketsFormSection = ({ formik, id }) => {
 
   const getClient = async (search = null) => {
     await axiosInstance
-      .get("admin/user/clients", {
+      .get("admin/user/users", {
         params: {
           page: 1,
           pageSize: 10,
           search: search,
+          user_type: "client",
           client_id: formik.values.client_id,
         },
       })

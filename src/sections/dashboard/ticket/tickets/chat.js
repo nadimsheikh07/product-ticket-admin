@@ -1,3 +1,4 @@
+import { useAuthContext } from "@/auth/useAuthContext";
 import { TextBox } from "@/components/form";
 import Iconify from "@/components/iconify";
 import { Box, Card, CardContent } from "@mui/material";
@@ -5,6 +6,8 @@ import React from "react";
 import { MessageBox } from "react-chat-elements";
 
 const ChatSection = ({ formik, id, ticketChat }) => {
+  const { user } = useAuthContext();
+  console.log("user", user);
   return (
     <Box>
       <Card>
@@ -15,7 +18,11 @@ const ChatSection = ({ formik, id, ticketChat }) => {
               return (
                 <MessageBox
                   key={`TicketChatAdmin-${index}`}
-                  position={item?.is_reply ? "right" : "left"}
+                  position={
+                    Number(user?.id) === Number(item?.user_id)
+                      ? "right"
+                      : "left"
+                  }
                   type={"text"}
                   title={item?.user?.name}
                   text={item?.message}
