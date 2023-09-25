@@ -10,12 +10,12 @@ import React from "react";
 const EmailFormSection = ({ formik, id }) => {
   return (
     <Grid container spacing={2}>
-      <Grid item lg={4} md={4} sm={12} xs={12}>
+      <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
           isMaxLenght={50}
           label="First Email"
-          name="name"
+          name="email"
           value={formik?.values?.name}
           onChange={(e) => {
             formik.setFieldValue("name", e.target.value.trimStart());
@@ -25,12 +25,12 @@ const EmailFormSection = ({ formik, id }) => {
           // required
         />
       </Grid>
-      <Grid item lg={4} md={4} sm={12} xs={12}>
+      <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
           label="Hours"
           name="hours"
-          isMaxLenght={10}
+          isMaxLenght={5}
           value={formik?.values?.hours}
           onChange={(e) => {
             if (e) {
@@ -42,12 +42,12 @@ const EmailFormSection = ({ formik, id }) => {
           // required
         />
       </Grid>
-      <Grid item lg={4} md={4} sm={12} xs={12}>
+      {/* <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
           label="Short By"
           name="short"
-          isMaxLenght={10}
+          isMaxLenght={5}
           value={formik?.values?.short}
           onChange={(e) => {
             if (e) {
@@ -58,8 +58,8 @@ const EmailFormSection = ({ formik, id }) => {
           helperText={formik.touched.short && formik.errors.short}
           // required
         />
-      </Grid>
-      <Grid item lg={4} md={4} sm={12} xs={12}>
+      </Grid> */}
+      <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
           isMaxLenght={50}
@@ -71,12 +71,12 @@ const EmailFormSection = ({ formik, id }) => {
           helperText={formik.touched.email_1 && formik.errors.email_1}
         />
       </Grid>
-      <Grid item lg={4} md={4} sm={12} xs={12}>
+      <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
           label="Hours"
           name="hours_1"
-          isMaxLenght={10}
+          isMaxLenght={5}
           value={formik?.values?.hours_1}
           onChange={(e) => {
             if (e) {
@@ -88,12 +88,12 @@ const EmailFormSection = ({ formik, id }) => {
           // required
         />
       </Grid>
-      <Grid item lg={4} md={4} sm={12} xs={12}>
+      {/* <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
           label="Short By"
           name="short_1"
-          isMaxLenght={10}
+          isMaxLenght={5}
           value={formik?.values?.short_1}
           onChange={(e) => {
             if (e) {
@@ -104,8 +104,8 @@ const EmailFormSection = ({ formik, id }) => {
           helperText={formik.touched.short_1 && formik.errors.short_1}
           // required
         />
-      </Grid>
-      <Grid item lg={4} md={4} sm={12} xs={12}>
+      </Grid> */}
+      <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
           isMaxLenght={50}
@@ -118,12 +118,12 @@ const EmailFormSection = ({ formik, id }) => {
           // required
         />
       </Grid>
-      <Grid item lg={4} md={4} sm={12} xs={12}>
+      <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
           label="Hours"
           name="hours_2"
-          isMaxLenght={10}
+          isMaxLenght={5}
           value={formik?.values?.hours_2}
           onChange={(e) => {
             if (e) {
@@ -135,12 +135,12 @@ const EmailFormSection = ({ formik, id }) => {
           // required
         />
       </Grid>
-      <Grid item lg={4} md={4} sm={12} xs={12}>
+      {/* <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
           label="Short By"
           name="short_2"
-          isMaxLenght={10}
+          isMaxLenght={5}
           value={formik?.values?.short_2}
           onChange={(e) => {
             if (e) {
@@ -151,8 +151,8 @@ const EmailFormSection = ({ formik, id }) => {
           helperText={formik.touched.short_2 && formik.errors.short_2}
           // required
         />
-      </Grid>
-      <Grid item lg={4} md={4} sm={12} xs={12}>
+      </Grid> */}
+      <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
           isMaxLenght={50}
@@ -165,12 +165,12 @@ const EmailFormSection = ({ formik, id }) => {
           // required
         />
       </Grid>
-      <Grid item lg={4} md={4} sm={12} xs={12}>
+      <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
           label="Hours"
           name="hours_3"
-          isMaxLenght={10}
+          isMaxLenght={5}
           value={formik?.values?.hours_3}
           onChange={(e) => {
             if (e) {
@@ -182,12 +182,12 @@ const EmailFormSection = ({ formik, id }) => {
           // required
         />
       </Grid>
-      <Grid item lg={4} md={4} sm={12} xs={12}>
+      {/* <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
           label="Short By"
           name="short_3"
-          isMaxLenght={10}
+          isMaxLenght={5}
           value={formik?.values?.short_3}
           onChange={(e) => {
             if (e) {
@@ -198,8 +198,8 @@ const EmailFormSection = ({ formik, id }) => {
           helperText={formik.touched.short_3 && formik.errors.short_3}
           // required
         />
-      </Grid>
-      <Grid item lg={4} md={4} sm={12} xs={12}>
+      </Grid> */}
+      <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
           isMaxLenght={50}
@@ -212,12 +212,12 @@ const EmailFormSection = ({ formik, id }) => {
           // required
         />
       </Grid>
-      <Grid item lg={4} md={4} sm={12} xs={12}>
+      <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
           label="Hours"
           name="hours_4"
-          isMaxLenght={10}
+          isMaxLenght={5}
           value={formik?.values?.hours_4}
           onChange={(e) => {
             if (e) {
@@ -229,12 +229,12 @@ const EmailFormSection = ({ formik, id }) => {
           // required
         />
       </Grid>
-      <Grid item lg={4} md={4} sm={12} xs={12}>
+      {/* <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
           label="Short By"
           name="short_4"
-          isMaxLenght={10}
+          isMaxLenght={5}
           value={formik?.values?.short_4}
           onChange={(e) => {
             if (e) {
@@ -245,7 +245,7 @@ const EmailFormSection = ({ formik, id }) => {
           helperText={formik.touched.short_4 && formik.errors.short_4}
           // required
         />
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };

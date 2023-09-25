@@ -32,7 +32,7 @@ const DashboardSection = () => {
 
   const getClients = async (params) => {
     await axiosInstance
-      .get("admin/user/clients", {
+      .get("admin/user/users", {
         params: params,
       })
       .then((response) => {

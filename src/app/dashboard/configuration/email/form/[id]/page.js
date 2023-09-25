@@ -22,22 +22,51 @@ const CompanyEmployeesPageForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      // name: "",
-      // email: "",
-      // hours: "",
+      name:"",
+      email: "",
+      email_1: "",
+      email_2: "",
+      email_3: "",
+      email_4: "",
+      hours: "",
     },
     validate: (values) => {
       const errors = {};
-      // if (!values.name) {
-      //   errors.name = "Name is required";
-      // }
-      // if (!values.hours) {
-      //   errors.hours = "Hourse is required";
-      // }
-
-      // if (!values.email) {
-      //   errors.email = "Email is required";
-      // }
+      if (!values.name) {
+      } else if (
+        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.name)
+      )
+       {
+        errors.name = "Invalid email address";
+      }
+      if (!values.email_1) {
+      } else if (
+        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email_1)
+      )
+       {
+        errors.email_1 = "Invalid email address";
+      }
+      if (!values.email_2) {
+      } else if (
+        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email_2)
+      )
+       {
+        errors.email_2 = "Invalid email address";
+      }
+      if (!values.email_3) {
+      } else if (
+        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email_3)
+      )
+       {
+        errors.email_3 = "Invalid email address";
+      }
+      if (!values.email_4) {
+      } else if (
+        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email_4)
+      )
+       {
+        errors.email_4 = "Invalid email address";
+      }
 
       return errors;
     },
@@ -114,10 +143,10 @@ const CompanyEmployeesPageForm = () => {
             name: "Dashboard",
             href: PATH_DASHBOARD.app,
           },
-          // {
-          //   name: title,
-          //   href: backUrl,
-          // },
+          {
+            name: title,
+            href: backUrl,
+          },
           { name: `${title} Form` },
         ]}
       />
