@@ -80,14 +80,14 @@ const ProductsFormSection = ({ formik, generateCode }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
-          label="Model"
+          label="Serial No."
           isMaxLenght={10}
           name="model"
           value={formik?.values?.model}
           onChange={formik.handleChange}
           error={formik.touched.model && formik.errors.model}
           helperText={formik.touched.model && formik.errors.model}
-          required
+          
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -102,7 +102,6 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           helperText={
             formik.touched.invoice_number && formik.errors.invoice_number
           }
-          required
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>

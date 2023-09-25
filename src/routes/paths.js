@@ -67,6 +67,6 @@ export const PATH_DASHBOARD = {
   },
   configuration: {
     root: path(ROOTS_DASHBOARD, "/configuration"),
-    email: path(ROOTS_DASHBOARD, "/configuration/email"),
+    email: path(ROOTS_DASHBOARD, "/configuration/email/form/new"),
   },
 };

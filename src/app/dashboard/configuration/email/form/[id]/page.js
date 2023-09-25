@@ -22,22 +22,22 @@ const CompanyEmployeesPageForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      email: "",
-      hours: "",
+      // name: "",
+      // email: "",
+      // hours: "",
     },
     validate: (values) => {
       const errors = {};
-      if (!values.name) {
-        errors.name = "Name is required";
-      }
-      if (!values.hours) {
-        errors.hours = "Hourse is required";
-      }
+      // if (!values.name) {
+      //   errors.name = "Name is required";
+      // }
+      // if (!values.hours) {
+      //   errors.hours = "Hourse is required";
+      // }
 
-      if (!values.email) {
-        errors.email = "Email is required";
-      }
+      // if (!values.email) {
+      //   errors.email = "Email is required";
+      // }
 
       return errors;
     },
@@ -114,10 +114,10 @@ const CompanyEmployeesPageForm = () => {
             name: "Dashboard",
             href: PATH_DASHBOARD.app,
           },
-          {
-            name: title,
-            href: backUrl,
-          },
+          // {
+          //   name: title,
+          //   href: backUrl,
+          // },
           { name: `${title} Form` },
         ]}
       />

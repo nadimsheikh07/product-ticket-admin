@@ -25,23 +25,11 @@ const ClientFormSection = ({ formik, id }) => {
           required
         />
       </Grid>
-      <Grid item lg={6} md={6} sm={12} xs={12}>
-        <TextBox
-          fullWidth
-          isMaxLenght={50}
-          label="Email"
-          name="email"
-          value={formik?.values?.email}
-          onChange={formik.handleChange}
-          error={formik.touched.email && formik.errors.email}
-          helperText={formik.touched.email && formik.errors.email}
-          required
-        />
-      </Grid>
+    
       <Grid
         item
-        lg={id === "new" ? 6 : 12}
-        md={id === "new" ? 6 : 12}
+        lg={id === "new" ? 6 : 6}
+        md={id === "new" ? 6 : 6}
         sm={12}
         xs={12}
       >
@@ -58,6 +46,19 @@ const ClientFormSection = ({ formik, id }) => {
           }}
           error={formik.touched.phone && formik.errors.phone}
           helperText={formik.touched.phone && formik.errors.phone}
+          required
+        />
+      </Grid>
+      <Grid item lg={6} md={6} sm={12} xs={12}>
+        <TextBox
+          fullWidth
+          isMaxLenght={50}
+          label="Email"
+          name="email"
+          value={formik?.values?.email}
+          onChange={formik.handleChange}
+          error={formik.touched.email && formik.errors.email}
+          helperText={formik.touched.email && formik.errors.email}
           required
         />
       </Grid>
@@ -87,7 +88,6 @@ const ClientFormSection = ({ formik, id }) => {
           onChange={formik.handleChange}
           error={formik.touched.address && formik.errors.address}
           helperText={formik.touched.address && formik.errors.address}
-          required
         />
       </Grid>
     </Grid>
