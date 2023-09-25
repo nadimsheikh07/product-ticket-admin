@@ -88,7 +88,7 @@ const DashboardSection = () => {
   return (
     <Box>
       <Grid container spacing={2}>
-        <Grid item md={4} sm={6} xs={12}>
+        <Grid item md={3} sm={6} xs={12}>
           <AppWidget
             title="Total Users"
             total={user?.length || 0}
@@ -98,7 +98,7 @@ const DashboardSection = () => {
             // }}
           />
         </Grid>
-        <Grid item md={4} sm={6} xs={12}>
+        <Grid item md={3} sm={6} xs={12}>
           <AppWidget
             title="Total Clients"
             total={client?.length || 0}
@@ -109,7 +109,7 @@ const DashboardSection = () => {
             // }}
           />
         </Grid>
-        <Grid item md={4} sm={6} xs={12}>
+        <Grid item md={3} sm={6} xs={12}>
           <AppWidget
             title="Total Products"
             total={product?.length || 0}
@@ -120,7 +120,7 @@ const DashboardSection = () => {
             // }}
           />
         </Grid>
-        <Grid item md={4} sm={6} xs={12}>
+        <Grid item md={3} sm={6} xs={12}>
           <AppWidget
             title="Total Tickets"
             total={ticket?.length || 0}
