@@ -39,6 +39,8 @@ const CompanyEmployeesList = () => {
       field: "name",
       headerName: "Employee Name",
       width: "200",
+      isfilter: false,
+      disableColumnFilter: true,
     },
     {
       field: "email",

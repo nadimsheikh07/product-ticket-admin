@@ -7,6 +7,7 @@ import { ProductsFormSection } from "@/sections/dashboard/product/products";
 import axiosInstance from "@/utils/axios";
 import { LoadingButton } from "@mui/lab";
 import { Container, Stack } from "@mui/material";
+import dayjs from "dayjs";
 import { useFormik } from "formik";
 import { useParams, useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
@@ -44,27 +45,28 @@ const ProductsPageForm = () => {
       if (!values.code) {
         errors.code = "Code is required";
       }
-      if (!values.warranty_start) {
-        errors.warranty_start = "Warranty start date is required";
-      }
 
-      if (
-        values.warranty_start &&
-        values.warranty_end &&
-        values.warranty_start > values.warranty_end
-      ) {
-        errors.warranty_end =
-          "Warranty end date must be greater than warranty start date";
-      }
-      if (!values.warranty_end) {
-        errors.warranty_end = "Warranty end date is required";
-      }
-      if (!values.invoice_number) {
-        errors.invoice_number = "Invoice Number is required";
-      }
-      if (!values.invoice_date) {
-        errors.invoice_date = "Invoice Date is required";
-      }
+      // if (
+      //   dayjs(values.warranty_start).isValid() &&
+      //   dayjs(values.warranty_end).isValid() &&
+      //   values.warranty_start > values.warranty_end
+      // ) {
+      //   errors.warranty_end =
+      //     "Warranty end date must be greater than warranty start date";
+      // }
+      // if (!dayjs(values.warranty_start).isValid()) {
+      //   errors.warranty_start = "Warranty start date is required";
+      // }
+
+      // if (!dayjs(values.warranty_end).isValid()) {
+      //   errors.warranty_end = "Warranty end date is required";
+      // }
+      // if (!values.invoice_number) {
+      //   errors.invoice_number = "Invoice Number is required";
+      // }
+      // if (!values.invoice_date) {
+      //   errors.invoice_date = "Invoice Date is required";
+      // }
       if (!values.model) {
         errors.model = "Model is required";
       }
@@ -111,6 +113,8 @@ const ProductsPageForm = () => {
         });
     },
   });
+
+  console.log("formikformik", formik);
   const generateCode = async () => {
     await axiosInstance
       .get(`/admin/catalog/generate-auto-code`, formik.values)

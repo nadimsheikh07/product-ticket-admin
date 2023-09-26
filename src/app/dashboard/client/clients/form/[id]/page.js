@@ -10,7 +10,6 @@ import { Container, Stack } from "@mui/material";
 import { useFormik } from "formik";
 import { useParams, useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
-
 import React from "react";
 
 const CompanyEmployeesPageForm = () => {
@@ -100,7 +99,8 @@ const CompanyEmployeesPageForm = () => {
             // eslint-disable-next-line no-unused-vars
             for (const [key, value] of Object.entries(values)) {
               if (response.data.errors[key]) {
-                setErrors({ [key]: response.data.errors[key][0] });
+                formik.setFieldError(key, response.data.errors[key][0]);
+                // setErrors({ [key]: response.data.errors[key][0] });
               }
             }
           }

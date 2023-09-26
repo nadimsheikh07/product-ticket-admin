@@ -49,13 +49,14 @@ const ProductsFormSection = ({ formik, generateCode }) => {
             helperText={formik.touched.code && formik.errors.code}
             required
           />
-          <Box>
+          <Box sx={{ height: "max-content" }}>
             <Button
               disabled={id !== "new"}
               variant="outlined"
               color="primary"
               onClick={() => generateCode()}
               sx={{ width: "max-content" }}
+              fullWidth
             >
               Generate code
             </Button>
@@ -80,7 +81,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
-          label="Model"
+          label="Serial No."
           isMaxLenght={10}
           name="model"
           value={formik?.values?.model}
