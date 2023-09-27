@@ -7,14 +7,14 @@ import { useSettingsContext } from "@/components/settings";
 
 const DashboardSection = () => {
   const [user, setUser] = useState([]);
-  const [client, setClient] = useState([]);
-  const [product, setProduct] = useState([]);
-  const [ticket, setTicket] = useState([]);
-  const { themeLayout } = useSettingsContext();
+  // const [client, setClient] = useState([]);
+  // const [product, setProduct] = useState([]);
+  // const [ticket, setTicket] = useState([]);
+  // const { themeLayout } = useSettingsContext();
 
   const getUsers = async (params) => {
     await axiosInstance
-      .get("/admin/user/users", {
+      .get("/api/total_count", {
         params: params,
       })
       .then((response) => {
@@ -30,60 +30,6 @@ const DashboardSection = () => {
     getUsers();
   }, []);
 
-  const getClients = async (params) => {
-    await axiosInstance
-      .get("admin/user/users", {
-        params: params,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          setClient(response.data);
-        }
-      })
-      .catch((error) => {
-        console.log("UserError", error);
-      });
-  };
-  React.useEffect(() => {
-    getClients();
-  }, []); 
-  
-  const getProducts = async (params) => {
-    await axiosInstance
-      .get("admin/catalog/products", {
-        params: params,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          setProduct(response.data);
-        }
-      })
-      .catch((error) => {
-        console.log("UserError", error);
-      });
-  };
-  React.useEffect(() => {
-    getProducts();
-  }, []);
-  
-  const getTickets = async (params) => {
-    await axiosInstance
-      .get("admin/catalog/tickets", {
-        params: params,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          setTicket(response.data);
-        }
-      })
-      .catch((error) => {
-        console.log("UserError", error);
-      });
-  };
-  React.useEffect(() => {
-    getTickets();
-  }, []);
-
   const theme = useTheme();
   return (
     <Box>
@@ -91,7 +37,7 @@ const DashboardSection = () => {
         <Grid item md={3} sm={6} xs={12}>
           <AppWidget
             title="Total Users"
-            total={user?.length || 0}
+            total={user?.totalUsers}
             icon="eva:person-fill"
             // chart={{
             //   series: 48,
@@ -101,7 +47,7 @@ const DashboardSection = () => {
         <Grid item md={3} sm={6} xs={12}>
           <AppWidget
             title="Total Clients"
-            total={client?.length || 0}
+            total={user?.totalClients}
             icon="octicon:person-16"
             color="info"
             // chart={{
@@ -112,7 +58,7 @@ const DashboardSection = () => {
         <Grid item md={3} sm={6} xs={12}>
           <AppWidget
             title="Total Products"
-            total={product?.length || 0}
+            total={user?.totalProducts}
             icon="icon-park-outline:ad-product"
             color="success"
             // chart={{
@@ -123,7 +69,7 @@ const DashboardSection = () => {
         <Grid item md={3} sm={6} xs={12}>
           <AppWidget
             title="Total Tickets"
-            total={ticket?.length || 0}
+            total={user?.totalTickets}
             icon="mdi:ticket"
             color="warning"
             // chart={{
