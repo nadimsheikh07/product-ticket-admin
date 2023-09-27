@@ -21,22 +21,21 @@ const EmailPageForm = () => {
   const defaultValues = {
     email: "",
     hours: "",
-    sort_by: "",
+    // sort_by: "",
   };
 
   const formik = useFormik({
     initialValues: {
-      settings: [
-        defaultValues,
-        defaultValues,
-        defaultValues,
-        defaultValues,
-        defaultValues,
-      ],
+      settings: [defaultValues, defaultValues, defaultValues, defaultValues],
     },
     validate: (values) => {
       const errors = {};
-
+      if (!values.mail) {
+        errors.mail = "Email is required";
+      }
+      if (!values.hours) {
+        errors.hours = "Hours is required";
+      }
       return errors;
     },
     onSubmit: async (values) => {
@@ -51,7 +50,7 @@ const EmailPageForm = () => {
         })
         .then((response) => {
           if (response.status === 200) {
-            router.back();
+            // router.back();
             enqueueSnackbar(response.data.message, {
               variant: "success",
             });
@@ -77,7 +76,7 @@ const EmailPageForm = () => {
     },
   });
 
-  const bindData = async () => {
+  const bindData = async (id) => {
     await axiosInstance
       .get(`${actionUrl}`)
       .then((response) => {
@@ -92,9 +91,9 @@ const EmailPageForm = () => {
       });
   };
 
-  React.useEffect(() => {
-    bindData();
-  }, []);
+  // React.useEffect(() => {
+  //   bindData();
+  // }, []);
 
   return (
     <ContainerComponent>

@@ -1,9 +1,4 @@
-import {
-  DragDrop,
-  MuiAutocompleteBox,
-  PasswordBox,
-  TextBox,
-} from "@/components/form";
+import { TextBox } from "@/components/form";
 import { Grid } from "@mui/material";
 import React from "react";
 
@@ -27,8 +22,8 @@ const EmailFormSection = ({ formik }) => {
                       e.target.value.trimStart()
                     );
                   }}
-                  // error={formik.touched.name && formik.errors.name}
-                  // helperText={formik.touched.name && formik.errors.name}
+                  error={formik.touched.name && formik.errors.name}
+                  helperText={formik.touched.name && formik.errors.name}
                 />
               </Grid>
               <Grid item lg={4} md={4} sm={12} xs={12}>
@@ -46,12 +41,13 @@ const EmailFormSection = ({ formik }) => {
                       );
                     }
                   }}
-                  // error={formik.touched.hours && formik.errors.hours}
-                  // helperText={formik.touched.hours && formik.errors.hours}
+                  error={formik.touched.hours && formik.errors.hours}
+                  helperText={formik.touched.hours && formik.errors.hours}
                 />
               </Grid>
               <Grid item lg={4} md={4} sm={12} xs={12}>
                 <TextBox
+                  disabled
                   fullWidth
                   isMaxLenght={50}
                   label="Sort By"
@@ -63,8 +59,8 @@ const EmailFormSection = ({ formik }) => {
                       e.target.value.trimStart()
                     );
                   }}
-                  // error={formik.touched.email_1 && formik.errors.email_1}
-                  // helperText={formik.touched.email_1 && formik.errors.email_1}
+                  error={formik.touched.email_1 && formik.errors.email_1}
+                  helperText={formik.touched.email_1 && formik.errors.email_1}
                 />
               </Grid>
             </React.Fragment>
