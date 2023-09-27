@@ -48,6 +48,10 @@ const DataGridTable = (props) => {
       }}
       // INITIAL STATE END
 
+      // DISABLED COLUMN FILTER START
+      disableColumnFilter={true}
+      // DISABLED COLUMN FILTER END
+
       // ROW SELECTABLE START
       disableRowSelectionOnClick={disableRowSelectionOnClick}
       isRowSelectable={isRowSelectable}

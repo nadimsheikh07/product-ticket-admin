@@ -49,13 +49,14 @@ const ProductsFormSection = ({ formik, generateCode }) => {
             helperText={formik.touched.code && formik.errors.code}
             required
           />
-          <Box>
+          <Box sx={{ height: "max-content" }}>
             <Button
               disabled={id !== "new"}
               variant="outlined"
               color="primary"
               onClick={() => generateCode()}
               sx={{ width: "max-content" }}
+              fullWidth
             >
               Generate code
             </Button>

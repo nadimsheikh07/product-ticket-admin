@@ -7,76 +7,41 @@ import axiosInstance from "@/utils/axios";
 import { LoadingButton } from "@mui/lab";
 import { Stack } from "@mui/material";
 import { useFormik } from "formik";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
 
 import React from "react";
 
-const CompanyEmployeesPageForm = () => {
+const EmailPageForm = () => {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
-  const { id } = useParams();
   const title = "Email";
-  const backUrl = `${PATH_DASHBOARD.configuration.email}`;
-  const actionUrl = "admin/user/clients";
+  const actionUrl = "admin/catalog/email_settings";
+
+  const defaultValues = {
+    email: "",
+    hours: "",
+    sort_by: "",
+  };
 
   const formik = useFormik({
     initialValues: {
-      name:"",
-      email: "",
-      email_1: "",
-      email_2: "",
-      email_3: "",
-      email_4: "",
-      hours: "",
+      settings: [
+        defaultValues,
+        defaultValues,
+        defaultValues,
+        defaultValues,
+        defaultValues,
+      ],
     },
     validate: (values) => {
       const errors = {};
-      if (!values.name) {
-      } else if (
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.name)
-      )
-       {
-        errors.name = "Invalid email address";
-      }
-      if (!values.email_1) {
-      } else if (
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email_1)
-      )
-       {
-        errors.email_1 = "Invalid email address";
-      }
-      if (!values.email_2) {
-      } else if (
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email_2)
-      )
-       {
-        errors.email_2 = "Invalid email address";
-      }
-      if (!values.email_3) {
-      } else if (
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email_3)
-      )
-       {
-        errors.email_3 = "Invalid email address";
-      }
-      if (!values.email_4) {
-      } else if (
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email_4)
-      )
-       {
-        errors.email_4 = "Invalid email address";
-      }
 
       return errors;
     },
     onSubmit: async (values) => {
       let method = "POST";
       let url = actionUrl;
-      if (id != "new") {
-        method = "PUT";
-        url = `${actionUrl}/${id}`;
-      }
 
       await axiosInstance
         .request({
@@ -112,32 +77,29 @@ const CompanyEmployeesPageForm = () => {
     },
   });
 
-  const bindData = async (id) => {
-    await axiosInstance.get(`${actionUrl}/${id}`).then((response) => {
-      if (response.status === 200) {
-        const { data } = response;
-        // bind form data from server
-        for (const [key] of Object.entries(formik.values)) {
-          if (data[key]) {
-            formik.setFieldValue([key], data[key]);
-          } else {
-            formik.setFieldError(key, "");
-          }
+  const bindData = async () => {
+    await axiosInstance
+      .get(`${actionUrl}`)
+      .then((response) => {
+        if (response.status === 200) {
+          const { data } = response;
+          // bind form data from server
+          formik.setFieldValue("settings", data);
         }
-      }
-    });
+      })
+      .catch((error) => {
+        console.log("Email Setting", error);
+      });
   };
 
   React.useEffect(() => {
-    if (id && id !== "new") {
-      bindData(id);
-    }
-  }, [id]);
+    bindData();
+  }, []);
 
   return (
     <ContainerComponent>
       <CustomBreadcrumbs
-        heading={`${title} Form`}
+        heading={`${title} Configuration`}
         links={[
           {
             name: "Dashboard",
@@ -145,20 +107,20 @@ const CompanyEmployeesPageForm = () => {
           },
           {
             name: title,
-            href: backUrl,
+            // href: backUrl,
           },
           { name: `${title} Form` },
         ]}
       />
       <form noValidate onSubmit={formik.handleSubmit}>
-        <EmailFormSection formik={formik} id={id} />
+        <EmailFormSection formik={formik} />
         <Stack alignItems="flex-end" sx={{ mt: 3 }}>
           <LoadingButton
             type="submit"
             variant="contained"
             loading={formik?.isSubmitting}
           >
-            {id === "new" ? "Create client" : "Update client"}
+            Submit
           </LoadingButton>
         </Stack>
       </form>
@@ -166,4 +128,4 @@ const CompanyEmployeesPageForm = () => {
   );
 };
 
-export default CompanyEmployeesPageForm;
+export default EmailPageForm;

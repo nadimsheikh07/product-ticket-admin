@@ -7,6 +7,7 @@ import { ProductsFormSection } from "@/sections/dashboard/product/products";
 import axiosInstance from "@/utils/axios";
 import { LoadingButton } from "@mui/lab";
 import { Container, Stack } from "@mui/material";
+import dayjs from "dayjs";
 import { useFormik } from "formik";
 import { useParams, useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
@@ -111,6 +112,8 @@ const ProductsPageForm = () => {
         });
     },
   });
+
+  console.log("formikformik", formik);
   const generateCode = async () => {
     await axiosInstance
       .get(`/admin/catalog/generate-auto-code`, formik.values)
