@@ -1,116 +1,130 @@
 "use client";
-import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
-import { DataTable } from "@/components/dataTable";
-import Iconify from "@/components/iconify/Iconify";
-import { PATH_DASHBOARD } from "@/routes/paths";
-import { Button, Container, Tooltip } from "@mui/material";
-import React from "react";
-import NextLink from "next/link";
 import { ContainerComponent } from "@/components/container";
-import { GridActionsCellItem } from "@mui/x-data-grid";
+import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
+import { PATH_DASHBOARD } from "@/routes/paths";
+import { EmailFormSection } from "@/sections/dashboard/configuration/email";
+import axiosInstance from "@/utils/axios";
+import { LoadingButton } from "@mui/lab";
+import { Stack } from "@mui/material";
+import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
-// import Head from "next/document";
+import { useSnackbar } from "notistack";
 
-const CompanyEmployeesList = () => {
-  const { push } = useRouter();
+import React from "react";
+
+const EmailPageForm = () => {
+  const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
   const title = "Email";
-  const formUrl = `${PATH_DASHBOARD.configuration.email}/form`;
-  const actionUrl = "admin/ticket_chat/ticket_chats";
-  const columns = [
-    {
-      field: "actions",
-      type: "actions",
-      headerName: "Actions",
-      width: "200",
-      getActions: (params) => [
-        <GridActionsCellItem
-          key="viewAction"
-          icon={
-            <Tooltip title="Edit">
-              <Iconify icon="circum:edit" width={25} />
-            </Tooltip>
+  const actionUrl = "admin/catalog/email_settings";
+
+  const defaultValues = {
+    email: "",
+    hours: "",
+    // sort_by: "",
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      settings: [defaultValues, defaultValues, defaultValues, defaultValues],
+    },
+    validate: (values) => {
+      const errors = {};
+      if (!values.mail) {
+        errors.mail = "Email is required";
+      }
+      if (!values.hours) {
+        errors.hours = "Hours is required";
+      }
+      return errors;
+    },
+    onSubmit: async (values) => {
+      let method = "POST";
+      let url = actionUrl;
+
+      await axiosInstance
+        .request({
+          method: method,
+          url: url,
+          data: values,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            // router.back();
+            enqueueSnackbar(response.data.message, {
+              variant: "success",
+            });
           }
-          label="Edit"
-          onClick={() => push(`${formUrl}/${params.id}`)}
-        />,
-      ],
+        })
+        .catch((error) => {
+          const { response } = error;
+          // show error message
+          enqueueSnackbar(response?.data?.message, {
+            variant: "error",
+          });
+
+          // set server error
+          if (response.status === 422) {
+            // eslint-disable-next-line no-unused-vars
+            for (const [key, value] of Object.entries(values)) {
+              if (response.data.errors[key]) {
+                setErrors({ [key]: response.data.errors[key][0] });
+              }
+            }
+          }
+        });
     },
-    {
-      field: "name",
-      headerName: "Employee Name",
-      width: "200",
-    },
-    {
-      field: "email",
-      headerName: "Email",
-      width: "200",
-    },
-    {
-      field: "phone",
-      headerName: "Phone",
-      width: "200",
-    },
-    {
-      field: "address",
-      headerName: "Address",
-      width: "200",
-    },
-    // {
-    //   field: "phone",
-    //   headerName: "Phone",
-    //   width: "200",
-    // },
-  ];
+  });
+
+  const bindData = async (id) => {
+    await axiosInstance
+      .get(`${actionUrl}`)
+      .then((response) => {
+        if (response.status === 200) {
+          const { data } = response;
+          // bind form data from server
+          formik.setFieldValue("settings", data);
+        }
+      })
+      .catch((error) => {
+        console.log("Email Setting", error);
+      });
+  };
+
+  // React.useEffect(() => {
+  //   bindData();
+  // }, []);
 
   return (
-    <>
-      {/* <Head>
-      <title>
-        login
-      </title>
-    </Head> */}
-      <ContainerComponent>
-        <CustomBreadcrumbs
-          heading={`${title} List`}
-          links={[
-            {
-              name: "Dashboard",
-              href: PATH_DASHBOARD.app,
-            },
-            {
-              name: title,
-              // href: "#",
-            },
-            {
-              name: "List",
-            },
-          ]}
-          action={
-            <Button
-              component={NextLink}
-              href={`${formUrl}/new`}
-              variant="contained"
-              startIcon={<Iconify icon="eva:plus-fill" />}
-            >
-              New Email
-            </Button>
-          }
-        />
-
-        <DataTable
-          title={title}
-          actionUrl={actionUrl}
-          defaultSortModel={[{ field: "updated_at", sort: "desc" }]}
-          defaultFilterModel={{
-            items: [],
-          }}
-          columns={columns}
-          checkboxSelection={true}
-          disableRowSelectionOnClick={true}
-        />
-      </ContainerComponent>
-    </>
+    <ContainerComponent>
+      <CustomBreadcrumbs
+        heading={`${title} Configuration`}
+        links={[
+          {
+            name: "Dashboard",
+            href: PATH_DASHBOARD.app,
+          },
+          {
+            name: title,
+            // href: backUrl,
+          },
+          { name: `${title} Form` },
+        ]}
+      />
+      <form noValidate onSubmit={formik.handleSubmit}>
+        <EmailFormSection formik={formik} />
+        <Stack alignItems="flex-end" sx={{ mt: 3 }}>
+          <LoadingButton
+            type="submit"
+            variant="contained"
+            loading={formik?.isSubmitting}
+          >
+            Submit
+          </LoadingButton>
+        </Stack>
+      </form>
+    </ContainerComponent>
   );
 };
 
-export default CompanyEmployeesList;
+export default EmailPageForm;
