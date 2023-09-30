@@ -67,7 +67,7 @@ const ProductsList = () => {
     },
     {
       field: "model",
-      headerName: "Models",
+      headerName: "Serial No.",
       width: "200",
     },
     {
