@@ -1,4 +1,5 @@
 "use client";
+import { useAuthContext } from "@/auth/useAuthContext";
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { PATH_DASHBOARD } from "@/routes/paths";
@@ -14,6 +15,7 @@ import React from "react";
 
 const EmailPageForm = () => {
   const router = useRouter();
+  const { user } = useAuthContext();
   const { enqueueSnackbar } = useSnackbar();
   const title = "Email";
   const actionUrl = "admin/catalog/email_settings";
@@ -78,7 +80,11 @@ const EmailPageForm = () => {
 
   const bindData = async (id) => {
     await axiosInstance
-      .get(`${actionUrl}`)
+      .get(`${actionUrl}`, {
+        params: {
+          user_id: user?.id,
+        },
+      })
       .then((response) => {
         if (response.status === 200) {
           const { data } = response;
