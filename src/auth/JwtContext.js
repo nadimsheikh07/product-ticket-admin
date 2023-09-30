@@ -79,7 +79,7 @@ export function AuthProvider({ children }) {
   const initialize = useCallback(async () => {
     try {
       const accessToken = storageAvailable
-        ? localStorage.getItem("accessToken")
+        ? localStorage.getItem("accessProductAdminToken")
         : "";
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
@@ -152,7 +152,7 @@ export function AuthProvider({ children }) {
     });
     const { accessToken, user } = response.data;
 
-    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("accessProductAdminToken", accessToken);
 
     dispatch({
       type: "REGISTER",

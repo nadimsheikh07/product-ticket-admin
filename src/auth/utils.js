@@ -22,7 +22,7 @@ import axios from "@/utils/axios";
 // ----------------------------------------------------------------------
 
 export const isValidToken = (accessToken) => {
-  console.log("accessToken", accessToken);
+  console.log("accessProductAdminToken", accessToken);
   if (!accessToken) {
     return false;
   } else {
@@ -52,7 +52,7 @@ export const isValidToken = (accessToken) => {
 //   expiredTimer = setTimeout(() => {
 //     alert("Token expired");
 
-//     localStorage.removeItem("accessToken");
+//     localStorage.removeItem("accessProductAdminToken");
 
 //     window.location.href = PATH_AUTH.login;
 //   }, timeLeft);
@@ -62,7 +62,7 @@ export const isValidToken = (accessToken) => {
 
 export const setSession = (accessToken) => {
   if (accessToken) {
-    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("accessProductAdminToken", accessToken);
 
     axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 
@@ -70,7 +70,7 @@ export const setSession = (accessToken) => {
     // const { exp } = jwtDecode(accessToken); // ~3 days by Jobportal server
     // tokenExpired(exp);
   } else {
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem("accessProductAdminToken");
     delete axios.defaults.headers.common.Authorization;
   }
 };
