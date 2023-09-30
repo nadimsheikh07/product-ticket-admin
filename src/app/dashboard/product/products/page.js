@@ -38,7 +38,7 @@ const ProductsList = () => {
     },
     {
       field: "client_id",
-      headerName: "Client",
+      headerName: "Client Name",
       width: 140,
       renderCell: ({ row }) => {
         return row?.client?.name;
@@ -46,12 +46,12 @@ const ProductsList = () => {
     },
     {
       field: "name",
-      headerName: "Name",
+      headerName: "Product Name",
       width: "200",
     },
     {
       field: "code",
-      headerName: "Code",
+      headerName: "Product Code",
       width: "200",
     },
     {
@@ -59,7 +59,7 @@ const ProductsList = () => {
     },
     {
       field: "phone",
-      headerName: "Phone",
+      headerName: "Client Phone",
       width: "200",
       renderCell: ({ row }) => {
         return row?.client?.phone || "N/A";
