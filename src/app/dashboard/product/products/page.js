@@ -70,7 +70,7 @@ const ProductsList = () => {
       headerName: "Models",
       width: "200",
     },
-     {
+    {
       field: "invoice_number",
       headerName: "Invoice Number",
       width: "200",
@@ -81,7 +81,9 @@ const ProductsList = () => {
       type: "any",
       width: 200,
       renderCell: ({ row }) => {
-        return moment(row?.invoice_date, "YYYY-MM-DD").format("YYYY-MM-DD");
+        return row?.invoice_date
+          ? moment(row?.invoice_date, "YYYY-MM-DD").format("DD-MMM-YYYY")
+          : "N/A";
       },
     },
     {
@@ -90,7 +92,9 @@ const ProductsList = () => {
       type: "any",
       width: 200,
       renderCell: ({ row }) => {
-        return moment(row?.warranty_start, "YYYY-MM-DD").format("YYYY-MM-DD");
+        return row?.warranty_start
+          ? moment(row?.warranty_start, "YYYY-MM-DD").format("DD-MMM-YYYY")
+          : "N/A";
       },
     },
     {
@@ -99,7 +103,9 @@ const ProductsList = () => {
       type: "any",
       width: 200,
       renderCell: ({ row }) => {
-        return moment(row?.warranty_end, "YYYY-MM-DD").format("YYYY-MM-DD");
+        return row?.warranty_end
+          ? moment(row?.warranty_end, "YYYY-MM-DD").format("DD-MMM-YYYY")
+          : "N/A";
       },
     },
     {

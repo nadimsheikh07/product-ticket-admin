@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Box, Grid, useTheme } from "@mui/material";
 import React, { useState } from "react";
 import AppWidget from "./widget";
@@ -12,11 +12,9 @@ const DashboardSection = () => {
   // const [ticket, setTicket] = useState([]);
   // const { themeLayout } = useSettingsContext();
 
-  const getUsers = async (params) => {
+  const getUsers = async () => {
     await axiosInstance
-      .get("/api/total_count", {
-        params: params,
-      })
+      .get("/api/total_count")
       .then((response) => {
         if (response.status === 200) {
           setUser(response.data);
