@@ -30,12 +30,12 @@ const EmailPageForm = () => {
     },
     validate: (values) => {
       const errors = {};
-      if (!values.mail) {
-        errors.mail = "Email is required";
-      }
-      if (!values.hours) {
-        errors.hours = "Hours is required";
-      }
+      // if (!values.mail) {
+      //   errors.mail = "Email is required";
+      // }
+      // if (!values.hours) {
+      //   errors.hours = "Hours is required";
+      // }
       return errors;
     },
     onSubmit: async (values) => {
@@ -91,9 +91,9 @@ const EmailPageForm = () => {
       });
   };
 
-  // React.useEffect(() => {
-  //   bindData();
-  // }, []);
+  React.useEffect(() => {
+    bindData();
+  }, []);
 
   return (
     <ContainerComponent>
