@@ -13,7 +13,7 @@ const NotificationFormSection = ({ formik, id }) => {
       <Grid item lg={12} md={12} sm={12} xs={12}>
         <TextBox
           fullWidth
-          isMaxLenght={20}
+          isMaxLenght={50}
           label="Name"
           name="name"
           value={formik?.values?.name}
@@ -51,7 +51,7 @@ const NotificationFormSection = ({ formik, id }) => {
           onChange={formik.handleChange}
           error={formik.touched.address && formik.errors.address}
           helperText={formik.touched.address && formik.errors.address}
-          required
+          // required
         />
       </Grid>
     </Grid>

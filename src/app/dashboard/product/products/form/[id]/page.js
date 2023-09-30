@@ -45,20 +45,19 @@ const ProductsPageForm = () => {
       if (!values.code) {
         errors.code = "Code is required";
       }
+      // if (!values.warranty_start) {
+      //   errors.warranty_start = "Warranty start date is required";
+      // }
 
       // if (
-      //   dayjs(values.warranty_start).isValid() &&
-      //   dayjs(values.warranty_end).isValid() &&
+      //   values.warranty_start &&
+      //   values.warranty_end &&
       //   values.warranty_start > values.warranty_end
       // ) {
       //   errors.warranty_end =
       //     "Warranty end date must be greater than warranty start date";
       // }
-      // if (!dayjs(values.warranty_start).isValid()) {
-      //   errors.warranty_start = "Warranty start date is required";
-      // }
-
-      // if (!dayjs(values.warranty_end).isValid()) {
+      // if (!values.warranty_end) {
       //   errors.warranty_end = "Warranty end date is required";
       // }
       // if (!values.invoice_number) {
@@ -67,9 +66,9 @@ const ProductsPageForm = () => {
       // if (!values.invoice_date) {
       //   errors.invoice_date = "Invoice Date is required";
       // }
-      if (!values.model) {
-        errors.model = "Model is required";
-      }
+      // if (!values.model) {
+      //   errors.model = "Model is required";
+      // }
       return errors;
     },
     onSubmit: async (values) => {

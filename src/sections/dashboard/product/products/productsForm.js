@@ -88,7 +88,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           onChange={formik.handleChange}
           error={formik.touched.model && formik.errors.model}
           helperText={formik.touched.model && formik.errors.model}
-          required
+          
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -103,7 +103,6 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           helperText={
             formik.touched.invoice_number && formik.errors.invoice_number
           }
-          required
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
