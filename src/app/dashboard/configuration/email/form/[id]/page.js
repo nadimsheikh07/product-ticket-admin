@@ -18,7 +18,7 @@ const CompanyEmployeesPageForm = () => {
   const { id } = useParams();
   const title = "Email";
   const backUrl = `${PATH_DASHBOARD.configuration.email}`;
-  const actionUrl = "admin/user/clients";
+  const actionUrl = "admin/ticket_chat/ticket_chats";
 
   const formik = useFormik({
     initialValues: {

@@ -15,7 +15,7 @@ const CompanyEmployeesList = () => {
   const { push } = useRouter();
   const title = "Email";
   const formUrl = `${PATH_DASHBOARD.configuration.email}/form`;
-  const actionUrl = "admin/user/clients";
+  const actionUrl = "admin/ticket_chat/ticket_chats";
   const columns = [
     {
       field: "actions",
