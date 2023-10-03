@@ -89,7 +89,9 @@ const EmailPageForm = () => {
         if (response.status === 200) {
           const { data } = response;
           // bind form data from server
-          formik.setFieldValue("settings", data);
+          if (data && data?.length > 0) {
+            formik.setFieldValue("settings", data);
+          }
         }
       })
       .catch((error) => {

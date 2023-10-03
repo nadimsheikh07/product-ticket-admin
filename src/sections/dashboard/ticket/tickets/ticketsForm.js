@@ -55,7 +55,6 @@ const TicketsFormSection = ({ formik, id }) => {
     getClient();
   }, [formik.values.client_id]);
 
-  console.log("formik.values", formik.values);
   console.log("formik.values.status", formik.values);
   return (
     <Grid container spacing={2}>
