@@ -97,7 +97,7 @@ export default function AuthLoginForm() {
         />
       </Stack>
 
-      <Stack alignItems="flex-end" sx={{ my: 2 }}>
+      {/* <Stack alignItems="flex-end" sx={{ my: 2 }}>
         <Link
           component={NextLink}
           href={PATH_AUTH.resetPassword}
@@ -107,7 +107,7 @@ export default function AuthLoginForm() {
         >
           Forgot password?
         </Link>
-      </Stack>
+      </Stack> */}
 
       <LoadingButton
         fullWidth
@@ -117,6 +117,7 @@ export default function AuthLoginForm() {
         variant="contained"
         loading={isSubmitSuccessful || isSubmitting}
         sx={{
+          mt: 3,
           bgcolor: "text.primary",
           color: (theme) =>
             theme.palette.mode === "light" ? "common.white" : "grey.800",
