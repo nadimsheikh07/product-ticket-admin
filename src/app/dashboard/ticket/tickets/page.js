@@ -41,16 +41,29 @@ const TicketsList = () => {
           label="Edit"
           onClick={() => push(`${formUrl}/${params.id}`)}
         />,
-        <GridActionsCellItem
-          key="chat"
-          icon={
-            <Tooltip title="Chat">
-              <Iconify icon="material-symbols:chat-outline" width={25} />
-            </Tooltip>
-          }
-          label="Chat"
-          onClick={() => push(`${chatUrl}/${params.id}`)}
-        />,
+        params.row.status !== "closed" ? (
+          <GridActionsCellItem
+            key="chat"
+            icon={
+              <Tooltip title="Chat">
+                <Iconify icon="material-symbols:chat-outline" width={25} />
+              </Tooltip>
+            }
+            label="Chat"
+            onClick={() => push(`${chatUrl}/${params.id}`)}
+          />
+        ) : (
+          <GridActionsCellItem
+            key="relaunch"
+            icon={
+              <Tooltip title="Relaunch">
+                <Iconify icon="carbon:chat-launch" width={25} />
+              </Tooltip>
+            }
+            label="Chat"
+            // onClick={() => push(`${chatUrl}/${params.id}`)}
+          />
+        ),
       ],
     },
 
@@ -122,7 +135,7 @@ const TicketsList = () => {
     {
       field: "client_id",
       headerName: "Client",
-      width: 250,
+      width: 140,
       renderCell: ({ row }) => {
         return row?.client?.name;
       },
