@@ -14,7 +14,7 @@ const EmailFormSection = ({ formik }) => {
                 <TextBox
                   fullWidth
                   isMaxLenght={50}
-                  label="Email"
+                  label={`Email ${index+1}`}
                   name={`settings[${index}].email`}
                   value={item.email}
                   onChange={(e) => {
