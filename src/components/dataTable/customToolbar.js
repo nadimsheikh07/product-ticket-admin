@@ -10,6 +10,8 @@ import { SearchComponent } from "./search";
 import { Clear } from "./clear";
 import { Box, Stack } from "@mui/material";
 import { DeleteIcon } from "./deleteIcon";
+import { Sync } from "./sync";
+
 // import { CustomGridToolbarFilterButton } from "./dataStyle";
 
 export const CustomToolbar = ({
@@ -28,6 +30,7 @@ export const CustomToolbar = ({
   onResetFilter,
   handleOpenConfirm,
   selectionModel,
+  syncData
 }) => {
   return (
     <GridToolbarContainer
@@ -85,6 +88,7 @@ export const CustomToolbar = ({
         }}
         width={{ lg: "auto", md: "auto", sm: "100%", xs: "100%" }}
       >
+        <Sync refresh={syncData} />
         {((isClear && filterSearch) || filterEndDate || filterStartDate) && (
           <Clear onResetFilter={onResetFilter} />
         )}

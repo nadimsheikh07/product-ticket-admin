@@ -39,6 +39,8 @@ const DataGridTable = (props) => {
     handleOpenConfirm,
     isRowSelectable,
     disableRowSelectionOnClick,
+    syncData, 
+    key,
   } = props;
   return (
     <DataGrid
@@ -136,6 +138,7 @@ const DataGridTable = (props) => {
           onResetFilter: onResetFilter,
           handleOpenConfirm: handleOpenConfirm,
           selectionModel: selectionModel,
+          syncData: syncData,
         },
       }}
       // SLOT END
