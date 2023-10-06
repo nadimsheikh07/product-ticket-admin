@@ -22,6 +22,19 @@ const TicketsPageForm = () => {
   const actionUrl = "admin/ticket_chat/ticket_chats";
   const [ticketChat, setTicketChat] = React.useState([]);
 
+  const viewTicketChatMessage = async () => {
+    await axiosInstance
+      .get(`admin/ticket_chat/ticket_chats/view/${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("ViewChatMessage", response);
+        }
+      })
+      .catch((error) => {
+        console.log("Ticket Viewed Error", error);
+      });
+  };
+
   const getTicketChat = async () => {
     await axiosInstance
       .get("admin/ticket_chat/ticket_chats", {
@@ -29,15 +42,19 @@ const TicketsPageForm = () => {
       })
       .then((response) => {
         if (response.status === 200) {
+          viewTicketChatMessage();
           setTicketChat(response.data);
         }
+      })
+      .catch((error) => {
+        console.log("Ticket Chat Error", error);
       });
   };
 
   React.useEffect(() => {
     getTicketChat();
   }, []);
-  
+
   const formik = useFormik({
     initialValues: {
       message: "",
