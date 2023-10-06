@@ -5,11 +5,12 @@ import Iconify from "@/components/iconify/Iconify";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import {
   Avatar,
+  Badge,
   Button,
   Chip,
-  Container,
+  IconButton,
+  Stack,
   Tooltip,
-  Typography,
 } from "@mui/material";
 import React from "react";
 import NextLink from "next/link";
@@ -17,9 +18,15 @@ import { ContainerComponent } from "@/components/container";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
 import moment from "moment";
+import InstantMessageBox from "@/sections/dashboard/ticket/tickets/instant_message";
+import { useFormik } from "formik";
+import axiosInstance from "@/utils/axios";
+import { useSnackbar } from "notistack";
 
 const TicketsList = () => {
   const { push } = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
+  const [openChat, setOpenChat] = React.useState(false);
   const title = "Tickets";
   const formUrl = `${PATH_DASHBOARD.ticket.tickets}/form`;
   const chatUrl = `${PATH_DASHBOARD.ticket.tickets}/chat`;
@@ -45,7 +52,13 @@ const TicketsList = () => {
           key="chat"
           icon={
             <Tooltip title="Chat">
-              <Iconify icon="material-symbols:chat-outline" width={25} />
+              <Badge
+                color="primary"
+                variant="standard"
+                badgeContent={params?.row?.chats_count}
+              >
+                <Iconify icon="material-symbols:chat-outline" width={25} />
+              </Badge>
             </Tooltip>
           }
           label="Chat"
@@ -180,7 +193,82 @@ const TicketsList = () => {
       width: "200",
     },
   ];
+  const [ticketChat, setTicketChat] = React.useState([]);
 
+  const formik = useFormik({
+    initialValues: {
+      message: "",
+      is_reply: true,
+      ticket_id: "",
+      is_view: false,
+    },
+    validate: (values) => {
+      const errors = {};
+
+      return errors;
+    },
+    onSubmit: async (values) => {
+      let method = "POST";
+      let url = "admin/ticket_chat/ticket_chats";
+      await axiosInstance
+        .request({
+          method: method,
+          url: url,
+          data: values,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            // formik.resetForm();
+            formik.setFieldValue("message", "");
+            getTicketChat();
+            enqueueSnackbar(response.data.message, {
+              variant: "success",
+            });
+          }
+        })
+        .catch((error) => {
+          const { response } = error;
+          // show error message
+          enqueueSnackbar(response?.data?.message, {
+            variant: "error",
+          });
+          // set server error
+          if (response.status === 422) {
+            // eslint-disable-next-line no-unused-vars
+            for (const [key, value] of Object.entries(values)) {
+              if (response.data.errors[key]) {
+                setErrors({ [key]: response.data.errors[key][0] });
+              }
+            }
+          }
+        });
+    },
+  });
+
+  async function getTicketChat() {
+    await axiosInstance
+      .get("admin/ticket_chat/ticket_chats", {
+        params: { ticket_id: Number(formik.values.ticket_id) },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          setTicketChat(response.data);
+        }
+      });
+  }
+
+  React.useEffect(() => {
+    if (formik.values.ticket_id) {
+      getTicketChat();
+    }
+  }, [formik.values.ticket_id]);
+
+  const handleOpen = () => {
+    setOpenChat(true);
+  };
+  const handleClose = () => {
+    setOpenChat(false);
+  };
   return (
     <>
       <ContainerComponent>
@@ -200,14 +288,23 @@ const TicketsList = () => {
             },
           ]}
           action={
-            <Button
-              component={NextLink}
-              href={`${formUrl}/new`}
-              variant="contained"
-              startIcon={<Iconify icon="eva:plus-fill" />}
-            >
-              New Ticket
-            </Button>
+            <Stack direction="row" spacing={4}>
+              <IconButton onClick={() => handleOpen()} color="secondary">
+                <Iconify
+                  color="secondary"
+                  width={30}
+                  icon="la:facebook-messenger"
+                />
+              </IconButton>
+              <Button
+                component={NextLink}
+                href={`${formUrl}/new`}
+                variant="contained"
+                startIcon={<Iconify icon="eva:plus-fill" />}
+              >
+                New Ticket
+              </Button>
+            </Stack>
           }
         />
         <DataTable
@@ -222,6 +319,13 @@ const TicketsList = () => {
           disableRowSelectionOnClick={true}
         />
       </ContainerComponent>
+      <InstantMessageBox
+        open={openChat}
+        handleClose={handleClose}
+        formik={formik}
+        data={ticketChat}
+        id={formik.values.ticket_id}
+      />
     </>
   );
 };

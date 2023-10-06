@@ -37,11 +37,13 @@ const TicketsPageForm = () => {
   React.useEffect(() => {
     getTicketChat();
   }, []);
+  
   const formik = useFormik({
     initialValues: {
       message: "",
       is_reply: true,
       ticket_id: Number(id),
+      is_view: false,
     },
     validate: (values) => {
       const errors = {};

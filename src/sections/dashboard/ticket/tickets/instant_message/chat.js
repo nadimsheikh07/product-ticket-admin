@@ -1,16 +1,63 @@
 import { useAuthContext } from "@/auth/useAuthContext";
 import { TextBox } from "@/components/form";
+import SelectAutocomplete from "@/components/form/selectAutocomplete";
 import Iconify from "@/components/iconify";
+import axiosInstance from "@/utils/axios";
 import { Box, Card, CardContent } from "@mui/material";
 import React from "react";
 import { MessageBox } from "react-chat-elements";
 
-const ChatSection = ({ formik, id, ticketChat }) => {
+const InstantChatSection = ({ formik, id, ticketChat }) => {
   const { user } = useAuthContext();
+  const [tickets, setTickets] = React.useState([]);
+
+  const getTickets = async () => {
+    await axiosInstance
+      .get("admin/catalog/tickets")
+      .then(async (response) => {
+        if (response.status === 200) {
+          let newTicket = [];
+          response?.data &&
+            response?.data?.length > 0 &&
+            response?.data.forEach((element) => {
+              newTicket.push({
+                name: element?.product?.name,
+                id: element?.id,
+              });
+            });
+          await setTickets(newTicket);
+        }
+      })
+      .catch((error) => {
+        console.log("Ticket Error", error);
+      });
+  };
+  React.useEffect(() => {
+    getTickets();
+  }, []);
+
   return (
     <Box>
       <Card>
         <CardContent>
+          <Box sx={{ my: 2 }}>
+            <SelectAutocomplete
+              fullWidth
+              label="Tickets"
+              placeholder="Select Ticket"
+              options={tickets}
+              name="ticket_id"
+              getOptionLabel="name"
+              getOptionValue="id"
+              value={formik.values.ticket_id}
+              onChange={(e) => {
+                formik.setFieldValue("ticket_id", e);
+              }}
+              error={formik.touched.ticket_id && formik.errors.ticket_id}
+              helperText={formik.touched.ticket_id && formik.errors.ticket_id}
+              onIconClick={formik.handleSubmit}
+            />
+          </Box>
           {ticketChat &&
             ticketChat?.length > 0 &&
             ticketChat.map((item, index) => {
@@ -51,4 +98,4 @@ const ChatSection = ({ formik, id, ticketChat }) => {
     </Box>
   );
 };
-export default ChatSection;
+export default InstantChatSection;
