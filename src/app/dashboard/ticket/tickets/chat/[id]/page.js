@@ -1,4 +1,5 @@
 "use client";
+import { useAuthContext } from "@/auth/useAuthContext";
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { PATH_DASHBOARD } from "@/routes/paths";
@@ -17,6 +18,7 @@ const TicketsPageForm = () => {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
   const { id } = useParams();
+  const { user } = useAuthContext();
   const title = "Ticket Chat";
   const backUrl = `${PATH_DASHBOARD.ticket.tickets}`;
   const actionUrl = "admin/ticket_chat/ticket_chats";
@@ -24,7 +26,10 @@ const TicketsPageForm = () => {
 
   const viewTicketChatMessage = async () => {
     await axiosInstance
-      .get(`admin/ticket_chat/ticket_chats/view/${id}`)
+      .post(`admin/ticket_chat/ticket_chats/view`, {
+        ticket_id: id,
+        user_id: user?.id,
+      })
       .then((response) => {
         if (response.status === 200) {
           console.log("ViewChatMessage", response);
