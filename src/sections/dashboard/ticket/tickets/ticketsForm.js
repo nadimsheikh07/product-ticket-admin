@@ -38,7 +38,7 @@ const TicketsFormSection = ({ formik, id }) => {
           page: 1,
           pageSize: 10,
           search: search,
-          country_id: client_id,
+          client_id: client_id,
         },
       })
       .then((response) => {
