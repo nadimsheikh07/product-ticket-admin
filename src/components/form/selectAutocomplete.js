@@ -1,13 +1,43 @@
-import { Autocomplete, FormHelperText, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  FormHelperText,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import FormControl from "./formControl";
 import { find } from "lodash";
+
+const renderTicketAssignContent = (option) => {
+  return (
+    <>
+      <Typography sx={{ marginLeft: "10px" }}>
+        <Typography component="span" fontWeight={700}>
+          Product Name
+        </Typography>
+        :{" "}
+        <Typography component="span" mr={2}>
+          {option?.label || "N/A"}
+        </Typography>
+        <Typography component="span" fontWeight={700}>
+          User
+        </Typography>
+        :{" "}
+        <Typography component="span" mr={2}>
+          {option?.user_name || "N/A"}
+        </Typography>
+      </Typography>
+    </>
+  );
+};
 
 const SelectAutocomplete = ({
   name,
   value,
   onChange,
   onInputChange,
+  disabled,
   // inputValue,
   getOptionLabel,
   getOptionValue,
@@ -15,6 +45,7 @@ const SelectAutocomplete = ({
   label,
   helperText,
   fullWidth,
+  isAssignUser,
   loading,
 }) => {
   const [search, setSearch] = React.useState("");
@@ -37,6 +68,11 @@ const SelectAutocomplete = ({
         newOptions.push({
           label: getLabel(element),
           value: getValue(element),
+
+          //Assign User
+          ...(isAssignUser && {
+            user_name: element?.user_name,
+          }),
         });
       });
       setData(newOptions);
@@ -53,6 +89,14 @@ const SelectAutocomplete = ({
       }
     }
   }, [value, options, search]);
+
+  const renderDropdownContent = (option) => {
+    if (isAssignUser) {
+      return renderTicketAssignContent(option);
+    } else {
+      return option.label;
+    }
+  };
 
   React.useEffect(() => {
     if (!value) {
@@ -78,7 +122,7 @@ const SelectAutocomplete = ({
   };
 
   const defaultValue = find(data, { value: Number(value) });
-
+  console.log("datadata", data);
   return (
     <React.Fragment>
       <FormControl
@@ -87,6 +131,7 @@ const SelectAutocomplete = ({
         fullWidth={fullWidth}
       >
         <Autocomplete
+          disabled={disabled}
           value={defaultValue}
           defaultValue={defaultValue}
           inputValue={search}
@@ -106,6 +151,16 @@ const SelectAutocomplete = ({
           }}
           loading={loading}
           options={data}
+          renderOption={(props, option) => (
+            <Box
+              key={`${name}-option-${option.value}`}
+              component="li"
+              sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+              {...props}
+            >
+              {renderDropdownContent(option)}
+            </Box>
+          )}
           renderInput={(params) => (
             <TextField
               error={helperText ? true : false}

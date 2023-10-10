@@ -23,6 +23,7 @@ const InstantChatSection = ({ formik, id, ticketChat }) => {
               newTicket.push({
                 name: element?.product?.name,
                 id: element?.id,
+                user_name: element?.user?.name,
               });
             });
           await setTickets(newTicket);
@@ -56,6 +57,7 @@ const InstantChatSection = ({ formik, id, ticketChat }) => {
               error={formik.touched.ticket_id && formik.errors.ticket_id}
               helperText={formik.touched.ticket_id && formik.errors.ticket_id}
               onIconClick={formik.handleSubmit}
+              isAssignUser={true}
             />
           </Box>
           {ticketChat &&
