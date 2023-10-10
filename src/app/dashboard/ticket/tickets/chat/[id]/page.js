@@ -109,7 +109,6 @@ const TicketsPageForm = () => {
     },
   });
 
-  console.log("ticketChat", ticketChat);
   return (
     <ContainerComponent>
       <CustomBreadcrumbs
