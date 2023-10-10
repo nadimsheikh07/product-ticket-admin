@@ -194,6 +194,7 @@ export const DataTable = (props) => {
           handleOpenConfirm={handleOpenConfirm}
           isRowSelectable={isRowSelectable}
           disableRowSelectionOnClick={disableRowSelectionOnClick}
+          syncData={getRowData}
         />
       </Card>
 

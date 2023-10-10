@@ -31,14 +31,14 @@ const TicketsFormSection = ({ formik, id }) => {
       });
   };
 
-  const getProduct = async (search = null, client_id) => {
+  const getProduct = async (search = null) => {
     await axiosInstance
       .get("admin/catalog/products", {
         params: {
           page: 1,
           pageSize: 10,
           search: search,
-          country_id: client_id,
+          client_id: formik.values.client_id,
         },
       })
       .then((response) => {
@@ -50,6 +50,10 @@ const TicketsFormSection = ({ formik, id }) => {
         console.log("Client Error", error);
       });
   };
+
+  React.useEffect(() => {
+    getProduct();
+  }, [formik.values.product_id, formik.values.client_id]);
 
   React.useEffect(() => {
     getClient();
