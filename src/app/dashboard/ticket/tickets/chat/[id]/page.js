@@ -1,4 +1,5 @@
 "use client";
+import { useAuthContext } from "@/auth/useAuthContext";
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { PATH_DASHBOARD } from "@/routes/paths";
@@ -17,10 +18,27 @@ const TicketsPageForm = () => {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
   const { id } = useParams();
+  const { user } = useAuthContext();
   const title = "Ticket Chat";
   const backUrl = `${PATH_DASHBOARD.ticket.tickets}`;
   const actionUrl = "admin/ticket_chat/ticket_chats";
   const [ticketChat, setTicketChat] = React.useState([]);
+
+  const viewTicketChatMessage = async () => {
+    await axiosInstance
+      .post(`admin/ticket_chat/ticket_chats/view`, {
+        ticket_id: id,
+        user_id: user?.id,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("ViewChatMessage", response);
+        }
+      })
+      .catch((error) => {
+        console.log("Ticket Viewed Error", error);
+      });
+  };
 
   const getTicketChat = async () => {
     await axiosInstance
@@ -29,19 +47,25 @@ const TicketsPageForm = () => {
       })
       .then((response) => {
         if (response.status === 200) {
+          viewTicketChatMessage();
           setTicketChat(response.data);
         }
+      })
+      .catch((error) => {
+        console.log("Ticket Chat Error", error);
       });
   };
 
   React.useEffect(() => {
     getTicketChat();
   }, []);
+
   const formik = useFormik({
     initialValues: {
       message: "",
       is_reply: true,
       ticket_id: Number(id),
+      is_view: false,
     },
     validate: (values) => {
       const errors = {};

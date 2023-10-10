@@ -28,7 +28,13 @@ const EmailPageForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      settings: [defaultValues, defaultValues, defaultValues, defaultValues,defaultValues],
+      settings: [
+        defaultValues,
+        defaultValues,
+        defaultValues,
+        defaultValues,
+        defaultValues,
+      ],
     },
     validate: (values) => {
       const errors = {};
