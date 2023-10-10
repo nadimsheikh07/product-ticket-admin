@@ -18,6 +18,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <MuiAutocompleteBox
           fullWidth
+          disabled={id && id !== "new"}
           label="Client"
           placeholder="Select client"
           name="client_id"
@@ -88,7 +89,6 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           onChange={formik.handleChange}
           error={formik.touched.model && formik.errors.model}
           helperText={formik.touched.model && formik.errors.model}
-          
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>

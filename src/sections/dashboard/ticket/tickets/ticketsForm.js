@@ -90,6 +90,7 @@ const TicketsFormSection = ({ formik, id }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <SelectAutocomplete
           fullWidth
+          disabled={id && id !== "new"}
           label="Client"
           placeholder="Select Client"
           name="client_id"
@@ -120,6 +121,7 @@ const TicketsFormSection = ({ formik, id }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <SelectAutocomplete
           fullWidth
+          disabled={id && id !== "new"}
           label="Product"
           placeholder="Select Product"
           name="product_id"
