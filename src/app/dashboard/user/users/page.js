@@ -41,7 +41,7 @@ const UserList = () => {
     },
     {
       field: "user_type",
-      headerName: "User",
+      headerName: "User Type",
       width: 140,
       renderCell: ({ row }) => {
         return row?.user_type?.user_type;
