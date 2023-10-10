@@ -108,6 +108,7 @@ const UserList = () => {
           params={useMemo(
             () => ({
               admin_client: "admin_client",
+              user_type: "admin,user",
             }),
             []
           )}
