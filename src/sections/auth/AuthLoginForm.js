@@ -36,7 +36,7 @@ export default function AuthLoginForm() {
   const defaultValues = {
     email: "",
     password: "",
-    user_type: "admin",
+    user_type: "admin,user",
   };
 
   const methods = useForm({
