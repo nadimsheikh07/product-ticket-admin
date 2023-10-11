@@ -74,7 +74,7 @@ const TicketsFormSection = ({ formik, id }) => {
           getOptionValue="id"
           paramsID={useMemo(
             () => ({
-              admin_client: "admin_client",
+              user_type: "admin,user",
             }),
             []
           )}
