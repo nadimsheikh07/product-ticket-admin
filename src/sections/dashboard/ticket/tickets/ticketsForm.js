@@ -4,6 +4,7 @@ import SelectAutocomplete from "@/components/form/selectAutocomplete";
 import axiosInstance from "@/utils/axios";
 import { status } from "@/utils/constant";
 import { Box, Grid } from "@mui/material";
+import { isEmpty } from "lodash";
 import React, { useMemo } from "react";
 
 const TicketsFormSection = ({ formik, id }) => {
@@ -121,7 +122,7 @@ const TicketsFormSection = ({ formik, id }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <SelectAutocomplete
           fullWidth
-          disabled={id && id !== "new"}
+          disabled={!formik.values.client_id || id && id !== "new"}
           label="Product"
           placeholder="Select Product"
           name="product_id"

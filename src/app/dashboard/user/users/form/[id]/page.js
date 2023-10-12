@@ -5,7 +5,7 @@ import { PATH_DASHBOARD } from "@/routes/paths";
 import { UserFormSection } from "@/sections/dashboard/user/users";
 import axiosInstance from "@/utils/axios";
 import { LoadingButton } from "@mui/lab";
-import { Container, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { useFormik } from "formik";
 import { useParams, useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
@@ -26,7 +26,7 @@ const UserPageForm = () => {
       password: "",
       phone: "",
       photo: "",
-      user_type: "admin",
+      user_type: "Admin",
     },
     validate: (values) => {
       const errors = {};

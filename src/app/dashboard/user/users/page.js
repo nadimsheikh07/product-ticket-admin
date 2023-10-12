@@ -1,14 +1,14 @@
 "use client";
+import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { DataTable } from "@/components/dataTable";
 import Iconify from "@/components/iconify/Iconify";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import { Button, Container, Tooltip } from "@mui/material";
-import React, { useMemo } from "react";
-import NextLink from "next/link";
-import { ContainerComponent } from "@/components/container";
+import { Button, Tooltip } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
+import NextLink from "next/link";
 import { useRouter } from "next/navigation";
+import { useMemo } from "react";
 
 const UserList = () => {
   const { push } = useRouter();
@@ -103,11 +103,11 @@ const UserList = () => {
           }}
           columns={columns}
           checkboxSelection={true}
-          isRowSelectable={(params) => params?.row?.id !== 1}
+          isRowSelectable={(params) => params?.row?.id !== 1 }
           disableRowSelectionOnClick={true}
           params={useMemo(
             () => ({
-              user_type: "admin,user",
+              user_type: "admin",
             }),
             []
           )}

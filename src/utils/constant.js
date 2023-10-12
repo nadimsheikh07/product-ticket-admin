@@ -1,6 +1,4 @@
-import { id } from "date-fns/locale";
 import dayjs from "dayjs";
-import { get } from "lodash";
 
 export const projectName = "Product Ticket";
 

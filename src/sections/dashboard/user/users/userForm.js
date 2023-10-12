@@ -1,13 +1,9 @@
 import {
-  DragDrop,
-  MuiAutocompleteBox,
   PasswordBox,
-  TextBox,
+  TextBox
 } from "@/components/form";
-import SelectBox from "@/components/form/select";
 import { userType } from "@/utils/constant";
 import { Grid } from "@mui/material";
-import React from "react";
 
 const UserFormSection = ({ formik, id }) => {
   return (
