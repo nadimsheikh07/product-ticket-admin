@@ -1,5 +1,6 @@
 import { TextBox } from "@/components/form";
 import { Grid } from "@mui/material";
+import { isEmpty } from "lodash";
 import React from "react";
 
 const EmailFormSection = ({ formik }) => {
@@ -50,6 +51,17 @@ const EmailFormSection = ({ formik }) => {
                       );
                     }
                   }}
+                  disabled={isEmpty(item.email) ? true : false}
+                  error={
+                    formik?.errors?.settings &&
+                    formik?.errors?.settings?.length > 0 &&
+                    formik?.errors?.settings[index]?.hours
+                  }
+                  helperText={
+                    formik?.errors?.settings &&
+                    formik?.errors?.settings?.length > 0 &&
+                    formik?.errors?.settings[index]?.hours
+                  }
                   // error={formik.touched.hours && formik.errors.hours}
                   // helperText={formik.touched.hours && formik.errors.hours}
                 />

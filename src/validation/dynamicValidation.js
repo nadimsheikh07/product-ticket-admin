@@ -7,26 +7,30 @@ export const dynamicEmailValidation = (values, errors) => {
   values?.settings &&
     values?.settings?.length > 0 &&
     values?.settings.forEach((element, index) => {
-      if (index >= 1) {
-        return "";
-      }
-      if (!element?.email) {
+      if (index < 1 && !element?.email) {
         emailObject["email"] = "Email is required";
-      }
-      else if (
+      } else if (
+        element?.email && 
         !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(element.email)
-      ){
-        emailObject["email"] ="Invalid email address";
-      }
-       else {
+      ) {
+        emailObject["email"] = "Invalid email address";
+      } else {
         emailObject["email"] = "";
       }
+
+      if (element?.email && !element?.hours) {
+        emailObject["hours"] = "Hour is required";
+      } else {
+        emailObject["hours"] = "";
+      }
+
       errors.settings.push(emailObject);
+      emailObject = {};
     });
 
   if (errors?.settings?.length) {
-    let isAllProductEmpty = every(errors?.settings, (item) => {
-      return isEmpty(item?.email);
+    let isAllProductEmpty = every(errors?.settings, (item, index) => {
+      return isEmpty(item?.email) && isEmpty(item?.hours);
     });
     if (isAllProductEmpty) {
       errors = delete errors.settings;
