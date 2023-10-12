@@ -1,4 +1,9 @@
-import { DragDrop, MuiAutocompleteBox, PasswordBox, TextBox } from "@/components/form";
+import {
+  DragDrop,
+  MuiAutocompleteBox,
+  PasswordBox,
+  TextBox,
+} from "@/components/form";
 import SelectBox from "@/components/form/select";
 import { userType } from "@/utils/constant";
 import { Grid } from "@mui/material";
@@ -7,11 +12,11 @@ import React from "react";
 const UserFormSection = ({ formik, id }) => {
   return (
     <Grid container spacing={2}>
-        <Grid item lg={6} md={6} sm={12} xs={12}>
-        <SelectBox
+      <Grid item lg={6} md={6} sm={12} xs={12}>
+        <TextBox
           options={userType}
           fullWidth
-          disabled
+          disabled={true}
           label="User Type"
           placeholder="Select user"
           name="user_type"

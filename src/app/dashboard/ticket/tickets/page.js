@@ -48,22 +48,41 @@ const TicketsList = () => {
           label="Edit"
           onClick={() => push(`${formUrl}/${params.id}`)}
         />,
-        <GridActionsCellItem
-          key="chat"
-          icon={
-            <Tooltip title="Chat">
-              <Badge
-                color="primary"
-                variant="standard"
-                badgeContent={params?.row?.chats_count}
-              >
-                <Iconify icon="material-symbols:chat-outline" width={25} />
-              </Badge>
-            </Tooltip>
-          }
-          label="Chat"
-          onClick={() => push(`${chatUrl}/${params.id}`)}
-        />,
+        ["closed", "cancled"].includes(params?.row?.status) ? (
+          <GridActionsCellItem
+            key="relaunch"
+            icon={
+              <Tooltip title="Relaunch">
+                <Badge
+                  color="primary"
+                  variant="standard"
+                  badgeContent={params?.row?.chats_count}
+                >
+                  <Iconify icon="carbon:chat-launch" width={25} />
+                </Badge>
+              </Tooltip>
+            }
+            label="Relaunch"
+            onClick={() => console.log("Relaunch")}
+          />
+        ) : (
+          <GridActionsCellItem
+            key="chat"
+            icon={
+              <Tooltip title="Chat">
+                <Badge
+                  color="primary"
+                  variant="standard"
+                  badgeContent={params?.row?.chats_count}
+                >
+                  <Iconify icon="material-symbols:chat-outline" width={25} />
+                </Badge>
+              </Tooltip>
+            }
+            label="Chat"
+            onClick={() => push(`${chatUrl}/${params.id}`)}
+          />
+        ),
       ],
     },
 
