@@ -23,6 +23,9 @@ const EmailFormSection = ({ formik }) => {
                       `settings[${index}].email`,
                       e.target.value.trimStart()
                     );
+                    if (!e.target.value) {
+                      formik.setFieldValue(`settings[${index}].hours`, "");
+                    }
                   }}
                   error={
                     formik?.errors?.settings &&
