@@ -336,6 +336,9 @@ const TicketsList = () => {
           columns={columns}
           checkboxSelection={true}
           disableRowSelectionOnClick={true}
+          params={React.useMemo(() => {
+            return { is_admin_view: true };
+          }, [])}
         />
       </ContainerComponent>
       <InstantMessageBox

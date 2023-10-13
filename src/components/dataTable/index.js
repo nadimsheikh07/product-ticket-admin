@@ -122,6 +122,7 @@ export const DataTable = (props) => {
     filterStartDate,
     filterEndDate,
     filterStatus,
+    params,
   ]);
 
   const handleDeleteRows = async () => {
