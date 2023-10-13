@@ -153,8 +153,8 @@ const TicketsList = () => {
     },
     {
       field: "client_id",
-      headerName: "Client",
-      width: 140,
+      headerName: "Client Name",
+      width: 180,
       renderCell: ({ row }) => {
         return row?.client?.name;
       },

@@ -37,7 +37,7 @@ const UserList = () => {
     {
       field: "name",
       headerName: "Name",
-      width: "200",
+      width: "140",
     },
     {
       field: "user_type",
