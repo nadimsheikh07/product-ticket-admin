@@ -28,7 +28,7 @@ const CompanyEmployeesPageForm = () => {
       address: "",
       user_type: "client",
       password: "",
-      address: "",
+      is_active: false,
     },
     validate: (values) => {
       const errors = {};

@@ -3,6 +3,7 @@ import {
   MuiAutocompleteBox,
   PasswordBox,
   TextBox,
+  ToggleBox,
 } from "@/components/form";
 import { Grid } from "@mui/material";
 import React from "react";
@@ -25,7 +26,7 @@ const ClientFormSection = ({ formik, id }) => {
           required
         />
       </Grid>
-    
+
       <Grid
         item
         lg={id === "new" ? 6 : 6}
@@ -88,6 +89,24 @@ const ClientFormSection = ({ formik, id }) => {
           onChange={formik.handleChange}
           error={formik.touched.address && formik.errors.address}
           helperText={formik.touched.address && formik.errors.address}
+        />
+      </Grid>
+      <Grid item lg={12} md={12} sm={12} xs={12}>
+        <ToggleBox
+          fullWidth
+          label="Is Active"
+          name="is_active"
+          value={formik?.values?.is_active}
+          checked={formik?.values?.is_active}
+          onChange={(e) => {
+            if (e.target.checked) {
+              formik.setFieldValue("is_active", true);
+            } else {
+              formik.setFieldValue("is_active", false);
+            }
+          }}
+          error={formik.touched.is_active && formik.errors.is_active}
+          helperText={formik.touched.is_active && formik.errors.is_active}
         />
       </Grid>
     </Grid>
