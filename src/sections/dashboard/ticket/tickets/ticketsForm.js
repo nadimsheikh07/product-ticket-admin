@@ -4,6 +4,7 @@ import SelectAutocomplete from "@/components/form/selectAutocomplete";
 import axiosInstance from "@/utils/axios";
 import { status } from "@/utils/constant";
 import { Box, Grid } from "@mui/material";
+import { isEmpty } from "lodash";
 import React, { useMemo } from "react";
 
 const TicketsFormSection = ({ formik, id }) => {
@@ -27,18 +28,26 @@ const TicketsFormSection = ({ formik, id }) => {
         }
       })
       .catch((error) => {
-        console.log("Country Error", error);
+        console.log("Error", error);
       });
   };
 
-  const getProduct = async (search = null) => {
+  React.useEffect(() => {
+    getClient();
+
+    return () => {
+      getClient();
+    };
+  }, [formik.values.client_id]);
+
+  const getProduct = async (search = null, client_id) => {
     await axiosInstance
       .get("admin/catalog/products", {
         params: {
           page: 1,
           pageSize: 10,
           search: search,
-          client_id: formik.values.client_id,
+          client_id: client_id,
         },
       })
       .then((response) => {
@@ -50,14 +59,6 @@ const TicketsFormSection = ({ formik, id }) => {
         console.log("Client Error", error);
       });
   };
-
-  React.useEffect(() => {
-    getProduct();
-  }, [formik.values.product_id, formik.values.client_id]);
-
-  React.useEffect(() => {
-    getClient();
-  }, [formik.values.client_id]);
 
   console.log("formik.values.status", formik.values);
   return (
@@ -100,6 +101,7 @@ const TicketsFormSection = ({ formik, id }) => {
           onChange={(e) => {
             if (e) {
               setProduct([]);
+              console.log("eeeee", e);
               getProduct(null, e);
               formik.setFieldValue("client_id", e);
               formik.setFieldValue("product_id", null);
@@ -107,6 +109,7 @@ const TicketsFormSection = ({ formik, id }) => {
               formik.setFieldValue("client_id", null);
               formik.setFieldValue("product_id", null);
               setProduct([]);
+              getProduct(null, null);
             }
           }}
           onInputChange={(e) => {
@@ -121,7 +124,7 @@ const TicketsFormSection = ({ formik, id }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <SelectAutocomplete
           fullWidth
-          disabled={id && id !== "new"}
+          disabled={!formik.values.client_id || (id && id !== "new")}
           label="Product"
           placeholder="Select Product"
           name="product_id"
@@ -169,6 +172,7 @@ const TicketsFormSection = ({ formik, id }) => {
           onChange={(e) => {
             formik.setFieldValue("file", e);
           }}
+          // types={["JPG", "PNG", "GIF", "JFIF", "JPEG"]}
         />
       </Grid>
 

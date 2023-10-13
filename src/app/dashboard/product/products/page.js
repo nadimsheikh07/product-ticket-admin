@@ -39,7 +39,7 @@ const ProductsList = () => {
     {
       field: "client_id",
       headerName: "Client Name",
-      width: 140,
+      width: 180,
       renderCell: ({ row }) => {
         return row?.client?.name;
       },
@@ -47,7 +47,7 @@ const ProductsList = () => {
     {
       field: "name",
       headerName: "Product Name",
-      width: "200",
+      width: "180",
     },
     {
       field: "code",
@@ -68,18 +68,18 @@ const ProductsList = () => {
     {
       field: "serial_number",
       headerName: "Serial No.",
-      width: "200",
+      width: "150",
     },
     {
       field: "invoice_number",
       headerName: "Invoice Number",
-      width: "200",
+      width: "150",
     },
     {
       field: "invoic_date",
       headerName: "Invoice Date",
       type: "any",
-      width: 200,
+      width: 150,
       renderCell: ({ row }) => {
         return row?.invoice_date
           ? moment(row?.invoice_date, "YYYY-MM-DD").format("DD-MMM-YYYY")
@@ -90,7 +90,7 @@ const ProductsList = () => {
       field: "warranty_start",
       headerName: "Warranty Date",
       type: "any",
-      width: 200,
+      width: 150,
       renderCell: ({ row }) => {
         return row?.warranty_start
           ? moment(row?.warranty_start, "YYYY-MM-DD").format("DD-MMM-YYYY")

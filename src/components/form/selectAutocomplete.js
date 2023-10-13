@@ -76,6 +76,8 @@ const SelectAutocomplete = ({
         });
       });
       setData(newOptions);
+    } else {
+      setData([]);
     }
   }, [options, value, search]);
 

@@ -1,13 +1,6 @@
-import {
-  DragDrop,
-  MuiAutocompleteBox,
-  PasswordBox,
-  TextBox,
-} from "@/components/form";
-import SelectBox from "@/components/form/select";
+import { PasswordBox, TextBox } from "@/components/form";
 import { userType } from "@/utils/constant";
 import { Grid } from "@mui/material";
-import React from "react";
 
 const UserFormSection = ({ formik, id }) => {
   return (
@@ -44,9 +37,9 @@ const UserFormSection = ({ formik, id }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
+          isMaxLenght={50}
           label="Email"
           name="email"
-          isMaxLenght={30}
           value={formik?.values?.email}
           onChange={formik.handleChange}
           error={formik.touched.email && formik.errors.email}
@@ -54,7 +47,13 @@ const UserFormSection = ({ formik, id }) => {
           required
         />
       </Grid>
-      <Grid item lg={6} md={6} sm={12} xs={12}>
+      <Grid
+        item
+        lg={id === "new" ? 6 : 6}
+        md={id === "new" ? 6 : 6}
+        sm={12}
+        xs={12}
+      >
         <TextBox
           fullWidth
           label="Phone"
@@ -63,8 +62,7 @@ const UserFormSection = ({ formik, id }) => {
           value={formik?.values?.phone}
           onChange={(e) => {
             if (e) {
-              let value = e.target.value.replace(/\D/gm, "");
-              formik.setFieldValue("phone", value);
+              formik.setFieldValue("phone", e.target.value.replace(/\D/gm, ""));
             }
           }}
           error={formik.touched.phone && formik.errors.phone}

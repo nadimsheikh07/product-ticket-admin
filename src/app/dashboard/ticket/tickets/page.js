@@ -144,7 +144,7 @@ const TicketsList = () => {
     },
     {
       field: "datetime",
-      headerName: "Date Time",
+      headerName: "Create Time",
       type: "date",
       width: 120,
       renderCell: ({ row }) => {
@@ -153,8 +153,8 @@ const TicketsList = () => {
     },
     {
       field: "client_id",
-      headerName: "Client",
-      width: 140,
+      headerName: "Client Name",
+      width: 180,
       renderCell: ({ row }) => {
         return row?.client?.name;
       },

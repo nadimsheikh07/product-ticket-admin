@@ -36,7 +36,7 @@ export default function AuthLoginForm() {
   const defaultValues = {
     email: "",
     password: "",
-    user_type: "admin,user",
+    user_type: "admin",
   };
 
   const methods = useForm({
@@ -56,9 +56,14 @@ export default function AuthLoginForm() {
       await login(data);
     } catch (error) {
       console.error(error);
-      enqueueSnackbar("Please Check Your Email or Password", {
-        variant: "error",
-      });
+      const { response } = error;
+      enqueueSnackbar(
+        response?.data?.message ||
+          "Something went wrong please try again later.",
+        {
+          variant: "error",
+        }
+      );
       reset();
       setError("afterSubmit", {
         ...error,
