@@ -43,6 +43,14 @@ const UserPageForm = () => {
       ) {
         errors.email = "Invalid email address";
       }
+      const phoneRegex = /^\d+$/i;
+      if (!values.phone) {
+        errors.phone = "Phone is required";
+      } else if (!phoneRegex.test(values.phone)) {
+        errors.phone = "Invalid phone number";
+      } else if (values.phone.length < 10 || values.phone.length > 10) {
+        errors.phone = "Phone number must be 10 digit";
+      }
       if (id === "new") {
         const passwordRegex =
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
@@ -55,12 +63,7 @@ const UserPageForm = () => {
             "Must Contain 10 Characters, One Uppercase, One Lowercase, One Number and one special case Character";
         }
       }
- 
-      if (!values.phone) {
-        errors.phone = "Phone is required";
-      } else if (values.phone.length < 10) {
-        errors.phone = "Phone number must be 10 digit";
-      }
+
       return errors;
     },
     onSubmit: async (values) => {
@@ -97,7 +100,8 @@ const UserPageForm = () => {
             // eslint-disable-next-line no-unused-vars
             for (const [key, value] of Object.entries(values)) {
               if (response.data.errors[key]) {
-                setErrors({ [key]: response.data.errors[key][0] });
+                formik.setFieldError(key, response.data.errors[key][0]);
+                // setErrors({ [key]: response.data.errors[key][0] });
               }
             }
           }
@@ -111,7 +115,11 @@ const UserPageForm = () => {
         const { data } = response;
         // bind form data from server
         for (const [key] of Object.entries(formik.values)) {
-          formik.setFieldValue([key], data[key]);
+          if (data[key]) {
+            formik.setFieldValue([key], data[key]);
+          } else {
+            formik.setFieldError(key, "");
+          }
         }
       }
     });

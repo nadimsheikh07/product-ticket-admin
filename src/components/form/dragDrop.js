@@ -83,12 +83,13 @@ const DragDrop = (props) => {
     helperText,
     disabled,
     isDocument = false,
+    types = ["JPG", "PNG", "GIF", "JFIF", "JPEG"],
   } = props;
   const [message, setMessage] = React.useState("");
   const [error, setError] = React.useState("");
   const [file, setFile] = React.useState("");
   const [loader, setLoader] = React.useState("");
-  const [fileTypes, setFileTypes] = React.useState([]);
+  // const [fileTypes, setFileTypes] = React.useState([]);
 
   useEffect(() => {
     if (value) {
@@ -96,26 +97,26 @@ const DragDrop = (props) => {
     } else setFile("");
   }, [value]);
 
-  useEffect(() => {
-    if (isDocument) {
-      setFileTypes([
-        "jpeg",
-        "png",
-        "gif",
-        "pdf",
-        "docx",
-        "xlsx",
-        "ppt",
-        "pptx",
-        "zip",
-        "doc",
-        "jpg",
-        "jfif",
-        "JPEG",
-        "JFIF",
-      ]);
-    } else setFileTypes(["JPG", "PNG", "GIF", "JFIF", "JPEG"]);
-  }, [isDocument]);
+  // useEffect(() => {
+  //   if (isDocument) {
+  //     setFileTypes([
+  //       "jpeg",
+  //       "png",
+  //       "gif",
+  //       "pdf",
+  //       "docx",
+  //       "xlsx",
+  //       "ppt",
+  //       "pptx",
+  //       "zip",
+  //       "doc",
+  //       "jpg",
+  //       "jfif",
+  //       "JPEG",
+  //       "JFIF",
+  //     ]);
+  //   } else setFileTypes(["JPG", "PNG", "GIF", "JFIF", "JPEG"]);
+  // }, [isDocument]);
 
   const fileUpload = async (file) => {
     setLoader(true);
@@ -153,7 +154,7 @@ const DragDrop = (props) => {
   return (
     <>
       {!file && (
-        <FileUploaders handleChange={fileUpload} name={name} types={fileTypes}>
+        <FileUploaders handleChange={fileUpload} name={name} types={types}>
           <RootStyle>
             {file ? (
               <Label>{file}</Label>
