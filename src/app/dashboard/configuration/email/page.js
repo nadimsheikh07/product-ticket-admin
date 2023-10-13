@@ -5,6 +5,7 @@ import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs
 import { PATH_DASHBOARD } from "@/routes/paths";
 import { EmailFormSection } from "@/sections/dashboard/configuration/email";
 import axiosInstance from "@/utils/axios";
+import { dynamicEmailValidation } from "@/validation/dynamicValidation";
 import { LoadingButton } from "@mui/lab";
 import { Stack } from "@mui/material";
 import { useFormik } from "formik";
@@ -38,12 +39,10 @@ const EmailPageForm = () => {
     },
     validate: (values) => {
       const errors = {};
-      // if (!values.email) {
-      //   errors.email = "Email is required";
-      // }
-      // if (!values.hours) {
-      //   errors.hours = "Hours is required";
-      // }
+
+      dynamicEmailValidation(values, errors);
+      console.log("values", errors);
+
       return errors;
     },
     onSubmit: async (values) => {

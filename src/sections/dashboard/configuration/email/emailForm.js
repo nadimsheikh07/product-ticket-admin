@@ -1,5 +1,6 @@
 import { TextBox } from "@/components/form";
 import { Grid } from "@mui/material";
+import { isEmpty } from "lodash";
 import React from "react";
 
 const EmailFormSection = ({ formik }) => {
@@ -14,7 +15,7 @@ const EmailFormSection = ({ formik }) => {
                 <TextBox
                   fullWidth
                   isMaxLenght={50}
-                  label={`Email ${index+1}`}
+                  label={`Email ${index + 1}`}
                   name={`settings[${index}].email`}
                   value={item.email}
                   onChange={(e) => {
@@ -22,9 +23,20 @@ const EmailFormSection = ({ formik }) => {
                       `settings[${index}].email`,
                       e.target.value.trimStart()
                     );
+                    if (!e.target.value) {
+                      formik.setFieldValue(`settings[${index}].hours`, "");
+                    }
                   }}
-                  error={formik.touched.name && formik.errors.name}
-                  helperText={formik.touched.name && formik.errors.name}
+                  error={
+                    formik?.errors?.settings &&
+                    formik?.errors?.settings?.length > 0 &&
+                    formik?.errors?.settings[index]?.email
+                  }
+                  helperText={
+                    formik?.errors?.settings &&
+                    formik?.errors?.settings?.length > 0 &&
+                    formik?.errors?.settings[index]?.email
+                  }
                 />
               </Grid>
               <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -42,8 +54,19 @@ const EmailFormSection = ({ formik }) => {
                       );
                     }
                   }}
-                  error={formik.touched.hours && formik.errors.hours}
-                  helperText={formik.touched.hours && formik.errors.hours}
+                  disabled={isEmpty(item.email) ? true : false}
+                  error={
+                    formik?.errors?.settings &&
+                    formik?.errors?.settings?.length > 0 &&
+                    formik?.errors?.settings[index]?.hours
+                  }
+                  helperText={
+                    formik?.errors?.settings &&
+                    formik?.errors?.settings?.length > 0 &&
+                    formik?.errors?.settings[index]?.hours
+                  }
+                  // error={formik.touched.hours && formik.errors.hours}
+                  // helperText={formik.touched.hours && formik.errors.hours}
                 />
               </Grid>
               {/* <Grid item lg={4} md={4} sm={12} xs={12}>
