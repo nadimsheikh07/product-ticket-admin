@@ -31,6 +31,31 @@ const TicketsList = () => {
   const formUrl = `${PATH_DASHBOARD.ticket.tickets}/form`;
   const chatUrl = `${PATH_DASHBOARD.ticket.tickets}/chat`;
   const actionUrl = "admin/catalog/tickets";
+  const [refreshTicket, setRefreshTicket] = React.useState(false);
+
+  const relaunchChat = async (id) => {
+    await axiosInstance
+      .post(`admin/ticket_chat/ticket_chats/relaunch_chat`, {
+        ticket_id: id,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          setRefreshTicket(true);
+          enqueueSnackbar(response.data.message, {
+            variant: "success",
+          });
+        }
+      })
+      .catch((error) => {
+        console.log("relaunchChat Error", error);
+        setRefreshTicket(false);
+        const { response } = error;
+        enqueueSnackbar(response?.data?.message || "", {
+          variant: "error",
+        });
+      });
+  };
+
   const columns = [
     {
       field: "actions",
@@ -63,7 +88,7 @@ const TicketsList = () => {
               </Tooltip>
             }
             label="Relaunch"
-            onClick={() => console.log("Relaunch")}
+            onClick={() => relaunchChat(params?.id)}
           />
         ) : (
           <GridActionsCellItem
@@ -336,6 +361,8 @@ const TicketsList = () => {
           columns={columns}
           checkboxSelection={true}
           disableRowSelectionOnClick={true}
+          forceRefresh={refreshTicket}
+          setForceRefresh={setRefreshTicket}
         />
       </ContainerComponent>
       <InstantMessageBox
