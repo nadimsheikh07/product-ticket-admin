@@ -29,6 +29,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           paramsID={useMemo(
             () => ({
               user_type: "client",
+              isActive: true,
             }),
             []
           )}
