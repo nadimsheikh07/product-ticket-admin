@@ -33,6 +33,8 @@ export const DataTable = (props) => {
     isClear,
     isRowSelectable,
     disableRowSelectionOnClick = true,
+    forceRefresh = false,
+    setForceRefresh = () => {},
   } = props;
 
   const [filterStatus, setFilterStatus] = React.useState("all");
@@ -88,6 +90,7 @@ export const DataTable = (props) => {
       .get(actionUrl, { params: filter })
       .then((response) => {
         if (response.status === 200) {
+          setForceRefresh(false);
           if (response?.data) {
             setRowsData(response?.data);
             if (response?.data?.data) {
@@ -102,6 +105,7 @@ export const DataTable = (props) => {
       })
       .catch((error) => {
         setLoading(false);
+        setForceRefresh(false);
         const { response } = error;
         if (response && response?.data && response?.data?.message) {
           enqueueSnackbar(response?.data?.message, {
@@ -110,6 +114,13 @@ export const DataTable = (props) => {
         }
       });
   };
+
+  React.useEffect(() => {
+    if (forceRefresh) {
+      getRowData();
+    }
+  }, [forceRefresh]);
+
   React.useEffect(() => {
     getRowData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
