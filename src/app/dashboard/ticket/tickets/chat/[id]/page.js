@@ -26,7 +26,7 @@ const TicketsPageForm = () => {
 
   const viewTicketChatMessage = async () => {
     await axiosInstance
-      .post(`admin/ticket_chat/ticket_chats/view`, {
+      .post(`admin/ticket_chat/ticket_chats/admin_view`, {
         ticket_id: id,
         user_id: user?.id,
       })
@@ -65,7 +65,8 @@ const TicketsPageForm = () => {
       message: "",
       is_reply: true,
       ticket_id: Number(id),
-      is_view: false,
+      is_client_view: false,
+      is_admin_view: true,
     },
     validate: (values) => {
       const errors = {};

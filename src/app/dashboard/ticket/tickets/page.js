@@ -363,6 +363,9 @@ const TicketsList = () => {
           disableRowSelectionOnClick={true}
           forceRefresh={refreshTicket}
           setForceRefresh={setRefreshTicket}
+          params={React.useMemo(() => {
+            return { is_admin_view: true };
+          }, [])}
         />
       </ContainerComponent>
       <InstantMessageBox

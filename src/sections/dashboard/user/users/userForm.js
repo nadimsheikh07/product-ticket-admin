@@ -5,9 +5,8 @@ import { Grid } from "@mui/material";
 const UserFormSection = ({ formik, id }) => {
   return (
     <Grid container spacing={2}>
-      <Grid item lg={6} md={6} sm={12} xs={12}>
+      {/* <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
-          options={userType}
           fullWidth
           disabled={true}
           label="User Type"
@@ -18,7 +17,7 @@ const UserFormSection = ({ formik, id }) => {
           error={formik.touched.user_type && formik.errors.user_type}
           helperText={formik.touched.user_type && formik.errors.user_type}
         />
-      </Grid>
+      </Grid> */}
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth

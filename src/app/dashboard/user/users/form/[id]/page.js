@@ -26,7 +26,8 @@ const UserPageForm = () => {
       password: "",
       phone: "",
       photo: "",
-      user_type: "Admin",
+      user_type: "admin",
+      is_active: true,
     },
     validate: (values) => {
       const errors = {};
@@ -124,7 +125,6 @@ const UserPageForm = () => {
       }
     });
   };
-  
 
   React.useEffect(() => {
     if (id && id !== "new") {
