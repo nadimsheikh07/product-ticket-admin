@@ -66,8 +66,8 @@ const ProductsPageForm = () => {
       // if (!values.invoice_date) {
       //   errors.invoice_date = "Invoice Date is required";
       // }
-      // if (!values.model) {
-      //   errors.model = "Model is required";
+      // if (!values.serial_number) {
+      //   errors.serial_number = "Model is required";
       // }
       return errors;
     },
@@ -105,7 +105,8 @@ const ProductsPageForm = () => {
             // eslint-disable-next-line no-unused-vars
             for (const [key, value] of Object.entries(values)) {
               if (response.data.errors[key]) {
-                setErrors({ [key]: response.data.errors[key][0] });
+                formik.setFieldError(key, response.data.errors[key][0]);
+                // setErrors({ [key]: response.data.errors[key][0] });
               }
             }
           }
@@ -128,7 +129,7 @@ const ProductsPageForm = () => {
       })
       .catch((error) => {
         const { response } = error;
-
+        // show error message
         enqueueSnackbar(response?.data?.message, {
           variant: "error",
         });
@@ -136,9 +137,10 @@ const ProductsPageForm = () => {
         // set server error
         if (response.status === 422) {
           // eslint-disable-next-line no-unused-vars
-          for (const [key] of Object.entries(response.data.errors)) {
+          for (const [key, value] of Object.entries(values)) {
             if (response.data.errors[key]) {
-              formik.setErrors({ [key]: response.data.errors[key][0] });
+              formik.setFieldError(key, response.data.errors[key][0]);
+              // setErrors({ [key]: response.data.errors[key][0] });
             }
           }
         }
@@ -151,7 +153,11 @@ const ProductsPageForm = () => {
         const { data } = response;
         // bind form data from server
         for (const [key] of Object.entries(formik.values)) {
-          formik.setFieldValue([key], data[key]);
+          if (data[key]) {
+            formik.setFieldValue([key], data[key]);
+          } else {
+            formik.setFieldError(key, "");
+          }
         }
       }
     });

@@ -87,9 +87,13 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           isMaxLenght={10}
           name="serial_number"
           value={formik?.values?.serial_number}
-          onChange={formik.handleChange}
+          onChange={(e) => {
+            formik.setFieldValue("serial_number", e.target.value.trimStart());
+          }}
           error={formik.touched.serial_number && formik.errors.serial_number}
-          helperText={formik.touched.serial_number && formik.errors.serial_number}
+          helperText={
+            formik.touched.serial_number && formik.errors.serial_number
+          }
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
