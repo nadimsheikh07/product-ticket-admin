@@ -7,20 +7,14 @@ export const dynamicEmailValidation = (values, errors) => {
   values?.settings &&
     values?.settings?.length > 0 &&
     values?.settings.forEach((element, index) => {
-      if (
-        index < 1 &&
+      if (!element.email) {
+        emailObject["email"] = "Email is required";
+      } else if (
         element?.email &&
         !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(element.email)
       ) {
         emailObject["email"] = "Invalid email address";
-      }
-       else if (
-        element?.email &&
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(element.email)
-      ) {
-        emailObject["email"] = "Invalid email address";
-      }
-      else {
+      } else {
         emailObject["email"] = "";
       }
 

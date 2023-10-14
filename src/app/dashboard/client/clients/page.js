@@ -9,6 +9,7 @@ import NextLink from "next/link";
 import { ContainerComponent } from "@/components/container";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
+import Label from "@/components/label";
 // import Head from "next/document";
 
 const CompanyEmployeesList = () => {
@@ -41,6 +42,18 @@ const CompanyEmployeesList = () => {
       width: "200",
       isfilter: false,
       disableColumnFilter: true,
+    },
+    {
+      field: "is_active",
+      headerName: "Is Active",
+      width: 140,
+      renderCell: ({ row }) => {
+        if (row.is_active) {
+          return <Label color="primary">Active</Label>;
+        } else {
+          return <Label color="error">InActive</Label>;
+        }
+      },
     },
     {
       field: "email",

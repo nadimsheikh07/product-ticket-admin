@@ -7,8 +7,9 @@ import { EmailFormSection } from "@/sections/dashboard/configuration/email";
 import axiosInstance from "@/utils/axios";
 import { dynamicEmailValidation } from "@/validation/dynamicValidation";
 import { LoadingButton } from "@mui/lab";
-import { Stack } from "@mui/material";
+import { Card, Stack } from "@mui/material";
 import { useFormik } from "formik";
+import { reject } from "lodash";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
 
@@ -29,19 +30,13 @@ const EmailPageForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      settings: [
-        defaultValues,
-        defaultValues,
-        defaultValues,
-        defaultValues,
-        defaultValues,
-      ],
+      settings: [defaultValues],
     },
     validate: (values) => {
       const errors = {};
-
-      dynamicEmailValidation(values, errors);
-      console.log("values", errors);
+      if (values.settings && values.settings?.length > 0) {
+        dynamicEmailValidation(values, errors);
+      }
 
       return errors;
     },
@@ -82,6 +77,21 @@ const EmailPageForm = () => {
         });
     },
   });
+
+  const addEmail = () => {
+    formik.setFieldValue("settings", [
+      ...formik.values.settings,
+      defaultValues,
+    ]);
+  };
+
+  const removeEmail = (index) => {
+    const removeEmail = formik.values.settings.splice(index, 1);
+    formik.setFieldValue(
+      "settings",
+      reject(formik.values.settings, removeEmail)
+    );
+  };
 
   const bindData = async (id) => {
     await axiosInstance
@@ -125,7 +135,11 @@ const EmailPageForm = () => {
         ]}
       />
       <form noValidate onSubmit={formik.handleSubmit}>
-        <EmailFormSection formik={formik} />
+        <EmailFormSection
+          formik={formik}
+          addEmail={addEmail}
+          removeEmail={removeEmail}
+        />
         <Stack alignItems="flex-end" sx={{ mt: 3 }}>
           <LoadingButton
             type="submit"

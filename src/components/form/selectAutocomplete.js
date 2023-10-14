@@ -111,7 +111,6 @@ const SelectAutocomplete = ({
       onChange("");
       setSearch("");
     }
-    onInputChange(value);
     setSearch(value);
   };
 
