@@ -20,6 +20,7 @@ const TicketsFormSection = ({ formik, id }) => {
           search: search,
           user_type: "client",
           client_id: formik.values.client_id,
+          isActive: true,
         },
       })
       .then((response) => {
@@ -76,6 +77,7 @@ const TicketsFormSection = ({ formik, id }) => {
           paramsID={useMemo(
             () => ({
               user_type: "admin,user",
+              isActive: true,
             }),
             []
           )}
