@@ -67,7 +67,7 @@ const TicketsFormSection = ({ formik, id }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <MuiAutocompleteBox
           fullWidth
-          label="User"
+          label="Assign To"
           placeholder="Select user"
           name="user_id"
           url="user/users"
