@@ -1,3 +1,4 @@
+"use client";
 import { CardImageBox } from "../card";
 import {
   CircularProgress,

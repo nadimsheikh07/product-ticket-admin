@@ -1,6 +1,7 @@
 "use client";
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import ClientFormSection from "@/sections/dashboard/client/clientForm/clientForm";
 import CompanyEmpolyeesFormSection from "@/sections/dashboard/client/clientForm/clientForm";
@@ -131,6 +132,7 @@ const CompanyEmployeesPageForm = () => {
   }, [id]);
 
   return (
+    <DashboardLayout>
     <ContainerComponent>
       <CustomBreadcrumbs
         heading={title}
@@ -159,6 +161,7 @@ const CompanyEmployeesPageForm = () => {
         </Stack>
       </form>
     </ContainerComponent>
+    </DashboardLayout>
   );
 };
 

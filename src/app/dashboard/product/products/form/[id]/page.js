@@ -1,6 +1,7 @@
 "use client";
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import CompanyEmpolyeesFormSection from "@/sections/dashboard/client/clientForm/clientForm";
 import { ProductsFormSection } from "@/sections/dashboard/product/products";
@@ -170,38 +171,41 @@ const ProductsPageForm = () => {
   }, [id]);
 
   return (
-    <ContainerComponent>
-      <CustomBreadcrumbs
-        heading={title}
-        links={[
-          {
-            name: "Dashboard",
-            href: PATH_DASHBOARD.app,
-          },
-          {
-            name: "Product",
-            href: backUrl,
-          },
-          { name: title },
-        ]}
-      />
-      <form noValidate onSubmit={formik.handleSubmit}>
-        <ProductsFormSection
-          generateCode={generateCode}
-          formik={formik}
-          id={id}
+    <DashboardLayout>
+      {" "}
+      <ContainerComponent>
+        <CustomBreadcrumbs
+          heading={title}
+          links={[
+            {
+              name: "Dashboard",
+              href: PATH_DASHBOARD.app,
+            },
+            {
+              name: "Product",
+              href: backUrl,
+            },
+            { name: title },
+          ]}
         />
-        <Stack alignItems="flex-end" sx={{ mt: 3 }}>
-          <LoadingButton
-            type="submit"
-            variant="contained"
-            loading={formik?.isSubmitting}
-          >
-            {id === "new" ? "Create product" : "Update product"}
-          </LoadingButton>
-        </Stack>
-      </form>
-    </ContainerComponent>
+        <form noValidate onSubmit={formik.handleSubmit}>
+          <ProductsFormSection
+            generateCode={generateCode}
+            formik={formik}
+            id={id}
+          />
+          <Stack alignItems="flex-end" sx={{ mt: 3 }}>
+            <LoadingButton
+              type="submit"
+              variant="contained"
+              loading={formik?.isSubmitting}
+            >
+              {id === "new" ? "Create product" : "Update product"}
+            </LoadingButton>
+          </Stack>
+        </form>
+      </ContainerComponent>
+    </DashboardLayout>
   );
 };
 

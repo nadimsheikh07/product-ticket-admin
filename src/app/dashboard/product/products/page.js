@@ -11,6 +11,7 @@ import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
 import moment from "moment";
 import { QrActionColumn } from "@/module/qrActionColumn";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 
 const ProductsList = () => {
   const { push } = useRouter();
@@ -117,45 +118,47 @@ const ProductsList = () => {
 
   return (
     <>
-      <ContainerComponent>
-        <CustomBreadcrumbs
-          heading="Product List"
-          links={[
-            {
-              name: "Dashboard",
-              href: PATH_DASHBOARD.app,
-            },
-            {
-              name: "Products",
-              // href: "#",
-            },
-            {
-              name: "List",
-            },
-          ]}
-          action={
-            <Button
-              component={NextLink}
-              href={`${formUrl}/new`}
-              variant="contained"
-              startIcon={<Iconify icon="eva:plus-fill" />}
-            >
-              New Product
-            </Button>
-          }
-        />
-        <DataTable
-          title={title}
-          actionUrl={actionUrl}
-          defaultSortModel={[{ field: "updated_at", sort: "desc" }]}
-          defaultFilterModel={{
-            items: [],
-          }}
-          columns={columns}
-          checkboxSelection={true}
-          disableRowSelectionOnClick={true}
-        />
-      </ContainerComponent>
+      <DashboardLayout>
+        <ContainerComponent>
+          <CustomBreadcrumbs
+            heading="Product List"
+            links={[
+              {
+                name: "Dashboard",
+                href: PATH_DASHBOARD.app,
+              },
+              {
+                name: "Products",
+                // href: "#",
+              },
+              {
+                name: "List",
+              },
+            ]}
+            action={
+              <Button
+                component={NextLink}
+                href={`${formUrl}/new`}
+                variant="contained"
+                startIcon={<Iconify icon="eva:plus-fill" />}
+              >
+                New Product
+              </Button>
+            }
+          />
+          <DataTable
+            title={title}
+            actionUrl={actionUrl}
+            defaultSortModel={[{ field: "updated_at", sort: "desc" }]}
+            defaultFilterModel={{
+              items: [],
+            }}
+            columns={columns}
+            checkboxSelection={true}
+            disableRowSelectionOnClick={true}
+          />
+        </ContainerComponent>
+      </DashboardLayout>
     </>
   );
 };

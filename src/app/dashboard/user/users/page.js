@@ -3,6 +3,7 @@ import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { DataTable } from "@/components/dataTable";
 import Iconify from "@/components/iconify/Iconify";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import { Button, Tooltip } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
@@ -66,53 +67,55 @@ const UserList = () => {
 
   return (
     <>
-      <ContainerComponent>
-        <CustomBreadcrumbs
-          heading="User List"
-          links={[
-            {
-              name: "Dashboard",
-              href: PATH_DASHBOARD.app,
-            },
-            {
-              name: "Users",
-              // href: "#",
-            },
-            {
-              name: "List",
-            },
-          ]}
-          action={
-            <Button
-              component={NextLink}
-              href={`${formUrl}/new`}
-              variant="contained"
-              startIcon={<Iconify icon="eva:plus-fill" />}
-            >
-              New User
-            </Button>
-          }
-        />
+      <DashboardLayout>
+        <ContainerComponent>
+          <CustomBreadcrumbs
+            heading="User List"
+            links={[
+              {
+                name: "Dashboard",
+                href: PATH_DASHBOARD.app,
+              },
+              {
+                name: "Users",
+                // href: "#",
+              },
+              {
+                name: "List",
+              },
+            ]}
+            action={
+              <Button
+                component={NextLink}
+                href={`${formUrl}/new`}
+                variant="contained"
+                startIcon={<Iconify icon="eva:plus-fill" />}
+              >
+                New User
+              </Button>
+            }
+          />
 
-        <DataTable
-          title={title}
-          actionUrl={actionUrl}
-          defaultSortModel={[{ field: "updated_at", sort: "desc" }]}
-          defaultFilterModel={{
-            items: [],
-          }}
-          columns={columns}
-          checkboxSelection={true}
-          isRowSelectable={(params) => params?.row?.id !== 1 }
-          disableRowSelectionOnClick={true}
-          params={useMemo(
-            () => ({
-              user_type: "admin",
-            }),
-            []
-          )}
-        />
-      </ContainerComponent>
+          <DataTable
+            title={title}
+            actionUrl={actionUrl}
+            defaultSortModel={[{ field: "updated_at", sort: "desc" }]}
+            defaultFilterModel={{
+              items: [],
+            }}
+            columns={columns}
+            checkboxSelection={true}
+            isRowSelectable={(params) => params?.row?.id !== 1}
+            disableRowSelectionOnClick={true}
+            params={useMemo(
+              () => ({
+                user_type: "admin",
+              }),
+              []
+            )}
+          />
+        </ContainerComponent>
+      </DashboardLayout>
     </>
   );
 };

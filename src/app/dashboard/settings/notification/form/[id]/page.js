@@ -1,6 +1,7 @@
 "use client";
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import { NotificationFormSection } from "@/sections/dashboard/settings/notification";
 import axiosInstance from "@/utils/axios";
@@ -115,34 +116,36 @@ const CompanyEmployeesPageForm = () => {
   }, [id]);
 
   return (
-    <ContainerComponent>
-      <CustomBreadcrumbs
-        heading={`${title} Form`}
-        links={[
-          {
-            name: "Dashboard",
-            href: PATH_DASHBOARD.app,
-          },
-          {
-            name: title,
-            href: backUrl,
-          },
-          { name: `${title} Form` },
-        ]}
-      />
-      <form noValidate onSubmit={formik.handleSubmit}>
-        <NotificationFormSection formik={formik} id={id} />
-        <Stack alignItems="flex-end" sx={{ mt: 3 }}>
-          <LoadingButton
-            type="submit"
-            variant="contained"
-            loading={formik?.isSubmitting}
-          >
-            {id === "new" ? "Create client" : "Update client"}
-          </LoadingButton>
-        </Stack>
-      </form>
-    </ContainerComponent>
+    <DashboardLayout>
+      <ContainerComponent>
+        <CustomBreadcrumbs
+          heading={`${title} Form`}
+          links={[
+            {
+              name: "Dashboard",
+              href: PATH_DASHBOARD.app,
+            },
+            {
+              name: title,
+              href: backUrl,
+            },
+            { name: `${title} Form` },
+          ]}
+        />
+        <form noValidate onSubmit={formik.handleSubmit}>
+          <NotificationFormSection formik={formik} id={id} />
+          <Stack alignItems="flex-end" sx={{ mt: 3 }}>
+            <LoadingButton
+              type="submit"
+              variant="contained"
+              loading={formik?.isSubmitting}
+            >
+              {id === "new" ? "Create client" : "Update client"}
+            </LoadingButton>
+          </Stack>
+        </form>
+      </ContainerComponent>
+    </DashboardLayout>
   );
 };
 
