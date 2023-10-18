@@ -1,11 +1,17 @@
 "use client";
 import GuestGuard from "@/auth/GuestGuard";
-import ResetPassword from "@/sections/auth/resetPassword";
+import ForgotPassword from "@/sections/auth/forgotPassword";
+import ResetPassword from "@/sections/auth/forgotPassword";
+import axiosInstance from "@/utils/axios";
 import { Box } from "@mui/material";
 import { useFormik } from "formik";
+import { useSnackbar } from "notistack";
 
+const ForgetPasswords = () => {
+  const actionUrl = "admin/auth/forgot_password";
+  const { enqueueSnackbar } = useSnackbar();
+  const title = "Forget Password";
 
-const ForgetPassword = () => {
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -24,6 +30,40 @@ const ForgetPassword = () => {
     },
     onSubmit: async (values) => {
       // await
+      let method = "POST";
+      let url = actionUrl;
+
+      await axiosInstance
+        .request({
+          method: method,
+          url: url,
+          data: values,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            enqueueSnackbar(response.data.message, {
+              variant: "success",
+            });
+          }
+        })
+        .catch((error) => {
+          const { response } = error;
+          // show error message
+          enqueueSnackbar(response?.data?.message, {
+            variant: "error",
+          });
+
+          // set server error
+          if (response.status === 422) {
+            // eslint-disable-next-line no-unused-vars
+            for (const [key, value] of Object.entries(values)) {
+              if (response.data.errors[key]) {
+                formik.setFieldError(key, response.data.errors[key][0]);
+                // setErrors({ [key]: response.data.errors[key][0] });
+              }
+            }
+          }
+        });
     },
   });
   return (
@@ -36,14 +76,14 @@ const ForgetPassword = () => {
           left: 0,
           bottom: 0,
           background: (theme) => theme.palette.common.white,
-          zIndex: 1800,
+          zIndex: 1200,
           pt: 5,
         }}
       >
-        <ResetPassword formik={formik} />
+        <ForgotPassword formik={formik} />
       </Box>
     </GuestGuard>
   );
 };
 
-export default ForgetPassword;
+export default ForgetPasswords;
