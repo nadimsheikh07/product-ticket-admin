@@ -22,6 +22,7 @@ import InstantMessageBox from "@/sections/dashboard/ticket/tickets/instant_messa
 import { useFormik } from "formik";
 import axiosInstance from "@/utils/axios";
 import { useSnackbar } from "notistack";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 
 const TicketsList = () => {
   const { push } = useRouter();
@@ -315,66 +316,68 @@ const TicketsList = () => {
   };
   return (
     <>
-      <ContainerComponent>
-        <CustomBreadcrumbs
-          heading="Ticket List"
-          links={[
-            {
-              name: "Dashboard",
-              href: PATH_DASHBOARD.app,
-            },
-            {
-              name: "Tickets",
-              // href: "#",
-            },
-            {
-              name: "List",
-            },
-          ]}
-          action={
-            <Stack direction="row" spacing={4}>
-              {/* <IconButton onClick={() => handleOpen()} color="secondary">
+      <DashboardLayout>
+        <ContainerComponent>
+          <CustomBreadcrumbs
+            heading="Ticket List"
+            links={[
+              {
+                name: "Dashboard",
+                href: PATH_DASHBOARD.app,
+              },
+              {
+                name: "Tickets",
+                // href: "#",
+              },
+              {
+                name: "List",
+              },
+            ]}
+            action={
+              <Stack direction="row" spacing={4}>
+                {/* <IconButton onClick={() => handleOpen()} color="secondary">
                 <Iconify
                   color="secondary"
                   width={30}
                   icon="la:facebook-messenger"
                 />
               </IconButton> */}
-              <Button
-                component={NextLink}
-                href={`${formUrl}/new`}
-                variant="contained"
-                startIcon={<Iconify icon="eva:plus-fill" />}
-              >
-                New Ticket
-              </Button>
-            </Stack>
-          }
+                <Button
+                  component={NextLink}
+                  href={`${formUrl}/new`}
+                  variant="contained"
+                  startIcon={<Iconify icon="eva:plus-fill" />}
+                >
+                  New Ticket
+                </Button>
+              </Stack>
+            }
+          />
+          <DataTable
+            title={title}
+            actionUrl={actionUrl}
+            defaultSortModel={[{ field: "updated_at", sort: "desc" }]}
+            defaultFilterModel={{
+              items: [],
+            }}
+            columns={columns}
+            checkboxSelection={true}
+            disableRowSelectionOnClick={true}
+            forceRefresh={refreshTicket}
+            setForceRefresh={setRefreshTicket}
+            params={React.useMemo(() => {
+              return { is_admin_view: true };
+            }, [])}
+          />
+        </ContainerComponent>
+        <InstantMessageBox
+          open={openChat}
+          handleClose={handleClose}
+          formik={formik}
+          data={ticketChat}
+          id={formik.values.ticket_id}
         />
-        <DataTable
-          title={title}
-          actionUrl={actionUrl}
-          defaultSortModel={[{ field: "updated_at", sort: "desc" }]}
-          defaultFilterModel={{
-            items: [],
-          }}
-          columns={columns}
-          checkboxSelection={true}
-          disableRowSelectionOnClick={true}
-          forceRefresh={refreshTicket}
-          setForceRefresh={setRefreshTicket}
-          params={React.useMemo(() => {
-            return { is_admin_view: true };
-          }, [])}
-        />
-      </ContainerComponent>
-      <InstantMessageBox
-        open={openChat}
-        handleClose={handleClose}
-        formik={formik}
-        data={ticketChat}
-        id={formik.values.ticket_id}
-      />
+      </DashboardLayout>
     </>
   );
 };

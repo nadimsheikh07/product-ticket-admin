@@ -2,6 +2,7 @@
 import { useAuthContext } from "@/auth/useAuthContext";
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import { EmailFormSection } from "@/sections/dashboard/configuration/email";
 import axiosInstance from "@/utils/axios";
@@ -119,6 +120,7 @@ const EmailPageForm = () => {
   }, []);
 
   return (
+    <DashboardLayout>
     <ContainerComponent>
       <CustomBreadcrumbs
         heading={`${title} Configuration`}
@@ -151,6 +153,7 @@ const EmailPageForm = () => {
         </Stack>
       </form>
     </ContainerComponent>
+    </DashboardLayout>
   );
 };
 

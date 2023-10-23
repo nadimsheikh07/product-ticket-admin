@@ -59,6 +59,7 @@ const navConfig = [
       // USER
       {
         title: "masters",
+        isLink: false,
         path: PATH_DASHBOARD.user.root,
         icon: ICONS.user,
         children: [{ title: "users", path: PATH_DASHBOARD.user.user }],
@@ -80,6 +81,7 @@ const navConfig = [
       // COMPANY
       {
         title: "Client",
+        // isLink: false,
         path: PATH_DASHBOARD.client.clients,
         icon: ICONS.user,
         // children: [{ title: "Clients", path: PATH_DASHBOARD.client.clients }],
@@ -87,6 +89,7 @@ const navConfig = [
       // PRODUCT
       {
         title: "Product",
+        isLink: false,
         path: PATH_DASHBOARD.product.root,
         icon: ICONS.user,
         children: [
@@ -96,6 +99,7 @@ const navConfig = [
       // TICKET
       {
         title: "Ticket",
+        isLink: false,
         path: PATH_DASHBOARD.ticket.root,
         icon: ICONS.user,
         children: [{ title: "tickets", path: PATH_DASHBOARD.ticket.tickets }],
@@ -103,6 +107,7 @@ const navConfig = [
       // NOTIFICATION
       {
         title: "Settings",
+        isLink: false,
         path: PATH_DASHBOARD.settings.root,
         icon: ICONS.user,
         children: [
@@ -112,6 +117,7 @@ const navConfig = [
       // CONFIGURATION
       {
         title: "Configuration",
+        isLink: false,
         path: PATH_DASHBOARD.configuration.root,
         icon: ICONS.user,
         children: [

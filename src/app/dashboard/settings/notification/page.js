@@ -9,6 +9,7 @@ import NextLink from "next/link";
 import { ContainerComponent } from "@/components/container";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 // import Head from "next/document";
 
 const CompanyEmployeesList = () => {
@@ -64,51 +65,53 @@ const CompanyEmployeesList = () => {
 
   return (
     <>
-      {/* <Head>
+      <DashboardLayout>
+        {/* <Head>
       <title>
         login
       </title>
     </Head> */}
-      <ContainerComponent>
-        <CustomBreadcrumbs
-          heading={`${title} List`}
-          links={[
-            {
-              name: "Dashboard",
-              href: PATH_DASHBOARD.app,
-            },
-            {
-              name: title,
-              // href: "#",
-            },
-            {
-              name: "List",
-            },
-          ]}
-          action={
-            <Button
-              component={NextLink}
-              href={`${formUrl}/new`}
-              variant="contained"
-              startIcon={<Iconify icon="eva:plus-fill" />}
-            >
-              New Notification
-            </Button>
-          }
-        />
+        <ContainerComponent>
+          <CustomBreadcrumbs
+            heading={`${title} List`}
+            links={[
+              {
+                name: "Dashboard",
+                href: PATH_DASHBOARD.app,
+              },
+              {
+                name: title,
+                // href: "#",
+              },
+              {
+                name: "List",
+              },
+            ]}
+            action={
+              <Button
+                component={NextLink}
+                href={`${formUrl}/new`}
+                variant="contained"
+                startIcon={<Iconify icon="eva:plus-fill" />}
+              >
+                New Notification
+              </Button>
+            }
+          />
 
-        <DataTable
-          title={title}
-          actionUrl={actionUrl}
-          defaultSortModel={[{ field: "updated_at", sort: "desc" }]}
-          defaultFilterModel={{
-            items: [],
-          }}
-          columns={columns}
-          checkboxSelection={true}
-          disableRowSelectionOnClick={true}
-        />
-      </ContainerComponent>
+          <DataTable
+            title={title}
+            actionUrl={actionUrl}
+            defaultSortModel={[{ field: "updated_at", sort: "desc" }]}
+            defaultFilterModel={{
+              items: [],
+            }}
+            columns={columns}
+            checkboxSelection={true}
+            disableRowSelectionOnClick={true}
+          />
+        </ContainerComponent>
+      </DashboardLayout>
     </>
   );
 };

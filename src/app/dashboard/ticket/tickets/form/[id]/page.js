@@ -1,6 +1,7 @@
 "use client";
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import CompanyEmpolyeesFormSection from "@/sections/dashboard/client/clientForm/clientForm";
 import { ProductsFormSection } from "@/sections/dashboard/product/products";
@@ -113,34 +114,36 @@ const TicketsPageForm = () => {
   console.log("yaya", formik.values);
 
   return (
-    <ContainerComponent>
-      <CustomBreadcrumbs
-        heading={title}
-        links={[
-          {
-            name: "Dashboard",
-            href: PATH_DASHBOARD.app,
-          },
-          {
-            name: "Ticket",
-            href: backUrl,
-          },
-          { name: title },
-        ]}
-      />
-      <form noValidate onSubmit={formik.handleSubmit}>
-        <TicketsFormSection formik={formik} id={id} />
-        <Stack alignItems="flex-end" sx={{ mt: 3 }}>
-          <LoadingButton
-            type="submit"
-            variant="contained"
-            loading={formik?.isSubmitting}
-          >
-            {id === "new" ? "Create Ticket" : "Update Ticket"}
-          </LoadingButton>
-        </Stack>
-      </form>
-    </ContainerComponent>
+    <DashboardLayout>
+      <ContainerComponent>
+        <CustomBreadcrumbs
+          heading={title}
+          links={[
+            {
+              name: "Dashboard",
+              href: PATH_DASHBOARD.app,
+            },
+            {
+              name: "Ticket",
+              href: backUrl,
+            },
+            { name: title },
+          ]}
+        />
+        <form noValidate onSubmit={formik.handleSubmit}>
+          <TicketsFormSection formik={formik} id={id} />
+          <Stack alignItems="flex-end" sx={{ mt: 3 }}>
+            <LoadingButton
+              type="submit"
+              variant="contained"
+              loading={formik?.isSubmitting}
+            >
+              {id === "new" ? "Create Ticket" : "Update Ticket"}
+            </LoadingButton>
+          </Stack>
+        </form>
+      </ContainerComponent>
+    </DashboardLayout>
   );
 };
 

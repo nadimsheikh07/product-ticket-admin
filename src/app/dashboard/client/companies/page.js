@@ -9,6 +9,7 @@ import NextLink from "next/link";
 import { ContainerComponent } from "@/components/container";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 
 const CompanyList = () => {
   const { push } = useRouter();
@@ -64,45 +65,48 @@ const CompanyList = () => {
 
   return (
     <>
-      <ContainerComponent>
-        <CustomBreadcrumbs
-          heading="Company List"
-          links={[
-            {
-              name: "Dashboard",
-              href: PATH_DASHBOARD.app,
-            },
-            {
-              name: "Companies",
-              // href: "#",
-            },
-            {
-              name: "List",
-            },
-          ]}
-          action={
-            <Button
-              component={NextLink}
-              href={`${formUrl}/new`}
-              variant="contained"
-              startIcon={<Iconify icon="eva:plus-fill" />}
-            >
-              New Company
-            </Button>
-          }
-        />
+      <DashboardLayout>
+        {" "}
+        <ContainerComponent>
+          <CustomBreadcrumbs
+            heading="Company List"
+            links={[
+              {
+                name: "Dashboard",
+                href: PATH_DASHBOARD.app,
+              },
+              {
+                name: "Companies",
+                // href: "#",
+              },
+              {
+                name: "List",
+              },
+            ]}
+            action={
+              <Button
+                component={NextLink}
+                href={`${formUrl}/new`}
+                variant="contained"
+                startIcon={<Iconify icon="eva:plus-fill" />}
+              >
+                New Company
+              </Button>
+            }
+          />
 
-        <DataTable
-          title={title}
-          actionUrl={actionUrl}
-          defaultSortModel={[{ field: "updated_at", sort: "desc" }]}
-          defaultFilterModel={{
-            items: [],
-          }}
-          columns={columns}
-          checkboxSelection={true}
-        />
-      </ContainerComponent>
+          <DataTable
+            title={title}
+            actionUrl={actionUrl}
+            defaultSortModel={[{ field: "updated_at", sort: "desc" }]}
+            defaultFilterModel={{
+              items: [],
+            }}
+            columns={columns}
+            checkboxSelection={true}
+          />
+        </ContainerComponent>
+      </DashboardLayout>
     </>
   );
 };

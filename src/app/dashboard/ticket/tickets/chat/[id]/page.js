@@ -2,6 +2,7 @@
 import { useAuthContext } from "@/auth/useAuthContext";
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import { TicketsFormSection } from "@/sections/dashboard/ticket/tickets";
 import ChatSection from "@/sections/dashboard/ticket/tickets/chat";
@@ -111,25 +112,27 @@ const TicketsPageForm = () => {
   });
 
   return (
-    <ContainerComponent>
-      <CustomBreadcrumbs
-        heading={title}
-        links={[
-          {
-            name: "Dashboard",
-            href: PATH_DASHBOARD.app,
-          },
-          {
-            name: "Ticket List",
-            href: backUrl,
-          },
-          { name: title },
-        ]}
-      />
-      <form noValidate onSubmit={formik.handleSubmit}>
-        <ChatSection ticketChat={ticketChat} formik={formik} id={id} />
-      </form>
-    </ContainerComponent>
+    <DashboardLayout>
+      <ContainerComponent>
+        <CustomBreadcrumbs
+          heading={title}
+          links={[
+            {
+              name: "Dashboard",
+              href: PATH_DASHBOARD.app,
+            },
+            {
+              name: "Ticket List",
+              href: backUrl,
+            },
+            { name: title },
+          ]}
+        />
+        <form noValidate onSubmit={formik.handleSubmit}>
+          <ChatSection ticketChat={ticketChat} formik={formik} id={id} />
+        </form>
+      </ContainerComponent>
+    </DashboardLayout>
   );
 };
 

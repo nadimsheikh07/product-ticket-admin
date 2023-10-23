@@ -10,6 +10,7 @@ import { ContainerComponent } from "@/components/container";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
 import Label from "@/components/label";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 // import Head from "next/document";
 
 const CompanyEmployeesList = () => {
@@ -79,6 +80,7 @@ const CompanyEmployeesList = () => {
 
   return (
     <>
+    <DashboardLayout>
       {/* <Head>
       <title>
         login
@@ -127,6 +129,7 @@ const CompanyEmployeesList = () => {
           }}
         />
       </ContainerComponent>
+      </DashboardLayout>
     </>
   );
 };

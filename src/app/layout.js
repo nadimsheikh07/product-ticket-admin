@@ -10,7 +10,7 @@ import ThemeProvider from "@/theme";
 import SnackbarProvider from "@/components/snackbar/SnackbarProvider";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import "simplebar-react/dist/simplebar.min.css";
-import 'react-chat-elements/dist/main.css'
+import "react-chat-elements/dist/main.css";
 
 export default function RootLayout({ children }) {
   return (
@@ -29,9 +29,7 @@ export default function RootLayout({ children }) {
                 <SettingsProvider>
                   <MotionLazyContainer>
                     <ThemeSettings>
-                      <SnackbarProvider>
-                        <DashboardLayout>{children}</DashboardLayout>
-                      </SnackbarProvider>
+                      <SnackbarProvider>{children}</SnackbarProvider>
                     </ThemeSettings>
                   </MotionLazyContainer>
                 </SettingsProvider>
