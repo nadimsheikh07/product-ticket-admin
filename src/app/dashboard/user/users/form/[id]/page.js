@@ -55,7 +55,7 @@ const UserPageForm = () => {
       }
       if (id === "new") {
         const passwordRegex =
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+        /^([A-z0-9!@#$%^&*().,<>{}[\]<>?_=+\-|;:\'\"\/])*[^\s]\1*$/;
         if (!values.password) {
           errors.password = "Password is required";
         } else if (values.password.length > 10) {
