@@ -61,6 +61,12 @@ const TicketsFormSection = ({ formik, id }) => {
       });
   };
 
+  React.useEffect(() => {
+    if (id !== "new" && formik.values.client_id) {
+      getProduct(null, formik.values.client_id);
+    }
+  }, [formik.values.client_id, id]);
+
   console.log("formik.values.status", formik.values);
   return (
     <Grid container spacing={2}>
