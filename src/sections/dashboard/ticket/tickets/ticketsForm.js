@@ -109,7 +109,6 @@ const TicketsFormSection = ({ formik, id }) => {
           onChange={(e) => {
             if (e) {
               setProduct([]);
-              console.log("eeeee", e);
               getProduct(null, e);
               formik.setFieldValue("client_id", e);
               formik.setFieldValue("product_id", null);

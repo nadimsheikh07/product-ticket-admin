@@ -12,6 +12,7 @@ import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { FormControl } from "./index";
+import DeleteIcon from "@mui/icons-material/Delete";
 // const fileTypes = ["JPG", "PNG", "GIF", "JFIF", "JPEG"];
 
 // eslint-disable-next-line arrow-body-style
@@ -195,10 +196,10 @@ const DragDrop = (props) => {
             src={file}
             height={"48"}
             alt={"image"}
-            icon="delete"
+            icon={<DeleteIcon />}
             fontSize={"small"}
             deleteSelected={() => props.onChange("")}
-          />{" "}
+          />
         </>
       )}
       <div style={{ display: "none" }}>

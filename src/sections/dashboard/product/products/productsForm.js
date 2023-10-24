@@ -8,11 +8,12 @@ import {
 } from "@/components/form";
 import { Box, Button, Grid, Stack } from "@mui/material";
 import dayjs from "dayjs";
-import { useParams } from "next/navigation";
+import { useRouter } from "next/router";
 import React, { useMemo } from "react";
 
 const ProductsFormSection = ({ formik, generateCode }) => {
-  const { id } = useParams();
+  const router = useRouter();
+  const { id } = router.query;
   return (
     <Grid container spacing={2}>
       <Grid item lg={6} md={6} sm={12} xs={12}>
