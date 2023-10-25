@@ -10,7 +10,7 @@ import { LoadingButton } from "@mui/lab";
 import { Stack } from "@mui/material";
 import { useFormik } from "formik";
 import { reject } from "lodash";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 
 import React from "react";

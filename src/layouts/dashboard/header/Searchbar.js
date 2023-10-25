@@ -2,7 +2,7 @@ import { useState, memo, useEffect } from "react";
 import parse from "autosuggest-highlight/parse";
 import match from "autosuggest-highlight/match";
 // next
-import { usePathname, useRouter } from "next/navigation";
+import {  useRouter } from "next/router";
 // @mui
 import { alpha, styled } from "@mui/material/styles";
 import {
@@ -93,8 +93,7 @@ const StyledPopper = styled((props) => <Popper {...props} />)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 function Searchbar() {
-  const { push } = useRouter();
-  const pathname = usePathname();
+  const { push, pathname } = useRouter();
 
   const [open, setOpen] = useState(false);
 

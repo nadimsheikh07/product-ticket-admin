@@ -8,7 +8,7 @@ import { PATH_DASHBOARD } from "@/routes/paths";
 import { Button, Tooltip } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import NextLink from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 // import Head from "next/document";
 
 const CompanyEmployeesList = () => {

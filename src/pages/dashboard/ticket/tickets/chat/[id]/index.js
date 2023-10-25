@@ -6,7 +6,7 @@ import { PATH_DASHBOARD } from "@/routes/paths";
 import ChatSection from "@/sections/dashboard/ticket/tickets/chat";
 import axiosInstance from "@/utils/axios";
 import { useFormik } from "formik";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 
 import React from "react";

@@ -9,7 +9,7 @@ import { Button, Tooltip } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import moment from "moment";
 import NextLink from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 
 const ProductsList = () => {
   const { push } = useRouter();

@@ -18,7 +18,7 @@ import Logo from "@/components/logo/Logo";
 import NavMobile from "./nav/mobile";
 import navConfig from "./nav/config-navigation";
 import NavDesktop from "./nav/desktop";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 
 // ----------------------------------------------------------------------
 

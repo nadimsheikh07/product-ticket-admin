@@ -2,7 +2,7 @@
 import PropTypes from "prop-types";
 import { useEffect } from "react";
 // next
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 // routes
 import { PATH_DASHBOARD } from "../routes/paths";
 // components

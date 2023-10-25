@@ -13,7 +13,7 @@ import localStorageAvailable from "@/utils/localStorageAvailable";
 import { isValidToken, setSession } from "@/auth/utils";
 import axiosInstance from "@/utils/axios";
 import { useSnackbar } from "notistack";
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
 // ----------------------------------------------------------------------
 
 // NOTE:
@@ -72,7 +72,7 @@ AuthProvider.propTypes = {
 };
 
 export function AuthProvider({ children }) {
-  const pathname = usePathname();
+  const {pathname} = useRouter();
   const [state, dispatch] = useReducer(reducer, initialState);
   const { enqueueSnackbar } = useSnackbar();
   const storageAvailable = localStorageAvailable();

@@ -11,7 +11,7 @@ import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useFormik } from "formik";
 import moment from "moment";
 import NextLink from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import React from "react";
 

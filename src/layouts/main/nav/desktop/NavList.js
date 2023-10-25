@@ -8,7 +8,7 @@ import useActiveLink from "@/hooks/useActiveLink";
 //
 import { NavItem, NavItemDashboard } from "./NavItem";
 import { StyledSubheader, StyledMenu } from "./styles";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/router";
 
 // ----------------------------------------------------------------------
 
@@ -18,7 +18,7 @@ NavList.propTypes = {
 };
 
 export default function NavList({ item, isOffset }) {
-  const pathname = usePathname();
+  const pathname = useRouter();
 
   const [openMenu, setOpenMenu] = useState(false);
 

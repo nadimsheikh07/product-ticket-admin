@@ -1,7 +1,7 @@
 "use client";
 import LoadingScreen from "@/components/loading-screen/LoadingScreen";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import React from "react";
 
 export default function Home() {
