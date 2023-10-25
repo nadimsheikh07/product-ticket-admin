@@ -113,7 +113,7 @@ const TicketsPageForm = () => {
   return (
     <ContainerComponent>
       <CustomBreadcrumbs
-        heading={title}
+         heading={title}
         links={[
           {
             name: "Dashboard",

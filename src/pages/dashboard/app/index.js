@@ -5,8 +5,8 @@ export const metadata = {
   description: "...",
 };
 
-const App = () => {
-  return <DashboardSection />;
+const App = () => { 
+  return  <DashboardSection />;
 };
 
 export default App;
