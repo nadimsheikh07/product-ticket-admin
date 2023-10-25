@@ -108,7 +108,7 @@ const TicketsPageForm = () => {
       bindData(id);
     }
   }, [id]);
-  console.log("yaya", formik.values);
+
 
   return (
     <ContainerComponent>
