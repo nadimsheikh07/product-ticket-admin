@@ -6,15 +6,15 @@ import { PATH_DASHBOARD } from "@/routes/paths";
 import ChatSection from "@/sections/dashboard/ticket/tickets/chat";
 import axiosInstance from "@/utils/axios";
 import { useFormik } from "formik";
-import { useParams, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 
 import React from "react";
 
 const TicketsPageForm = () => {
   const router = useRouter();
+  const { id } = router.query;
   const { enqueueSnackbar } = useSnackbar();
-  const { id } = useParams();
   const { user } = useAuthContext();
   const title = "Ticket Chat";
   const backUrl = `${PATH_DASHBOARD.ticket.tickets}`;
