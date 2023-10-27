@@ -8,6 +8,7 @@ import InstantMessageBox from "@/sections/dashboard/ticket/tickets/instant_messa
 import axiosInstance from "@/utils/axios";
 import { Avatar, Badge, Button, Chip, Stack, Tooltip } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
+import dayjs from "dayjs";
 import { useFormik } from "formik";
 import moment from "moment";
 import NextLink from "next/link";
@@ -165,7 +166,9 @@ const TicketsList = () => {
       type: "date",
       width: 120,
       renderCell: ({ row }) => {
-        return moment(row?.created_at, "DD-MM-YYYY").format("DD-MMM-YYYY");
+        return moment(row?.created_at, "DD-MM-YYYY hh:ss a").format(
+          "DD-MMM-YYYY"
+        );
       },
     },
     {

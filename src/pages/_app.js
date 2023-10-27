@@ -10,6 +10,7 @@ import "simplebar-react/dist/simplebar.min.css";
 import "react-chat-elements/dist/main.css";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { StepperProvider } from "@/components/stepper/stepperContext";
 export default function App({ Component, pageProps }) {
   return (
     <AuthProvider>
@@ -21,7 +22,9 @@ export default function App({ Component, pageProps }) {
                 <ThemeSettings>
                   <SnackbarProvider>
                     <DashboardLayout>
-                      <Component {...pageProps} />
+                      <StepperProvider>
+                        <Component {...pageProps} />
+                      </StepperProvider>
                     </DashboardLayout>
                   </SnackbarProvider>
                 </ThemeSettings>

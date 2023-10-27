@@ -102,7 +102,10 @@ const navConfig = [
         isLink: false,
         path: PATH_DASHBOARD.ticket.root,
         icon: ICONS.user,
-        children: [{ title: "tickets", path: PATH_DASHBOARD.ticket.tickets }],
+        children: [
+          { title: "tickets", path: PATH_DASHBOARD.ticket.tickets },
+          { title: "Open Tickets", path: PATH_DASHBOARD.ticket.open_tickets },
+        ],
       },
       // NOTIFICATION
       {

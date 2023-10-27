@@ -60,6 +60,7 @@ export const PATH_DASHBOARD = {
   ticket: {
     root: path(ROOTS_DASHBOARD, "/ticket"),
     tickets: path(ROOTS_DASHBOARD, "/ticket/tickets"),
+    open_tickets: path(ROOTS_DASHBOARD, "/ticket/open_tickets"),
   },
   settings: {
     root: path(ROOTS_DASHBOARD, "/settings"),
