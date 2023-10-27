@@ -1,20 +1,20 @@
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
 // ----------------------------------------------------------------------
 
+import { useRouter } from "next/router";
+
 export default function useActiveLink(path, deep = true) {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const { pathname, asPath } = useRouter();
   const checkPath = path.startsWith("#");
 
   const currentPath = path === "/" ? "/" : `${path}`;
 
   const normalActive =
     (!checkPath && pathname === currentPath) ||
-    (!checkPath && pathname + searchParams === currentPath);
+    (!checkPath && asPath === currentPath);
 
   const deepActive =
     (!checkPath && pathname.includes(currentPath)) ||
-    (!checkPath && (pathname + searchParams).includes(currentPath));
+    (!checkPath && asPath.includes(currentPath));
 
   return {
     active: deep ? deepActive : normalActive,

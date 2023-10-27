@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 // next
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 // components
 import LoadingScreen from "@/components/loading-screen/LoadingScreen";
 //
@@ -17,9 +17,7 @@ AuthGuard.propTypes = {
 export default function AuthGuard({ children }) {
   const { isAuthenticated, isInitialized } = useAuthContext();
 
-  const pathname = usePathname();
-
-  const { push } = useRouter();
+  const { push, pathname } = useRouter();
 
   const [requestedLocation, setRequestedLocation] = useState(null);
 

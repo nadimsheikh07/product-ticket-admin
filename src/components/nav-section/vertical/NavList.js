@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 // next
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 // @mui
 import { Collapse } from '@mui/material';
 // hooks

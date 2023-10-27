@@ -77,7 +77,7 @@ const UserFormSection = ({ formik, id }) => {
             name="password"
             value={formik?.values?.password}
             onChange={(e) => {
-              formik.setFieldValue("password", e.target.value.trim());
+              formik.setFieldValue("password", e.target.value.trim().replace(" ",""));
             }}
             error={formik.touched.password && formik.errors.password}
             helperText={formik.touched.password && formik.errors.password}

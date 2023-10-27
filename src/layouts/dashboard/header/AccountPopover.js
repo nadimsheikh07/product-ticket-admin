@@ -1,6 +1,6 @@
 import { useState } from "react";
 // next
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 // @mui
 import { alpha } from "@mui/material/styles";
 import { Box, Divider, Typography, Stack, MenuItem } from "@mui/material";
