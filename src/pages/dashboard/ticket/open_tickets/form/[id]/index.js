@@ -6,11 +6,9 @@ import SelectBox from "@/components/form/select";
 import { StepperContext } from "@/components/stepper/stepperContext";
 import { ScrollableTabs } from "@/components/tabs";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import { TicketsFormSection } from "@/sections/dashboard/ticket/tickets";
 import axiosInstance from "@/utils/axios";
 import { status } from "@/utils/constant";
-import { LoadingButton } from "@mui/lab";
-import { Grid, Stack } from "@mui/material";
+import { Grid } from "@mui/material";
 import dayjs from "dayjs";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
@@ -59,9 +57,6 @@ const TicketsPageForm = () => {
       }
       if (!values.product_name) {
         errors.product_name = "Product name is Required";
-      }
-      if (!values.name) {
-        errors.name = "Name is Required";
       }
       return errors;
     },
