@@ -86,16 +86,6 @@ const navConfig = [
         icon: ICONS.user,
         // children: [{ title: "Clients", path: PATH_DASHBOARD.client.clients }],
       },
-      // TICKET
-      {
-        title: "Attribute",
-        isLink: false,
-        path: PATH_DASHBOARD.attribute.root,
-        icon: ICONS.user,
-        children: [
-          { title: "Attributes", path: PATH_DASHBOARD.attribute.attributes },
-        ],
-      },
       // PRODUCT
       {
         title: "Product",
@@ -103,7 +93,11 @@ const navConfig = [
         path: PATH_DASHBOARD.product.root,
         icon: ICONS.user,
         children: [
-          { title: "products", path: PATH_DASHBOARD.product.products },
+          {
+            title: "Product Attributes",
+            path: PATH_DASHBOARD.product.attributes,
+          },
+          { title: "Products", path: PATH_DASHBOARD.product.products },
         ],
       },
       // TICKET

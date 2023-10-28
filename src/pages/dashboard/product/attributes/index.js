@@ -13,8 +13,8 @@ import { useRouter } from "next/router";
 
 const CompanyEmployeesList = () => {
   const { push } = useRouter();
-  const title = "Attribute";
-  const formUrl = `${PATH_DASHBOARD.attribute.attributes}/form`;
+  const title = "Product Attribute";
+  const formUrl = `${PATH_DASHBOARD.product.attributes}/form`;
   const actionUrl = "admin/attribute/attributes";
   const columns = [
     {
@@ -65,14 +65,14 @@ const CompanyEmployeesList = () => {
     </Head> */}
       <ContainerComponent>
         <CustomBreadcrumbs
-          heading="Attribute List"
+          heading="Product Attribute List"
           links={[
             {
               name: "Dashboard",
               href: PATH_DASHBOARD.app,
             },
             {
-              name: "Attribute",
+              name: "Product Attribute",
               // href: "#",
             },
             {
@@ -86,7 +86,7 @@ const CompanyEmployeesList = () => {
               variant="contained"
               startIcon={<Iconify icon="eva:plus-fill" />}
             >
-              New Attribute
+              New Product Attribute
             </Button>
           }
         />

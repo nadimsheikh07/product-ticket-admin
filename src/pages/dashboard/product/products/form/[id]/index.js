@@ -7,8 +7,6 @@ import { PATH_DASHBOARD } from "@/routes/paths";
 import { ProductsFormSection } from "@/sections/dashboard/product/products";
 import DynamicAttributeForm from "@/sections/dashboard/product/products/dynamicAttributeForm";
 import axiosInstance from "@/utils/axios";
-import { LoadingButton } from "@mui/lab";
-import { Stack } from "@mui/material";
 import { useFormik } from "formik";
 import { reject } from "lodash";
 import { useRouter } from "next/router";

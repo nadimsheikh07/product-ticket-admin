@@ -15,8 +15,8 @@ const CompanyEmployeesPageForm = () => {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
   const { id } = router.query;
-  const title = "Attribute Form";
-  const backUrl = `${PATH_DASHBOARD.attribute.attributes}`;
+  const title = "Product Attribute Form";
+  const backUrl = `${PATH_DASHBOARD.product.attributes}`;
   const actionUrl = "admin/attribute/attributes";
 
   const formik = useFormik({
@@ -107,7 +107,7 @@ const CompanyEmployeesPageForm = () => {
             href: PATH_DASHBOARD.app,
           },
           {
-            name: "Attribute",
+            name: "Product Attribute",
             href: backUrl,
           },
           { name: title },
@@ -121,7 +121,9 @@ const CompanyEmployeesPageForm = () => {
             variant="contained"
             loading={formik?.isSubmitting}
           >
-            {id === "new" ? "Create attribute" : "Update attribute"}
+            {id === "new"
+              ? "Create product attribute"
+              : "Update product attribute"}
           </LoadingButton>
         </Stack>
       </form>
