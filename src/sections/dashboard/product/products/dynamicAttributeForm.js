@@ -18,6 +18,8 @@ import {
   Typography,
 } from "@mui/material";
 import { useFormik } from "formik";
+import { includes, some } from "lodash";
+import { useSnackbar } from "notistack";
 import React from "react";
 
 const DynamicAttributeForm = ({
@@ -28,6 +30,7 @@ const DynamicAttributeForm = ({
   handleOpenCloseAttributes,
   updateAttribute,
 }) => {
+  const { enqueueSnackbar } = useSnackbar();
   const formik = useFormik({
     initialValues: {
       attribute_id: "",
@@ -45,8 +48,18 @@ const DynamicAttributeForm = ({
     },
     onSubmit: async (values) => {
       if (attributes?.id === "new") {
-        await addAttribute(values);
-        handleOpenCloseAttributes("new");
+        if (!some(attributeList, { attribute_id: values.attribute_id })) {
+          await addAttribute(values);
+          handleOpenCloseAttributes("new");
+          formik.resetForm();
+        } else {
+          enqueueSnackbar(
+            "Attribute already selected. Please select different attribute.",
+            {
+              variant: "error",
+            }
+          );
+        }
       } else {
         let newAttributes = [];
         attributeList &&
@@ -63,8 +76,8 @@ const DynamicAttributeForm = ({
           });
         await updateAttribute(newAttributes);
         handleOpenCloseAttributes("new");
+        formik.resetForm();
       }
-      formik.resetForm();
     },
   });
 
@@ -96,7 +109,7 @@ const DynamicAttributeForm = ({
                 <TableRow>
                   <TableCell>Sr no.</TableCell>
                   <TableCell>Attribute Name</TableCell>
-                  <TableCell align="right">Attribute Value</TableCell>
+                  <TableCell align="left">Attribute Value</TableCell>
                   <TableCell align="right">Action</TableCell>
                 </TableRow>
               </TableHead>
@@ -112,7 +125,11 @@ const DynamicAttributeForm = ({
                       <TableCell component="th" scope="row">
                         {item.attribute_id}
                       </TableCell>
-                      <TableCell align="right">{item.value}</TableCell>
+                      <TableCell align="right">
+                        <Typography component="p" variant="body2" noWrap maxWidth="150px" width="100%">
+                          {item.value}
+                        </Typography>
+                      </TableCell>
                       <TableCell align="right">
                         <IconButton
                           onClick={() => handleOpenCloseAttributes(index)}
