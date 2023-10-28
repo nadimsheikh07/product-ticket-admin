@@ -29,6 +29,7 @@ const DynamicAttributeForm = ({
   attributeList = [],
   handleOpenCloseAttributes,
   updateAttribute,
+  attributeData,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
   const formik = useFormik({
@@ -116,36 +117,62 @@ const DynamicAttributeForm = ({
               <TableBody>
                 {attributeList &&
                   attributeList?.length > 0 &&
-                  attributeList.map((item, index) => (
-                    <TableRow
-                      key={`Attribute-${index + 1}`}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell>{index + 1}</TableCell>
-                      <TableCell component="th" scope="row">
-                        {item.attribute_id}
-                      </TableCell>
-                      <TableCell align="right">
-                        <Typography component="p" variant="body2" noWrap maxWidth="150px" width="100%">
-                          {item.value}
-                        </Typography>
-                      </TableCell>
-                      <TableCell align="right">
-                        <IconButton
-                          onClick={() => handleOpenCloseAttributes(index)}
-                        >
-                          <Edit />
-                        </IconButton>
+                  attributeList.map((item, index) => {
+                    console.log(
+                      "dskhgfkahsdgfafs",
 
-                        <IconButton
-                          onClick={() => removeAttribute(index)}
-                          color="error"
-                        >
-                          <Delete color="error" />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                      attributeData &&
+                        attributeData?.length > 0 &&
+                        attributeData.find(
+                          (element) => element?.id === item.attribute_id
+                        )
+                    );
+
+                    let attributeName =
+                      attributeData &&
+                      attributeData?.length > 0 &&
+                      attributeData.find(
+                        (element) => element?.id === item.attribute_id
+                      );
+                    return (
+                      <TableRow
+                        key={`Attribute-${index + 1}`}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell>{index + 1}</TableCell>
+                        <TableCell component="th" scope="row">
+                          {attributeName?.name}
+                        </TableCell>
+                        <TableCell align="right">
+                          <Typography
+                            component="p"
+                            variant="body2"
+                            noWrap
+                            maxWidth="150px"
+                            width="100%"
+                          >
+                            {item.value}
+                          </Typography>
+                        </TableCell>
+                        <TableCell align="right">
+                          <IconButton
+                            onClick={() => handleOpenCloseAttributes(index)}
+                          >
+                            <Edit />
+                          </IconButton>
+
+                          <IconButton
+                            onClick={() => removeAttribute(index)}
+                            color="error"
+                          >
+                            <Delete color="error" />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
               </TableBody>
             </Table>
           </TableContainer>

@@ -27,6 +27,7 @@ const ProductsPageForm = () => {
     id: "new",
   });
   const isLastStep = value === 2 - 1;
+  const [attributeData, setAttributeData] = React.useState([]);
 
   const formik = useFormik({
     initialValues: {
@@ -124,6 +125,27 @@ const ProductsPageForm = () => {
       }
     },
   });
+
+  const getAttributes = async (search = null) => {
+    await axiosInstance
+      .get("admin/attribute/attributes")
+      .then((response) => {
+        if (response.status === 200) {
+          setAttributeData(response?.data);
+        }
+      })
+      .catch((error) => {
+        console.log("Error", error);
+      });
+  };
+
+  React.useEffect(() => {
+    getAttributes();
+
+    return () => {
+      getAttributes();
+    };
+  }, []);
 
   const generateCode = async () => {
     await axiosInstance
@@ -223,6 +245,7 @@ const ProductsPageForm = () => {
           handleOpenCloseAttributes={handleOpenCloseAttributes}
           attributeList={formik.values.attributes}
           updateAttribute={updateAttribute}
+          attributeData={attributeData}
         />
       ),
     },
