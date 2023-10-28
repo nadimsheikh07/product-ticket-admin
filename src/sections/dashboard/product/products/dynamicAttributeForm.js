@@ -118,16 +118,6 @@ const DynamicAttributeForm = ({
                 {attributeList &&
                   attributeList?.length > 0 &&
                   attributeList.map((item, index) => {
-                    console.log(
-                      "dskhgfkahsdgfafs",
-
-                      attributeData &&
-                        attributeData?.length > 0 &&
-                        attributeData.find(
-                          (element) => element?.id === item.attribute_id
-                        )
-                    );
-
                     let attributeName =
                       attributeData &&
                       attributeData?.length > 0 &&
