@@ -53,6 +53,10 @@ export const PATH_DASHBOARD = {
     root: path(ROOTS_DASHBOARD, "/client"),
     clients: path(ROOTS_DASHBOARD, "/client/clients"),
   },
+  attribute: {
+    root: path(ROOTS_DASHBOARD, "/attribute"),
+    attributes: path(ROOTS_DASHBOARD, "/attribute/attributes"),
+  },
   product: {
     root: path(ROOTS_DASHBOARD, "/product"),
     products: path(ROOTS_DASHBOARD, "/product/products"),
