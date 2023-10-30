@@ -17,7 +17,7 @@ const DatePickerBox = (props) => {
     value,
     error,
     helperText,
-    format,
+    format = "DD-MM-YYYY",
     placeholder,
     ...rest
   } = props;
@@ -44,6 +44,7 @@ const DatePickerBox = (props) => {
           disablePast={disablePast}
           minDateMessage=" "
           format={format}
+          inputFormat={format}
           label={label}
           error={error}
           value={defaultValue}
