@@ -113,6 +113,11 @@ const TicketsList = () => {
       width: 180,
     },
     {
+      field: "company_id",
+      headerName: "Company Name",
+      width: "200",
+    },
+    {
       field: "product_name",
       headerName: "Product Name",
       width: 140,

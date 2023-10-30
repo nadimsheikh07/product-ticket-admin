@@ -9,19 +9,19 @@ import { Button, Tooltip } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-// import Head from "next/document";
+import { useMemo } from "react";
 
-const CompanyEmployeesList = () => {
+const CompanyList = () => {
   const { push } = useRouter();
-  const title = "Product Attribute";
-  const formUrl = `${PATH_DASHBOARD.product.attributes}/form`;
-  const actionUrl = "admin/attribute/attributes";
+  const title = "Company List";
+  const formUrl = `${PATH_DASHBOARD.company.companies}/form`;
+  const actionUrl = "admin/company/companies";
   const columns = [
     {
       field: "actions",
       type: "actions",
       headerName: "Actions",
-      width: "200",
+      width: "140",
       getActions: (params) => [
         <GridActionsCellItem
           key="viewAction"
@@ -36,48 +36,48 @@ const CompanyEmployeesList = () => {
       ],
     },
     {
-      field: "name",
-      headerName: "Attribute Name",
-      width: "200",
-      isfilter: false,
-      disableColumnFilter: true,
-    },
-    {
       field: "company_id",
       headerName: "Company Name",
       width: "200",
     },
+   
     {
-      field: "is_active",
-      headerName: "Is Active",
-      width: 140,
-      renderCell: ({ row }) => {
-        if (row.is_active) {
-          return <Label color="primary">Active</Label>;
-        } else {
-          return <Label color="error">InActive</Label>;
-        }
-      },
+      field: "email",
+      headerName: "Email",
+      width: "200",
     },
+   
+    {
+      field: "phone",
+      headerName: "Phone",
+      width: "200",
+    },
+    {
+        field: "is_active",
+        headerName: "Is Active",
+        width: 140,
+        renderCell: ({ row }) => {
+          if (row.is_active) {
+            return <Label color="primary">Active</Label>;
+          } else {
+            return <Label color="error">InActive</Label>;
+          }
+        },
+      },
   ];
 
   return (
     <>
-      {/* <Head>
-      <title>
-        login
-      </title>
-    </Head> */}
       <ContainerComponent>
         <CustomBreadcrumbs
-          heading="Product Attribute List"
+          heading="Company List"
           links={[
             {
               name: "Dashboard",
               href: PATH_DASHBOARD.app,
             },
             {
-              name: "Product Attribute",
+              name: "Companies",
               // href: "#",
             },
             {
@@ -91,7 +91,7 @@ const CompanyEmployeesList = () => {
               variant="contained"
               startIcon={<Iconify icon="eva:plus-fill" />}
             >
-              New Product Attribute
+              New Company
             </Button>
           }
         />
@@ -105,6 +105,7 @@ const CompanyEmployeesList = () => {
           }}
           columns={columns}
           checkboxSelection={true}
+          isRowSelectable={(params) => params?.row?.id !== 1}
           disableRowSelectionOnClick={true}
         />
       </ContainerComponent>
@@ -112,4 +113,4 @@ const CompanyEmployeesList = () => {
   );
 };
 
-export default CompanyEmployeesList;
+export default CompanyList;

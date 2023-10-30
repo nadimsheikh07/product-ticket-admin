@@ -55,6 +55,11 @@ const CompanyEmployeesList = () => {
       },
     },
     {
+      field: "company_id",
+      headerName: "Company Name",
+      width: "200",
+    },
+    {
       field: "email",
       headerName: "Email",
       width: "200",

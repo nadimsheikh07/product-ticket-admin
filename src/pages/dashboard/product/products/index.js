@@ -44,6 +44,14 @@ const ProductsList = () => {
       },
     },
     {
+      field: "company_id",
+      headerName: "Company Name",
+      width: "200",
+      renderCell: ({ row }) => {
+        return row?.company?.name;
+      },
+    },
+    {
       field: "name",
       headerName: "Product Name",
       width: "180",

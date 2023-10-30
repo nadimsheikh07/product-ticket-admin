@@ -180,6 +180,14 @@ const TicketsList = () => {
       },
     },
     {
+      field: "company_id",
+      headerName: "Company Name",
+      width: "200",
+      renderCell: ({ row }) => {
+        return row?.company?.name;
+      },
+    },
+    {
       field: "product_id",
       headerName: "Product",
       width: 140,

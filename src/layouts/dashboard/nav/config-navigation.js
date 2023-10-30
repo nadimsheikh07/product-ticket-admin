@@ -66,18 +66,18 @@ const navConfig = [
       },
 
       // // COMPANY
-      // {
-      //   title: "Company",
-      //   path: PATH_DASHBOARD.company.root,
-      //   icon: ICONS.user,
-      //   children: [
-      //     { title: "Companies", path: PATH_DASHBOARD.company.companies },
-      //     {
-      //       title: "Company Employees",
-      //       path: PATH_DASHBOARD.company.company_employees,
-      //     },
-      //   ],
-      // },
+      {
+        title: "Company",
+        path: PATH_DASHBOARD.company.root,
+        icon: ICONS.user,
+        children: [
+         
+          {
+            title: "Companies",
+            path: PATH_DASHBOARD.company.companies,
+          },
+        ],
+      },
       // COMPANY
       {
         title: "Client",

@@ -26,7 +26,25 @@ const ClientFormSection = ({ formik, id }) => {
           required
         />
       </Grid>
-
+      {/* <Grid item lg={6} md={6} sm={12} xs={12}>
+        <MuiAutocompleteBox
+          fullWidth
+          label="Company"
+          placeholder="Select Company"
+          name="company_id"
+          // url="user/users"
+          value={formik.values.company_id}
+          getOptionLabel="name"
+          getOptionValue="id"
+          onChange={(e) => {
+            if (e) {
+              formik.setFieldValue("company_id", e);
+            }
+          }}
+          error={formik.touched.company_id && formik.errors.company_id}
+          helperText={formik.touched.company_id && formik.errors.company_id}
+        />
+      </Grid> */}
       <Grid
         item
         lg={id === "new" ? 6 : 6}
