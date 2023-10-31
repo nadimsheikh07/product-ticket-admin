@@ -69,73 +69,44 @@ export default function AccountPopover() {
 
   return (
     <>
-      <Grid container justifyContent="space-between">
-        <Grid item lg={4} md={4} sm={12} xs={12}>
-          <MuiAutocompleteBox
-            
-            label="Company"
-            placeholder="Select Company"
-            name="company_id"
-            // url="user/users"
-            // value={formik.values.company_id}
-            getOptionLabel="name"
-            getOptionValue="id"
-            onChange={(e) => {
-              if (e) {
-                formik.setFieldValue("company_id", e);
-              }
-            }}
-            // error={formik.touched.company_id && formik.errors.company_id}
-            // helperText={formik.touched.company_id && formik.errors.company_id}
-          />
-        </Grid>
-        <Grid item lg={2} md={2} sm={12} xs={12}>
-          <IconButtonAnimate
-            onClick={handleOpenPopover}
-            sx={{
-              p: 0,
-              ...(openPopover && {
-                "&:before": {
-                  zIndex: 1,
-                  content: "''",
-                  width: "100%",
-                  height: "100%",
-                  borderRadius: "50%",
-                  position: "absolute",
-                  bgcolor: (theme) => alpha(theme.palette.grey[900], 0.8),
-                },
-              }),
-            }}
-          >
-            <CustomAvatar
-              src={user?.photoURL}
-              alt={user?.name}
-              name={user?.name}
-            />
-          </IconButtonAnimate>
+      <IconButtonAnimate
+        onClick={handleOpenPopover}
+        sx={{
+          p: 0,
+          ...(openPopover && {
+            "&:before": {
+              zIndex: 1,
+              content: "''",
+              width: "100%",
+              height: "100%",
+              borderRadius: "50%",
+              position: "absolute",
+              bgcolor: (theme) => alpha(theme.palette.grey[900], 0.8),
+            },
+          }),
+        }}
+      >
+        <CustomAvatar src={user?.photoURL} alt={user?.name} name={user?.name} />
+      </IconButtonAnimate>
 
-          <MenuPopover
-            open={openPopover}
-            onClose={handleClosePopover}
-            sx={{ width: 200, p: 0 }}
-          >
-            <Box sx={{ my: 1.5, px: 2.5 }}>
-              <Typography variant="subtitle2" noWrap>
-                {user?.displayName}
-              </Typography>
+      <MenuPopover
+        open={openPopover}
+        onClose={handleClosePopover}
+        sx={{ width: 200, p: 0 }}
+      >
+        <Box sx={{ my: 1.5, px: 2.5 }}>
+          <Typography variant="subtitle2" noWrap>
+            {user?.displayName}
+          </Typography>
 
-              <Typography
-                variant="body2"
-                sx={{ color: "text.secondary" }}
-                noWrap
-              >
-                {user?.email}
-              </Typography>
-            </Box>
+          <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
+            {user?.email}
+          </Typography>
+        </Box>
 
-            <Divider sx={{ borderStyle: "dashed" }} />
+        <Divider sx={{ borderStyle: "dashed" }} />
 
-            {/* <Stack sx={{ p: 1 }}>
+        {/* <Stack sx={{ p: 1 }}>
           {OPTIONS.map((option) => (
             <MenuItem
               key={option.label}
@@ -146,14 +117,12 @@ export default function AccountPopover() {
           ))}
         </Stack> */}
 
-            <Divider sx={{ borderStyle: "dashed" }} />
+        <Divider sx={{ borderStyle: "dashed" }} />
 
-            <MenuItem onClick={handleLogout} sx={{ m: 1 }}>
-              Logout
-            </MenuItem>
-          </MenuPopover>
-        </Grid>
-      </Grid>
+        <MenuItem onClick={handleLogout} sx={{ m: 1 }}>
+          Logout
+        </MenuItem>
+      </MenuPopover>
     </>
   );
 }

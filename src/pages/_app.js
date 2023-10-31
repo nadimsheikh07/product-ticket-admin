@@ -11,6 +11,7 @@ import "react-chat-elements/dist/main.css";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { StepperProvider } from "@/components/stepper/stepperContext";
+import { CompanyProvider } from "@/contexts/CompanyContext";
 export default function App({ Component, pageProps }) {
   return (
     <AuthProvider>
@@ -21,11 +22,13 @@ export default function App({ Component, pageProps }) {
               <MotionLazyContainer>
                 <ThemeSettings>
                   <SnackbarProvider>
-                    <DashboardLayout>
-                      <StepperProvider>
-                        <Component {...pageProps} />
-                      </StepperProvider>
-                    </DashboardLayout>
+                    <CompanyProvider>
+                      <DashboardLayout>
+                        <StepperProvider>
+                          <Component {...pageProps} />
+                        </StepperProvider>
+                      </DashboardLayout>
+                    </CompanyProvider>
                   </SnackbarProvider>
                 </ThemeSettings>
               </MotionLazyContainer>
