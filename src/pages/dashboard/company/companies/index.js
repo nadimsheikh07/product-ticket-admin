@@ -36,7 +36,7 @@ const CompanyList = () => {
       ],
     },
     {
-      field: "company_id",
+      field: "name",
       headerName: "Company Name",
       width: "200",
     },
