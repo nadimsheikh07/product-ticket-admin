@@ -43,9 +43,26 @@ const isShow = (path) => {
 
 const SelectCompany = () => {
   const { user } = useAuthContext();
+  const [companies, setCompanies] = React.useState([]);
   const { companyId, setCompany, setCompanyDetail, companyDetail } =
     useCompany();
-  const userCompanies = [];
+
+  const getCompany = async () => {
+    await axiosInstance
+      .get("/admin/company/companies")
+      .then((response) => {
+        if (response.status === 200) {
+          setCompanies(response?.data);
+        }
+      })
+      .catch((error) => {
+        console.log("Select Company Error", error);
+      });
+  };
+
+  React.useEffect(() => {
+    getCompany();
+  }, []);
 
   //After Login Default company Set
   React.useEffect(() => {
@@ -64,10 +81,10 @@ const SelectCompany = () => {
       const company_id =
         JSON.parse(window.localStorage.getItem("companyId")) ||
         user?.company_id;
-      let findCompany = find(userCompanies, { id: Number(company_id) });
+      let findCompany = find(companies, { id: Number(company_id) });
       setCompanyDetail(JSON.stringify(findCompany));
     }
-  }, [user, userCompanies, user?.company_id]);
+  }, [user, companies, user?.company_id]);
 
   return (
     <Box component="div" sx={{ flexGrow: 1 }}>
@@ -78,7 +95,7 @@ const SelectCompany = () => {
         disabled={!Allow() && NotAllow()} //we should (not allow/allow) company change in Add/Edit
         placeholder="Company"
         value={companyId}
-        options={userCompanies || []}
+        options={companies || []}
         // loading={isUserCompanyLoading}
         getOptionLabel="name"
         getOptionValue="id"
@@ -86,7 +103,7 @@ const SelectCompany = () => {
         onChange={(e) => {
           if (e) {
             setCompany(e);
-            let findCompany = find(userCompanies, { id: Number(e) });
+            let findCompany = find(companies, { id: Number(e) });
             setCompanyDetail(JSON.stringify(findCompany));
           } else {
             setCompany(null);
