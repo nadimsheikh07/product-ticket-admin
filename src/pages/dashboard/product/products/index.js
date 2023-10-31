@@ -3,9 +3,10 @@ import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { DataTable } from "@/components/dataTable";
 import Iconify from "@/components/iconify/Iconify";
+import { AddFormButton } from "@/module/auth/addFormButton";
 import { QrActionColumn } from "@/module/qrActionColumn";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import { Button, Tooltip } from "@mui/material";
+import { Alert, Button, Tooltip } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import moment from "moment";
 import NextLink from "next/link";
@@ -140,16 +141,7 @@ const ProductsList = () => {
               name: "List",
             },
           ]}
-          action={
-            <Button
-              component={NextLink}
-              href={`${formUrl}/new`}
-              variant="contained"
-              startIcon={<Iconify icon="eva:plus-fill" />}
-            >
-              New Product
-            </Button>
-          }
+          action={<AddFormButton title="New Product" url={`${formUrl}/new`} />}
         />
         <DataTable
           title={title}

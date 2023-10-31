@@ -4,6 +4,7 @@ import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs
 import { DataTable } from "@/components/dataTable";
 import Iconify from "@/components/iconify/Iconify";
 import Label from "@/components/label";
+import { AddFormButton } from "@/module/auth/addFormButton";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import { Button, Tooltip } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
@@ -85,14 +86,10 @@ const CompanyEmployeesList = () => {
             },
           ]}
           action={
-            <Button
-              component={NextLink}
-              href={`${formUrl}/new`}
-              variant="contained"
-              startIcon={<Iconify icon="eva:plus-fill" />}
-            >
-              New Product Attribute
-            </Button>
+            <AddFormButton
+              title="New Product Attribute"
+              url={`${formUrl}/new`}
+            />
           }
         />
 

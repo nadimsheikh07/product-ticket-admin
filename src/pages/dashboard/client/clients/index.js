@@ -5,10 +5,11 @@ import { DataTable } from "@/components/dataTable";
 import Iconify from "@/components/iconify/Iconify";
 import Label from "@/components/label";
 import useCompany from "@/hooks/useCompany";
+import { AddFormButton } from "@/module/auth/addFormButton";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import { Alert, Button, Tooltip } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
-import NextLink from "next/link";
+
 import { useRouter } from "next/router";
 // import Head from "next/document";
 
@@ -106,24 +107,7 @@ const CompanyEmployeesList = () => {
               name: "List",
             },
           ]}
-          action={
-            !companyId ? (
-              <>
-                <Alert variant="outlined" severity="error">
-                  Please select company first.
-                </Alert>
-              </>
-            ) : (
-              <Button
-                component={NextLink}
-                href={`${formUrl}/new`}
-                variant="contained"
-                startIcon={<Iconify icon="eva:plus-fill" />}
-              >
-                New Client
-              </Button>
-            )
-          }
+          action={<AddFormButton title=" New Client" url={`${formUrl}/new`} />}
         />
 
         <DataTable

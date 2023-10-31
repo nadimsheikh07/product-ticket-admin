@@ -2,6 +2,7 @@
 import { useAuthContext } from "@/auth/useAuthContext";
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
+import { SubmitButton } from "@/module/auth/submitButton";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import { EmailFormSection } from "@/sections/dashboard/configuration/email";
 import axiosInstance from "@/utils/axios";
@@ -141,13 +142,14 @@ const EmailPageForm = () => {
           removeEmail={removeEmail}
         />
         <Stack alignItems="flex-end" sx={{ mt: 3 }}>
-          <LoadingButton
+          <SubmitButton loading={formik?.isSubmitting} />
+          {/* <LoadingButton
             type="submit"
             variant="contained"
             loading={formik?.isSubmitting}
           >
             Submit
-          </LoadingButton>
+          </LoadingButton> */}
         </Stack>
       </form>
     </ContainerComponent>

@@ -3,6 +3,7 @@ import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { DataTable } from "@/components/dataTable";
 import Iconify from "@/components/iconify/Iconify";
+import { AddFormButton } from "@/module/auth/addFormButton";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import axiosInstance from "@/utils/axios";
 import { Avatar, Button, Chip, Stack, Tooltip } from "@mui/material";
@@ -230,23 +231,7 @@ const TicketsList = () => {
             },
           ]}
           action={
-            <Stack direction="row" spacing={4}>
-              {/* <IconButton onClick={() => handleOpen()} color="secondary">
-                <Iconify
-                  color="secondary"
-                  width={30}
-                  icon="la:facebook-messenger"
-                />
-              </IconButton> */}
-              <Button
-                component={NextLink}
-                href={`${formUrl}/new`}
-                variant="contained"
-                startIcon={<Iconify icon="eva:plus-fill" />}
-              >
-                New Open Ticket
-              </Button>
-            </Stack>
+            <AddFormButton title="New Open Ticket" url={`${formUrl}/new`} />
           }
         />
         <DataTable
