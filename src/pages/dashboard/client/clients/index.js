@@ -4,8 +4,9 @@ import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs
 import { DataTable } from "@/components/dataTable";
 import Iconify from "@/components/iconify/Iconify";
 import Label from "@/components/label";
+import useCompany from "@/hooks/useCompany";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import { Button, Tooltip } from "@mui/material";
+import { Alert, Button, Tooltip } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
@@ -16,6 +17,7 @@ const CompanyEmployeesList = () => {
   const title = "Client";
   const formUrl = `${PATH_DASHBOARD.client.clients}/form`;
   const actionUrl = "admin/user/users";
+  const { companyId } = useCompany();
   const columns = [
     {
       field: "actions",
@@ -105,14 +107,22 @@ const CompanyEmployeesList = () => {
             },
           ]}
           action={
-            <Button
-              component={NextLink}
-              href={`${formUrl}/new`}
-              variant="contained"
-              startIcon={<Iconify icon="eva:plus-fill" />}
-            >
-              New Client
-            </Button>
+            !companyId ? (
+              <>
+                <Alert variant="outlined" severity="error">
+                  Please select company first.
+                </Alert>
+              </>
+            ) : (
+              <Button
+                component={NextLink}
+                href={`${formUrl}/new`}
+                variant="contained"
+                startIcon={<Iconify icon="eva:plus-fill" />}
+              >
+                New Client
+              </Button>
+            )
           }
         />
 

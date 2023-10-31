@@ -50,22 +50,22 @@ const SelectCompany = () => {
   //After Login Default company Set
   React.useEffect(() => {
     if (user && !companyId) {
-      const company_id =
-        JSON.parse(window.localStorage.getItem("companyId")) ||
-        user?.company_id;
-      axiosInstance.defaults.headers.common.company_id = company_id;
-      axiosInstance.defaults.headers.common.platform = "frontend";
-      setCompany(company_id);
+    //   const company_id =
+    //     JSON.parse(window.localStorage.getItem("companyId")) ||
+    //     user?.company_id;
+    //   axiosInstance.defaults.headers.common.company_id = company_id;
+    //   axiosInstance.defaults.headers.common.platform = "frontend";
+    //   setCompany(company_id);
     }
   }, [user]);
 
   React.useEffect(() => {
     if (user && user?.company_id && !companyDetail) {
-      const company_id =
-        JSON.parse(window.localStorage.getItem("companyId")) ||
-        user?.company_id;
-      let findCompany = find(userCompanies, { id: Number(company_id) });
-      setCompanyDetail(JSON.stringify(findCompany));
+    //   const company_id =
+    //     JSON.parse(window.localStorage.getItem("companyId")) ||
+    //     user?.company_id;
+    //   let findCompany = find(userCompanies, { id: Number(company_id) });
+    //   setCompanyDetail(JSON.stringify(findCompany));
     }
   }, [user, userCompanies, user?.company_id]);
 
