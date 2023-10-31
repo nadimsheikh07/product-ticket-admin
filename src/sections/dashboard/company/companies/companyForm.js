@@ -10,10 +10,12 @@ const CompanyFormSection = ({ formik, id }) => {
           fullWidth
           label="Name"
           name="name"
-          value={formik?.values?.company_id}
-          onChange={(e)=>{formik.setFieldValue("company_id",e.target.value.trimStart())}}
-          error={formik.touched.company_id && formik.errors.company_id}
-          helperText={formik.touched.company_id && formik.errors.company_id}
+          value={formik?.values?.name}
+          onChange={(e) => {
+            formik.setFieldValue("name", e.target.value.trimStart());
+          }}
+          error={formik.touched.name && formik.errors.name}
+          helperText={formik.touched.name && formik.errors.name}
           required
         />
       </Grid>
@@ -40,7 +42,8 @@ const CompanyFormSection = ({ formik, id }) => {
             if (e) {
               formik.setFieldValue("phone", e.target.value.replace(/\D/gm, ""));
             }
-          }}          error={formik.touched.phone && formik.errors.phone}
+          }}
+          error={formik.touched.phone && formik.errors.phone}
           helperText={formik.touched.phone && formik.errors.phone}
           required
         />

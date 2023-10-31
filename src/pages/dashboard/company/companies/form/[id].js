@@ -22,15 +22,15 @@ const CompanyPageForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      company_id: "",
+      name: "",
       email: "",
       phone: "",
       is_active: true,
     },
     validate: (values) => {
       const errors = {};
-      if (!values.company_id) {
-        errors.company_id = "Company Name is required";
+      if (!values.name) {
+        errors.name = "Company Name is required";
       }
 
       if (!values.email) {
