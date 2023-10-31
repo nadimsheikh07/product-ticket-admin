@@ -85,7 +85,7 @@ const SelectCompany = () => {
       setCompanyDetail(JSON.stringify(findCompany));
     }
   }, [user, companies, user?.company_id]);
-
+  console.log("companyId", companyId);
   return (
     <Box component="div" sx={{ flexGrow: 1 }}>
       <SelectAutocomplete
@@ -93,7 +93,7 @@ const SelectCompany = () => {
         name={`company_id`}
         label="Company"
         disabled={!Allow() && NotAllow()} //we should (not allow/allow) company change in Add/Edit
-        placeholder="Company"
+        placeholder="Select Company"
         value={companyId}
         options={companies || []}
         // loading={isUserCompanyLoading}

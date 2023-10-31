@@ -123,7 +123,7 @@ const SelectAutocomplete = ({
   };
 
   const defaultValue = find(data, { value: Number(value) });
-  console.log("datadata", data);
+  console.log("datadata", defaultValue,data);
   return (
     <React.Fragment>
       <FormControl
