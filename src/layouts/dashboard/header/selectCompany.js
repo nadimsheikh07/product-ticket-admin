@@ -49,7 +49,11 @@ const SelectCompany = () => {
 
   const getCompany = async () => {
     await axiosInstance
-      .get("/admin/company/companies")
+      .get("/admin/company/companies", {
+        params: {
+          isActive: true,
+        },
+      })
       .then((response) => {
         if (response.status === 200) {
           setCompanies(response?.data);
