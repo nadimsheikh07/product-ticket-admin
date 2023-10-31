@@ -6,6 +6,7 @@ import { Card } from "@mui/material";
 import axiosInstance from "@/utils/axios";
 import { useSnackbar } from "notistack";
 import { ConfirmDialogBox } from "./confirmDialog";
+import useCompany from "@/hooks/useCompany";
 
 export const DataTable = (props) => {
   const { enqueueSnackbar } = useSnackbar();
