@@ -21,7 +21,7 @@ export const AddFormButton = ({
       ) : (
         <Button
           component={NextLink}
-          href={`${formUrl}/new`}
+          href={url}
           variant="contained"
           startIcon={<Iconify icon="eva:plus-fill" />}
         >
