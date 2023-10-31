@@ -9,6 +9,7 @@ import { ConfirmDialogBox } from "./confirmDialog";
 
 export const DataTable = (props) => {
   const { enqueueSnackbar } = useSnackbar();
+  const { companyId } = useCompany();
   const {
     columns,
     defaultSortModel,
@@ -84,6 +85,7 @@ export const DataTable = (props) => {
       orderBy: sortModel[0]?.field,
       orderDirection: sortModel[0]?.sort,
       filterModel: JSON.stringify(filterModel),
+      company_id: companyId,
       ...params,
     };
     await axiosInstance
