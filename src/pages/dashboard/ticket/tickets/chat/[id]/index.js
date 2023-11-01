@@ -2,6 +2,7 @@
 import { useAuthContext } from "@/auth/useAuthContext";
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import ChatSection from "@/sections/dashboard/ticket/tickets/chat";
 import axiosInstance from "@/utils/axios";
@@ -129,5 +130,6 @@ const TicketsPageForm = () => {
     </ContainerComponent>
   );
 };
+TicketsPageForm.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default TicketsPageForm;

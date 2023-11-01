@@ -1,6 +1,7 @@
 "use client";
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import { NotificationFormSection } from "@/sections/dashboard/settings/notification";
 import axiosInstance from "@/utils/axios";
@@ -145,5 +146,6 @@ const CompanyEmployeesPageForm = () => {
     </ContainerComponent>
   );
 };
+CompanyEmployeesPageForm.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default CompanyEmployeesPageForm;

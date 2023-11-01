@@ -68,10 +68,10 @@ const navConfig = [
       // // COMPANY
       {
         title: "Company",
+        isLink: false,
         path: PATH_DASHBOARD.company.root,
         icon: ICONS.user,
         children: [
-         
           {
             title: "Companies",
             path: PATH_DASHBOARD.company.companies,

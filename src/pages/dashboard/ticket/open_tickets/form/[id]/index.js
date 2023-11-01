@@ -5,6 +5,7 @@ import { DatePickerBox, DragDrop, TextBox } from "@/components/form";
 import SelectBox from "@/components/form/select";
 import { StepperContext } from "@/components/stepper/stepperContext";
 import { ScrollableTabs } from "@/components/tabs";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import axiosInstance from "@/utils/axios";
 import { status } from "@/utils/constant";
@@ -50,10 +51,19 @@ const TicketsPageForm = () => {
         errors.name = "Client name is Required";
       }
       if (!values.email) {
-        errors.email = "Client email is Required";
+        errors.email = "Email is required";
+      } else if (
+        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+      ) {
+        errors.email = "Invalid email address";
       }
+      const phoneRegex = /^\d+$/i;
       if (!values.phone) {
-        errors.phone = "Client phone is Required";
+        errors.phone = "Phone is required";
+      } else if (!phoneRegex.test(values.phone)) {
+        errors.phone = "Invalid phone number";
+      } else if (values.phone.length < 10 || values.phone.length > 10) {
+        errors.phone = "Phone number must be 10 digit";
       }
       if (!values.product_name) {
         errors.product_name = "Product name is Required";
@@ -134,6 +144,7 @@ const TicketsPageForm = () => {
             <Grid item md={6}>
               <TextBox
                 fullWidth
+                isMaxLenght={25}
                 label="Client Name"
                 name="name"
                 value={formik.values.name}
@@ -146,6 +157,7 @@ const TicketsPageForm = () => {
             <Grid item md={6}>
               <TextBox
                 fullWidth
+                isMaxLenght={50}
                 label="Client Email"
                 name="email"
                 type="email"
@@ -160,10 +172,18 @@ const TicketsPageForm = () => {
               <TextBox
                 fullWidth
                 label="Client Phone"
+                isMaxLenght={10}
                 name="phone"
                 type="number"
                 value={formik.values.phone}
-                onChange={formik.handleChange}
+                onChange={(e) => {
+                  if (e) {
+                    formik.setFieldValue(
+                      "phone",
+                      e.target.value.replace(/\D/gm, "")
+                    );
+                  }
+                }}
                 error={formik.touched.phone && formik.errors.phone}
                 helperText={formik.touched.phone && formik.errors.phone}
               />
@@ -171,6 +191,7 @@ const TicketsPageForm = () => {
             <Grid item md={12}>
               <TextBox
                 fullWidth
+                isMaxLenght={150}
                 label="Client Address"
                 name="address"
                 type="text"
@@ -194,6 +215,7 @@ const TicketsPageForm = () => {
           <Grid item md={6}>
             <TextBox
               fullWidth
+              isMaxLenght={25}
               label="Product Name"
               name="product_name"
               value={formik.values.product_name}
@@ -208,6 +230,7 @@ const TicketsPageForm = () => {
           <Grid item lg={6} md={6} sm={12} xs={12}>
             <TextBox
               fullWidth
+              isMaxLenght={20}
               label="Serial No."
               name="serial_number"
               value={formik?.values?.serial_number}
@@ -228,6 +251,7 @@ const TicketsPageForm = () => {
           <Grid item lg={6} md={6} sm={12} xs={12}>
             <TextBox
               fullWidth
+              isMaxLenght={20}
               label="Invoice No."
               name="invoice_number"
               value={formik?.values?.invoice_number}
@@ -402,5 +426,6 @@ const TicketsPageForm = () => {
     </ContainerComponent>
   );
 };
+TicketsPageForm.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default TicketsPageForm;

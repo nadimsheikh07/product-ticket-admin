@@ -3,6 +3,7 @@ import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { StepperContext } from "@/components/stepper/stepperContext";
 import { ScrollableTabs } from "@/components/tabs";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import { ProductsFormSection } from "@/sections/dashboard/product/products";
 import DynamicAttributeForm from "@/sections/dashboard/product/products/dynamicAttributeForm";
@@ -273,5 +274,6 @@ const ProductsPageForm = () => {
     </ContainerComponent>
   );
 };
+ProductsPageForm.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default ProductsPageForm;

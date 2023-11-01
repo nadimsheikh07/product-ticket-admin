@@ -1,6 +1,7 @@
 "use client";
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import CompanyFormSection from "@/sections/dashboard/company/companies/companyForm";
 import { UserFormSection } from "@/sections/dashboard/user/users";
@@ -24,7 +25,7 @@ const CompanyPageForm = () => {
     initialValues: {
       name: "",
       email: "",
-      phone: "",
+      phone_number: "",
       is_active: true,
     },
     validate: (values) => {
@@ -41,12 +42,12 @@ const CompanyPageForm = () => {
         errors.email = "Invalid email address";
       }
       const phoneRegex = /^\d+$/i;
-      if (!values.phone) {
-        errors.phone = "Phone is required";
-      } else if (!phoneRegex.test(values.phone)) {
-        errors.phone = "Invalid phone number";
-      } else if (values.phone.length < 10 || values.phone.length > 10) {
-        errors.phone = "Phone number must be 10 digit";
+      if (!values.phone_number) {
+        errors.phone_number = "Phone is required";
+      } else if (!phoneRegex.test(values.phone_number)) {
+        errors.phone_number = "Invalid phone number";
+      } else if (values.phone_number.length < 10 || values.phone_number.length > 10) {
+        errors.phone_number = "Phone number must be 10 digit";
       }
       return errors;
     },
@@ -146,5 +147,6 @@ const CompanyPageForm = () => {
     </ContainerComponent>
   );
 };
+CompanyPageForm.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default CompanyPageForm;

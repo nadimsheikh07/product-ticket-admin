@@ -3,6 +3,7 @@ import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { DataTable } from "@/components/dataTable";
 import Iconify from "@/components/iconify/Iconify";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { AddFormButton } from "@/module/auth/addFormButton";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import InstantMessageBox from "@/sections/dashboard/ticket/tickets/instant_message";
@@ -364,5 +365,6 @@ const TicketsList = () => {
     </>
   );
 };
+TicketsList.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default TicketsList;
