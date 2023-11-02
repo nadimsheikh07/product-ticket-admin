@@ -8,6 +8,7 @@ const CompanyFormSection = ({ formik, id }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
+          isMaxLength={20}
           label="Name"
           name="name"
           value={formik?.values?.name}
@@ -22,6 +23,7 @@ const CompanyFormSection = ({ formik, id }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
+          isMaxLength={50}
           label="Email"
           name="email"
           value={formik?.values?.email}
@@ -34,6 +36,7 @@ const CompanyFormSection = ({ formik, id }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
+          isMaxLength={10}
           label="Phone"
           name="phone_number"
           isMaxLenght={10}

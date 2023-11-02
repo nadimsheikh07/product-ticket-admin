@@ -62,6 +62,7 @@ const SelectAutocomplete = ({
   const getValue = (element) => Number(element[getOptionValue]);
 
   React.useEffect(() => {
+
     if (options && options?.length > 0) {
       let newOptions = [];
       options.forEach((element) => {
@@ -76,10 +77,11 @@ const SelectAutocomplete = ({
         });
       });
       setData(newOptions);
-    } else {
-      setData([]);
-    }
+    } 
   }, [options, value, search]);
+
+  console.log("defaultValue",data)
+
 
   React.useEffect(() => {
     if (value) {

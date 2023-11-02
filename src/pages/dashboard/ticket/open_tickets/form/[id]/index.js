@@ -160,7 +160,6 @@ const TicketsPageForm = () => {
                 isMaxLenght={50}
                 label="Client Email"
                 name="email"
-                type="email"
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 error={formik.touched.email && formik.errors.email}
@@ -174,7 +173,6 @@ const TicketsPageForm = () => {
                 label="Client Phone"
                 isMaxLenght={10}
                 name="phone"
-                type="number"
                 value={formik.values.phone}
                 onChange={(e) => {
                   if (e) {
@@ -186,6 +184,7 @@ const TicketsPageForm = () => {
                 }}
                 error={formik.touched.phone && formik.errors.phone}
                 helperText={formik.touched.phone && formik.errors.phone}
+                required
               />
             </Grid>
             <Grid item md={12}>

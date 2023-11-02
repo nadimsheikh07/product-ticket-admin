@@ -112,15 +112,15 @@ const navConfig = [
         ],
       },
       // NOTIFICATION
-      {
-        title: "Settings",
-        isLink: false,
-        path: PATH_DASHBOARD.settings.root,
-        icon: ICONS.user,
-        children: [
-          { title: "Notification", path: PATH_DASHBOARD.settings.notification },
-        ],
-      },
+      // {
+      //   title: "Settings",
+      //   isLink: false,
+      //   path: PATH_DASHBOARD.settings.root,
+      //   icon: ICONS.user,
+      //   children: [
+      //     { title: "Notification", path: PATH_DASHBOARD.settings.notification },
+      //   ],
+      // },
       // CONFIGURATION
       {
         title: "Configuration",

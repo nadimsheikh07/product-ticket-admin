@@ -25,14 +25,15 @@ const CompanyEmployeesList = (formik) => {
   const formUrl = `${PATH_DASHBOARD.client.clients}/form`;
   const actionUrl = "admin/user/users";
   const { companyId } = useCompany();
+
   const handleClickOpen = () => {
     setOpen(true);
   };
-
+  
   const handleClose = () => {
     setOpen(false);
   };
-
+  
   const columns = [
     {
       field: "actions",
