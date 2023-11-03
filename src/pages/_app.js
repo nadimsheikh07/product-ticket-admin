@@ -8,11 +8,12 @@ import ThemeProvider from "@/theme";
 import SnackbarProvider from "@/components/snackbar/SnackbarProvider";
 import "simplebar-react/dist/simplebar.min.css";
 import "react-chat-elements/dist/main.css";
-import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { StepperProvider } from "@/components/stepper/stepperContext";
 import { CompanyProvider } from "@/contexts/CompanyContext";
-export default function App({ Component, pageProps }) {
+export default function App(props) {
+  const { Component, pageProps } = props;
+  const getLayout = Component.getLayout ?? ((page) => page);
   return (
     <AuthProvider>
       <ThemeProvider>
@@ -23,11 +24,9 @@ export default function App({ Component, pageProps }) {
                 <ThemeSettings>
                   <SnackbarProvider>
                     <CompanyProvider>
-                      <DashboardLayout>
-                        <StepperProvider>
-                          <Component {...pageProps} />
-                        </StepperProvider>
-                      </DashboardLayout>
+                      <StepperProvider>
+                        {getLayout(<Component {...pageProps} />)}
+                      </StepperProvider>
                     </CompanyProvider>
                   </SnackbarProvider>
                 </ThemeSettings>

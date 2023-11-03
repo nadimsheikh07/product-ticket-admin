@@ -5,6 +5,7 @@ import { useAuthContext } from "@/auth/useAuthContext";
 import useCompany from "@/hooks/useCompany";
 import SelectAutocomplete from "@/components/form/selectAutocomplete";
 import axiosInstance from "@/utils/axios";
+import { useRouter } from "next/router";
 
 const NotAllowD = [
   "form",
@@ -16,19 +17,24 @@ const NotAllowD = [
   "catalog",
   "user_statuses",
 ];
+
+const isShowdropdown = ["/dashboard/company/companies"];
 const AllowD = [];
 
 const isShowData = ["/dashboard/tag/tag_scan"];
 
 const NotAllow = () => {
-  const url = window.location.href;
-  const getD = url?.split("/");
-  const found = getD.some((r) => NotAllowD.indexOf(r) >= 0);
+  const url = typeof window != "undefined" && window.location.href;
+  const getD = url && url?.split("/");
+  const found =
+    getD && getD?.length > 0 && getD.some((r) => NotAllowD.indexOf(r) >= 0);
   return found;
 };
 
+console.log("NotAllow", NotAllow());
+
 const Allow = () => {
-  const url = window.location.href;
+  const url = typeof window != "undefined" && window.location.href;
   const getD = url?.split("/");
   const found = getD.some((r) => AllowD.indexOf(r) >= 0);
   return found;
@@ -43,9 +49,15 @@ const isShow = (path) => {
 
 const SelectCompany = () => {
   const { user } = useAuthContext();
+  const { pathname } = useRouter();
   const [companies, setCompanies] = React.useState([]);
   const { companyId, setCompany, setCompanyDetail, companyDetail } =
     useCompany();
+
+  const isShowCompanyDropdown = () => {
+    let isShow = isShowdropdown.includes(pathname);
+    return isShow;
+  };
 
   const getCompany = async () => {
     await axiosInstance
@@ -92,28 +104,30 @@ const SelectCompany = () => {
   console.log("companyId", companyId);
   return (
     <Box component="div" sx={{ flexGrow: 1 }}>
-      <SelectAutocomplete
-        fullWidth
-        name={`company_id`}
-        label="Company"
-        disabled={!Allow() && NotAllow()} //we should (not allow/allow) company change in Add/Edit
-        placeholder="Select Company"
-        value={companyId}
-        options={companies || []}
-        // loading={isUserCompanyLoading}
-        getOptionLabel="name"
-        getOptionValue="id"
-        disableClearable
-        onChange={(e) => {
-          if (e) {
-            setCompany(e);
-            let findCompany = find(companies, { id: Number(e) });
-            setCompanyDetail(JSON.stringify(findCompany));
-          } else {
-            setCompany(null);
-          }
-        }}
-      />
+      {!isShowCompanyDropdown() && (
+        <SelectAutocomplete
+          fullWidth
+          name={`company_id`}
+          label="Company"
+          disabled={!Allow() && NotAllow()} //we should (not allow/allow) company change in Add/Edit
+          placeholder="Select Company"
+          value={companyId}
+          options={companies || []}
+          // loading={isUserCompanyLoading}
+          getOptionLabel="name"
+          getOptionValue="id"
+          disableClearable
+          onChange={(e) => {
+            if (e) {
+              setCompany(e);
+              let findCompany = find(companies, { id: Number(e) });
+              setCompanyDetail(JSON.stringify(findCompany));
+            } else {
+              setCompany(null);
+            }
+          }}
+        />
+      )}
     </Box>
   );
 };

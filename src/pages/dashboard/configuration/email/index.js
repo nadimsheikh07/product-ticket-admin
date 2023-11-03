@@ -2,6 +2,7 @@
 import { useAuthContext } from "@/auth/useAuthContext";
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { SubmitButton } from "@/module/auth/submitButton";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import { EmailFormSection } from "@/sections/dashboard/configuration/email";
@@ -155,5 +156,5 @@ const EmailPageForm = () => {
     </ContainerComponent>
   );
 };
-
+EmailPageForm.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 export default EmailPageForm;

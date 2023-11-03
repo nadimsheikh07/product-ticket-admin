@@ -10,7 +10,7 @@ import React from "react";
 const ResetPasswords = ({ params, searchParams }) => {
   const actionUrl = "admin/auth/reset_password";
   const { enqueueSnackbar } = useSnackbar();
-  const { token } = searchParams;
+  const  token  = searchParams;
   const title = "Forget Password";
   const formik = useFormik({
     initialValues: {
@@ -74,7 +74,7 @@ const ResetPasswords = ({ params, searchParams }) => {
           if (password === new_password) {
             // Passwords match, continue with your logic
           } else {
-            errors.password='Passwords do not match';
+            errors.password='Passwords did not match';
           }
         })
         .catch((error) => {

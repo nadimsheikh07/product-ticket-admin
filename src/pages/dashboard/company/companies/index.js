@@ -4,6 +4,7 @@ import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs
 import { DataTable } from "@/components/dataTable";
 import Iconify from "@/components/iconify/Iconify";
 import Label from "@/components/label";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import { Button, Tooltip } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
@@ -48,7 +49,7 @@ const CompanyList = () => {
     },
    
     {
-      field: "phone",
+      field: "phone_number",
       headerName: "Phone",
       width: "200",
     },
@@ -105,12 +106,13 @@ const CompanyList = () => {
           }}
           columns={columns}
           checkboxSelection={true}
-          isRowSelectable={(params) => params?.row?.id !== 1}
+          isRowSelectable={(params) => params?.row?.id !== 0}
           disableRowSelectionOnClick={true}
         />
       </ContainerComponent>
     </>
   );
 };
+CompanyList.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default CompanyList;

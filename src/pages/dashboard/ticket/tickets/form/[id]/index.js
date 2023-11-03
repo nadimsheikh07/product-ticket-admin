@@ -1,6 +1,7 @@
 "use client";
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import { TicketsFormSection } from "@/sections/dashboard/ticket/tickets";
 import axiosInstance from "@/utils/axios";
@@ -141,5 +142,6 @@ const TicketsPageForm = () => {
     </ContainerComponent>
   );
 };
+TicketsPageForm.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default TicketsPageForm;

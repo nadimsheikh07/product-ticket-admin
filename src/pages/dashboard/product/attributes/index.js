@@ -4,6 +4,7 @@ import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs
 import { DataTable } from "@/components/dataTable";
 import Iconify from "@/components/iconify/Iconify";
 import Label from "@/components/label";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { AddFormButton } from "@/module/auth/addFormButton";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import { Button, Tooltip } from "@mui/material";
@@ -108,5 +109,6 @@ const CompanyEmployeesList = () => {
     </>
   );
 };
+CompanyEmployeesList.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default CompanyEmployeesList;

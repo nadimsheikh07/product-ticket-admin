@@ -8,6 +8,7 @@ const CompanyFormSection = ({ formik, id }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
+          isMaxLength={20}
           label="Name"
           name="name"
           value={formik?.values?.name}
@@ -22,6 +23,7 @@ const CompanyFormSection = ({ formik, id }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
+          isMaxLength={50}
           label="Email"
           name="email"
           value={formik?.values?.email}
@@ -34,17 +36,18 @@ const CompanyFormSection = ({ formik, id }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
+          isMaxLength={10}
           label="Phone"
-          name="phone"
+          name="phone_number"
           isMaxLenght={10}
-          value={formik?.values?.phone}
+          value={formik?.values?.phone_number}
           onChange={(e) => {
             if (e) {
-              formik.setFieldValue("phone", e.target.value.replace(/\D/gm, ""));
+              formik.setFieldValue("phone_number", e.target.value.replace(/\D/gm, ""));
             }
           }}
-          error={formik.touched.phone && formik.errors.phone}
-          helperText={formik.touched.phone && formik.errors.phone}
+          error={formik.touched.phone_number && formik.errors.phone_number}
+          helperText={formik.touched.phone_number && formik.errors.phone_number}
           required
         />
       </Grid>

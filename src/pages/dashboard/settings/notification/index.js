@@ -3,6 +3,7 @@ import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { DataTable } from "@/components/dataTable";
 import Iconify from "@/components/iconify/Iconify";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import { Button, Tooltip } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
@@ -116,5 +117,6 @@ const CompanyEmployeesList = () => {
     </>
   );
 };
+CompanyEmployeesList.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default CompanyEmployeesList;

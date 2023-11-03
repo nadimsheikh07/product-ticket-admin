@@ -89,7 +89,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           name="serial_number"
           value={formik?.values?.serial_number}
           onChange={(e) => {
-            formik.setFieldValue("serial_number", e.target.value.trimStart());
+            formik.setFieldValue("serial_number", e.target.value.trim());
           }}
           error={formik.touched.serial_number && formik.errors.serial_number}
           helperText={
@@ -101,10 +101,12 @@ const ProductsFormSection = ({ formik, generateCode }) => {
         <TextBox
           fullWidth
           label="Invoice No."
-          isMaxLenght={30}
+          isMaxLenght={10}
           name="invoice_number"
           value={formik?.values?.invoice_number}
-          onChange={formik.handleChange}
+          onChange={(e) => {
+            formik.setFieldValue("invoice_number", e.target.value.trim());
+          }}
           error={formik.touched.invoice_number && formik.errors.invoice_number}
           helperText={
             formik.touched.invoice_number && formik.errors.invoice_number

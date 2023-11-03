@@ -3,6 +3,7 @@ import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { DataTable } from "@/components/dataTable";
 import Iconify from "@/components/iconify/Iconify";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { AddFormButton } from "@/module/auth/addFormButton";
 import { QrActionColumn } from "@/module/qrActionColumn";
 import { PATH_DASHBOARD } from "@/routes/paths";
@@ -158,5 +159,6 @@ const ProductsList = () => {
     </>
   );
 };
+ProductsList.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default ProductsList;

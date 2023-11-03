@@ -9,9 +9,10 @@ import React, { useMemo } from "react";
 
 const TicketsFormSection = ({ formik, id }) => {
   const [client, setClient] = React.useState([]);
-  const [product, setProduct] = React.useState([]);
+  const [products, setProducts] = React.useState([]);
 
   const getClient = async (search = null) => {
+    setProducts([]);
     await axiosInstance
       .get("admin/user/users", {
         params: {
@@ -42,6 +43,7 @@ const TicketsFormSection = ({ formik, id }) => {
   }, [formik.values.client_id]);
 
   const getProduct = async (search = null, client_id) => {
+    setProducts([]);
     await axiosInstance
       .get("admin/catalog/products", {
         params: {
@@ -53,10 +55,11 @@ const TicketsFormSection = ({ formik, id }) => {
       })
       .then((response) => {
         if (response.status === 200) {
-          setProduct(response?.data?.data);
+          setProducts(response?.data?.data);
         }
       })
       .catch((error) => {
+        setProducts([]);
         console.log("Client Error", error);
       });
   };
@@ -65,7 +68,7 @@ const TicketsFormSection = ({ formik, id }) => {
     if (id !== "new" && formik.values.client_id) {
       getProduct(null, formik.values.client_id);
     }
-  }, [formik.values.client_id, id]);
+  }, [formik.values.client_id, id, formik.values.product_id]);
 
   console.log("formik.values.status", formik.values);
   return (
@@ -108,14 +111,14 @@ const TicketsFormSection = ({ formik, id }) => {
           getOptionValue="id"
           onChange={(e) => {
             if (e) {
-              setProduct([]);
+              setProducts([]);
               getProduct(null, e);
               formik.setFieldValue("client_id", e);
               formik.setFieldValue("product_id", null);
             } else {
               formik.setFieldValue("client_id", null);
               formik.setFieldValue("product_id", null);
-              setProduct([]);
+              setProducts([]);
               getProduct(null, null);
             }
           }}
@@ -150,7 +153,7 @@ const TicketsFormSection = ({ formik, id }) => {
               getProduct(e, formik.values.client_id);
             }
           }}
-          options={product}
+          options={formik.values.client_id ? products : []}
           helperText={formik.touched.product_id && formik.errors.product_id}
         />
       </Grid>
