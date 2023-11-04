@@ -1,12 +1,11 @@
 import React from "react";
-import { MuiAutocompleteBox } from "@/components/form";
+import { SelectMuiAutocomplete } from "@/components/form";
 import { Box } from "@mui/material";
 import { useAuthContext } from "@/auth/useAuthContext";
 import useCompany from "@/hooks/useCompany";
 import SelectAutocomplete from "@/components/form/selectAutocomplete";
 import axiosInstance from "@/utils/axios";
 import { useRouter } from "next/router";
-import NewMuiAutocomplete from "@/components/form/newmuiAutocomplete";
 
 const NotAllowD = [
   "form",
@@ -140,14 +139,14 @@ const SelectCompany = () => {
           }}
         />
       )} */}
-      {!isShowCompanyDropdown && (
-        <NewMuiAutocomplete
+      {!isShowCompanyDropdown() && (
+        <SelectMuiAutocomplete
           name="companyDetail"
           value={companyDetail}
           getOptionLabel="name"
-          getOptionValue="id"
+          getOptionValue="id" 
           onChange={(e) => {
-            setCompany(e.id);
+            setCompany(e?.id || null);
             setCompanyDetail(JSON.stringify(e));
           }}
           disabled={!Allow() && NotAllow()}

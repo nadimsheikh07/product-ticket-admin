@@ -2,7 +2,7 @@ import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
-const NewMuiAutocomplete = ({
+const SelectMuiAutocomplete = ({
   value,
   onChange,
   label,
@@ -38,4 +38,4 @@ const NewMuiAutocomplete = ({
   );
 };
 
-export default NewMuiAutocomplete;
+export default SelectMuiAutocomplete;
