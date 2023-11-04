@@ -1,6 +1,7 @@
 import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import { debounce } from "lodash";
 
 const SelectMuiAutocomplete = ({
   value,
@@ -11,12 +12,12 @@ const SelectMuiAutocomplete = ({
   fullWidth,
   searchData = () => {},
   disabled,
+  placeholder,
 }) => {
   const [inputValue, setInputValue] = React.useState("");
 
-  React.useEffect(() => {
-    searchData(inputValue);
-  }, [inputValue]);
+  const delayedQuery = React.useCallback(debounce(searchData, 1000), []);
+
   return (
     <>
       <Autocomplete
@@ -25,13 +26,21 @@ const SelectMuiAutocomplete = ({
         value={value}
         onChange={(event, newValue) => {
           onChange(newValue);
+          delayedQuery(null);
         }}
         inputValue={inputValue}
         onInputChange={(event, newInputValue) => {
-          setInputValue(newInputValue);
+          if (event?.type === "change") {
+            setInputValue(newInputValue);
+            delayedQuery(newInputValue);
+          } else {
+            setInputValue(newInputValue);
+          }
         }}
         options={options}
-        renderInput={(params) => <TextField {...params} label={label} />}
+        renderInput={(params) => (
+          <TextField {...params} label={label} placeholder={placeholder} />
+        )}
         disabled={disabled}
       />
     </>

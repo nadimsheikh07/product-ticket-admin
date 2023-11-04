@@ -143,8 +143,7 @@ const SelectCompany = () => {
         <SelectMuiAutocomplete
           name="companyDetail"
           value={companyDetail}
-          getOptionLabel="name"
-          getOptionValue="id" 
+          placeholder="Select Company"
           onChange={(e) => {
             setCompany(e?.id || null);
             setCompanyDetail(JSON.stringify(e));
