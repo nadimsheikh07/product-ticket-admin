@@ -13,7 +13,7 @@ import localStorageAvailable from "@/utils/localStorageAvailable";
 import { isValidToken, setSession } from "@/auth/utils";
 import axiosInstance from "@/utils/axios";
 import { useSnackbar } from "notistack";
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
 // ----------------------------------------------------------------------
 
 // NOTE:
@@ -72,14 +72,14 @@ AuthProvider.propTypes = {
 };
 
 export function AuthProvider({ children }) {
-  const pathname = usePathname();
+  const {pathname} = useRouter();
   const [state, dispatch] = useReducer(reducer, initialState);
   const { enqueueSnackbar } = useSnackbar();
   const storageAvailable = localStorageAvailable();
   const initialize = useCallback(async () => {
     try {
       const accessToken = storageAvailable
-        ? localStorage.getItem("accessToken")
+        ? localStorage.getItem("accessProductAdminToken")
         : "";
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
@@ -121,10 +121,9 @@ export function AuthProvider({ children }) {
   }, [initialize, pathname]);
 
   // LOGIN
-  const login = useCallback(async (email, password) => {
+  const login = useCallback(async (values) => {
     const response = await axiosInstance.post("admin/auth/signin", {
-      email,
-      password,
+      ...values,
     });
     const { accessToken, user } = response.data;
 
@@ -153,7 +152,7 @@ export function AuthProvider({ children }) {
     });
     const { accessToken, user } = response.data;
 
-    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("accessProductAdminToken", accessToken);
 
     dispatch({
       type: "REGISTER",

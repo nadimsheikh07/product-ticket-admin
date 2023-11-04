@@ -39,6 +39,8 @@ const DataGridTable = (props) => {
     handleOpenConfirm,
     isRowSelectable,
     disableRowSelectionOnClick,
+    syncData, 
+    key,
   } = props;
   return (
     <DataGrid
@@ -47,6 +49,10 @@ const DataGridTable = (props) => {
         pagination: { paginationModel: { pageSize: pageSize, page: page } },
       }}
       // INITIAL STATE END
+
+      // DISABLED COLUMN FILTER START
+      disableColumnFilter={true}
+      // DISABLED COLUMN FILTER END
 
       // ROW SELECTABLE START
       disableRowSelectionOnClick={disableRowSelectionOnClick}
@@ -132,6 +138,7 @@ const DataGridTable = (props) => {
           onResetFilter: onResetFilter,
           handleOpenConfirm: handleOpenConfirm,
           selectionModel: selectionModel,
+          syncData: syncData,
         },
       }}
       // SLOT END

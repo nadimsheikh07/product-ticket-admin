@@ -17,6 +17,7 @@ import Searchbar from "./Searchbar";
 import AccountPopover from "./AccountPopover";
 import { useSettingsContext } from "@/components/settings";
 import MenuIcon from '@mui/icons-material/Menu';
+import SelectCompany from "./selectCompany";
 // ----------------------------------------------------------------------
 
 Header.propTypes = {
@@ -47,6 +48,7 @@ export default function Header({ onOpenNav }) {
       )}
 
       {/* <Searchbar /> */}
+      <SelectCompany/>
 
       <Stack
         flexGrow={1}

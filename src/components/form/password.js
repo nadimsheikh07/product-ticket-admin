@@ -33,7 +33,7 @@ const PasswordBox = props => {
         disabled={disabled}
         autoComplete={"false"} //MUI pickUp the string value on autoComplete
         // autoComplete="new-password"
-        onChange={e => props.onChange(e)}
+        onChange={props.onChange}
         InputProps={{
           endAdornment: (
             <InputAdornment position={inputAdornmentPosition || "end"}>

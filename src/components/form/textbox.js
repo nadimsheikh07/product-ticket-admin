@@ -60,10 +60,11 @@ const TextBox = (props) => {
           endAdornment: (
             <>
               {icon && (
-                <InputAdornment position={inputAdornmentPosition}>
-                  <IconButton disabled={iconDisabled} onClick={onIconClick}>
-                    <Icon>{icon}</Icon>
-                  </IconButton>
+                <InputAdornment
+                  position={inputAdornmentPosition}
+                  onClick={onIconClick}
+                >
+                  <IconButton disabled={iconDisabled}>{icon}</IconButton>
                 </InputAdornment>
               )}
             </>

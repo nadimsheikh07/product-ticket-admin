@@ -1,9 +1,9 @@
 import { useState } from "react";
 // next
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 // @mui
 import { alpha } from "@mui/material/styles";
-import { Box, Divider, Typography, Stack, MenuItem } from "@mui/material";
+import { Box, Divider, Typography, Stack, MenuItem, Grid } from "@mui/material";
 // routes
 import { PATH_DASHBOARD, PATH_AUTH } from "@/routes/paths";
 // auth
@@ -13,6 +13,7 @@ import { CustomAvatar } from "@/components/custom-avatar";
 import { useSnackbar } from "@/components/snackbar";
 import MenuPopover from "@/components/menu-popover";
 import { IconButtonAnimate } from "@/components/animate";
+import { MuiAutocompleteBox } from "@/components/form";
 
 // ----------------------------------------------------------------------
 
@@ -85,11 +86,7 @@ export default function AccountPopover() {
           }),
         }}
       >
-        <CustomAvatar
-          src={user?.photoURL}
-          alt={user?.name}
-          name={user?.name}
-        />
+        <CustomAvatar src={user?.photoURL} alt={user?.name} name={user?.name} />
       </IconButtonAnimate>
 
       <MenuPopover

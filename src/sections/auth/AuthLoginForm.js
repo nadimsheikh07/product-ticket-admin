@@ -36,6 +36,7 @@ export default function AuthLoginForm() {
   const defaultValues = {
     email: "",
     password: "",
+    user_type: "admin",
   };
 
   const methods = useForm({
@@ -52,16 +53,21 @@ export default function AuthLoginForm() {
 
   const onSubmit = async (data) => {
     try {
-      await login(data.email, data.password);
+      await login(data);
     } catch (error) {
       console.error(error);
-      enqueueSnackbar("Please Check Your Email or Password", {
-        variant: "error",
-      });
+      const { response } = error;
+      enqueueSnackbar(
+        response?.data?.message ||
+          "Something went wrong please try again later.",
+        {
+          variant: "error",
+        }
+      );
       reset();
       setError("afterSubmit", {
         ...error,
-        message: error.message,
+        message: response?.data?.message
       });
     }
   };
@@ -116,6 +122,7 @@ export default function AuthLoginForm() {
         variant="contained"
         loading={isSubmitSuccessful || isSubmitting}
         sx={{
+          mt: 3,
           bgcolor: "text.primary",
           color: (theme) =>
             theme.palette.mode === "light" ? "common.white" : "grey.800",

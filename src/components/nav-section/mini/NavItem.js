@@ -3,7 +3,7 @@ import { forwardRef } from "react";
 // next
 import NextLink from "next/link";
 // @mui
-import { Tooltip, Link, ListItemText } from "@mui/material";
+import { Tooltip, Link, ListItemText, Typography } from "@mui/material";
 // auth
 import { RoleBasedGuard } from "@/auth";
 //
@@ -15,7 +15,16 @@ function NavItems(
   { item, depth, open, active, isExternalLink, ...other },
   ref
 ) {
-  const { title, path, icon, children, disabled, caption, roles } = item;
+  const {
+    title,
+    path,
+    icon,
+    children,
+    disabled,
+    caption,
+    roles,
+    isLink = true,
+  } = item;
 
   const subItem = depth !== 1;
 
@@ -79,6 +88,22 @@ function NavItems(
     </StyledItem>
   );
 
+  // const renderItem = () => {
+  //   // ExternalLink
+  //   if (isExternalLink)
+  //     return (
+  //       <Link href={path} target="_blank" rel="noopener" underline="none">
+  //         {renderContent}
+  //       </Link>
+  //     );
+
+  //   // Default
+  //   return (
+  //     <Link component={NextLink} href={path} underline="none">
+  //       {renderContent}
+  //     </Link>
+  //   );
+  // };
   const renderItem = () => {
     // ExternalLink
     if (isExternalLink)
@@ -88,12 +113,20 @@ function NavItems(
         </Link>
       );
 
-    // Default
-    return (
-      <Link component={NextLink} href={path} underline="none">
-        {renderContent}
-      </Link>
-    );
+    if (isLink) {
+      // Default
+      return (
+        <Link component={NextLink} href={path} underline="none">
+          {renderContent}
+        </Link>
+      );
+    } else {
+      return (
+        <Typography component="p" variant="body2">
+          {renderContent}
+        </Typography>
+      );
+    }
   };
 
   return <RoleBasedGuard roles={roles}> {renderItem()} </RoleBasedGuard>;

@@ -1,7 +1,7 @@
 import axios from "axios";
 // config
 import { HOST_API_KEY } from "./config-global";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 
 // ----------------------------------------------------------------------
 
@@ -14,7 +14,7 @@ axiosInstance.interceptors.response.use(
       const { response } = error;
       if (response?.status === 401) {
         // Router.push(Router.router.asPath);
-        redirect("/auth/login");
+        // redirect("/auth/login");
       }
     }
     return Promise.reject((error && error) || "Something went wrong");

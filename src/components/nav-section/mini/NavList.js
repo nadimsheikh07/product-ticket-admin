@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect, useRef } from 'react';
 // next
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 // hooks
 import useActiveLink from '@/hooks/useActiveLink';
 //

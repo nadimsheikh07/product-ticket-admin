@@ -1,28 +1,20 @@
 "use client";
-import { useSettingsContext } from "@/components/settings";
-import axiosInstance from "@/utils/axios";
-import { Person } from "@mui/icons-material";
-import {
-  Avatar,
-  Card,
-  CardContent,
-  Container,
-  Grid,
-  Stack,
-  Typography,
-  alpha,
-} from "@mui/material";
+import { Box, Grid, useTheme } from "@mui/material";
 import React, { useState } from "react";
+import AppWidget from "./widget";
+import axiosInstance from "@/utils/axios";
+import { useSettingsContext } from "@/components/settings";
 
-const AppSection = () => {
+const DashboardSection = () => {
   const [user, setUser] = useState([]);
-  const { themeLayout } = useSettingsContext();
+  // const [client, setClient] = useState([]);
+  // const [product, setProduct] = useState([]);
+  // const [ticket, setTicket] = useState([]);
+  // const { themeLayout } = useSettingsContext();
 
-  const getUsers = async (params) => {
+  const getUsers = async () => {
     await axiosInstance
-      .get("/admin/user/users", {
-        params: params,
-      })
+      .get("/api/total_count")
       .then((response) => {
         if (response.status === 200) {
           setUser(response.data);
@@ -36,59 +28,55 @@ const AppSection = () => {
     getUsers();
   }, []);
 
+  const theme = useTheme();
   return (
-    <Container maxWidth>
-      <Grid container spacing={{ lg: 4, md: 4, sm: 2, xs: 2 }}>
-        <Grid item lg={themeLayout == "vertical" ? 6 : 3} md={3} sm={6} xs={6}>
-          <Card>
-            <CardContent>
-              <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="space-between"
-              >
-               {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" /> */}
-                <Stack spacing={{ lg: 1.2, md: 1.2, sm: 1, xs: 1 }}>
-                  <Typography
-                    component="h4"
-                    variant="h4"
-                    sx={{
-                      fontWeight: 500,
-                      fontSize: {
-                        lg: "20px",
-                        md: "20px",
-                        sm: "14px",
-                        xs: "14px",
-                      },
-                    }}
-                  >
-                    User
-                  </Typography>
-
-                  <Typography
-                    component="h2"
-                    variant="h2"
-                    sx={{
-                      fontWeight: 700,
-                      fontSize: {
-                        lg: "24px",
-                        md: "24px",
-                        sm: "16px",
-                        xs: "16px",
-                      },
-                    }}
-                    color="primary"
-                  >
-                    {user?.length || 0}
-                  </Typography>
-                </Stack>
-              </Stack>
-            </CardContent>
-          </Card>
+    <Box>
+      <Grid container spacing={2}>
+        <Grid item md={3} sm={6} xs={12}>
+          <AppWidget
+            title="Total Users"
+            total={user?.totalUsers}
+            icon="eva:person-fill"
+            // chart={{
+            //   series: 48,
+            // }}
+          />
+        </Grid>
+        <Grid item md={3} sm={6} xs={12}>
+          <AppWidget
+            title="Total Clients"
+            total={user?.totalClients}
+            icon="octicon:person-16"
+            color="info"
+            // chart={{
+            //   series: 75,
+            // }}
+          />
+        </Grid>
+        <Grid item md={3} sm={6} xs={12}>
+          <AppWidget
+            title="Total Products"
+            total={user?.totalProducts}
+            icon="icon-park-outline:ad-product"
+            color="success"
+            // chart={{
+            //   series: 75,
+            // }}
+          />
+        </Grid>
+        <Grid item md={3} sm={6} xs={12}>
+          <AppWidget
+            title="Total Tickets"
+            total={user?.totalTickets}
+            icon="mdi:ticket"
+            color="warning"
+            // chart={{
+            //   series: 75,
+            // }}
+          />
         </Grid>
       </Grid>
-    </Container>
+    </Box>
   );
 };
-
-export default AppSection;
+export default DashboardSection;

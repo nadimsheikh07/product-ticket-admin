@@ -6,9 +6,11 @@ import { Card } from "@mui/material";
 import axiosInstance from "@/utils/axios";
 import { useSnackbar } from "notistack";
 import { ConfirmDialogBox } from "./confirmDialog";
+import useCompany from "@/hooks/useCompany";
 
 export const DataTable = (props) => {
   const { enqueueSnackbar } = useSnackbar();
+  const { companyId } = useCompany();
   const {
     columns,
     defaultSortModel,
@@ -17,7 +19,7 @@ export const DataTable = (props) => {
     checkboxSelection,
     defaultFilterModel,
     actionUrl,
-    title = "One Way Taxi",
+    title = "Product Ticket",
     Tabs = [
       {
         value: "all",
@@ -32,7 +34,9 @@ export const DataTable = (props) => {
     isSearch,
     isClear,
     isRowSelectable,
-    disableRowSelectionOnClick,
+    disableRowSelectionOnClick = true,
+    forceRefresh = false,
+    setForceRefresh = () => {},
   } = props;
 
   const [filterStatus, setFilterStatus] = React.useState("all");
@@ -82,12 +86,14 @@ export const DataTable = (props) => {
       orderBy: sortModel[0]?.field,
       orderDirection: sortModel[0]?.sort,
       filterModel: JSON.stringify(filterModel),
+      company_id: companyId,
       ...params,
     };
     await axiosInstance
       .get(actionUrl, { params: filter })
       .then((response) => {
         if (response.status === 200) {
+          setForceRefresh(false);
           if (response?.data) {
             setRowsData(response?.data);
             if (response?.data?.data) {
@@ -102,6 +108,7 @@ export const DataTable = (props) => {
       })
       .catch((error) => {
         setLoading(false);
+        setForceRefresh(false);
         const { response } = error;
         if (response && response?.data && response?.data?.message) {
           enqueueSnackbar(response?.data?.message, {
@@ -110,6 +117,13 @@ export const DataTable = (props) => {
         }
       });
   };
+
+  React.useEffect(() => {
+    if (forceRefresh) {
+      getRowData();
+    }
+  }, [forceRefresh]);
+
   React.useEffect(() => {
     getRowData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -122,6 +136,7 @@ export const DataTable = (props) => {
     filterStartDate,
     filterEndDate,
     filterStatus,
+    params,
   ]);
 
   const handleDeleteRows = async () => {
@@ -194,6 +209,7 @@ export const DataTable = (props) => {
           handleOpenConfirm={handleOpenConfirm}
           isRowSelectable={isRowSelectable}
           disableRowSelectionOnClick={disableRowSelectionOnClick}
+          syncData={getRowData}
         />
       </Card>
 

@@ -7,23 +7,33 @@ import {
   TextBox,
 } from "@/components/form";
 import { Box, Button, Grid, Stack } from "@mui/material";
-import { useParams } from "next/navigation";
-import React from "react";
+import dayjs from "dayjs";
+import { useRouter } from "next/router";
+import React, { useMemo } from "react";
 
 const ProductsFormSection = ({ formik, generateCode }) => {
-  const { id } = useParams();
+  const router = useRouter();
+  const { id } = router.query;
   return (
     <Grid container spacing={2}>
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <MuiAutocompleteBox
           fullWidth
+          disabled={id && id !== "new"}
           label="Client"
           placeholder="Select client"
           name="client_id"
-          url="user/clients"
+          url="user/users"
           value={formik.values.client_id}
           getOptionLabel="name"
           getOptionValue="id"
+          paramsID={useMemo(
+            () => ({
+              user_type: "client",
+              isActive: true,
+            }),
+            []
+          )}
           onChange={(e) => formik.setFieldValue("client_id", e)}
           error={formik.touched.client_id && formik.errors.client_id}
           helperText={formik.touched.client_id && formik.errors.client_id}
@@ -42,35 +52,19 @@ const ProductsFormSection = ({ formik, generateCode }) => {
             helperText={formik.touched.code && formik.errors.code}
             required
           />
-          <Box>
+          <Box sx={{ height: "max-content" }}>
             <Button
               disabled={id !== "new"}
               variant="outlined"
               color="primary"
               onClick={() => generateCode()}
               sx={{ width: "max-content" }}
+              fullWidth
             >
               Generate code
             </Button>
           </Box>
         </Stack>
-      </Grid>
-      <Grid item lg={6} md={6} sm={12} xs={12}>
-        <MuiAutocompleteBox
-        //  disabled={id === "new"}
-          fullWidth
-          isMaxLenght={10}
-          label="Phone"
-          placeholder="Select client Phone"
-          name="phone"
-          url="user/clients"
-          value={formik.values.phone}
-          getOptionLabel="phone"
-          getOptionValue="id"
-          onChange={(e) => formik.setFieldValue("phone", e)}
-          error={formik.touched.phone && formik.errors.phone}
-          helperText={formik.touched.phone && formik.errors.phone}
-        />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
@@ -90,62 +84,85 @@ const ProductsFormSection = ({ formik, generateCode }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
-          label="Model"
+          label="Serial No."
           isMaxLenght={10}
-          name="model"
-          value={formik?.values?.model}
-          onChange={formik.handleChange}
-          error={formik.touched.model && formik.errors.model}
-          helperText={formik.touched.model && formik.errors.model}
-          required
+          name="serial_number"
+          value={formik?.values?.serial_number}
+          onChange={(e) => {
+            formik.setFieldValue("serial_number", e.target.value.trim());
+          }}
+          error={formik.touched.serial_number && formik.errors.serial_number}
+          helperText={
+            formik.touched.serial_number && formik.errors.serial_number
+          }
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
           label="Invoice No."
-          isMaxLenght={30}
+          isMaxLenght={10}
           name="invoice_number"
           value={formik?.values?.invoice_number}
-          onChange={formik.handleChange}
+          onChange={(e) => {
+            formik.setFieldValue("invoice_number", e.target.value.trim());
+          }}
           error={formik.touched.invoice_number && formik.errors.invoice_number}
           helperText={
             formik.touched.invoice_number && formik.errors.invoice_number
           }
-          required
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <DatePickerBox
+          disablePast={true}
           fullWidth
           label="Invoice Date"
           name="invoice_date"
-          formik={formik}
+          value={formik.values.invoice_date}
           onChange={(e) => {
-            formik.setFieldValue("password", e.target.value.trim());
+            formik.setFieldValue("invoice_date", dayjs(e).format("YYYY-MM-DD"));
           }}
+          format="DD/MM/YYYY"
+          placeholder="DD/MM/YYYY"
+          helperText={formik.touched.invoice_date && formik.errors.invoice_date}
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <DatePickerBox
+          disablePast={false}
           fullWidth
           label="Warranty Start"
           name="warranty_start"
-          formik={formik}
+          value={formik.values.warranty_start}
           onChange={(e) => {
-            formik.setFieldValue("password", e.target.value.trim());
+            formik.setFieldValue(
+              "warranty_start",
+              dayjs(e).format("YYYY-MM-DD")
+            );
+            formik.setFieldValue("warranty_end", null);
           }}
+          format="DD/MM/YYYY"
+          placeholder="DD/MM/YYYY"
+          helperText={
+            formik.touched.warranty_start && formik.errors.warranty_start
+          }
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <DatePickerBox
+          disablePast={false}
           fullWidth
           label="Warranty End"
           name="warranty_end"
-          formik={formik}
+          value={formik.values.warranty_end}
           onChange={(e) => {
-            formik.setFieldValue("password", e.target.value.trim());
+            formik.setFieldValue("warranty_end", dayjs(e).format("YYYY-MM-DD"));
           }}
+          format="DD/MM/YYYY"
+          placeholder="DD/MM/YYYY"
+          helperText={formik.touched.warranty_end && formik.errors.warranty_end}
+          minDate={formik.values.warranty_start}
         />
       </Grid>
       <Grid item lg={12} md={12} sm={12} xs={12}>

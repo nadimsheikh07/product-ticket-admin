@@ -1,3 +1,4 @@
+"use client";
 import { CardImageBox } from "../card";
 import {
   CircularProgress,
@@ -11,6 +12,7 @@ import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { FormControl } from "./index";
+import DeleteIcon from "@mui/icons-material/Delete";
 // const fileTypes = ["JPG", "PNG", "GIF", "JFIF", "JPEG"];
 
 // eslint-disable-next-line arrow-body-style
@@ -83,12 +85,13 @@ const DragDrop = (props) => {
     helperText,
     disabled,
     isDocument = false,
+    types = ["JPG", "PNG", "GIF", "JFIF", "JPEG"],
   } = props;
   const [message, setMessage] = React.useState("");
   const [error, setError] = React.useState("");
   const [file, setFile] = React.useState("");
   const [loader, setLoader] = React.useState("");
-  const [fileTypes, setFileTypes] = React.useState([]);
+  // const [fileTypes, setFileTypes] = React.useState([]);
 
   useEffect(() => {
     if (value) {
@@ -96,26 +99,26 @@ const DragDrop = (props) => {
     } else setFile("");
   }, [value]);
 
-  useEffect(() => {
-    if (isDocument) {
-      setFileTypes([
-        "jpeg",
-        "png",
-        "gif",
-        "pdf",
-        "docx",
-        "xlsx",
-        "ppt",
-        "pptx",
-        "zip",
-        "doc",
-        "jpg",
-        "jfif",
-        "JPEG",
-        "JFIF",
-      ]);
-    } else setFileTypes(["JPG", "PNG", "GIF", "JFIF", "JPEG"]);
-  }, [isDocument]);
+  // useEffect(() => {
+  //   if (isDocument) {
+  //     setFileTypes([
+  //       "jpeg",
+  //       "png",
+  //       "gif",
+  //       "pdf",
+  //       "docx",
+  //       "xlsx",
+  //       "ppt",
+  //       "pptx",
+  //       "zip",
+  //       "doc",
+  //       "jpg",
+  //       "jfif",
+  //       "JPEG",
+  //       "JFIF",
+  //     ]);
+  //   } else setFileTypes(["JPG", "PNG", "GIF", "JFIF", "JPEG"]);
+  // }, [isDocument]);
 
   const fileUpload = async (file) => {
     setLoader(true);
@@ -153,7 +156,7 @@ const DragDrop = (props) => {
   return (
     <>
       {!file && (
-        <FileUploaders handleChange={fileUpload} name={name} types={fileTypes}>
+        <FileUploaders handleChange={fileUpload} name={name} types={types}>
           <RootStyle>
             {file ? (
               <Label>{file}</Label>
@@ -193,10 +196,10 @@ const DragDrop = (props) => {
             src={file}
             height={"48"}
             alt={"image"}
-            icon="delete"
+            icon={<DeleteIcon />}
             fontSize={"small"}
             deleteSelected={() => props.onChange("")}
-          />{" "}
+          />
         </>
       )}
       <div style={{ display: "none" }}>

@@ -17,8 +17,8 @@ export const PATH_AUTH = {
   loginUnprotected: path(ROOTS_AUTH, "/login-unprotected"),
   registerUnprotected: path(ROOTS_AUTH, "/register-unprotected"),
   verify: path(ROOTS_AUTH, "/verify"),
-  resetPassword: path(ROOTS_AUTH, "/reset-password"),
-  newPassword: path(ROOTS_AUTH, "/new-password"),
+  resetPassword: path(ROOTS_AUTH, "/forget-password"),
+  newPassword: path(ROOTS_AUTH, "/reset-password"),
 };
 
 export const PATH_PAGE = {
@@ -47,7 +47,6 @@ export const PATH_DASHBOARD = {
   company: {
     root: path(ROOTS_DASHBOARD, "/company"),
     companies: path(ROOTS_DASHBOARD, "/company/companies"),
-    company_employees: path(ROOTS_DASHBOARD, "/company/company_employees"),
   },
   client: {
     root: path(ROOTS_DASHBOARD, "/client"),
@@ -56,9 +55,19 @@ export const PATH_DASHBOARD = {
   product: {
     root: path(ROOTS_DASHBOARD, "/product"),
     products: path(ROOTS_DASHBOARD, "/product/products"),
+    attributes: path(ROOTS_DASHBOARD, "/product/attributes"),
   },
   ticket: {
     root: path(ROOTS_DASHBOARD, "/ticket"),
     tickets: path(ROOTS_DASHBOARD, "/ticket/tickets"),
+    open_tickets: path(ROOTS_DASHBOARD, "/ticket/open_tickets"),
+  },
+  settings: {
+    root: path(ROOTS_DASHBOARD, "/settings"),
+    notification: path(ROOTS_DASHBOARD, "/settings/notification"),
+  },
+  configuration: {
+    root: path(ROOTS_DASHBOARD, "/configuration"),
+    email: path(ROOTS_DASHBOARD, "/configuration/email"),
   },
 };

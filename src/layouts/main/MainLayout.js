@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // next
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 // @mui
 import { Box } from '@mui/material';
 //

@@ -3,6 +3,7 @@ import {
   MuiAutocompleteBox,
   PasswordBox,
   TextBox,
+  ToggleBox,
 } from "@/components/form";
 import { Grid } from "@mui/material";
 import React from "react";
@@ -25,20 +26,32 @@ const ClientFormSection = ({ formik, id }) => {
           required
         />
       </Grid>
-      <Grid item lg={6} md={6} sm={12} xs={12}>
-        <TextBox
+      {/* <Grid item lg={6} md={6} sm={12} xs={12}>
+        <MuiAutocompleteBox
           fullWidth
-          isMaxLenght={50}
-          label="Email"
-          name="email"
-          value={formik?.values?.email}
-          onChange={formik.handleChange}
-          error={formik.touched.email && formik.errors.email}
-          helperText={formik.touched.email && formik.errors.email}
-          required
+          label="Company"
+          placeholder="Select Company"
+          name="company_id"
+          // url="user/users"
+          value={formik.values.company_id}
+          getOptionLabel="name"
+          getOptionValue="id"
+          onChange={(e) => {
+            if (e) {
+              formik.setFieldValue("company_id", e);
+            }
+          }}
+          error={formik.touched.company_id && formik.errors.company_id}
+          helperText={formik.touched.company_id && formik.errors.company_id}
         />
-      </Grid>
-      <Grid item lg={6} md={6} sm={12} xs={12}>
+      </Grid> */}
+      <Grid
+        item
+        lg={id === "new" ? 6 : 6}
+        md={id === "new" ? 6 : 6}
+        sm={12}
+        xs={12}
+      >
         <TextBox
           fullWidth
           label="Phone"
@@ -55,20 +68,35 @@ const ClientFormSection = ({ formik, id }) => {
           required
         />
       </Grid>
-      {/* {id === "new" && ( */}
       <Grid item lg={6} md={6} sm={12} xs={12}>
-        <PasswordBox
+        <TextBox
           fullWidth
-          label="Password"
-          name="password"
-          value={formik?.values?.password}
+          isMaxLenght={50}
+          label="Email"
+          name="email"
+          value={formik?.values?.email}
           onChange={formik.handleChange}
-          error={formik.touched.password && formik.errors.password}
-          helperText={formik.touched.password && formik.errors.password}
+          error={formik.touched.email && formik.errors.email}
+          helperText={formik.touched.email && formik.errors.email}
           required
         />
       </Grid>
-      {/* )} */}
+      {id === "new" && (
+        <Grid item lg={6} md={6} sm={12} xs={12}>
+          <PasswordBox
+            fullWidth
+            label="Password"
+            name="password"
+            value={formik?.values?.password}
+            onChange={(e) => {
+              formik.setFieldValue("password", e.target.value.trim().replace(" ",""));
+            }}
+            error={formik.touched.password && formik.errors.password}
+            helperText={formik.touched.password && formik.errors.password}
+            required
+          />
+        </Grid>
+      )}
       <Grid item lg={12} md={12} sm={12} xs={12}>
         <TextBox
           fullWidth
@@ -81,7 +109,24 @@ const ClientFormSection = ({ formik, id }) => {
           onChange={formik.handleChange}
           error={formik.touched.address && formik.errors.address}
           helperText={formik.touched.address && formik.errors.address}
-          required
+        />
+      </Grid>
+      <Grid item lg={12} md={12} sm={12} xs={12}>
+        <ToggleBox
+          fullWidth
+          label="Is Active"
+          name="is_active"
+          value={formik?.values?.is_active}
+          checked={formik?.values?.is_active}
+          onChange={(e) => {
+            if (e.target.checked) {
+              formik.setFieldValue("is_active", true);
+            } else {
+              formik.setFieldValue("is_active", false);
+            }
+          }}
+          error={formik.touched.is_active && formik.errors.is_active}
+          helperText={formik.touched.is_active && formik.errors.is_active}
         />
       </Grid>
     </Grid>
