@@ -2,15 +2,14 @@
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { DataTable } from "@/components/dataTable";
-import { PasswordBox } from "@/components/form";
 import Iconify from "@/components/iconify/Iconify";
 import Label from "@/components/label";
 import useCompany from "@/hooks/useCompany";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { AddFormButton } from "@/module/auth/addFormButton";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import CloseIcon from '@mui/icons-material/Close';
-import { Alert, Badge, Box, Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, TextField, Tooltip } from "@mui/material";
+import DialogClientPasswords from "@/sections/dashboard/client/dialogClientPassword/dialogpassword";
+import { Badge, Box, Tooltip } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 
 import { useRouter } from "next/router";
@@ -29,11 +28,11 @@ const CompanyEmployeesList = (formik) => {
   const handleClickOpen = () => {
     setOpen(true);
   };
-  
+
   const handleClose = () => {
     setOpen(false);
   };
-  
+
   const columns = [
     {
       field: "actions",
@@ -60,7 +59,7 @@ const CompanyEmployeesList = (formik) => {
               </Badge>
             </Tooltip>
           }
-          label="Chat"
+          label="Password"
           onClick={handleClickOpen}
         />,
       ],
@@ -87,7 +86,10 @@ const CompanyEmployeesList = (formik) => {
     {
       field: "company_id",
       headerName: "Company Name",
-      width: "200",
+      width: 180,
+      renderCell: ({ row }) => {
+        return row?.company?.name;
+      },
     },
     {
       field: "email",
@@ -118,9 +120,9 @@ const CompanyEmployeesList = (formik) => {
         login
       </title>
     </Head> */}
-
-    <Box>
-    <Dialog
+      <Box>
+        <DialogClientPasswords handleClose={handleClose} open={open} />
+        {/* <Dialog
         open={open}
         onClose={handleClose}
         fullWidth
@@ -175,8 +177,8 @@ const CompanyEmployeesList = (formik) => {
             Submit
           </Button>
         </DialogActions>
-      </Dialog>
-    </Box>
+      </Dialog> */}
+      </Box>
       <ContainerComponent>
         <CustomBreadcrumbs
           heading="Client List"

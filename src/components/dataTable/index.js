@@ -136,6 +136,7 @@ export const DataTable = (props) => {
     filterStartDate,
     filterEndDate,
     filterStatus,
+    companyId,
     params,
   ]);
 
