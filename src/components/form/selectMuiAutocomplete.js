@@ -2,6 +2,8 @@ import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { debounce } from "lodash";
+import { FormHelperText } from "@mui/material";
+import FormControl from "./formControl";
 
 const SelectMuiAutocomplete = ({
   value,
@@ -13,6 +15,7 @@ const SelectMuiAutocomplete = ({
   searchData = () => {},
   disabled,
   placeholder,
+  helperText,
 }) => {
   const [inputValue, setInputValue] = React.useState("");
 
@@ -20,29 +23,36 @@ const SelectMuiAutocomplete = ({
 
   return (
     <>
-      <Autocomplete
+      <FormControl
+        key={`key${name}`}
+        error={helperText ? true : false}
         fullWidth={fullWidth}
-        name={name}
-        value={value}
-        onChange={(event, newValue) => {
-          onChange(newValue);
-          delayedQuery(null);
-        }}
-        inputValue={inputValue}
-        onInputChange={(event, newInputValue) => {
-          if (event?.type === "change") {
-            setInputValue(newInputValue);
-            delayedQuery(newInputValue);
-          } else {
-            setInputValue(newInputValue);
-          }
-        }}
-        options={options}
-        renderInput={(params) => (
-          <TextField {...params} label={label} placeholder={placeholder} />
-        )}
-        disabled={disabled}
-      />
+      >
+        <Autocomplete
+          fullWidth={fullWidth}
+          name={name}
+          value={value}
+          onChange={(event, newValue) => {
+            onChange(newValue);
+            delayedQuery(null);
+          }}
+          inputValue={inputValue}
+          onInputChange={(event, newInputValue) => {
+            if (event?.type === "change") {
+              setInputValue(newInputValue);
+              delayedQuery(newInputValue);
+            } else {
+              setInputValue(newInputValue);
+            }
+          }}
+          options={options}
+          renderInput={(params) => (
+            <TextField {...params} label={label} placeholder={placeholder} />
+          )}
+          disabled={disabled}
+        />
+        {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      </FormControl>
     </>
   );
 };

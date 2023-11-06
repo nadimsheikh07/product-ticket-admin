@@ -44,11 +44,11 @@ const CompanyEmployeesList = () => {
       isfilter: false,
       disableColumnFilter: true,
     },
-    {
-      field: "company_id",
-      headerName: "Company Name",
-      width: "200",
-    },
+    // {
+    //   field: "company_id",
+    //   headerName: "Company Name",
+    //   width: "200",
+    // },
     {
       field: "is_active",
       headerName: "Is Active",

@@ -41,11 +41,11 @@ const UserList = () => {
       headerName: "Name",
       width: "140",
     },
-    {
-      field: "company_id",
-      headerName: "Company Name",
-      width: "200",
-    },
+    // {
+    //   field: "company_id",
+    //   headerName: "Company Name",
+    //   width: "200",
+    // },
     {
       field: "user_type",
       headerName: "User Type",
