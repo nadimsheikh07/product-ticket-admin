@@ -83,13 +83,15 @@ export function AuthProvider({ children }) {
       const accessToken = storageAvailable
         ? localStorage.getItem("accessProductAdminToken")
         : "";
+
+      let companyId = localStorage.getItem("companyId") || null;
+      axiosInstance.defaults.headers.common.company_id = companyId;
+
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
 
         const response = await axiosInstance.get("admin/auth/profile");
-
         const { user } = response.data;
-
         if (user?.company_id) {
           setCompany(user?.company_id);
           let companyDetail = {

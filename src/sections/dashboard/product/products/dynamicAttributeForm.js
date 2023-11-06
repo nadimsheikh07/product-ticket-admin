@@ -112,6 +112,8 @@ const DynamicAttributeForm = ({
     }
   }, [attributes?.id, attributes?.open]);
 
+  console.log("attributeList", attributeList);
+
   const getAttribute = async (search = null) => {
     await axiosInstance
       .get("/admin/attribute/attributes", {

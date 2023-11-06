@@ -3,6 +3,7 @@ import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { StepperContext } from "@/components/stepper/stepperContext";
 import { ScrollableTabs } from "@/components/tabs";
+import useCompany from "@/hooks/useCompany";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import { ProductsFormSection } from "@/sections/dashboard/product/products";
@@ -18,6 +19,7 @@ import React from "react";
 const ProductsPageForm = () => {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
+  const { companyId } = useCompany();
   const { id } = router.query;
   const title = "Product Form";
   const backUrl = `${PATH_DASHBOARD.product.products}`;
@@ -192,6 +194,22 @@ const ProductsPageForm = () => {
                 ...data?.client,
               };
               formik.setFieldValue(key, client);
+            } else if (key == "attributes") {
+              let modifyAttributes = [];
+              data?.attributes &&
+                data?.attributes?.length > 0 &&
+                data?.attributes?.forEach((element) => {
+                  modifyAttributes.push({
+                    ...element,
+                    ["attribute_id"]: {
+                      label: element?.attribute?.name,
+                      value: element?.attribute?.id,
+                      ...element?.attribute,
+                    },
+                  });
+                });
+
+              formik.setFieldValue("attributes", modifyAttributes);
             } else {
               formik.setFieldValue([key], data[key]);
             }
@@ -204,10 +222,12 @@ const ProductsPageForm = () => {
   };
 
   React.useEffect(() => {
-    if (id && id !== "new") {
+    if (id && id !== "new" && companyId) {
       bindData(id);
     }
-  }, [id]);
+  }, [id, companyId]);
+
+  console.log("companyId", companyId);
 
   const handleOpenCloseAttributes = (value = "new") => {
     setAttributes({
@@ -232,6 +252,7 @@ const ProductsPageForm = () => {
     );
   };
 
+  console.log("formikformik", formik);
   const tabs = [
     {
       title: "Product Detail",
