@@ -67,7 +67,7 @@ export default function AuthLoginForm() {
       reset();
       setError("afterSubmit", {
         ...error,
-        message: response?.data?.message
+        message: response?.data?.message,
       });
     }
   };

@@ -1,3 +1,6 @@
+import React from "react";
+import { SelectMuiAutocomplete } from "@/components/form";
+import { Box } from "@mui/material";
 import { useAuthContext } from "@/auth/useAuthContext";
 import SelectAutocomplete from "@/components/form/selectAutocomplete";
 import useCompany from "@/hooks/useCompany";
@@ -17,10 +20,7 @@ const NotAllowD = [
   "user_statuses",
 ];
 
-const isShowdropdown = [
-  "/dashboard/company/companies",
-  "/dashboard/company/companies/form/[id]",
-];
+const isShowDropdown = ["/dashboard/company/companies" ,"/dashboard/company/companies/form/[id]" ,"/dashboard/company/companies/form/new" ,"/dashboard/user/users" ,"/dashboard/user/users/form/[id]"];
 const AllowD = [];
 
 const isShowData = ["/dashboard/tag/tag_scan"];
@@ -57,20 +57,31 @@ const SelectCompany = () => {
     useCompany();
 
   const isShowCompanyDropdown = () => {
-    let isShow = isShowdropdown.includes(pathname);
+    let isShow = isShowDropdown.includes(pathname);
     return isShow;
   };
 
-  const getCompany = async () => {
+  const getCompany = async (search = null) => {
     await axiosInstance
       .get("/admin/company/companies", {
         params: {
           isActive: true,
+          search: search,
         },
       })
       .then((response) => {
         if (response.status === 200) {
-          setCompanies(response?.data);
+          let options = [];
+          response?.data &&
+            response?.data?.length > 0 &&
+            response?.data.forEach((item) => {
+              options.push({
+                label: item?.name,
+                value: item?.id,
+                ...item,
+              });
+            });
+          setCompanies(options);
         }
       })
       .catch((error) => {
@@ -106,7 +117,7 @@ const SelectCompany = () => {
   console.log("companyId", companyId);
   return (
     <Box component="div" sx={{ flexGrow: 1 }}>
-      {!isShowCompanyDropdown() && (
+      {/* {!isShowCompanyDropdown() && (
         <SelectAutocomplete
           fullWidth
           name={`company_id`}
@@ -128,6 +139,20 @@ const SelectCompany = () => {
               setCompany(null);
             }
           }}
+        />
+      )} */}
+      {!isShowCompanyDropdown() && (
+        <SelectMuiAutocomplete
+          name="companyDetail"
+          value={companyDetail}
+          placeholder="Select Company"
+          onChange={(e) => {
+            setCompany(e?.id || null);
+            setCompanyDetail(JSON.stringify(e));
+          }}
+          disabled={!Allow() && NotAllow()}
+          options={companies}
+          searchData={getCompany}
         />
       )}
     </Box>

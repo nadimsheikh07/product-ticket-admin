@@ -41,6 +41,7 @@ const UserList = () => {
       headerName: "Name",
       width: "140",
     },
+<<<<<<< HEAD
     {
       field: "company_id",
       headerName: "Company Name",
@@ -49,6 +50,13 @@ const UserList = () => {
         return row?.company?.name;
       },
     },
+=======
+    // {
+    //   field: "company_id",
+    //   headerName: "Company Name",
+    //   width: "200",
+    // },
+>>>>>>> 68d4ad03e9d5a9f6d337788a1b65f429fc29df83
     {
       field: "user_type",
       headerName: "User Type",

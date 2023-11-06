@@ -84,14 +84,6 @@ const CompanyEmployeesList = (formik) => {
       },
     },
     {
-      field: "company_id",
-      headerName: "Company Name",
-      width: 180,
-      renderCell: ({ row }) => {
-        return row?.company?.name;
-      },
-    },
-    {
       field: "email",
       headerName: "Email",
       width: "200",
