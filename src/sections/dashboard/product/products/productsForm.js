@@ -61,6 +61,8 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           onChange={(e) => {
             if (e) {
               formik.setFieldValue("client_id", e);
+            } else {
+              formik.setFieldValue("client_id", null);
             }
           }}
           options={client}

@@ -38,12 +38,9 @@ const SelectMuiAutocomplete = ({
           }}
           inputValue={inputValue}
           onInputChange={(event, newInputValue) => {
-            if (event?.type === "change") {
-              setInputValue(newInputValue);
-              delayedQuery(newInputValue);
-            } else {
-              setInputValue(newInputValue);
-            }
+            let newValue = newInputValue ? newInputValue : "";
+            setInputValue(newValue);
+            delayedQuery(newValue);
           }}
           options={options}
           renderInput={(params) => (
