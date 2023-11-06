@@ -83,7 +83,16 @@ const CompanyEmployeesPageForm = () => {
         // bind form data from server
         for (const [key] of Object.entries(formik.values)) {
           if (data[key]) {
-            formik.setFieldValue([key], data[key]);
+            if (key == "attribute_id") {
+              let attribute = {
+                label: data?.attribute?.name,
+                value: data?.attribute?.id,
+                ...data?.attribute,
+              };
+              formik.setFieldValue(key, attribute);
+            } else {
+              formik.setFieldValue([key], data[key]);
+            }
           } else {
             formik.setFieldError(key, "");
           }

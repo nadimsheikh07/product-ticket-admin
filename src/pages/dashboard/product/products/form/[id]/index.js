@@ -185,7 +185,16 @@ const ProductsPageForm = () => {
         // bind form data from server
         for (const [key] of Object.entries(formik.values)) {
           if (data[key]) {
-            formik.setFieldValue([key], data[key]);
+            if (key == "client_id") {
+              let client = {
+                label: data?.client?.name,
+                value: data?.client?.id,
+                ...data?.client,
+              };
+              formik.setFieldValue(key, client);
+            } else {
+              formik.setFieldValue([key], data[key]);
+            }
           } else {
             formik.setFieldError(key, "");
           }
@@ -274,6 +283,8 @@ const ProductsPageForm = () => {
     </ContainerComponent>
   );
 };
-ProductsPageForm.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+ProductsPageForm.getLayout = (page) => (
+  <DashboardLayout>{page}</DashboardLayout>
+);
 
 export default ProductsPageForm;
