@@ -1,4 +1,4 @@
-import { DragDrop, MuiAutocompleteBox, TextBox } from "@/components/form";
+import { DragDrop, MuiAutocompleteBox, SelectMuiAutocomplete, TextBox } from "@/components/form";
 import SelectBox from "@/components/form/select";
 import SelectAutocomplete from "@/components/form/selectAutocomplete";
 import axiosInstance from "@/utils/axios";
@@ -10,6 +10,40 @@ import React, { useMemo } from "react";
 const TicketsFormSection = ({ formik, id }) => {
   const [client, setClient] = React.useState([]);
   const [products, setProducts] = React.useState([]);
+  const [user, setUsers] = React.useState([]);
+
+
+  const getUsers = async (search = null) => {
+    await axiosInstance
+      .get("/admin/user/users", {
+        params: {
+          isActive: true,
+          search: search,
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          let options = [];
+          response?.data &&
+            response?.data?.length > 0 &&
+            response?.data.forEach((item) => {
+              options.push({
+                label: item?.name,
+                value: item?.id,
+                ...item,
+              });
+            });
+          setUser(options);
+        }
+      })
+      .catch((error) => {
+        console.log("Select Client Error", error);
+      });
+  };
+
+  React.useEffect(() => {
+    getUsers();
+  }, []);
 
   const getClient = async (search = null) => {
     setProducts([]);
@@ -74,7 +108,7 @@ const TicketsFormSection = ({ formik, id }) => {
   return (
     <Grid container spacing={2}>
       <Grid item lg={6} md={6} sm={12} xs={12}>
-        <MuiAutocompleteBox
+        {/* <MuiAutocompleteBox
           fullWidth
           label="Assign To"
           placeholder="Select user"
@@ -97,6 +131,20 @@ const TicketsFormSection = ({ formik, id }) => {
           }}
           error={formik.touched.user_id && formik.errors.user_id}
           helperText={formik.touched.user_id && formik.errors.user_id}
+        /> */}
+         <SelectMuiAutocomplete
+          fullWidth
+          name="user_id"
+          label="Assign to"
+          value={formik.values.user_id}
+          placeholder="Select User"
+          onChange={(e) => {
+            if (e) {
+              formik.setFieldValue("user_id", e);
+            }
+          }}
+          options={user}
+          searchData={getUsers}
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
