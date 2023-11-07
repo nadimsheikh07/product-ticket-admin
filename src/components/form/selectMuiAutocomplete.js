@@ -16,6 +16,8 @@ const SelectMuiAutocomplete = ({
   disabled,
   placeholder,
   helperText,
+  required,
+  params = null,
 }) => {
   const [inputValue, setInputValue] = React.useState("");
 
@@ -27,24 +29,33 @@ const SelectMuiAutocomplete = ({
         key={`key${name}`}
         error={helperText ? true : false}
         fullWidth={fullWidth}
+        disabled={disabled}
       >
         <Autocomplete
           fullWidth={fullWidth}
+          error={helperText ? true : false}
+          required={required}
           name={name}
           value={value}
           onChange={(event, newValue) => {
             onChange(newValue);
-            delayedQuery(null);
+            delayedQuery({ search: null, ...params });
           }}
           inputValue={inputValue}
           onInputChange={(event, newInputValue) => {
             let newValue = newInputValue ? newInputValue : "";
             setInputValue(newValue);
-            delayedQuery(newValue);
+            delayedQuery({ search: newValue, ...params });
           }}
           options={options}
           renderInput={(params) => (
-            <TextField {...params} label={label} placeholder={placeholder} />
+            <TextField
+              {...params}
+              error={helperText ? true : false}
+              label={label}
+              placeholder={placeholder}
+              required={required}
+            />
           )}
           disabled={disabled}
         />

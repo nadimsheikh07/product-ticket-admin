@@ -91,14 +91,36 @@ const TicketsPageForm = () => {
         const { data } = response;
         // bind form data from server
         for (const [key] of Object.entries(formik.values)) {
-          console.log("key", key);
-          // if (key === "client_id") {
-          //   formik.setFieldValue("client_id", data?.client_id);
-          // } else if (key === "status") {
-          //   formik.setFieldValue("status", data?.status);
-          // } else {
-          formik.setFieldValue(key, data[key]);
-          // }
+          if (data[key]) {
+            if (key == "user_id") {
+              let user = {
+                label: data?.user?.name,
+                value: data?.user?.id,
+                ...data?.user,
+              };
+              formik.setFieldValue(key, user);
+            }
+            //  else if (key == "attributes") {
+            //   let modifyAttributes = [];
+            //   data?.attributes &&
+            //     data?.attributes?.length > 0 &&
+            //     data?.attributes?.forEach((element) => {
+            //       modifyAttributes.push({
+            //         ...element,
+            //         ["attribute_id"]: {
+            //           label: element?.attribute?.name,
+            //           value: element?.attribute?.id,
+            //           ...element?.attribute,
+            //         },
+            //       });
+            //     });
+
+            //   formik.setFieldValue("attributes", modifyAttributes);
+            // } 
+            else {
+              formik.setFieldValue([key], data[key]);
+            }
+          } 
         }
       }
     });

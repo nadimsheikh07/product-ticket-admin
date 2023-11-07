@@ -6,6 +6,7 @@ import {
 import axiosInstance from "@/utils/axios";
 import { Delete, Edit } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
+import CloseIcon from '@mui/icons-material/Close';
 import {
   Button,
   Dialog,
@@ -114,13 +115,13 @@ const DynamicAttributeForm = ({
 
   console.log("attributeList", attributeList);
 
-  const getAttribute = async (search = null) => {
+  const getAttribute = async (params) => {
     setAttribute([]);
     await axiosInstance
       .get("/admin/attribute/attributes", {
         params: {
           isActive: true,
-          search: search,
+          ...params,
         },
       })
       .then((response) => {
@@ -249,9 +250,14 @@ const DynamicAttributeForm = ({
           <form noValidate onSubmit={formik.handleSubmit}>
             <Grid container spacing={2}>
               <Grid item lg={12} md={12} sm={12} xs={12}>
-                <Typography component="h4" variant="h4">
-                  Product Attribute
-                </Typography>
+                <Stack justifyContent="space-between" direction="row"mb={1}>
+                  <Typography component="h4" variant="h4">
+                    Product Attribute
+                  </Typography>
+                  <IconButton onClick={handleOpenCloseAttributes}>
+                  <CloseIcon/>
+                  </IconButton>
+                </Stack>
               </Grid>
               <Grid item lg={12} md={12} sm={12} xs={12}>
                 {/* <MuiAutocompleteBox
@@ -284,6 +290,10 @@ const DynamicAttributeForm = ({
                   }}
                   options={attribute}
                   searchData={getAttribute}
+                  helperText={
+                    formik.touched.attribute_id && formik.errors.attribute_id
+                  }
+                  required
                 />
               </Grid>
               <Grid item lg={12} md={12} sm={12} xs={12}>

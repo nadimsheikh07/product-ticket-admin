@@ -3,7 +3,7 @@ import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import { CompanyFormSection } from "@/sections/dashboard/client/companies";
+import { CompanyEmployeeFormSection } from "@/sections/dashboard/company/company_employee";
 import axiosInstance from "@/utils/axios";
 import { LoadingButton } from "@mui/lab";
 import { Stack } from "@mui/material";
@@ -12,22 +12,23 @@ import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import React from "react";
 
-const CompanyPageForm = () => {
+const CompanyEmployeesPagesForm = () => {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
-  const { id } = router.query
-  const title = "Company Form";
-  const backUrl = `${PATH_DASHBOARD.company.companies}`;
-  const actionUrl = "admin/catalog/companies";
+  const { id } = router.query;
+  const title = "Company Employee Form";
+  const backUrl = `${PATH_DASHBOARD.company.company_employees}`;
+  const actionUrl = "admin/user/users";
 
   const formik = useFormik({
     initialValues: {
+      phone: "",
       name: "",
       email: "",
       address: "",
-      phone: "",
-
-      // photo: "",
+      user_type: "user",
+      password: "",
+      is_active: false,
     },
     validate: (values) => {
       const errors = {};
@@ -41,11 +42,6 @@ const CompanyPageForm = () => {
       ) {
         errors.email = "Invalid email address";
       }
-      // if (id === "new") {
-      //   if (!values.password) {
-      //     errors.password = "Password is required";
-      //   }
-      // }
       const phoneRegex = /^\d+$/i;
       if (!values.phone) {
         errors.phone = "Phone is required";
@@ -53,6 +49,19 @@ const CompanyPageForm = () => {
         errors.phone = "Invalid phone number";
       } else if (values.phone.length < 10 || values.phone.length > 10) {
         errors.phone = "Phone number must be 10 digit";
+      }
+
+      if (id === "new") {
+        const passwordRegex =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+        if (!values.password) {
+          errors.password = "Password is required";
+        } else if (values.password.length > 10) {
+          errors.password = "Password must be less than 10 characters";
+        } else if (!passwordRegex.test(values.password)) {
+          errors.password =
+            "Must Contain 10 Characters, One Uppercase, One Lowercase, One Number and one special case Character";
+        }
       }
       return errors;
     },
@@ -90,7 +99,8 @@ const CompanyPageForm = () => {
             // eslint-disable-next-line no-unused-vars
             for (const [key, value] of Object.entries(values)) {
               if (response.data.errors[key]) {
-                setErrors({ [key]: response.data.errors[key][0] });
+                formik.setFieldError(key, response.data.errors[key][0]);
+                // setErrors({ [key]: response.data.errors[key][0] });
               }
             }
           }
@@ -104,7 +114,11 @@ const CompanyPageForm = () => {
         const { data } = response;
         // bind form data from server
         for (const [key] of Object.entries(formik.values)) {
-          formik.setFieldValue([key], data[key]);
+          if (data[key]) {
+            formik.setFieldValue([key], data[key]);
+          } else {
+            formik.setFieldError(key, "");
+          }
         }
       }
     });
@@ -117,37 +131,38 @@ const CompanyPageForm = () => {
   }, [id]);
 
   return (
-
-      <ContainerComponent>
-        <CustomBreadcrumbs
-          heading={title}
-          links={[
-            {
-              name: "Dashboard",
-              href: PATH_DASHBOARD.app,
-            },
-            {
-              name: "Companies",
-              href: backUrl,
-            },
-            { name: title },
-          ]}
-        />
-        <form noValidate onSubmit={formik.handleSubmit}>
-          <CompanyFormSection formik={formik} id={id} />
-          <Stack alignItems="flex-end" sx={{ mt: 3 }}>
-            <LoadingButton
-              type="submit"
-              variant="contained"
-              loading={formik?.isSubmitting}
-            >
-              {id === "new" ? "Create Company" : "Update Company"}
-            </LoadingButton>
-          </Stack>
-        </form>
-      </ContainerComponent>
+    <ContainerComponent>
+      <CustomBreadcrumbs
+        heading={title}
+        links={[
+          {
+            name: "Dashboard",
+            href: PATH_DASHBOARD.app,
+          },
+          {
+            name: "Employees",
+            href: backUrl,
+          },
+          { name: title },
+        ]}
+      />
+      <form noValidate onSubmit={formik.handleSubmit}>
+        <CompanyEmployeeFormSection formik={formik} id={id} />
+        <Stack alignItems="flex-end" sx={{ mt: 3 }}>
+          <LoadingButton
+            type="submit"
+            variant="contained"
+            loading={formik?.isSubmitting}
+          >
+            {id === "new" ? "Create Employee" : "Update Employee"}
+          </LoadingButton>
+        </Stack>
+      </form>
+    </ContainerComponent>
   );
 };
-CompanyPageForm.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+CompanyEmployeesPagesForm.getLayout = (page) => (
+  <DashboardLayout>{page}</DashboardLayout>
+);
 
-export default CompanyPageForm;
+export default CompanyEmployeesPagesForm;

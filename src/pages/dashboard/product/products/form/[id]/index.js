@@ -129,9 +129,13 @@ const ProductsPageForm = () => {
     },
   });
 
-  const getAttributes = async (search = null) => {
+  const getAttributes = async (params) => {
     await axiosInstance
-      .get("admin/attribute/attributes")
+      .get("admin/attribute/attributes", {
+        params: {
+          ...params,
+        },
+      })
       .then((response) => {
         if (response.status === 200) {
           setAttributeData(response?.data);
@@ -227,8 +231,6 @@ const ProductsPageForm = () => {
     }
   }, [id, companyId]);
 
-  console.log("companyId", companyId);
-
   const handleOpenCloseAttributes = (value = "new") => {
     setAttributes({
       open: !attributes.open,
@@ -252,7 +254,6 @@ const ProductsPageForm = () => {
     );
   };
 
-  console.log("formikformik", formik);
   const tabs = [
     {
       title: "Product Detail",
