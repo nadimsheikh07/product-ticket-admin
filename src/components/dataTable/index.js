@@ -10,7 +10,7 @@ import useCompany from "@/hooks/useCompany";
 
 export const DataTable = (props) => {
   const { enqueueSnackbar } = useSnackbar();
-  const { companyId } = useCompany();
+  const { companyId ,getCompanies} = useCompany();
   const {
     columns,
     defaultSortModel,
@@ -151,6 +151,7 @@ export const DataTable = (props) => {
           });
           handleCloseConfirm();
           getRowData();
+          getCompanies();
         }
       })
       .catch((error) => {
