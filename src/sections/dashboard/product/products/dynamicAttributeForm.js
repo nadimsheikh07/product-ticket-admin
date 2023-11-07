@@ -199,7 +199,7 @@ const DynamicAttributeForm = ({
                             component="p"
                             variant="body2"
                             noWrap
-                            maxWidth="150px"
+                            maxWidth="26px"
                             width="100%"
                           >
                             {item.value}

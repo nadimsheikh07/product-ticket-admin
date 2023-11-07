@@ -15,6 +15,7 @@ const ForgetPasswords = () => {
   const formik = useFormik({
     initialValues: {
       email: "",
+      user_type:"admin"
     },
     validate: (values) => {
       const errors = {};

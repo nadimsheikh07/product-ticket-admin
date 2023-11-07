@@ -17,6 +17,39 @@ const TicketsFormSection = ({ formik, id }) => {
   const [client, setClient] = React.useState([]);
   const [products, setProducts] = React.useState([]);
 
+
+  const getUsers = async (search = null) => {
+    await axiosInstance
+      .get("/admin/user/users", {
+        params: {
+          isActive: true,
+          search: search,
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          let options = [];
+          response?.data &&
+            response?.data?.length > 0 &&
+            response?.data.forEach((item) => {
+              options.push({
+                label: item?.name,
+                value: item?.id,
+                ...item,
+              });
+            });
+          setUser(options);
+        }
+      })
+      .catch((error) => {
+        console.log("Select Client Error", error);
+      });
+  };
+
+  React.useEffect(() => {
+    getUsers();
+  }, []);
+
   const getUser = async (params) => {
     await axiosInstance
       .get("/admin/user/users", {

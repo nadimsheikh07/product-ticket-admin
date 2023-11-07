@@ -6,6 +6,7 @@ const initialState = {
   isInitialized: null,
   companyId: null,
   companyDetail: null,
+  companies: null,
 };
 
 const handlers = {
@@ -15,6 +16,14 @@ const handlers = {
       ...state,
       isInitialized: true,
       companyId,
+    };
+  },
+  SET_COMPANIES: (state, action) => {
+    const { companies } = action.payload;
+
+    return {
+      ...state,
+      companies,
     };
   },
   SET_COMPANY: (state, action) => {
@@ -48,6 +57,7 @@ const CompanyContext = createContext({
   method: "jwt",
   setCompany: () => Promise.resolve(),
   removeCompany: () => Promise.resolve(),
+  getCompanies: () => Promise.resolve(),
 });
 
 // ----------------------------------------------------------------------
@@ -136,6 +146,39 @@ function CompanyProvider({ children }) {
     dispatch({ type: "REMOVE_COMPANY" });
   };
 
+  const getCompanies = async (params) => {
+    await axiosInstance
+      .get("/admin/company/companies", {
+        params: {
+          isActive: true,
+          ...params,
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          let options = [];
+          response?.data &&
+            response?.data?.length > 0 &&
+            response?.data.forEach((item) => {
+              options.push({
+                label: item?.name,
+                value: item?.id,
+                ...item,
+              });
+            });
+          dispatch({
+            type: "SET_COMPANIES",
+            payload: {
+              companies: options,
+            },
+          });
+        }
+      })
+      .catch((error) => {
+        console.log("Select Company Error", error);
+      });
+  };
+
   return (
     <CompanyContext.Provider
       value={{
@@ -144,6 +187,7 @@ function CompanyProvider({ children }) {
         setCompany,
         removeCompany,
         setCompanyDetail,
+        getCompanies,
       }}
     >
       {children}

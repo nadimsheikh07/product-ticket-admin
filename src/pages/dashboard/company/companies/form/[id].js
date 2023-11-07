@@ -1,6 +1,7 @@
 "use client";
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
+import useCompany from "@/hooks/useCompany";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import CompanyFormSection from "@/sections/dashboard/company/companies/companyForm";
@@ -16,6 +17,7 @@ import React from "react";
 const CompanyPageForm = () => {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
+  const { getCompanies } = useCompany();
   const { id } = router.query;
   const title = "Company Form";
   const backUrl = `${PATH_DASHBOARD.company.companies}`;
@@ -46,7 +48,10 @@ const CompanyPageForm = () => {
         errors.phone_number = "Phone is required";
       } else if (!phoneRegex.test(values.phone_number)) {
         errors.phone_number = "Invalid phone number";
-      } else if (values.phone_number.length < 10 || values.phone_number.length > 10) {
+      } else if (
+        values.phone_number.length < 10 ||
+        values.phone_number.length > 10
+      ) {
         errors.phone_number = "Phone number must be 10 digit";
       }
       return errors;
@@ -71,6 +76,7 @@ const CompanyPageForm = () => {
             enqueueSnackbar(response.data.message, {
               variant: "success",
             });
+            getCompanies();
           }
         })
         .catch((error) => {

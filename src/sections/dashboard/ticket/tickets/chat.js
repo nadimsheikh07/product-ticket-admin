@@ -43,6 +43,7 @@ const ChatSection = ({ formik, id, ticketChat }) => {
               error={formik.touched.message && formik.errors.message}
               helperText={formik.touched.message && formik.errors.message}
               icon={<Iconify icon="wpf:sent" />}
+              iconDisabled={!formik.values.message}
               onIconClick={formik.handleSubmit}
             />
           </Box>

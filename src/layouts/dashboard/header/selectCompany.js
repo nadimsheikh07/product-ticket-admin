@@ -56,45 +56,51 @@ const isShow = (path) => {
 const SelectCompany = () => {
   const { user } = useAuthContext();
   const { pathname } = useRouter();
-  const [companies, setCompanies] = React.useState([]);
-  const { companyId, setCompany, setCompanyDetail, companyDetail } =
-    useCompany();
+  // const [companies, setCompanies] = React.useState([]);
+  const {
+    companyId,
+    setCompany,
+    setCompanyDetail,
+    companyDetail,
+    getCompanies,
+    companies,
+  } = useCompany();
 
   const isShowCompanyDropdown = () => {
     let isShow = isShowDropdown.includes(pathname);
     return isShow;
   };
 
-  const getCompany = async (params) => {
-    await axiosInstance
-      .get("/admin/company/companies", {
-        params: {
-          isActive: true,
-          ...params,
-        },
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          let options = [];
-          response?.data &&
-            response?.data?.length > 0 &&
-            response?.data.forEach((item) => {
-              options.push({
-                label: item?.name,
-                value: item?.id,
-                ...item,
-              });
-            });
-          setCompanies(options);
-        }
-      })
-      .catch((error) => {
-        console.log("Select Company Error", error);
-      });
-  };
+  // const getCompany = async (params) => {
+  //   await axiosInstance
+  //     .get("/admin/company/companies", {
+  //       params: {
+  //         isActive: true,
+  //         ...params,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //         let options = [];
+  //         response?.data &&
+  //           response?.data?.length > 0 &&
+  //           response?.data.forEach((item) => {
+  //             options.push({
+  //               label: item?.name,
+  //               value: item?.id,
+  //               ...item,
+  //             });
+  //           });
+  //         setCompanies(options);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log("Select Company Error", error);
+  //     });
+  // };
 
   React.useEffect(() => {
-    getCompany();
+    getCompanies();
   }, []);
 
   //After Login Default company Set
@@ -156,7 +162,7 @@ const SelectCompany = () => {
           }}
           disabled={!Allow() && NotAllow()}
           options={companies}
-          searchData={getCompany}
+          searchData={getCompanies}
         />
       )}
     </Box>
