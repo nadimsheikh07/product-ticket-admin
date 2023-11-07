@@ -18,12 +18,13 @@ const ProductsFormSection = ({ formik, generateCode }) => {
   const [client, setClient] = React.useState([]);
   const { id } = router.query;
 
-  const getClient = async (search = null) => {
+  const getClient = async (params) => {
     await axiosInstance
       .get("/admin/user/users", {
         params: {
           isActive: true,
-          search: search,
+          user_type: "client",
+          ...params,
         },
       })
       .then((response) => {
@@ -67,6 +68,9 @@ const ProductsFormSection = ({ formik, generateCode }) => {
           }}
           options={client}
           searchData={getClient}
+          error={formik.touched.client_id && formik.errors.client_id}
+          helperText={formik.touched.client_id && formik.errors.client_id}
+          required
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>

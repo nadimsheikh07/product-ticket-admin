@@ -18,7 +18,13 @@ const NotAllowD = [
   "user_statuses",
 ];
 
-const isShowDropdown = ["/dashboard/company/companies" ,"/dashboard/company/companies/form/[id]" ,"/dashboard/company/companies/form/new" ,"/dashboard/user/users" ,"/dashboard/user/users/form/[id]"];
+const isShowDropdown = [
+  "/dashboard/company/companies",
+  "/dashboard/company/companies/form/[id]",
+  "/dashboard/company/companies/form/new",
+  "/dashboard/user/users",
+  "/dashboard/user/users/form/[id]",
+];
 const AllowD = [];
 
 const isShowData = ["/dashboard/tag/tag_scan"];
@@ -59,12 +65,12 @@ const SelectCompany = () => {
     return isShow;
   };
 
-  const getCompany = async (search = null) => {
+  const getCompany = async (params) => {
     await axiosInstance
       .get("/admin/company/companies", {
         params: {
           isActive: true,
-          search: search,
+          ...params,
         },
       })
       .then((response) => {

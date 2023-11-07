@@ -1,4 +1,9 @@
-import { DragDrop, MuiAutocompleteBox, TextBox } from "@/components/form";
+import {
+  DragDrop,
+  MuiAutocompleteBox,
+  SelectMuiAutocomplete,
+  TextBox,
+} from "@/components/form";
 import SelectBox from "@/components/form/select";
 import SelectAutocomplete from "@/components/form/selectAutocomplete";
 import axiosInstance from "@/utils/axios";
@@ -8,25 +13,66 @@ import { isEmpty } from "lodash";
 import React, { useMemo } from "react";
 
 const TicketsFormSection = ({ formik, id }) => {
+  const [user, setUser] = React.useState([]);
   const [client, setClient] = React.useState([]);
   const [products, setProducts] = React.useState([]);
 
-  const getClient = async (search = null) => {
-    setProducts([]);
+  const getUser = async (params) => {
     await axiosInstance
-      .get("admin/user/users", {
+      .get("/admin/user/users", {
         params: {
-          page: 1,
-          pageSize: 10,
-          search: search,
-          user_type: "client",
-          client_id: formik.values.client_id,
           isActive: true,
+          user_type: "admin,user",
+          ...params,
         },
       })
       .then((response) => {
         if (response.status === 200) {
-          setClient(response?.data?.data);
+          let options = [];
+          response?.data &&
+            response?.data?.length > 0 &&
+            response?.data.forEach((item) => {
+              options.push({
+                label: item?.name,
+                value: item?.id,
+                ...item,
+              });
+            });
+          setUser(options);
+        }
+      })
+      .catch((error) => {
+        console.log("Select User Error", error);
+      });
+  };
+
+  React.useEffect(() => {
+    getUser();
+  }, []);
+
+  const getClient = async (params) => {
+    setProducts([]);
+    await axiosInstance
+      .get("admin/user/users", {
+        params: {
+          user_type: "client",
+          isActive: true,
+          ...params,
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          let options = [];
+          response?.data &&
+            response?.data?.length > 0 &&
+            response?.data.forEach((item) => {
+              options.push({
+                label: item?.name,
+                value: item?.id,
+                ...item,
+              });
+            });
+          setClient(options);
         }
       })
       .catch((error) => {
@@ -36,26 +82,29 @@ const TicketsFormSection = ({ formik, id }) => {
 
   React.useEffect(() => {
     getClient();
+  }, []);
 
-    return () => {
-      getClient();
-    };
-  }, [formik.values.client_id]);
-
-  const getProduct = async (search = null, client_id) => {
+  const getProduct = async (params) => {
     setProducts([]);
     await axiosInstance
       .get("admin/catalog/products", {
         params: {
-          page: 1,
-          pageSize: 10,
-          search: search,
-          client_id: client_id,
+          ...params,
         },
       })
       .then((response) => {
         if (response.status === 200) {
-          setProducts(response?.data?.data);
+          let options = [];
+          response?.data &&
+            response?.data?.length > 0 &&
+            response?.data.forEach((item) => {
+              options.push({
+                label: item?.name,
+                value: item?.id,
+                ...item,
+              });
+            });
+          setProducts(options);
         }
       })
       .catch((error) => {
@@ -64,83 +113,71 @@ const TicketsFormSection = ({ formik, id }) => {
       });
   };
 
-  React.useEffect(() => {
-    if (id !== "new" && formik.values.client_id) {
-      getProduct(null, formik.values.client_id);
-    }
-  }, [formik.values.client_id, id, formik.values.product_id]);
+  // React.useEffect(() => {
+  //   if (formik.values.client_id) {
+  //     getProduct(null);
+  //   }
+  // }, [formik.values.client_id, id]);
 
   console.log("formik.values.status", formik.values);
   return (
     <Grid container spacing={2}>
       <Grid item lg={6} md={6} sm={12} xs={12}>
-        <MuiAutocompleteBox
+        <SelectMuiAutocomplete
           fullWidth
-          label="Assign To"
-          placeholder="Select user"
           name="user_id"
-          url="user/users"
+          label="Assign To"
+          placeholder="Select User"
           value={formik.values.user_id}
-          getOptionLabel="name"
-          getOptionValue="id"
-          paramsID={useMemo(
-            () => ({
-              user_type: "admin,user",
-              isActive: true,
-            }),
-            []
-          )}
           onChange={(e) => {
             if (e) {
               formik.setFieldValue("user_id", e);
+            } else {
+              formik.setFieldValue("user_id", null);
             }
           }}
-          error={formik.touched.user_id && formik.errors.user_id}
+          options={user}
+          searchData={getUser}
           helperText={formik.touched.user_id && formik.errors.user_id}
+          required
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
-        <SelectAutocomplete
+        <SelectMuiAutocomplete
           fullWidth
-          disabled={id && id !== "new"}
+          name="client_id"
           label="Client"
           placeholder="Select Client"
-          name="client_id"
           value={formik.values.client_id}
-          getOptionLabel="name"
-          getOptionValue="id"
           onChange={(e) => {
             if (e) {
               setProducts([]);
-              getProduct(null, e);
+              getProduct({
+                search: null,
+                client_id: e?.value ? e?.value : "",
+              });
               formik.setFieldValue("client_id", e);
               formik.setFieldValue("product_id", null);
             } else {
               formik.setFieldValue("client_id", null);
               formik.setFieldValue("product_id", null);
               setProducts([]);
-              getProduct(null, null);
-            }
-          }}
-          onInputChange={(e) => {
-            if (e) {
-              getClient(e);
             }
           }}
           options={client}
+          searchData={getClient}
           helperText={formik.touched.client_id && formik.errors.client_id}
+          required
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
-        <SelectAutocomplete
+        <SelectMuiAutocomplete
           fullWidth
-          disabled={!formik.values.client_id || (id && id !== "new")}
+          disabled={!formik.values.client_id || id !== "new"}
+          name="product_id"
           label="Product"
           placeholder="Select Product"
-          name="product_id"
           value={formik.values.product_id}
-          getOptionLabel="name"
-          getOptionValue="id"
           onChange={(e) => {
             if (e) {
               formik.setFieldValue("product_id", e);
@@ -148,13 +185,18 @@ const TicketsFormSection = ({ formik, id }) => {
               formik.setFieldValue("product_id", null);
             }
           }}
-          onInputChange={(e) => {
-            if (e) {
-              getProduct(e, formik.values.client_id);
-            }
-          }}
-          options={formik.values.client_id ? products : []}
+          options={products}
+          searchData={getProduct}
+          params={React.useMemo(
+            () => ({
+              client_id: formik.values.client_id?.value
+                ? formik.values.client_id?.value
+                : "",
+            }),
+            [formik.values.client_id]
+          )}
           helperText={formik.touched.product_id && formik.errors.product_id}
+          required
         />
       </Grid>
 
