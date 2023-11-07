@@ -84,14 +84,16 @@ const UserList = () => {
               name: "List",
             },
           ]}
-          action={ <Button
-          component={NextLink}
-          href={`${formUrl}/new`}
-          variant="contained"
-          startIcon={<Iconify icon="eva:plus-fill" />}
-        >
-          {title}
-        </Button>}
+          action={
+            <Button
+              component={NextLink}
+              href={`${formUrl}/new`}
+              variant="contained"
+              startIcon={<Iconify icon="eva:plus-fill" />}
+            >
+              Add User
+            </Button>
+          }
         />
 
         <DataTable
