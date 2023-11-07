@@ -112,7 +112,10 @@ const DynamicAttributeForm = ({
     }
   }, [attributes?.id, attributes?.open]);
 
+  console.log("attributeList", attributeList);
+
   const getAttribute = async (search = null) => {
+    setAttribute([]);
     await axiosInstance
       .get("/admin/attribute/attributes", {
         params: {
@@ -121,16 +124,33 @@ const DynamicAttributeForm = ({
         },
       })
       .then((response) => {
+        setAttribute([]);
         if (response.status === 200) {
           let options = [];
           response?.data &&
             response?.data?.length > 0 &&
             response?.data.forEach((item) => {
-              options.push({
-                label: item?.name,
-                value: item?.id,
-                ...item,
-              });
+              if (attributeList?.length > 0) {
+                if (
+                  !some(attributeList, (checkExistItem) => {
+                    return Boolean(
+                      checkExistItem?.attribute_id?.value === item?.id
+                    );
+                  })
+                ) {
+                  options.push({
+                    label: item?.name,
+                    value: item?.id,
+                    ...item,
+                  });
+                }
+              } else {
+                options.push({
+                  label: item?.name,
+                  value: item?.id,
+                  ...item,
+                });
+              }
             });
           setAttribute(options);
         }
@@ -142,7 +162,7 @@ const DynamicAttributeForm = ({
 
   React.useEffect(() => {
     getAttribute();
-  }, []);
+  }, [attributeList?.length]);
 
   return (
     <>
@@ -220,7 +240,10 @@ const DynamicAttributeForm = ({
         maxWidth="md"
         fullWidth={true}
         open={attributes?.open}
-        onClose={() => handleOpenCloseAttributes("new")}
+        onClose={() => {
+          handleOpenCloseAttributes("new");
+          formik.resetForm();
+        }}
       >
         <DialogContent sx={{ py: 4 }}>
           <form noValidate onSubmit={formik.handleSubmit}>
