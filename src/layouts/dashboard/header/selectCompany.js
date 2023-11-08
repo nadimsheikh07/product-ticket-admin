@@ -124,7 +124,7 @@ const SelectCompany = () => {
       setCompanyDetail(JSON.stringify(findCompany));
     }
   }, [user, companies, user?.company_id]);
-  console.log("companyId", companyId);
+  console.log("companies", companies);
   return (
     <Box component="div" sx={{ flexGrow: 1 }}>
       {/* {!isShowCompanyDropdown() && (

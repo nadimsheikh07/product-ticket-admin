@@ -49,8 +49,7 @@ const CompanyPageForm = () => {
       } else if (!phoneRegex.test(values.phone_number)) {
         errors.phone_number = "Invalid phone number";
       } else if (
-        values.phone_number.length < 10 ||
-        values.phone_number.length > 10
+        values.phone_number.length == 10
       ) {
         errors.phone_number = "Phone number must be 10 digit";
       }

@@ -6,7 +6,7 @@ const initialState = {
   isInitialized: null,
   companyId: null,
   companyDetail: null,
-  companies: null,
+  companies: [],
 };
 
 const handlers = {

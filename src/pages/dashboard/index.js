@@ -1,11 +1,10 @@
-import Muiautocomplete from "@/components/form/muiautocomplete";
 import React from "react";
 
 
 const Dashboard = () => {
   return(
     <>
-      <Muiautocomplete/>
+      <div>dashboard</div>
     </>
   )
 };

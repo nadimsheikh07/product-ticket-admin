@@ -44,7 +44,7 @@ const SelectMuiAutocomplete = ({
           inputValue={inputValue}
           onInputChange={(event, newInputValue) => {
             let newValue = newInputValue ? newInputValue : "";
-            setInputValue(newValue);
+            setInputValue(newInputValue);
             delayedQuery({ search: newValue, ...params });
           }}
           options={options}
