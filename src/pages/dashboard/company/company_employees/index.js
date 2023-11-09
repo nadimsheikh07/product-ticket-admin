@@ -3,19 +3,35 @@ import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import { DataTable } from "@/components/dataTable";
 import Iconify from "@/components/iconify/Iconify";
+import Label from "@/components/label";
+import useCompany from "@/hooks/useCompany";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
+import { AddFormButton } from "@/module/auth/addFormButton";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import { Button, Tooltip } from "@mui/material";
+import DialogClientPasswords from "@/sections/dashboard/client/dialogClientPassword/dialogpassword";
+import { Badge, Box, Tooltip } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
-import NextLink from "next/link";
+
 import { useRouter } from "next/router";
+import React from "react";
 // import Head from "next/document";
 
-const CompanyEmployeesList = () => {
+const CompanyEmployeesLists = (formik) => {
+  const [open, setOpen] = React.useState(false);
+
   const { push } = useRouter();
-  const title = "Notification";
-  const formUrl = `${PATH_DASHBOARD.settings.notification}/form`;
-  const actionUrl = "admin/user/clients";
+  const title = "Employees";
+  const formUrl = `${PATH_DASHBOARD.company.company_employees}/form`;
+  const actionUrl = "admin/user/users";
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const columns = [
     {
       field: "actions",
@@ -33,18 +49,39 @@ const CompanyEmployeesList = () => {
           label="Edit"
           onClick={() => push(`${formUrl}/${params.id}`)}
         />,
+        <GridActionsCellItem
+          key="password"
+          icon={
+            <Tooltip title="Password">
+              <Badge color="primary" variant="standard">
+                <Iconify icon="mdi:password" width={25} />
+              </Badge>
+            </Tooltip>
+          }
+          label="Password"
+          onClick={handleClickOpen}
+        />,
       ],
     },
     {
       field: "name",
       headerName: "Employee Name",
       width: "200",
+      isfilter: false,
+      disableColumnFilter: true,
     },
-    // {
-    //   field: "company_id",
-    //   headerName: "Company Name",
-    //   width: "200",
-    // },
+    {
+      field: "is_active",
+      headerName: "Is Active",
+      width: 140,
+      renderCell: ({ row }) => {
+        if (row.is_active) {
+          return <Label color="primary">Active</Label>;
+        } else {
+          return <Label color="error">InActive</Label>;
+        }
+      },
+    },
     {
       field: "email",
       headerName: "Email",
@@ -69,21 +106,19 @@ const CompanyEmployeesList = () => {
 
   return (
     <>
-      {/* <Head>
-      <title>
-        login
-      </title>
-    </Head> */}
+      <Box>
+        <DialogClientPasswords handleClose={handleClose} open={open} />
+      </Box>
       <ContainerComponent>
         <CustomBreadcrumbs
-          heading={`${title} List`}
+          heading="Company Employee List"
           links={[
             {
               name: "Dashboard",
               href: PATH_DASHBOARD.app,
             },
             {
-              name: title,
+              name: "Company Employee",
               // href: "#",
             },
             {
@@ -91,14 +126,7 @@ const CompanyEmployeesList = () => {
             },
           ]}
           action={
-            <Button
-              component={NextLink}
-              href={`${formUrl}/new`}
-              variant="contained"
-              startIcon={<Iconify icon="eva:plus-fill" />}
-            >
-              New Notification
-            </Button>
+            <AddFormButton title=" New Employee" url={`${formUrl}/new`} />
           }
         />
 
@@ -112,11 +140,16 @@ const CompanyEmployeesList = () => {
           columns={columns}
           checkboxSelection={true}
           disableRowSelectionOnClick={true}
+          params={{
+            user_type: "user",
+          }}
         />
       </ContainerComponent>
     </>
   );
 };
-CompanyEmployeesList.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+CompanyEmployeesLists.getLayout = (page) => (
+  <DashboardLayout>{page}</DashboardLayout>
+);
 
-export default CompanyEmployeesList;
+export default CompanyEmployeesLists;

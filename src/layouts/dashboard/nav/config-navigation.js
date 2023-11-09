@@ -76,6 +76,10 @@ const navConfig = [
             title: "Companies",
             path: PATH_DASHBOARD.company.companies,
           },
+          {
+            title: "Company Employees",
+            path: PATH_DASHBOARD.company.company_employees,
+          }
         ],
       },
       // COMPANY

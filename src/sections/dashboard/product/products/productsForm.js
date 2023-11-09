@@ -4,8 +4,10 @@ import {
   DragDrop,
   MuiAutocompleteBox,
   PasswordBox,
+  SelectMuiAutocomplete,
   TextBox,
 } from "@/components/form";
+import axiosInstance from "@/utils/axios";
 import { Box, Button, Grid, Stack } from "@mui/material";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
@@ -13,30 +15,62 @@ import React, { useMemo } from "react";
 
 const ProductsFormSection = ({ formik, generateCode }) => {
   const router = useRouter();
+  const [client, setClient] = React.useState([]);
   const { id } = router.query;
+
+  const getClient = async (params) => {
+    await axiosInstance
+      .get("/admin/user/users", {
+        params: {
+          isActive: true,
+          user_type: "client",
+          ...params,
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          let options = [];
+          response?.data &&
+            response?.data?.length > 0 &&
+            response?.data.forEach((item) => {
+              options.push({
+                label: item?.name,
+                value: item?.id,
+                ...item,
+              });
+            });
+          setClient(options);
+        }
+      })
+      .catch((error) => {
+        console.log("Select Client Error", error);
+      });
+  };
+
+  React.useEffect(() => {
+    getClient();
+  }, []);
   return (
     <Grid container spacing={2}>
       <Grid item lg={6} md={6} sm={12} xs={12}>
-        <MuiAutocompleteBox
+        <SelectMuiAutocomplete
           fullWidth
-          disabled={id && id !== "new"}
-          label="Client"
-          placeholder="Select client"
           name="client_id"
-          url="user/users"
+          label="Clients"
           value={formik.values.client_id}
-          getOptionLabel="name"
-          getOptionValue="id"
-          paramsID={useMemo(
-            () => ({
-              user_type: "client",
-              isActive: true,
-            }),
-            []
-          )}
-          onChange={(e) => formik.setFieldValue("client_id", e)}
+          placeholder="Select Client"
+          onChange={(e) => {
+            if (e) {
+              formik.setFieldValue("client_id", e);
+            } else {
+              formik.setFieldValue("client_id", null);
+            }
+          }}
+          options={client}
+          searchData={getClient}
           error={formik.touched.client_id && formik.errors.client_id}
           helperText={formik.touched.client_id && formik.errors.client_id}
+          required
         />
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>

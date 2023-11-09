@@ -45,14 +45,14 @@ const ProductsList = () => {
         return row?.client?.name;
       },
     },
-    {
-      field: "company_id",
-      headerName: "Company Name",
-      width: "200",
-      renderCell: ({ row }) => {
-        return row?.company?.name;
-      },
-    },
+    // {
+    //   field: "company_id",
+    //   headerName: "Company Name",
+    //   width: "200",
+    //   renderCell: ({ row }) => {
+    //     return row?.company?.name;
+    //   },
+    // },
     {
       field: "name",
       headerName: "Product Name",

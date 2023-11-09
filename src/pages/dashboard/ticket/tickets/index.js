@@ -25,6 +25,7 @@ const TicketsList = () => {
   const title = "Tickets";
   const formUrl = `${PATH_DASHBOARD.ticket.tickets}/form`;
   const chatUrl = `${PATH_DASHBOARD.ticket.tickets}/chat`;
+  const historyUrl = `${PATH_DASHBOARD.ticket.tickets}/history`;
   const actionUrl = "admin/catalog/tickets";
   const [refreshTicket, setRefreshTicket] = React.useState(false);
 
@@ -103,6 +104,16 @@ const TicketsList = () => {
             onClick={() => push(`${chatUrl}/${params.id}`)}
           />
         ),
+        <GridActionsCellItem
+          key="viewAction"
+          icon={
+            <Tooltip title="History">
+              <Iconify icon="material-symbols:history" width={25} />
+            </Tooltip>
+          }
+          label="History"
+          onClick={() => push(`${historyUrl}/${""}`)}
+        />,
       ],
     },
 
@@ -181,14 +192,14 @@ const TicketsList = () => {
         return row?.client?.name;
       },
     },
-    {
-      field: "company_id",
-      headerName: "Company Name",
-      width: "200",
-      renderCell: ({ row }) => {
-        return row?.company?.name;
-      },
-    },
+    // {
+    //   field: "company_id",
+    //   headerName: "Company Name",
+    //   width: "200",
+    //   renderCell: ({ row }) => {
+    //     return row?.company?.name;
+    //   },
+    // },
     {
       field: "product_id",
       headerName: "Product",

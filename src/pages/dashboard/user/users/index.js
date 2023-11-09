@@ -42,11 +42,6 @@ const UserList = () => {
       width: "140",
     },
     {
-      field: "company_id",
-      headerName: "Company Name",
-      width: "200",
-    },
-    {
       field: "user_type",
       headerName: "User Type",
       width: 140,
@@ -89,7 +84,16 @@ const UserList = () => {
               name: "List",
             },
           ]}
-          action={<AddFormButton title="New User" url={`${formUrl}/new`} />}
+          action={
+            <Button
+              component={NextLink}
+              href={`${formUrl}/new`}
+              variant="contained"
+              startIcon={<Iconify icon="eva:plus-fill" />}
+            >
+              Add User
+            </Button>
+          }
         />
 
         <DataTable

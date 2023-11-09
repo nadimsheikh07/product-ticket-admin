@@ -3,14 +3,9 @@ import { Box, Grid, useTheme } from "@mui/material";
 import React, { useState } from "react";
 import AppWidget from "./widget";
 import axiosInstance from "@/utils/axios";
-import { useSettingsContext } from "@/components/settings";
 
 const DashboardSection = () => {
   const [user, setUser] = useState([]);
-  // const [client, setClient] = useState([]);
-  // const [product, setProduct] = useState([]);
-  // const [ticket, setTicket] = useState([]);
-  // const { themeLayout } = useSettingsContext();
 
   const getUsers = async () => {
     await axiosInstance

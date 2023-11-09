@@ -15,7 +15,7 @@ import React from "react";
 const UserPageForm = () => {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
-  const { id } = router.query
+  const { id } = router.query;
   const title = "User Form";
   const backUrl = `${PATH_DASHBOARD.user.user}`;
   const actionUrl = "admin/user/users";
@@ -112,19 +112,25 @@ const UserPageForm = () => {
   });
 
   const bindData = async (id) => {
-    await axiosInstance.get(`${actionUrl}/${id}`).then((response) => {
-      if (response.status === 200) {
-        const { data } = response;
-        // bind form data from server
-        for (const [key] of Object.entries(formik.values)) {
-          if (data[key]) {
-            formik.setFieldValue([key], data[key]);
-          } else {
-            formik.setFieldError(key, "");
+    await axiosInstance
+      .get(`${actionUrl}/${id}`, {
+        params: {
+          user_type: "admin",
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          const { data } = response;
+          // bind form data from server
+          for (const [key] of Object.entries(formik.values)) {
+            if (data[key]) {
+              formik.setFieldValue([key], data[key]);
+            } else {
+              formik.setFieldError(key, "");
+            }
           }
         }
-      }
-    });
+      });
   };
 
   React.useEffect(() => {

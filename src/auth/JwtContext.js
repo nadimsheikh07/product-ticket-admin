@@ -14,6 +14,7 @@ import { isValidToken, setSession } from "@/auth/utils";
 import axiosInstance from "@/utils/axios";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/router";
+import useCompany from "@/hooks/useCompany";
 // ----------------------------------------------------------------------
 
 // NOTE:
@@ -72,7 +73,8 @@ AuthProvider.propTypes = {
 };
 
 export function AuthProvider({ children }) {
-  const {pathname} = useRouter();
+  const { pathname } = useRouter();
+  const { setCompany, setCompanyDetail } = useCompany();
   const [state, dispatch] = useReducer(reducer, initialState);
   const { enqueueSnackbar } = useSnackbar();
   const storageAvailable = localStorageAvailable();
@@ -81,12 +83,27 @@ export function AuthProvider({ children }) {
       const accessToken = storageAvailable
         ? localStorage.getItem("accessProductAdminToken")
         : "";
+
+      let companyId = localStorage.getItem("companyId") || null;
+      axiosInstance.defaults.headers.common.company_id = companyId;
+
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
 
         const response = await axiosInstance.get("admin/auth/profile");
-
         const { user } = response.data;
+        if (user?.company_id) {
+          setCompany(user?.company_id);
+          let companyDetail = {
+            value: user?.id,
+            label: user?.company?.name,
+            ...user?.company,
+          };
+          setCompanyDetail(companyDetail);
+          enqueueSnackbar("Success", {
+            variant: "success",
+          });
+        }
 
         dispatch({
           type: "INITIAL",
@@ -126,11 +143,18 @@ export function AuthProvider({ children }) {
       ...values,
     });
     const { accessToken, user } = response.data;
-
-    enqueueSnackbar("Success", {
-      variant: "success",
-    });
-
+    if (user?.company_id) {
+      setCompany(user?.company_id);
+      let companyDetail = {
+        value: user?.id,
+        label: user?.company?.name,
+        ...user?.company,
+      };
+      setCompanyDetail(companyDetail);
+      enqueueSnackbar("Success", {
+        variant: "success",
+      });
+    }
     setSession(accessToken);
 
     dispatch({

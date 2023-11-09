@@ -1,10 +1,10 @@
 import React from "react";
-import { MuiAutocompleteBox } from "@/components/form";
-import { Box } from "@mui/material";
+import { SelectMuiAutocomplete } from "@/components/form";
 import { useAuthContext } from "@/auth/useAuthContext";
-import useCompany from "@/hooks/useCompany";
 import SelectAutocomplete from "@/components/form/selectAutocomplete";
+import useCompany from "@/hooks/useCompany";
 import axiosInstance from "@/utils/axios";
+import { Box } from "@mui/material";
 import { useRouter } from "next/router";
 
 const NotAllowD = [
@@ -18,7 +18,13 @@ const NotAllowD = [
   "user_statuses",
 ];
 
-const isShowdropdown = ["/dashboard/company/companies"];
+const isShowDropdown = [
+  "/dashboard/company/companies",
+  "/dashboard/company/companies/form/[id]",
+  "/dashboard/company/companies/form/new",
+  "/dashboard/user/users",
+  "/dashboard/user/users/form/[id]",
+];
 const AllowD = [];
 
 const isShowData = ["/dashboard/tag/tag_scan"];
@@ -50,34 +56,51 @@ const isShow = (path) => {
 const SelectCompany = () => {
   const { user } = useAuthContext();
   const { pathname } = useRouter();
-  const [companies, setCompanies] = React.useState([]);
-  const { companyId, setCompany, setCompanyDetail, companyDetail } =
-    useCompany();
+  // const [companies, setCompanies] = React.useState([]);
+  const {
+    companyId,
+    setCompany,
+    setCompanyDetail,
+    companyDetail,
+    getCompanies,
+    companies,
+  } = useCompany();
 
   const isShowCompanyDropdown = () => {
-    let isShow = isShowdropdown.includes(pathname);
+    let isShow = isShowDropdown.includes(pathname);
     return isShow;
   };
 
-  const getCompany = async () => {
-    await axiosInstance
-      .get("/admin/company/companies", {
-        params: {
-          isActive: true,
-        },
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          setCompanies(response?.data);
-        }
-      })
-      .catch((error) => {
-        console.log("Select Company Error", error);
-      });
-  };
+  // const getCompany = async (params) => {
+  //   await axiosInstance
+  //     .get("/admin/company/companies", {
+  //       params: {
+  //         isActive: true,
+  //         ...params,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //         let options = [];
+  //         response?.data &&
+  //           response?.data?.length > 0 &&
+  //           response?.data.forEach((item) => {
+  //             options.push({
+  //               label: item?.name,
+  //               value: item?.id,
+  //               ...item,
+  //             });
+  //           });
+  //         setCompanies(options);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log("Select Company Error", error);
+  //     });
+  // };
 
   React.useEffect(() => {
-    getCompany();
+    getCompanies();
   }, []);
 
   //After Login Default company Set
@@ -101,10 +124,10 @@ const SelectCompany = () => {
       setCompanyDetail(JSON.stringify(findCompany));
     }
   }, [user, companies, user?.company_id]);
-  console.log("companyId", companyId);
+  console.log("companies", companies);
   return (
     <Box component="div" sx={{ flexGrow: 1 }}>
-      {!isShowCompanyDropdown() && (
+      {/* {!isShowCompanyDropdown() && (
         <SelectAutocomplete
           fullWidth
           name={`company_id`}
@@ -126,6 +149,20 @@ const SelectCompany = () => {
               setCompany(null);
             }
           }}
+        />
+      )} */}
+      {!isShowCompanyDropdown() && (
+        <SelectMuiAutocomplete
+          name="companyDetail"
+          value={companyDetail}
+          placeholder="Select Company"
+          onChange={(e) => {
+            setCompany(e?.id || null);
+            setCompanyDetail(JSON.stringify(e));
+          }}
+          disabled={!Allow() && NotAllow()}
+          options={companies}
+          searchData={getCompanies}
         />
       )}
     </Box>

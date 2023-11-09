@@ -1,6 +1,12 @@
-import { MuiAutocompleteBox, TextBox } from "@/components/form";
+import {
+  MuiAutocompleteBox,
+  SelectMuiAutocomplete,
+  TextBox,
+} from "@/components/form";
+import axiosInstance from "@/utils/axios";
 import { Delete, Edit } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
+import CloseIcon from '@mui/icons-material/Close';
 import {
   Button,
   Dialog,
@@ -31,6 +37,7 @@ const DynamicAttributeForm = ({
   updateAttribute,
   attributeData,
 }) => {
+  const [attribute, setAttribute] = React.useState([]);
   const { enqueueSnackbar } = useSnackbar();
   const formik = useFormik({
     initialValues: {
@@ -49,7 +56,13 @@ const DynamicAttributeForm = ({
     },
     onSubmit: async (values) => {
       if (attributes?.id === "new") {
-        if (!some(attributeList, { attribute_id: values.attribute_id })) {
+        if (
+          !some(attributeList, (item) => {
+            return Boolean(
+              item?.attribute_id?.value === values?.attribute_id?.value
+            );
+          })
+        ) {
           await addAttribute(values);
           handleOpenCloseAttributes("new");
           formik.resetForm();
@@ -100,6 +113,58 @@ const DynamicAttributeForm = ({
     }
   }, [attributes?.id, attributes?.open]);
 
+  console.log("attributeList", attributeList);
+
+  const getAttribute = async (params) => {
+    setAttribute([]);
+    await axiosInstance
+      .get("/admin/attribute/attributes", {
+        params: {
+          isActive: true,
+          ...params,
+        },
+      })
+      .then((response) => {
+        setAttribute([]);
+        if (response.status === 200) {
+          let options = [];
+          response?.data &&
+            response?.data?.length > 0 &&
+            response?.data.forEach((item) => {
+              if (attributeList?.length > 0) {
+                if (
+                  !some(attributeList, (checkExistItem) => {
+                    return Boolean(
+                      checkExistItem?.attribute_id?.value === item?.id
+                    );
+                  })
+                ) {
+                  options.push({
+                    label: item?.name,
+                    value: item?.id,
+                    ...item,
+                  });
+                }
+              } else {
+                options.push({
+                  label: item?.name,
+                  value: item?.id,
+                  ...item,
+                });
+              }
+            });
+          setAttribute(options);
+        }
+      })
+      .catch((error) => {
+        console.log("Select Attribute Error", error);
+      });
+  };
+
+  React.useEffect(() => {
+    getAttribute();
+  }, [attributeList?.length]);
+
   return (
     <>
       <Grid container spacing={4}>
@@ -118,12 +183,6 @@ const DynamicAttributeForm = ({
                 {attributeList &&
                   attributeList?.length > 0 &&
                   attributeList.map((item, index) => {
-                    let attributeName =
-                      attributeData &&
-                      attributeData?.length > 0 &&
-                      attributeData.find(
-                        (element) => element?.id === item.attribute_id
-                      );
                     return (
                       <TableRow
                         key={`Attribute-${index + 1}`}
@@ -133,14 +192,14 @@ const DynamicAttributeForm = ({
                       >
                         <TableCell>{index + 1}</TableCell>
                         <TableCell component="th" scope="row">
-                          {attributeName?.name}
+                          {item?.attribute_id?.label}
                         </TableCell>
                         <TableCell align="right">
                           <Typography
                             component="p"
                             variant="body2"
                             noWrap
-                            maxWidth="150px"
+                            maxWidth="26px"
                             width="100%"
                           >
                             {item.value}
@@ -182,18 +241,26 @@ const DynamicAttributeForm = ({
         maxWidth="md"
         fullWidth={true}
         open={attributes?.open}
-        onClose={() => handleOpenCloseAttributes("new")}
+        onClose={() => {
+          handleOpenCloseAttributes("new");
+          formik.resetForm();
+        }}
       >
         <DialogContent sx={{ py: 4 }}>
           <form noValidate onSubmit={formik.handleSubmit}>
             <Grid container spacing={2}>
               <Grid item lg={12} md={12} sm={12} xs={12}>
-                <Typography component="h4" variant="h4">
-                  Product Attribute
-                </Typography>
+                <Stack justifyContent="space-between" direction="row"mb={1}>
+                  <Typography component="h4" variant="h4">
+                    Product Attribute
+                  </Typography>
+                  <IconButton onClick={handleOpenCloseAttributes}>
+                  <CloseIcon/>
+                  </IconButton>
+                </Stack>
               </Grid>
               <Grid item lg={12} md={12} sm={12} xs={12}>
-                <MuiAutocompleteBox
+                {/* <MuiAutocompleteBox
                   fullWidth
                   label="Attribute"
                   placeholder="Select attribute"
@@ -209,6 +276,24 @@ const DynamicAttributeForm = ({
                   helperText={
                     formik.touched.attribute_id && formik.errors.attribute_id
                   }
+                /> */}
+                <SelectMuiAutocomplete
+                  fullWidth
+                  name="attribute_id"
+                  label="Attribute"
+                  value={formik.values.attribute_id}
+                  placeholder="Select attribute"
+                  onChange={(e) => {
+                    if (e) {
+                      formik.setFieldValue("attribute_id", e);
+                    }
+                  }}
+                  options={attribute}
+                  searchData={getAttribute}
+                  helperText={
+                    formik.touched.attribute_id && formik.errors.attribute_id
+                  }
+                  required
                 />
               </Grid>
               <Grid item lg={12} md={12} sm={12} xs={12}>
