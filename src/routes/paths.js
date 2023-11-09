@@ -35,6 +35,7 @@ export const PATH_PAGE = {
   page404: "/404",
   page500: "/500",
   components: "/components",
+  auth: "/auth/login",
 };
 
 export const PATH_DASHBOARD = {

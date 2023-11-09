@@ -16,7 +16,7 @@ import React from "react";
 const TicketsPageForm = () => {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
-  const { id } = router.query
+  const { id } = router.query;
   const title = "Ticket Form";
   const backUrl = `${PATH_DASHBOARD.ticket.tickets}`;
   const actionUrl = "admin/catalog/tickets";
@@ -99,6 +99,21 @@ const TicketsPageForm = () => {
                 ...data?.user,
               };
               formik.setFieldValue(key, user);
+            } else if (key == "client_id") {
+              let client = {
+                label: data?.client?.name,
+                value: data?.client?.id,
+                ...data?.user,
+              };
+              formik.setFieldValue(key, client);
+            }
+            else if (key == "product_id") {
+              let product = {
+                label: data?.product?.name,
+                value: data?.product?.id,
+                ...data?.user,
+              };
+              formik.setFieldValue(key, product);
             }
             //  else if (key == "attributes") {
             //   let modifyAttributes = [];
@@ -116,11 +131,11 @@ const TicketsPageForm = () => {
             //     });
 
             //   formik.setFieldValue("attributes", modifyAttributes);
-            // } 
+            // }
             else {
               formik.setFieldValue([key], data[key]);
             }
-          } 
+          }
         }
       }
     });
@@ -132,11 +147,10 @@ const TicketsPageForm = () => {
     }
   }, [id]);
 
-
   return (
     <ContainerComponent>
       <CustomBreadcrumbs
-         heading={title}
+        heading={title}
         links={[
           {
             name: "Dashboard",

@@ -112,7 +112,7 @@ const TicketsList = () => {
             </Tooltip>
           }
           label="History"
-          onClick={() => push(`${historyUrl}/${""}`)}
+          onClick={() => push(`${historyUrl}/${params.id}`)}
         />,
       ],
     },

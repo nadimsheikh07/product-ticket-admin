@@ -17,7 +17,6 @@ const TicketsFormSection = ({ formik, id }) => {
   const [client, setClient] = React.useState([]);
   const [products, setProducts] = React.useState([]);
 
-
   const getUsers = async (search = null) => {
     await axiosInstance
       .get("/admin/user/users", {
@@ -177,6 +176,7 @@ const TicketsFormSection = ({ formik, id }) => {
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <SelectMuiAutocomplete
+        disabled={id !== "new"}
           fullWidth
           name="client_id"
           label="Client"
