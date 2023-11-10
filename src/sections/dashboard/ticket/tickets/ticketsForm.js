@@ -1,57 +1,24 @@
 import {
   DragDrop,
-  MuiAutocompleteBox,
   SelectMuiAutocomplete,
-  TextBox,
+  TextBox
 } from "@/components/form";
 import SelectBox from "@/components/form/select";
-import SelectAutocomplete from "@/components/form/selectAutocomplete";
 import axiosInstance from "@/utils/axios";
 import { status } from "@/utils/constant";
-import { Box, Grid } from "@mui/material";
-import { isEmpty } from "lodash";
-import React, { useMemo } from "react";
+import { Grid } from "@mui/material";
+import React from "react";
 
 const TicketsFormSection = ({ formik, id }) => {
-  const [user, setUser] = React.useState([]);
-  const [client, setClient] = React.useState([]);
+  const [users, setUsers] = React.useState([]);
+  const [clients, setClients] = React.useState([]);
   const [products, setProducts] = React.useState([]);
 
-  const getUsers = async (search = null) => {
-    await axiosInstance
-      .get("/admin/user/users", {
-        params: {
-          isActive: true,
-          search: search,
-        },
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          let options = [];
-          response?.data &&
-            response?.data?.length > 0 &&
-            response?.data.forEach((item) => {
-              options.push({
-                label: item?.name,
-                value: item?.id,
-                ...item,
-              });
-            });
-          setUser(options);
-        }
-      })
-      .catch((error) => {
-        console.log("Select Client Error", error);
-      });
-  };
+  
 
-  React.useEffect(() => {
-    getUsers();
-  }, []);
-
-  const getUser = async (params) => {
+  const getUsers = async (params) => {
     await axiosInstance
-      .get("/admin/user/users", {
+      .get("/admin/user/get_admins", {
         params: {
           isActive: true,
           user_type: "admin,user",
@@ -70,7 +37,7 @@ const TicketsFormSection = ({ formik, id }) => {
                 ...item,
               });
             });
-          setUser(options);
+          setUsers(options);
         }
       })
       .catch((error) => {
@@ -79,10 +46,10 @@ const TicketsFormSection = ({ formik, id }) => {
   };
 
   React.useEffect(() => {
-    getUser();
+    getUsers();
   }, []);
 
-  const getClient = async (params) => {
+  const getClients = async (params) => {
     setProducts([]);
     await axiosInstance
       .get("admin/user/users", {
@@ -104,7 +71,7 @@ const TicketsFormSection = ({ formik, id }) => {
                 ...item,
               });
             });
-          setClient(options);
+          setClients(options);
         }
       })
       .catch((error) => {
@@ -113,10 +80,10 @@ const TicketsFormSection = ({ formik, id }) => {
   };
 
   React.useEffect(() => {
-    getClient();
+    getClients();
   }, []);
 
-  const getProduct = async (params) => {
+  const getProducts = async (params) => {
     setProducts([]);
     await axiosInstance
       .get("admin/catalog/products", {
@@ -145,11 +112,6 @@ const TicketsFormSection = ({ formik, id }) => {
       });
   };
 
-  // React.useEffect(() => {
-  //   if (formik.values.client_id) {
-  //     getProduct(null);
-  //   }
-  // }, [formik.values.client_id, id]);
 
   console.log("formik.values.status", formik.values);
   return (
@@ -168,8 +130,8 @@ const TicketsFormSection = ({ formik, id }) => {
               formik.setFieldValue("user_id", null);
             }
           }}
-          options={user}
-          searchData={getUser}
+          options={users}
+          searchData={getUsers}
           helperText={formik.touched.user_id && formik.errors.user_id}
           required
         />
@@ -185,7 +147,7 @@ const TicketsFormSection = ({ formik, id }) => {
           onChange={(e) => {
             if (e) {
               setProducts([]);
-              getProduct({
+              getProducts({
                 search: null,
                 client_id: e?.value ? e?.value : "",
               });
@@ -197,8 +159,8 @@ const TicketsFormSection = ({ formik, id }) => {
               setProducts([]);
             }
           }}
-          options={client}
-          searchData={getClient}
+          options={clients}
+          searchData={getClients}
           helperText={formik.touched.client_id && formik.errors.client_id}
           required
         />
@@ -219,7 +181,7 @@ const TicketsFormSection = ({ formik, id }) => {
             }
           }}
           options={products}
-          searchData={getProduct}
+          searchData={getProducts}
           params={React.useMemo(
             () => ({
               client_id: formik.values.client_id?.value

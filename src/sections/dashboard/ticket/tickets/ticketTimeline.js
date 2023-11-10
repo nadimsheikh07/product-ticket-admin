@@ -46,7 +46,7 @@ const TicketTimeline = ({ histories, total }) => {
                     variant="body2"
                     color="text.secondary"
                   >
-                    {item?.created_at}
+                    {item?.updated_at}
                   </TimelineOppositeContent>
                   <TimelineSeparator>
                     <TimelineConnector />

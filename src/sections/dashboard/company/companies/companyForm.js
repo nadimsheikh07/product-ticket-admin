@@ -1,8 +1,8 @@
 import { DragDrop, PasswordBox, TextBox, ToggleBox } from "@/components/form";
-import { Grid } from "@mui/material";
+import { Box, Button, Grid, Stack } from "@mui/material";
 import React from "react";
 
-const CompanyFormSection = ({ formik, id }) => {
+const CompanyFormSection = ({ formik, id ,generateCode }) => {
   return (
     <Grid container spacing={2}>
       <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -49,6 +49,61 @@ const CompanyFormSection = ({ formik, id }) => {
           error={formik.touched.phone_number && formik.errors.phone_number}
           helperText={formik.touched.phone_number && formik.errors.phone_number}
           required
+        />
+      </Grid>
+      <Grid item lg={6} md={6} sm={12} xs={12}>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <TextBox
+            fullWidth
+            disabled={true}
+            label="Code"
+            name="code"
+            value={formik?.values?.code}
+            onChange={formik.handleChange}
+            error={formik.touched.code && formik.errors.code}
+            helperText={formik.touched.code && formik.errors.code}
+            required
+          />
+          <Box sx={{ height: "max-content" }}>
+            <Button
+              disabled={id !== "new"}
+              variant="outlined"
+              color="primary"
+              onClick={() => generateCode()}
+              sx={{ width: "max-content" }}
+              fullWidth
+            >
+              Generate code
+            </Button>
+          </Box>
+        </Stack>
+      </Grid>
+      <Grid item lg={12} md={12} sm={12} xs={12}>
+        <DragDrop
+          fullWidth={true}
+          title="Image"
+          name="file"
+          url="api/upload/image"
+          value={formik.values.file}
+          onChange={(e) => {
+            formik.setFieldValue("file", e);
+          }}
+          // types={["JPG", "PNG", "GIF", "JFIF", "JPEG"]}
+        />
+      </Grid>
+      <Grid item lg={12} md={12} sm={12} xs={12}>
+        <TextBox
+          fullWidth
+          label="Address"
+          isMaxLenght={250}
+          placeholder="Enter Address"
+          multiline={true}
+          rows={3}
+          name="address"
+          value={formik.values.address}
+          onChange={formik.handleChange}
+          error={formik.touched.address && formik.errors.address}
+          helperText={formik.touched.address && formik.errors.address}
         />
       </Grid>
       <Grid item lg={12} md={12} sm={12} xs={12}>

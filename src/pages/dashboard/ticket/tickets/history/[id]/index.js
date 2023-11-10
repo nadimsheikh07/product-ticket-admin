@@ -92,9 +92,12 @@ const TicketHistory = () => {
                 <Grid item lg={6} md={6} sm={12} xs={12}>
                   <Typography>Ticekt Assign To : {histories[0]?.user?.name}</Typography>
                 </Grid>
-                {/* <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>User Mobile No.</Typography>
-                </Grid> */}
+                <Grid item lg={6} md={6} sm={12} xs={12}>
+                  <Typography>Product Name:  {histories[0]?.product?.name} </Typography>
+                </Grid>
+                <Grid item lg={6} md={6} sm={12} xs={12}>
+                  <Typography>Product Code:  {histories[0]?.ticket?.product?.code} </Typography>
+                </Grid>
               </Grid>
             </Container>
           </Card>
