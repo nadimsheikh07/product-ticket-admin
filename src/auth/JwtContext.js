@@ -145,7 +145,6 @@ export function AuthProvider({ children }) {
       ...values,
     });
     const { accessToken, user } = response.data;
-    cons;
     if (user?.company_id) {
       setCompany(user?.company_id);
       if (isEmpty(user?.company)) {
