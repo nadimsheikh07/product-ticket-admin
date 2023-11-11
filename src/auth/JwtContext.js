@@ -95,15 +95,14 @@ export function AuthProvider({ children }) {
         const { user } = response.data;
         if (user?.company_id) {
           setCompany(user?.company_id);
-          let companyDetail = {
-            value: user?.id,
-            label: user?.company?.name,
-            ...user?.company,
-          };
-          setCompanyDetail(companyDetail);
-          enqueueSnackbar("Success", {
-            variant: "success",
-          });
+          if (!isEmpty(user?.company)) {
+            let companyDetail = {
+              value: user?.id,
+              label: user?.company?.name,
+              ...user?.company,
+            };
+            setCompanyDetail(companyDetail);
+          }
         }
 
         dispatch({
@@ -147,12 +146,13 @@ export function AuthProvider({ children }) {
     const { accessToken, user } = response.data;
     if (user?.company_id) {
       setCompany(user?.company_id);
-      if (isEmpty(user?.company)) {
+      if (!isEmpty(user?.company)) {
         let companyDetail = {
           value: user?.id,
           label: user?.company?.name,
           ...user?.company,
         };
+        console.log("test345", companyDetail);
         setCompanyDetail(companyDetail);
       }
     }
@@ -192,6 +192,8 @@ export function AuthProvider({ children }) {
 
   // LOGOUT
   const logout = useCallback(() => {
+    localStorage.removeItem("companyId", null);
+    localStorage.removeItem("companyDetail", null);
     setSession(null);
     dispatch({
       type: "LOGOUT",

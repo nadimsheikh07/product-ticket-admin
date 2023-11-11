@@ -119,10 +119,12 @@ const SelectCompany = () => {
         JSON.parse(window.localStorage.getItem("companyId")) ||
         user?.company_id;
       let findCompany = find(companies, { id: Number(company_id) });
-      setCompanyDetail(JSON.stringify(findCompany));
+      if (findCompany) {
+        console.log("findCompany", findCompany);
+        setCompanyDetail(JSON.stringify(findCompany));
+      }
     }
   }, [user, companies, user?.company_id]);
-  console.log("companies", companies);
   return (
     <Box component="div" sx={{ flexGrow: 1 }}>
       {/* {!isShowCompanyDropdown() && (

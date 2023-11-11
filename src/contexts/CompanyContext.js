@@ -145,8 +145,6 @@ function CompanyProvider({ children }) {
 
   const removeCompany = async () => {
     dispatch({ type: "REMOVE_COMPANY" });
-    localStorage.removeItem("companyId", null);
-    localStorage.removeItem("companyDetail", null);
   };
 
   const getCompanies = async (params) => {
