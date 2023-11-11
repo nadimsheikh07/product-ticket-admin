@@ -84,16 +84,8 @@ const UserList = () => {
               name: "List",
             },
           ]}
-          action={
-            <Button
-              component={NextLink}
-              href={`${formUrl}/new`}
-              variant="contained"
-              startIcon={<Iconify icon="eva:plus-fill" />}
-            >
-              Add User
-            </Button>
-          }
+          action={<AddFormButton title="New Admin" url={`${formUrl}/new`} />}
+
         />
 
         <DataTable
@@ -109,7 +101,7 @@ const UserList = () => {
           disableRowSelectionOnClick={true}
           params={useMemo(
             () => ({
-              user_type: "admin",
+              user_type: process.env.NEXT_PUBLIC_SUPER_ADMIN_TYPE,
             }),
             []
           )}

@@ -22,8 +22,6 @@ const isShowDropdown = [
   "/dashboard/company/companies",
   "/dashboard/company/companies/form/[id]",
   "/dashboard/company/companies/form/new",
-  "/dashboard/user/users",
-  "/dashboard/user/users/form/[id]",
 ];
 const AllowD = [];
 

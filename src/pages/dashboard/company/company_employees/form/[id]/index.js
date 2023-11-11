@@ -26,7 +26,7 @@ const CompanyEmployeesPagesForm = () => {
       name: "",
       email: "",
       address: "",
-      user_type: "user",
+      user_type: process.env.NEXT_PUBLIC_EMPLOYEE_TYPE,
       password: "",
       is_active: false,
     },

@@ -25,7 +25,6 @@ const CompanyEmployeesLists = (formik) => {
   const actionUrl = "admin/user/users";
   const { companyId } = useCompany();
 
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -143,7 +142,7 @@ const CompanyEmployeesLists = (formik) => {
           checkboxSelection={true}
           disableRowSelectionOnClick={true}
           params={{
-            user_type: "user",
+            user_type: process.env.NEXT_PUBLIC_EMPLOYEE_TYPE,
           }}
         />
       </ContainerComponent>

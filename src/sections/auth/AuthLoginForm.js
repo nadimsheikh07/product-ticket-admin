@@ -36,7 +36,7 @@ export default function AuthLoginForm() {
   const defaultValues = {
     email: "",
     password: "",
-    user_type: "admin",
+    user_type: process.env.NEXT_PUBLIC_SUPER_ADMIN_TYPE,
   };
 
   const methods = useForm({

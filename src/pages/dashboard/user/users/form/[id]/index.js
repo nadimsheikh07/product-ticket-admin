@@ -27,7 +27,7 @@ const UserPageForm = () => {
       password: "",
       phone: "",
       photo: "",
-      user_type: "admin",
+      user_type: process.env.NEXT_PUBLIC_SUPER_ADMIN_TYPE,
       is_active: true,
     },
     validate: (values) => {
@@ -115,7 +115,7 @@ const UserPageForm = () => {
     await axiosInstance
       .get(`${actionUrl}/${id}`, {
         params: {
-          user_type: "admin",
+          user_type: process.env.NEXT_PUBLIC_SUPER_ADMIN_TYPE,
         },
       })
       .then((response) => {

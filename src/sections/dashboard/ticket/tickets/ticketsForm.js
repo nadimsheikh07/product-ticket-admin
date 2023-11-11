@@ -1,8 +1,4 @@
-import {
-  DragDrop,
-  SelectMuiAutocomplete,
-  TextBox
-} from "@/components/form";
+import { DragDrop, SelectMuiAutocomplete, TextBox } from "@/components/form";
 import SelectBox from "@/components/form/select";
 import axiosInstance from "@/utils/axios";
 import { status } from "@/utils/constant";
@@ -14,14 +10,12 @@ const TicketsFormSection = ({ formik, id }) => {
   const [clients, setClients] = React.useState([]);
   const [products, setProducts] = React.useState([]);
 
-  
-
   const getUsers = async (params) => {
     await axiosInstance
       .get("/admin/user/get_admins", {
         params: {
           isActive: true,
-          user_type: "admin,user",
+          user_type: `${process.env.NEXT_PUBLIC_ADMIN_TYPE},${process.env.NEXT_PUBLIC_EMPLOYEE_TYPE}`,
           ...params,
         },
       })
@@ -54,7 +48,7 @@ const TicketsFormSection = ({ formik, id }) => {
     await axiosInstance
       .get("admin/user/users", {
         params: {
-          user_type: "client",
+          user_type: process.env.NEXT_PUBLIC_CLIENT_TYPE,
           isActive: true,
           ...params,
         },
@@ -112,7 +106,6 @@ const TicketsFormSection = ({ formik, id }) => {
       });
   };
 
-
   console.log("formik.values.status", formik.values);
   return (
     <Grid container spacing={2}>
@@ -138,7 +131,7 @@ const TicketsFormSection = ({ formik, id }) => {
       </Grid>
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <SelectMuiAutocomplete
-        disabled={id !== "new"}
+          disabled={id !== "new"}
           fullWidth
           name="client_id"
           label="Client"

@@ -201,7 +201,7 @@ const CompanyEmployeesList = (formik) => {
           checkboxSelection={true}
           disableRowSelectionOnClick={true}
           params={{
-            user_type: "client",
+            user_type: process.env.NEXT_PUBLIC_CLIENT_TYPE,
           }}
         />
       </ContainerComponent>
