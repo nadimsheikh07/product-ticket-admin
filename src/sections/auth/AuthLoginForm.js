@@ -52,7 +52,27 @@ export default function AuthLoginForm() {
   } = methods;
 
   const onSubmit = async (data) => {
-    login(data);
+    try {
+      const response = await login(data);
+      enqueueSnackbar(response?.data?.message, {
+        variant: "success",
+      });
+    } catch (error) {
+      console.error(error);
+      const { response } = error;
+      // reset();
+      setError("afterSubmit", {
+        ...error,
+        message: response?.data?.message,
+      });
+      enqueueSnackbar(
+        response?.data?.message ||
+          "Something went wrong please try again later.",
+        {
+          variant: "error",
+        }
+      );
+    }
   };
 
   return (
