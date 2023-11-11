@@ -2,7 +2,7 @@ import { DragDrop, PasswordBox, TextBox, ToggleBox } from "@/components/form";
 import { Box, Button, Grid, Stack } from "@mui/material";
 import React from "react";
 
-const CompanyFormSection = ({ formik, id ,generateCode }) => {
+const CompanyFormSection = ({ formik, id, generateCode }) => {
   return (
     <Grid container spacing={2}>
       <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -43,7 +43,10 @@ const CompanyFormSection = ({ formik, id ,generateCode }) => {
           value={formik?.values?.phone_number}
           onChange={(e) => {
             if (e) {
-              formik.setFieldValue("phone_number", e.target.value.replace(/\D/gm, ""));
+              formik.setFieldValue(
+                "phone_number",
+                e.target.value.replace(/\D/gm, "")
+              );
             }
           }}
           error={formik.touched.phone_number && formik.errors.phone_number}
@@ -63,6 +66,9 @@ const CompanyFormSection = ({ formik, id ,generateCode }) => {
             error={formik.touched.code && formik.errors.code}
             helperText={formik.touched.code && formik.errors.code}
             required
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
           <Box sx={{ height: "max-content" }}>
             <Button
