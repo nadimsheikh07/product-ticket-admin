@@ -1,11 +1,9 @@
 "use client";
 import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
-import useCompany from "@/hooks/useCompany";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import CompanyFormSection from "@/sections/dashboard/company/companies/companyForm";
-import { UserFormSection } from "@/sections/dashboard/admin/admin";
+import { AdminFormSection } from "@/sections/dashboard/admin/admin";
 import axiosInstance from "@/utils/axios";
 import { LoadingButton } from "@mui/lab";
 import { Stack } from "@mui/material";
@@ -14,28 +12,32 @@ import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import React from "react";
 
-const CompanyPageForm = () => {
+const UserPageForm = () => {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
-  const { getCompanies } = useCompany();
   const { id } = router.query;
-  const title = "Company Form";
-  const backUrl = `${PATH_DASHBOARD.company.companies}`;
-  const actionUrl = "admin/company/companies";
+  const title = "User Form";
+  const backUrl = `${PATH_DASHBOARD.user.user}`;
+  const actionUrl = "admin/user/users";
 
   const formik = useFormik({
     initialValues: {
       name: "",
       email: "",
-      phone_number: "",
+      password: "",
+      phone: "",
+      photo: "",
+      user_type: process.env.NEXT_PUBLIC_SUPER_ADMIN_TYPE,
       is_active: true,
     },
     validate: (values) => {
       const errors = {};
       if (!values.name) {
-        errors.name = "Company Name is required";
+        errors.name = "Name is required";
       }
-
+      if (!values.user_type) {
+        errors.user_type = "User Type is required";
+      }
       if (!values.email) {
         errors.email = "Email is required";
       } else if (
@@ -44,16 +46,26 @@ const CompanyPageForm = () => {
         errors.email = "Invalid email address";
       }
       const phoneRegex = /^\d+$/i;
-      if (!values.phone_number) {
-        errors.phone_number = "Phone is required";
-      } else if (!phoneRegex.test(values.phone_number)) {
-        errors.phone_number = "Invalid phone_number number";
-      } else if (
-        values.phone_number.length < 10 ||
-        values.phone_number.length > 10
-      ) {
-        errors.phone_number = "Phone number must be 10 digit";
+      if (!values.phone) {
+        errors.phone = "Phone is required";
+      } else if (!phoneRegex.test(values.phone)) {
+        errors.phone = "Invalid phone number";
+      } else if (values.phone.length < 10 || values.phone.length > 10) {
+        errors.phone = "Phone number must be 10 digit";
       }
+      if (id === "new") {
+        const passwordRegex =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+        if (!values.password) {
+          errors.password = "Password is required";
+        } else if (values.password.length > 10) {
+          errors.password = "Password must be less than 10 characters";
+        } else if (!passwordRegex.test(values.password)) {
+          errors.password =
+            "Must Contain 10 Characters, One Uppercase, One Lowercase, One Number and one special case Character";
+        }
+      }
+
       return errors;
     },
     onSubmit: async (values) => {
@@ -76,7 +88,6 @@ const CompanyPageForm = () => {
             enqueueSnackbar(response.data.message, {
               variant: "success",
             });
-            getCompanies();
           }
         })
         .catch((error) => {
@@ -101,19 +112,25 @@ const CompanyPageForm = () => {
   });
 
   const bindData = async (id) => {
-    await axiosInstance.get(`${actionUrl}/${id}`).then((response) => {
-      if (response.status === 200) {
-        const { data } = response;
-        // bind form data from server
-        for (const [key] of Object.entries(formik.values)) {
-          if (data[key]) {
-            formik.setFieldValue([key], data[key]);
-          } else {
-            formik.setFieldError(key, "");
+    await axiosInstance
+      .get(`${actionUrl}/${id}`, {
+        params: {
+          user_type: process.env.NEXT_PUBLIC_SUPER_ADMIN_TYPE,
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          const { data } = response;
+          // bind form data from server
+          for (const [key] of Object.entries(formik.values)) {
+            if (data[key]) {
+              formik.setFieldValue([key], data[key]);
+            } else {
+              formik.setFieldError(key, "");
+            }
           }
         }
-      }
-    });
+      });
   };
 
   React.useEffect(() => {
@@ -121,19 +138,6 @@ const CompanyPageForm = () => {
       bindData(id);
     }
   }, [id]);
-
-  const generateCode = async () => {
-    await axiosInstance
-      .get("admin/catalog/generate-auto-code")
-      .then((response) => {
-        if (response.status === 200) {
-          formik.setFieldValue("code", response?.data?.code);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   return (
     <ContainerComponent>
@@ -145,31 +149,27 @@ const CompanyPageForm = () => {
             href: PATH_DASHBOARD.app,
           },
           {
-            name: "Company",
+            name: "User",
             href: backUrl,
           },
           { name: title },
         ]}
       />
       <form noValidate onSubmit={formik.handleSubmit}>
-        <CompanyFormSection
-          formik={formik}
-          id={id}
-          generateCode={generateCode}
-        />
+        <AdminFormSection formik={formik} id={id} />
         <Stack alignItems="flex-end" sx={{ mt: 3 }}>
           <LoadingButton
             type="submit"
             variant="contained"
             loading={formik?.isSubmitting}
           >
-            {id === "new" ? "Create Company" : "Update Company"}
+            {id === "new" ? "Create User" : "Update User"}
           </LoadingButton>
         </Stack>
       </form>
     </ContainerComponent>
   );
 };
-CompanyPageForm.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+UserPageForm.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
-export default CompanyPageForm;
+export default UserPageForm;

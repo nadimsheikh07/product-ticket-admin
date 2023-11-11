@@ -3,7 +3,7 @@ import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import { UserFormSection } from "@/sections/dashboard/user/users";
+import { SuperAdminFormSection } from "@/sections/dashboard/admin/super_admin";
 import axiosInstance from "@/utils/axios";
 import { LoadingButton } from "@mui/lab";
 import { Stack } from "@mui/material";
@@ -156,7 +156,7 @@ const UserPageForm = () => {
         ]}
       />
       <form noValidate onSubmit={formik.handleSubmit}>
-        <UserFormSection formik={formik} id={id} />
+        <SuperAdminFormSection formik={formik} id={id} />
         <Stack alignItems="flex-end" sx={{ mt: 3 }}>
           <LoadingButton
             type="submit"
