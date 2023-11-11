@@ -54,7 +54,6 @@ const isShow = (path) => {
 const SelectCompany = () => {
   const { user } = useAuthContext();
   const { pathname } = useRouter();
-  // const [companies, setCompanies] = React.useState([]);
   const {
     companyId,
     setCompany,
@@ -69,33 +68,6 @@ const SelectCompany = () => {
     return isShow;
   };
 
-  // const getCompany = async (params) => {
-  //   await axiosInstance
-  //     .get("/admin/company/companies", {
-  //       params: {
-  //         isActive: true,
-  //         ...params,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       if (response.status === 200) {
-  //         let options = [];
-  //         response?.data &&
-  //           response?.data?.length > 0 &&
-  //           response?.data.forEach((item) => {
-  //             options.push({
-  //               label: item?.name,
-  //               value: item?.id,
-  //               ...item,
-  //             });
-  //           });
-  //         setCompanies(options);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log("Select Company Error", error);
-  //     });
-  // };
 
   React.useEffect(() => {
     getCompanies();
@@ -124,7 +96,7 @@ const SelectCompany = () => {
         setCompanyDetail(JSON.stringify(findCompany));
       }
     }
-  }, [user, companies, user?.company_id]);
+  }, [user, user?.company_id]);
   return (
     <Box component="div" sx={{ flexGrow: 1 }}>
       {/* {!isShowCompanyDropdown() && (
@@ -157,7 +129,7 @@ const SelectCompany = () => {
           value={companyDetail}
           placeholder="Select Company"
           onChange={(e) => {
-            setCompany(e?.id || null);
+            setCompany(e?.value || null);
             setCompanyDetail(JSON.stringify(e));
           }}
           disabled={!Allow() && NotAllow()}

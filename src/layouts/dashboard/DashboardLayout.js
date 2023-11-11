@@ -15,6 +15,7 @@ import NavHorizontal from "./nav/NavHorizontal";
 import NavMini from "./nav/NavMini";
 import useResponsive from "@/hooks/useResponsive";
 import AuthGuard from "@/auth/AuthGuard";
+import useMenu from "@/hooks/useMenu";
 
 // ----------------------------------------------------------------------
 
@@ -26,6 +27,9 @@ export default function DashboardLayout({ children }) {
   const { themeLayout } = useSettingsContext();
   const isDesktop = useResponsive("up", "lg");
   const [open, setOpen] = useState(false);
+  const { navConfigMenu } = useMenu();
+
+  console.log("navConfigMenu", navConfigMenu);
 
   const isNavHorizontal = themeLayout === "horizontal";
 
@@ -39,7 +43,11 @@ export default function DashboardLayout({ children }) {
     setOpen(false);
   };
   const renderNavVertical = (
-    <NavVertical openNav={open} onCloseNav={handleClose} />
+    <NavVertical
+      openNav={open}
+      onCloseNav={handleClose}
+      navConfig={navConfigMenu}
+    />
   );
   const renderContent = () => {
     if (isNavHorizontal) {
@@ -47,7 +55,11 @@ export default function DashboardLayout({ children }) {
         <>
           <Header onOpenNav={handleOpen} />
 
-          {isDesktop ? <NavHorizontal /> : renderNavVertical}
+          {isDesktop ? (
+            <NavHorizontal navConfig={navConfigMenu} />
+          ) : (
+            renderNavVertical
+          )}
 
           <Main>{children}</Main>
         </>
@@ -65,7 +77,11 @@ export default function DashboardLayout({ children }) {
               minHeight: { lg: 1 },
             }}
           >
-            {isDesktop ? <NavMini isNavMini={isNavMini} /> : renderNavVertical}
+            {isDesktop ? (
+              <NavMini isNavMini={isNavMini} navConfig={navConfigMenu} />
+            ) : (
+              renderNavVertical
+            )}
 
             <Main>{children}</Main>
           </Box>
@@ -91,5 +107,5 @@ export default function DashboardLayout({ children }) {
     );
   };
   return <AuthGuard>{renderContent()}</AuthGuard>;
-    // return <>{renderContent()}</>;
+  // return <>{renderContent()}</>;
 }

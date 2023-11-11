@@ -125,6 +125,7 @@ function CompanyProvider({ children }) {
   const setCompany = (companyId) => {
     axiosInstance.defaults.headers.common.company_id = companyId;
     localStorage.setItem("companyId", companyId);
+    console.log("companyId", companyId, axiosInstance.defaults.headers.common);
     dispatch({
       type: "SET_COMPANY",
       payload: {

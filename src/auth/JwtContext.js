@@ -92,7 +92,7 @@ export function AuthProvider({ children }) {
 
         const response = await axiosInstance.get("admin/auth/profile");
         const { user } = response.data;
-        if (user?.company_id) {
+        if (user?.company_id && user?.user_type != "super_admin") {
           setCompany(user?.company_id);
           if (!isEmpty(user?.company)) {
             let companyDetail = {

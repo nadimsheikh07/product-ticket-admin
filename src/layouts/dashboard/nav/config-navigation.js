@@ -45,6 +45,7 @@ const navConfig = [
     items: [
       {
         title: "dashboard",
+        isSuperAdmin: false,
         path: PATH_DASHBOARD.app,
         icon: ICONS.dashboard,
       },
@@ -60,11 +61,20 @@ const navConfig = [
       {
         title: "Admin",
         isLink: false,
+        isSuperAdmin: false,
         path: PATH_DASHBOARD.admin.root,
         icon: ICONS.user,
         children: [
-          { title: "Admin", path: PATH_DASHBOARD.admin.admin },
-          { title: "Super Admin", path: PATH_DASHBOARD.admin.super_admin },
+          {
+            title: "Super Admin",
+            path: PATH_DASHBOARD.admin.super_admin,
+            isSuperAdmin: true,
+          },
+          {
+            title: "Admin",
+            path: PATH_DASHBOARD.admin.admin,
+            isSuperAdmin: false,
+          },
         ],
       },
 
@@ -74,14 +84,17 @@ const navConfig = [
         isLink: false,
         path: PATH_DASHBOARD.company.root,
         icon: ICONS.user,
+        isSuperAdmin: false,
         children: [
           {
             title: "Companies",
             path: PATH_DASHBOARD.company.companies,
+            isSuperAdmin: false,
           },
           {
             title: "Company Employees",
             path: PATH_DASHBOARD.company.company_employees,
+            isSuperAdmin: false,
           },
         ],
       },
@@ -91,6 +104,7 @@ const navConfig = [
         // isLink: false,
         path: PATH_DASHBOARD.client.clients,
         icon: ICONS.user,
+        isSuperAdmin: false,
         // children: [{ title: "Clients", path: PATH_DASHBOARD.client.clients }],
       },
       // PRODUCT
@@ -99,12 +113,18 @@ const navConfig = [
         isLink: false,
         path: PATH_DASHBOARD.product.root,
         icon: ICONS.user,
+        isSuperAdmin: false,
         children: [
           {
             title: "Product Attributes",
             path: PATH_DASHBOARD.product.attributes,
+            isSuperAdmin: false,
           },
-          { title: "Products", path: PATH_DASHBOARD.product.products },
+          {
+            title: "Products",
+            path: PATH_DASHBOARD.product.products,
+            isSuperAdmin: false,
+          },
         ],
       },
       // TICKET
@@ -113,9 +133,18 @@ const navConfig = [
         isLink: false,
         path: PATH_DASHBOARD.ticket.root,
         icon: ICONS.user,
+        isSuperAdmin: false,
         children: [
-          { title: "tickets", path: PATH_DASHBOARD.ticket.tickets },
-          { title: "Open Tickets", path: PATH_DASHBOARD.ticket.open_tickets },
+          {
+            title: "tickets",
+            path: PATH_DASHBOARD.ticket.tickets,
+            isSuperAdmin: false,
+          },
+          {
+            title: "Open Tickets",
+            path: PATH_DASHBOARD.ticket.open_tickets,
+            isSuperAdmin: false,
+          },
         ],
       },
       // NOTIFICATION
@@ -134,8 +163,13 @@ const navConfig = [
         isLink: false,
         path: PATH_DASHBOARD.configuration.root,
         icon: ICONS.user,
+        isSuperAdmin: false,
         children: [
-          { title: "Email", path: PATH_DASHBOARD.configuration.email },
+          {
+            title: "Email",
+            path: PATH_DASHBOARD.configuration.email,
+            isSuperAdmin: false,
+          },
         ],
       },
     ],

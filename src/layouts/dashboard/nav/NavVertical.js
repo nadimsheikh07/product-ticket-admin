@@ -24,7 +24,12 @@ NavVertical.propTypes = {
   onCloseNav: PropTypes.func,
 };
 
-export default function NavVertical({ isNavMini, openNav, onCloseNav }) {
+export default function NavVertical({
+  isNavMini,
+  openNav,
+  onCloseNav,
+  navConfig = [],
+}) {
   const pathname = useRouter();
 
   const isDesktop = useResponsive("up", "lg");
