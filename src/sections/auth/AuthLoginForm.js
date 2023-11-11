@@ -52,24 +52,7 @@ export default function AuthLoginForm() {
   } = methods;
 
   const onSubmit = async (data) => {
-    try {
-      await login(data);
-    } catch (error) {
-      console.error(error);
-      const { response } = error;
-      enqueueSnackbar(
-        response?.data?.message ||
-          "Something went wrong please try again later.",
-        {
-          variant: "error",
-        }
-      );
-      reset();
-      setError("afterSubmit", {
-        ...error,
-        message: response?.data?.message,
-      });
-    }
+    login(data);
   };
 
   return (

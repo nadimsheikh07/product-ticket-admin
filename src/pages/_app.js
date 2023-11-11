@@ -15,26 +15,26 @@ export default function App(props) {
   const { Component, pageProps } = props;
   const getLayout = Component.getLayout ?? ((page) => page);
   return (
-    <AuthProvider>
-      <ThemeProvider>
-        <CollapseDrawerProvider>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <SettingsProvider>
-              <MotionLazyContainer>
-                <ThemeSettings>
-                  <SnackbarProvider>
-                    <CompanyProvider>
+    <CompanyProvider>
+      <AuthProvider>
+        <ThemeProvider>
+          <CollapseDrawerProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <SettingsProvider>
+                <MotionLazyContainer>
+                  <ThemeSettings>
+                    <SnackbarProvider>
                       <StepperProvider>
                         {getLayout(<Component {...pageProps} />)}
                       </StepperProvider>
-                    </CompanyProvider>
-                  </SnackbarProvider>
-                </ThemeSettings>
-              </MotionLazyContainer>
-            </SettingsProvider>
-          </LocalizationProvider>
-        </CollapseDrawerProvider>
-      </ThemeProvider>
-    </AuthProvider>
+                    </SnackbarProvider>
+                  </ThemeSettings>
+                </MotionLazyContainer>
+              </SettingsProvider>
+            </LocalizationProvider>
+          </CollapseDrawerProvider>
+        </ThemeProvider>
+      </AuthProvider>
+    </CompanyProvider>
   );
 }

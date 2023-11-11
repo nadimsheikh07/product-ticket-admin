@@ -97,11 +97,11 @@ export function AuthProvider({ children }) {
           setCompany(user?.company_id);
           if (!isEmpty(user?.company)) {
             let companyDetail = {
-              value: user?.id,
+              value: user?.company_id,
               label: user?.company?.name,
               ...user?.company,
             };
-            setCompanyDetail(companyDetail);
+            setCompanyDetail(JSON.stringify(companyDetail));
           }
         }
 
@@ -139,35 +139,45 @@ export function AuthProvider({ children }) {
 
   // LOGIN
   const login = useCallback(async (values) => {
-    removeCompany();
-    const response = await axiosInstance.post("admin/auth/signin", {
-      ...values,
-    });
-    const { accessToken, user } = response.data;
-    if (user?.company_id) {
-      setCompany(user?.company_id);
-      if (!isEmpty(user?.company)) {
-        let companyDetail = {
-          value: user?.id,
-          label: user?.company?.name,
-          ...user?.company,
-        };
-        console.log("test345", companyDetail);
-        setCompanyDetail(companyDetail);
+    try {
+      const response = await axiosInstance.post("admin/auth/signin", {
+        ...values,
+      });
+      const { accessToken, user } = response.data;
+      if (user?.company_id) {
+        setCompany(user?.company_id);
+        if (!isEmpty(user?.company)) {
+          let companyDetail = {
+            value: user?.company_id,
+            label: user?.company?.name,
+            ...user?.company,
+          };
+          setCompanyDetail(JSON.stringify(companyDetail));
+        }
       }
-    }
-    enqueueSnackbar(response?.data?.message, {
-      variant: "success",
-    });
-    setSession(accessToken);
+      enqueueSnackbar(response?.data?.message, {
+        variant: "success",
+      });
+      setSession(accessToken);
 
-    dispatch({
-      type: "LOGIN",
-      payload: {
-        isAuthenticated: true,
-        user,
-      },
-    });
+      dispatch({
+        type: "LOGIN",
+        payload: {
+          isAuthenticated: true,
+          user,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+      const { response } = error;
+      enqueueSnackbar(
+        response?.data?.message ||
+          "Something went wrong please try again later.",
+        {
+          variant: "error",
+        }
+      );
+    }
   }, []);
 
   // REGISTER
