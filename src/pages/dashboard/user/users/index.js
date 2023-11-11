@@ -70,7 +70,7 @@ const UserList = () => {
     <>
       <ContainerComponent>
         <CustomBreadcrumbs
-          heading="User List"
+          heading="Admin List"
           links={[
             {
               name: "Dashboard",
