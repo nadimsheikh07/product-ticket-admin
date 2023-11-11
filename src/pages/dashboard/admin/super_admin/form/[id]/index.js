@@ -16,8 +16,8 @@ const UserPageForm = () => {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
   const { id } = router.query;
-  const title = "User Form";
-  const backUrl = `${PATH_DASHBOARD.user.user}`;
+  const title = "Super Admin";
+  const backUrl = `${PATH_DASHBOARD.admin.super_admin}`;
   const actionUrl = "admin/user/users";
 
   const formik = useFormik({
@@ -142,17 +142,17 @@ const UserPageForm = () => {
   return (
     <ContainerComponent>
       <CustomBreadcrumbs
-        heading={title}
+        heading={`${title} Form`}
         links={[
           {
             name: "Dashboard",
             href: PATH_DASHBOARD.app,
           },
           {
-            name: "User",
+            name: title,
             href: backUrl,
           },
-          { name: title },
+          { name: "Form" },
         ]}
       />
       <form noValidate onSubmit={formik.handleSubmit}>

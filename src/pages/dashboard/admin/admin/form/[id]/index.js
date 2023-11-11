@@ -12,12 +12,12 @@ import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import React from "react";
 
-const UserPageForm = () => {
+const AdminPageForm = () => {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
   const { id } = router.query;
-  const title = "User Form";
-  const backUrl = `${PATH_DASHBOARD.user.user}`;
+  const title = "Admin";
+  const backUrl = `${PATH_DASHBOARD.admin.admin}`;
   const actionUrl = "admin/user/users";
 
   const formik = useFormik({
@@ -27,7 +27,7 @@ const UserPageForm = () => {
       password: "",
       phone: "",
       photo: "",
-      user_type: process.env.NEXT_PUBLIC_SUPER_ADMIN_TYPE,
+      user_type: process.env.NEXT_PUBLIC_ADMIN_TYPE,
       is_active: true,
     },
     validate: (values) => {
@@ -142,17 +142,17 @@ const UserPageForm = () => {
   return (
     <ContainerComponent>
       <CustomBreadcrumbs
-        heading={title}
+        heading={`${title} Form`}
         links={[
           {
             name: "Dashboard",
             href: PATH_DASHBOARD.app,
           },
           {
-            name: "User",
+            name: title,
             href: backUrl,
           },
-          { name: title },
+          { name: "Form" },
         ]}
       />
       <form noValidate onSubmit={formik.handleSubmit}>
@@ -170,6 +170,6 @@ const UserPageForm = () => {
     </ContainerComponent>
   );
 };
-UserPageForm.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+AdminPageForm.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
-export default UserPageForm;
+export default AdminPageForm;

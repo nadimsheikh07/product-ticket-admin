@@ -58,11 +58,14 @@ const navConfig = [
     items: [
       // USER
       {
-        title: "masters",
+        title: "Admin",
         isLink: false,
-        path: PATH_DASHBOARD.user.root,
+        path: PATH_DASHBOARD.admin.root,
         icon: ICONS.user,
-        children: [{ title: "Super Admin", path: PATH_DASHBOARD.user.user }],
+        children: [
+          { title: "Admin", path: PATH_DASHBOARD.admin.admin },
+          { title: "Super Admin", path: PATH_DASHBOARD.admin.super_admin },
+        ],
       },
 
       // // COMPANY
@@ -79,7 +82,7 @@ const navConfig = [
           {
             title: "Company Employees",
             path: PATH_DASHBOARD.company.company_employees,
-          }
+          },
         ],
       },
       // COMPANY

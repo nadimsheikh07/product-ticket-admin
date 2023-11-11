@@ -8,14 +8,13 @@ import { AddFormButton } from "@/module/auth/addFormButton";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import { Button, Tooltip } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
-import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 
-const UserList = () => {
+const AdminList = () => {
   const { push } = useRouter();
-  const title = "User List";
-  const formUrl = `${PATH_DASHBOARD.user.user}/form`;
+  const title = "Admin";
+  const formUrl = `${PATH_DASHBOARD.admin.admin}/form`;
   const actionUrl = "admin/user/get_admins";
   const columns = [
     {
@@ -70,14 +69,14 @@ const UserList = () => {
     <>
       <ContainerComponent>
         <CustomBreadcrumbs
-          heading="Admin List"
+          heading={`${title} List`}
           links={[
             {
               name: "Dashboard",
               href: PATH_DASHBOARD.app,
             },
             {
-              name: "Users",
+              name: title,
               // href: "#",
             },
             {
@@ -85,7 +84,6 @@ const UserList = () => {
             },
           ]}
           action={<AddFormButton title="New Admin" url={`${formUrl}/new`} />}
-
         />
 
         <DataTable
@@ -101,7 +99,7 @@ const UserList = () => {
           disableRowSelectionOnClick={true}
           params={useMemo(
             () => ({
-              user_type: process.env.NEXT_PUBLIC_SUPER_ADMIN_TYPE,
+              user_type: process.env.NEXT_PUBLIC_ADMIN_TYPE,
             }),
             []
           )}
@@ -110,6 +108,6 @@ const UserList = () => {
     </>
   );
 };
-UserList.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+AdminList.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
-export default UserList;
+export default AdminList;

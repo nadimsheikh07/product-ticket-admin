@@ -14,8 +14,8 @@ import { useMemo } from "react";
 
 const UserList = () => {
   const { push } = useRouter();
-  const title = "User List";
-  const formUrl = `${PATH_DASHBOARD.user.user}/form`;
+  const title = "Super Admin";
+  const formUrl = `${PATH_DASHBOARD.admin.super_admin}/form`;
   const actionUrl = "admin/user/get_admins";
   const columns = [
     {
@@ -70,22 +70,21 @@ const UserList = () => {
     <>
       <ContainerComponent>
         <CustomBreadcrumbs
-          heading="Admin List"
+          heading={`${title} List`}
           links={[
             {
               name: "Dashboard",
               href: PATH_DASHBOARD.app,
             },
             {
-              name: "Users",
+              name: title,
               // href: "#",
             },
             {
               name: "List",
             },
           ]}
-          action={<AddFormButton title="New Admin" url={`${formUrl}/new`} />}
-
+          action={<AddFormButton title="New Super Admin" url={`${formUrl}/new`} />}
         />
 
         <DataTable
