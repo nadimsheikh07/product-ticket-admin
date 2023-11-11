@@ -58,6 +58,7 @@ const CompanyContext = createContext({
   setCompany: () => Promise.resolve(),
   removeCompany: () => Promise.resolve(),
   getCompanies: () => Promise.resolve(),
+  setCompanyDetail: () => Promise.resolve(),
 });
 
 // ----------------------------------------------------------------------
