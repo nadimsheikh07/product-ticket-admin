@@ -15,6 +15,7 @@ import axiosInstance from "@/utils/axios";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/router";
 import useCompany from "@/hooks/useCompany";
+import { isEmpty } from "lodash";
 // ----------------------------------------------------------------------
 
 // NOTE:
@@ -74,7 +75,7 @@ AuthProvider.propTypes = {
 
 export function AuthProvider({ children }) {
   const { pathname } = useRouter();
-  const { setCompany, setCompanyDetail } = useCompany();
+  const { setCompany, setCompanyDetail, removeCompany } = useCompany();
   const [state, dispatch] = useReducer(reducer, initialState);
   const { enqueueSnackbar } = useSnackbar();
   const storageAvailable = localStorageAvailable();
@@ -139,22 +140,26 @@ export function AuthProvider({ children }) {
 
   // LOGIN
   const login = useCallback(async (values) => {
+    removeCompany();
     const response = await axiosInstance.post("admin/auth/signin", {
       ...values,
     });
     const { accessToken, user } = response.data;
+    cons;
     if (user?.company_id) {
       setCompany(user?.company_id);
-      let companyDetail = {
-        value: user?.id,
-        label: user?.company?.name,
-        ...user?.company,
-      };
-      setCompanyDetail(companyDetail);
-      enqueueSnackbar("Success", {
-        variant: "success",
-      });
+      if (isEmpty(user?.company)) {
+        let companyDetail = {
+          value: user?.id,
+          label: user?.company?.name,
+          ...user?.company,
+        };
+        setCompanyDetail(companyDetail);
+      }
     }
+    enqueueSnackbar(response?.data?.message, {
+      variant: "success",
+    });
     setSession(accessToken);
 
     dispatch({
