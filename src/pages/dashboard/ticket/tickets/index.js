@@ -69,7 +69,7 @@ const TicketsList = () => {
           label="Edit"
           onClick={() => push(`${formUrl}/${params.id}`)}
         />,
-        ["closed", "cancled"].includes(params?.row?.status) ? (
+        ["closed", "canceled"].includes(params?.row?.status) ? (
           <GridActionsCellItem
             key="relaunch"
             icon={
@@ -140,7 +140,7 @@ const TicketsList = () => {
               color="success"
             />
           );
-        } else if (row?.status == "cancled") {
+        } else if (row?.status == "canceled") {
           return (
             <Chip
               sx={{ textTransform: "capitalize" }}

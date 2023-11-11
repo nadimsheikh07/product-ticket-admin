@@ -66,7 +66,7 @@ const TicketsList = () => {
               color="success"
             />
           );
-        } else if (row?.status == "cancled") {
+        } else if (row?.status == "canceled") {
           return (
             <Chip
               sx={{ textTransform: "capitalize" }}

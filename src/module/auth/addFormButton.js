@@ -10,7 +10,6 @@ export const AddFormButton = ({
   alertText = "Please select company first.",
 }) => {
   const { companyId } = useCompany();
-  console.log("companyId",companyId)
   return (
     <>
       {!companyId ? (

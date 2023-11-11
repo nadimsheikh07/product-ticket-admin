@@ -37,7 +37,7 @@ export const status = [
   },
   {
     label: "Cancelled",
-    value: "cancled",
+    value: "canceled",
   },
   {
     label: "Closed",
