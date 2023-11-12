@@ -57,7 +57,27 @@ const navConfig = [
   {
     subheader: "menu",
     items: [
-      // USER
+      // // COMPANY
+      {
+        title: "Company",
+        isLink: false,
+        isSuperAdmin: false,
+        path: PATH_DASHBOARD.company.root,
+        icon: ICONS.user,
+        isSuperAdmin: false,
+        children: [
+          {
+            title: "Companies",
+            path: PATH_DASHBOARD.company.companies,
+            isSuperAdmin: true,
+          },
+          {
+            title: "Company Employees",
+            path: PATH_DASHBOARD.company.company_employees,
+            isSuperAdmin: false,
+          },
+        ],
+      }, // USER
       {
         title: "Admin",
         isLink: false,
@@ -78,26 +98,6 @@ const navConfig = [
         ],
       },
 
-      // // COMPANY
-      {
-        title: "Company",
-        isLink: false,
-        path: PATH_DASHBOARD.company.root,
-        icon: ICONS.user,
-        isSuperAdmin: false,
-        children: [
-          {
-            title: "Companies",
-            path: PATH_DASHBOARD.company.companies,
-            isSuperAdmin: false,
-          },
-          {
-            title: "Company Employees",
-            path: PATH_DASHBOARD.company.company_employees,
-            isSuperAdmin: false,
-          },
-        ],
-      },
       // COMPANY
       {
         title: "Client",

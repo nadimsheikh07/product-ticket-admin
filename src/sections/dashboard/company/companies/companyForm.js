@@ -87,12 +87,12 @@ const CompanyFormSection = ({ formik, id, generateCode }) => {
       <Grid item lg={12} md={12} sm={12} xs={12}>
         <DragDrop
           fullWidth={true}
-          title="Image"
-          name="file"
+          title="Logo"
+          name="logo"
           url="api/upload/image"
-          value={formik.values.file}
+          value={formik.values.logo}
           onChange={(e) => {
-            formik.setFieldValue("file", e);
+            formik.setFieldValue("logo", e);
           }}
           // types={["JPG", "PNG", "GIF", "JFIF", "JPEG"]}
         />

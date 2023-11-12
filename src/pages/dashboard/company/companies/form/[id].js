@@ -29,6 +29,7 @@ const CompanyPageForm = () => {
       email: "",
       phone_number: "",
       is_active: true,
+      logo:"",
     },
     validate: (values) => {
       const errors = {};

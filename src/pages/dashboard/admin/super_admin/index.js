@@ -16,7 +16,7 @@ const UserList = () => {
   const { push } = useRouter();
   const title = "Super Admin";
   const formUrl = `${PATH_DASHBOARD.admin.super_admin}/form`;
-  const actionUrl = "admin/user/get_admins";
+  const actionUrl = "admin/user/users";
   const columns = [
     {
       field: "actions",

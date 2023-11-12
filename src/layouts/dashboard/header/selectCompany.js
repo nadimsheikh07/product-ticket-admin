@@ -68,7 +68,6 @@ const SelectCompany = () => {
     return isShow;
   };
 
-
   React.useEffect(() => {
     getCompanies();
   }, []);
@@ -123,7 +122,7 @@ const SelectCompany = () => {
           }}
         />
       )} */}
-      {!isShowCompanyDropdown() && (
+      {user && user?.user_type != "admin" && !isShowCompanyDropdown() && (
         <SelectMuiAutocomplete
           name="companyDetail"
           value={companyDetail}

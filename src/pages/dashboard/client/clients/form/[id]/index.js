@@ -28,7 +28,7 @@ const CompanyEmployeesPageForm = () => {
       address: "",
       user_type: process.env.NEXT_PUBLIC_CLIENT_TYPE,
       password: "",
-      is_active: false,
+      is_active: true,
     },
     validate: (values) => {
       const errors = {};

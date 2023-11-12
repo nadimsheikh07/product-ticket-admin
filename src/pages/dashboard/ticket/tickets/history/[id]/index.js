@@ -25,8 +25,9 @@ const TicketHistory = () => {
   const [page, setPage] = React.useState(1);
   const [pageSize, setPageSize] = React.useState(10);
   const [totalHistory, setTotalHistory] = React.useState(0);
+  const [ticketDetail, setTicketDetail] = React.useState({});
 
-  const TicketHistories = async () => {
+  const getTicketHistories = async () => {
     await axiosInstance
       .get(`admin/catalog/ticket_histories`, {
         params: { page: page, pageSize: pageSize, ticket_id: id },
@@ -41,11 +42,32 @@ const TicketHistory = () => {
         console.log("Ticket History Error", error);
       });
   };
+  const getTicketDetail = async () => {
+    await axiosInstance
+      .get(`admin/catalog/tickets/${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          setTicketDetail(response?.data);
+        }
+      })
+      .catch((error) => {
+        console.log("Ticket Detail Error", error);
+      });
+  };
+
   useEffect(() => {
     if (id) {
-      TicketHistories();
+      getTicketDetail();
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (id) {
+      getTicketHistories();
     }
   }, [id, page, pageSize]);
+
+  console.log("ticketDetail", ticketDetail);
 
   return (
     <>
@@ -73,30 +95,46 @@ const TicketHistory = () => {
             <Container>
               <Typography variant="h5" component="h5" m={2}>
                 {/* {histories[0]?.detail}  */}
-                <Typography>Ticket Created Date & Time:  {histories[0]?.created_at}</Typography>
+                <Typography>
+                  Ticket Created Date & Time: {histories[0]?.created_at}
+                </Typography>
               </Typography>
 
               <Grid container spacing={2} m={2}>
                 <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>Client Email: {histories[0]?.client?.email}</Typography>
+                  <Typography>
+                    Client Email: {ticketDetail?.client?.email}
+                  </Typography>
                 </Grid>
                 <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>Client Mobile No. {histories[0]?.client?.phone}</Typography>
+                  <Typography>
+                    Client Mobile No. {ticketDetail?.client?.phone}
+                  </Typography>
                 </Grid>
                 <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>Company Email: {histories[0]?.company?.email}</Typography>
+                  <Typography>
+                    Company Email: {ticketDetail?.company?.email}
+                  </Typography>
                 </Grid>
                 <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>Company Mobile No. {histories[0]?.company?.phone_number}</Typography>
+                  <Typography>
+                    Company Mobile No. {ticketDetail?.company?.phone_number}
+                  </Typography>
                 </Grid>
                 <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>Ticekt Assign To : {histories[0]?.user?.name}</Typography>
+                  <Typography>
+                    Ticekt Assign To : {ticketDetail?.user?.name}
+                  </Typography>
                 </Grid>
                 <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>Product Name:  {histories[0]?.product?.name} </Typography>
+                  <Typography>
+                    Product Name: {ticketDetail?.product?.name}{" "}
+                  </Typography>
                 </Grid>
                 <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>Product Code:  {histories[0]?.ticket?.product?.code} </Typography>
+                  <Typography>
+                    Product Code: {ticketDetail?.product?.code}{" "}
+                  </Typography>
                 </Grid>
               </Grid>
             </Container>

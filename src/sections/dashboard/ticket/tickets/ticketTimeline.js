@@ -73,7 +73,7 @@ const TicketTimeline = ({ histories, total }) => {
                   </TimelineSeparator>
                   <TimelineContent sx={{ py: "12px", px: 2 }}>
                     <Typography variant="h6" component="span">
-                      {item?.ticket?.product?.name}
+                      {item?.status}
                     </Typography>
                     <Typography>{item?.detail}</Typography>
                   </TimelineContent>
