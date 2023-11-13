@@ -6,6 +6,7 @@ import useCompany from "@/hooks/useCompany";
 import axiosInstance from "@/utils/axios";
 import { Box } from "@mui/material";
 import { useRouter } from "next/router";
+import { find } from "lodash";
 
 const NotAllowD = [
   "form",
@@ -22,6 +23,7 @@ const isShowDropdown = [
   "/dashboard/company/companies",
   "/dashboard/company/companies/form/[id]",
   "/dashboard/company/companies/form/new",
+  "/dashboard/profile/my_profile",
 ];
 const AllowD = [];
 
@@ -89,13 +91,25 @@ const SelectCompany = () => {
       const company_id =
         JSON.parse(window.localStorage.getItem("companyId")) ||
         user?.company_id;
-      let findCompany = find(companies, { id: Number(company_id) });
-      if (findCompany) {
-        console.log("findCompany", findCompany);
-        setCompanyDetail(JSON.stringify(findCompany));
+      let findCompanyDetail;
+      if (companies?.length > 0) {
+        findCompanyDetail = find(companies, { id: Number(company_id) }) || "";
+        console.log("findCompanyDetail", findCompanyDetail);
+
+        setCompanyDetail(findCompanyDetail);
+      } else {
+        findCompanyDetail = {
+          label: user?.company?.name,
+          value: user?.company_id,
+          ...user?.company,
+        };
+        setCompanyDetail(findCompanyDetail);
       }
     }
   }, [user, user?.company_id]);
+
+  console.log("companyDetail", companyDetail);
+
   return (
     <Box component="div" sx={{ flexGrow: 1 }}>
       {/* {!isShowCompanyDropdown() && (
@@ -128,8 +142,13 @@ const SelectCompany = () => {
           value={companyDetail}
           placeholder="Select Company"
           onChange={(e) => {
-            setCompany(e?.value || null);
-            setCompanyDetail(JSON.stringify(e));
+            if (e) {
+              setCompany(e?.value ? e?.value : null);
+              setCompanyDetail(e);
+            } else {
+              setCompany(null);
+              setCompanyDetail(null);
+            }
           }}
           disabled={!Allow() && NotAllow()}
           options={companies}

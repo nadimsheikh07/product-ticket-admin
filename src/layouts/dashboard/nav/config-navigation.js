@@ -57,6 +57,14 @@ const navConfig = [
   {
     subheader: "menu",
     items: [
+      {
+        title: "Profile",
+        // isLink: false,
+        path: PATH_DASHBOARD.profie.my_profile,
+        icon: ICONS.user,
+        isSuperAdmin: false,
+        // children: [{ title: "Clients", path: PATH_DASHBOARD.client.clients }],
+      },
       // // COMPANY
       {
         title: "Company",
@@ -81,7 +89,7 @@ const navConfig = [
       {
         title: "Admin",
         isLink: false,
-        isSuperAdmin: false,
+        isSuperAdmin: true,
         path: PATH_DASHBOARD.admin.root,
         icon: ICONS.user,
         children: [
@@ -93,7 +101,7 @@ const navConfig = [
           {
             title: "Admin",
             path: PATH_DASHBOARD.admin.admin,
-            isSuperAdmin: false,
+            isSuperAdmin: true,
           },
         ],
       },

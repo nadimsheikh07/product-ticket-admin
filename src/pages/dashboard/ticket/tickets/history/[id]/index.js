@@ -96,47 +96,70 @@ const TicketHistory = () => {
               <Typography variant="h5" component="h5" m={2}>
                 {/* {histories[0]?.detail}  */}
                 <Typography>
-                  Ticket Created Date & Time: {histories[0]?.created_at}
+                  Ticket Created Date & Time: {ticketDetail?.created_at}
                 </Typography>
               </Typography>
+            
+                {/* <Grid container spacing={2} m={2}> */}
+                <Card sx={{mb:2}}>
+                <Typography component="p" variant="h6" m={3}>Client Information</Typography>
+                  <Grid container spacing={2} m={2}>
+                    <Grid item lg={6} md={6} sm={12} xs={12}>
+                      <Typography>
+                        Client Email: {ticketDetail?.client?.email}
+                      </Typography>
+                    </Grid>
+                    <Grid item lg={6} md={6} sm={12} xs={12}>
+                      <Typography>
+                        Client Mobile No. {ticketDetail?.client?.phone}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Card>
 
-              <Grid container spacing={2} m={2}>
-                <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>
-                    Client Email: {ticketDetail?.client?.email}
-                  </Typography>
-                </Grid>
-                <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>
-                    Client Mobile No. {ticketDetail?.client?.phone}
-                  </Typography>
-                </Grid>
-                <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>
-                    Company Email: {ticketDetail?.company?.email}
-                  </Typography>
-                </Grid>
-                <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>
-                    Company Mobile No. {ticketDetail?.company?.phone_number}
-                  </Typography>
-                </Grid>
-                <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>
-                    Ticekt Assign To : {ticketDetail?.user?.name}
-                  </Typography>
-                </Grid>
-                <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>
-                    Product Name: {ticketDetail?.product?.name}{" "}
-                  </Typography>
-                </Grid>
-                <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>
-                    Product Code: {ticketDetail?.product?.code}{" "}
-                  </Typography>
-                </Grid>
-              </Grid>
+                <Card sx={{mb:2}}>
+                <Typography component="p" variant="h6" m={3}>Company Information</Typography>
+                  <Grid container spacing={2} m={2}>
+                    <Grid item lg={6} md={6} sm={12} xs={12}>
+                      <Typography>
+                        Company Email: {ticketDetail?.company?.email}
+                      </Typography>
+                    </Grid>
+                    <Grid item lg={6} md={6} sm={12} xs={12}>
+                      <Typography>
+                        Company Mobile No. {ticketDetail?.company?.phone_number}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Card>
+
+                <Card sx={{mb:2}}>
+                <Typography component="p" variant="h6" m={3}>Assign & Product Information</Typography>
+                  <Grid container spacing={2} m={2}>
+                    <Grid item lg={6} md={6} sm={12} xs={12}>
+                      <Typography>
+                        Ticekt Assign To : {ticketDetail?.user?.name}
+                      </Typography>
+                    </Grid>
+                    <Grid item lg={6} md={6} sm={12} xs={12}>
+                      <Typography>
+                        Ticekt Assign To : {ticketDetail?.user?.email}
+                      </Typography>
+                    </Grid>
+                    <Grid item lg={6} md={6} sm={12} xs={12}>
+                      <Typography>
+                        Product Name: {ticketDetail?.product?.name}{" "}
+                      </Typography>
+                    </Grid>
+                    <Grid item lg={6} md={6} sm={12} xs={12}>
+                      <Typography>
+                        Product Code: {ticketDetail?.product?.code}{" "}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Card>
+
+        
             </Container>
           </Card>
           <Card>

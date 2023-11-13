@@ -41,6 +41,10 @@ export const PATH_PAGE = {
 export const PATH_DASHBOARD = {
   root: ROOTS_DASHBOARD,
   app: path(ROOTS_DASHBOARD, "/app"),
+  profie: {
+    root: path(ROOTS_DASHBOARD, "/profile"),
+    my_profile: path(ROOTS_DASHBOARD, "/profile/my_profile"),
+  },
   admin: {
     root: path(ROOTS_DASHBOARD, "/admin"),
     admin: path(ROOTS_DASHBOARD, "/admin/admin"),
