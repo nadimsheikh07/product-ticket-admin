@@ -11,15 +11,16 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { useSnackbar } from "notistack";
+import React from "react";
 
 const DialogClientPasswords = ({ handleClose, open }) => {
-  const actionUrl = "admin/auth/update_password";
+  const actionUrl = `admin/auth/update_client_password/${open?.id}`;
   const { enqueueSnackbar } = useSnackbar();
   // const  token  = searchParams;
   const title = "Update Password";
   const formik = useFormik({
     initialValues: {
-      current_password: "",
+      // current_password: "",
       password: "",
       password_confirmation: "",
       // token: token,
@@ -27,9 +28,9 @@ const DialogClientPasswords = ({ handleClose, open }) => {
     validate: (values) => {
       const errors = {};
 
-      if (!values.current_password) {
-        errors.current_password = "Current password is required";
-      }
+      // if (!values.current_password) {
+      //   errors.current_password = "Current password is required";
+      // }
       const passwordRegex =
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
       if (!values.password) {
@@ -94,7 +95,7 @@ const DialogClientPasswords = ({ handleClose, open }) => {
 
   return (
     <>
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xs">
+      <Dialog open={open?.open} onClose={handleClose} fullWidth maxWidth="xs">
         <DialogTitle sx={{ m: 0, p: 2, mb: 2 }}>Update Password</DialogTitle>
         <IconButton
           aria-label="close"
@@ -108,9 +109,9 @@ const DialogClientPasswords = ({ handleClose, open }) => {
         >
           <CloseIcon />
         </IconButton>
-        <form  noValidate onSubmit={formik.handleSubmit}>
+        <form noValidate onSubmit={formik.handleSubmit}>
           <Container sx={{ mb: 1 }}>
-            <PasswordBox
+            {/* <PasswordBox
               fullWidth
               label="Current Password"
               name="current_password"
@@ -121,7 +122,7 @@ const DialogClientPasswords = ({ handleClose, open }) => {
               error={formik.touched.current_password && formik.errors.current_password}
               helperText={formik.touched.current_password && formik.errors.current_password}
               required
-            />
+            /> */}
             <PasswordBox
               fullWidth
               label="Password"
@@ -162,10 +163,11 @@ const DialogClientPasswords = ({ handleClose, open }) => {
               fullWidth
               variant="contained"
               size="large"
-              sx={{
-               
-                // bgcolor: "text.primary",
-              }}
+              sx={
+                {
+                  // bgcolor: "text.primary",
+                }
+              }
               type="submit"
             >
               Update password

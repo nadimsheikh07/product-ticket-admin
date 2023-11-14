@@ -150,7 +150,7 @@ export function AuthProvider({ children }) {
           label: user?.company?.name,
           ...user?.company,
         };
-        setCompanyDetail(JSON.stringify(companyDetail));
+        setCompanyDetail(companyDetail);
       }
     }
 

@@ -17,6 +17,8 @@ const NotAllowD = [
   "company_statuses",
   "catalog",
   "user_statuses",
+  "detail",
+  "history",
 ];
 
 const isShowDropdown = [

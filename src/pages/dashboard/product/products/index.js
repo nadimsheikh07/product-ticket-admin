@@ -17,6 +17,7 @@ const ProductsList = () => {
   const { push } = useRouter();
   const title = "Products";
   const formUrl = `${PATH_DASHBOARD.product.products}/form`;
+  const detailUrl = `${PATH_DASHBOARD.product.products}/detail`;
   const actionUrl = "admin/catalog/products";
   const columns = [
     {
@@ -34,6 +35,16 @@ const ProductsList = () => {
           }
           label="Edit"
           onClick={() => push(`${formUrl}/${params.id}`)}
+        />,
+          <GridActionsCellItem
+          key="viewAction"
+          icon={
+            <Tooltip title="Details">
+              <Iconify icon="bx:detail" width={25} />
+            </Tooltip>
+          }
+          label="Details"
+          onClick={() => push(`${detailUrl}/${params.id}`)}
         />,
       ],
     },

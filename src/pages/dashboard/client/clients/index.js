@@ -17,7 +17,10 @@ import React from "react";
 // import Head from "next/document";
 
 const CompanyEmployeesList = (formik) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState({
+    open: false,
+    id: "",
+  });
 
   const { push } = useRouter();
   const title = "Client";
@@ -25,12 +28,12 @@ const CompanyEmployeesList = (formik) => {
   const actionUrl = "admin/user/users";
   const { companyId } = useCompany();
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpen = (id) => {
+    setOpen({ open: true, id: id });
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpen({ open: false, id: "" });
   };
 
   const columns = [
@@ -60,7 +63,7 @@ const CompanyEmployeesList = (formik) => {
             </Tooltip>
           }
           label="Password"
-          onClick={handleClickOpen}
+          onClick={() => handleClickOpen(params?.id)}
         />,
       ],
     },
@@ -107,69 +110,8 @@ const CompanyEmployeesList = (formik) => {
 
   return (
     <>
-      {/* <Head>
-      <title>
-        login
-      </title>
-    </Head> */}
       <Box>
         <DialogClientPasswords handleClose={handleClose} open={open} />
-        {/* <Dialog
-        open={open}
-        onClose={handleClose}
-        fullWidth
-        maxWidth="xs"
-       
-      >
-        <DialogTitle sx={{ m: 0, p: 2 , mb:2}}>
-          Update Password
-        </DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: 'absolute',
-            right: 12,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-        <Container sx={{mb:1}}>
-          <PasswordBox
-            fullWidth
-            label="Password"
-            name="password"
-            value={formik?.values?.password}
-            // onChange={(e) => {
-            //   formik.setFieldValue("password", e.target.value.trim().replace);
-            // }}
-            // error={formik.touched.password && formik.errors.password}
-            // helperText={formik.touched.password && formik.errors.password}
-            required
-          />
-        </Container>
-        <Container>
-          <PasswordBox
-            fullWidth
-            label="Conform Password"
-            name="conform_password"
-            value={formik?.values?.conform_password}
-            // onChange={(e) => {
-            //   formik.setFieldValue("conform_password", e.target.value.trim().replace);
-            // }}
-            // error={formik.touched.conform_password && formik.errors.conform_password}
-            // helperText={formik.touched.conform_password && formik.errors.conform_password}
-            required
-          />
-        </Container>
-        <DialogActions>
-          <Button onClick={handleClose} variant="outlined">
-            Submit
-          </Button>
-        </DialogActions>
-      </Dialog> */}
       </Box>
       <ContainerComponent>
         <CustomBreadcrumbs

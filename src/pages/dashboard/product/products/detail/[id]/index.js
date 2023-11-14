@@ -1,88 +1,52 @@
-import React, { useEffect } from "react";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Container,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
-import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
+import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import TicketTimeline from "@/sections/dashboard/ticket/tickets/ticketTimeline";
 import axiosInstance from "@/utils/axios";
+import { Box, Card, Container, Grid, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/router";
-import { enqueueSnackbar } from "notistack";
+import React, { useEffect } from "react";
 
-const TicketHistory = () => {
+const ProductDetails = () => {
   const { query } = useRouter();
   const { id } = query;
-  const [histories, setHistories] = React.useState([]);
-  const [page, setPage] = React.useState(1);
-  const [pageSize, setPageSize] = React.useState(10);
-  const [totalHistory, setTotalHistory] = React.useState(0);
-  const [ticketDetail, setTicketDetail] = React.useState({});
 
-  const getTicketHistories = async () => {
+  const [detail, setDetail] = React.useState({});
+
+  const getDetail = async () => {
     await axiosInstance
-      .get(`admin/catalog/ticket_histories`, {
-        params: { page: page, pageSize: pageSize, ticket_id: id },
-      })
+      .get(`admin/catalog/products/${id}`)
       .then((response) => {
         if (response.status === 200) {
-          setHistories(response?.data?.data);
-          setTotalHistory(response?.data?.total);
+          setDetail(response?.data);
         }
       })
       .catch((error) => {
-        console.log("Ticket History Error", error);
-      });
-  };
-  const getTicketDetail = async () => {
-    await axiosInstance
-      .get(`admin/catalog/tickets/${id}`)
-      .then((response) => {
-        if (response.status === 200) {
-          setTicketDetail(response?.data);
-        }
-      })
-      .catch((error) => {
-        console.log("Ticket Detail Error", error);
+        console.log(" Product Error", error);
       });
   };
 
   useEffect(() => {
     if (id) {
-      getTicketDetail();
+      getDetail();
     }
   }, [id]);
-
-  useEffect(() => {
-    if (id) {
-      getTicketHistories();
-    }
-  }, [id, page, pageSize]);
 
   return (
     <>
       <Box>
         <CustomBreadcrumbs
-          heading="Ticket History"
+          heading="Product Details"
           links={[
             {
               name: "Dashboard",
               href: PATH_DASHBOARD.app,
             },
             {
-              name: "Ticket",
-              href: PATH_DASHBOARD.ticket.tickets,
+              name: "Product",
+              href: PATH_DASHBOARD.product.products,
             },
             {
-              name: "History",
+              name: "Detail",
               // href: "#",
             },
           ]}
@@ -92,31 +56,54 @@ const TicketHistory = () => {
           <Card variant="outlined">
             <Container>
               <Typography component="div" variant="h6" mt={3} mb={2}>
-                Ticket Created Date & Time: {ticketDetail?.created_at}
+                Product Created Date & Time: {detail?.created_at}
               </Typography>
 
               {/* <Grid container spacing={2} m={2}> */}
               <Card sx={{ mb: 2 }} variant="outlined">
-                <Typography component="p" variant="h6" m={3}>
-                  Client Information
+                <Typography component="div" variant="h6" m={3}>
+                  Product Information
                 </Typography>
                 <Grid container spacing={2} m={2}>
                   <Grid item lg={3} md={3} sm={12} xs={12}>
                     <Typography variant="subtitle1" component="div">
-                      Client Email:
+                      Product Name:
                     </Typography>
                   </Grid>
                   <Grid item lg={3} md={3} sm={12} xs={12}>
-                    {ticketDetail?.client?.email}
+                    {detail?.name}
                   </Grid>
                   <Grid item lg={3} md={3} sm={12} xs={12}>
                     <Typography variant="subtitle1" component="div">
-                      Client Mobile No.
+                      Product Code:
                     </Typography>
                   </Grid>
                   <Grid item lg={3} md={3} sm={12} xs={12}>
-                    {ticketDetail?.client?.phone}
+                    {detail?.code}
                   </Grid>
+                  {detail?.attributes &&
+                    detail?.attributes.map((item, index) => {
+                      return (
+                        <>
+                          <Grid item lg={3} md={3} sm={12} xs={12}>
+                            <Typography variant="subtitle1" component="div">
+                              Product Attribute:
+                            </Typography>
+                          </Grid>
+                          <Grid item lg={3} md={3} sm={12} xs={12}>
+                            {item?.attribute?.name}
+                          </Grid>
+                          <Grid item lg={3} md={3} sm={12} xs={12}>
+                            <Typography variant="subtitle1" component="div">
+                              Product Attribute Value:
+                            </Typography>
+                          </Grid>
+                          <Grid item lg={3} md={3} sm={12} xs={12}>
+                            {item?.value}
+                          </Grid>
+                        </>
+                      );
+                    })}
                 </Grid>
               </Card>
 
@@ -131,7 +118,7 @@ const TicketHistory = () => {
                     </Typography>
                   </Grid>
                   <Grid item lg={3} md={3} sm={12} xs={12}>
-                    {ticketDetail?.company?.email}
+                    {detail?.company?.email}
                   </Grid>
                   <Grid item lg={3} md={3} sm={12} xs={12}>
                     <Typography variant="subtitle1" component="div">
@@ -139,56 +126,43 @@ const TicketHistory = () => {
                     </Typography>
                   </Grid>
                   <Grid item lg={3} md={3} sm={12} xs={12}>
-                    {ticketDetail?.company?.phone_number}
+                    {detail?.company?.phone_number}
                   </Grid>
                 </Grid>
               </Card>
 
               <Card sx={{ mb: 5 }} variant="outlined">
                 <Typography component="p" variant="h6" m={3}>
-                  Assign & Product Information
+                  Client Information
                 </Typography>
                 <Grid container spacing={2} m={2}>
                   <Grid item lg={3} md={3} sm={12} xs={12}>
                     <Typography variant="subtitle1" component="div">
-                      Ticekt Assign To :
+                      Client :{" "}
                     </Typography>
                   </Grid>
                   <Grid item lg={3} md={3} sm={12} xs={12}>
-                    {ticketDetail?.user?.name}
+                    {detail?.client?.name}
                   </Grid>
                   <Grid item lg={3} md={3} sm={12} xs={12}>
                     <Typography variant="subtitle1" component="div">
-                      Ticekt Assign To :
+                      Client Email :
                     </Typography>
                   </Grid>
                   <Grid item lg={3} md={3} sm={12} xs={12}>
-                    {ticketDetail?.user?.email}
+                    {detail?.client?.email}
                   </Grid>
                   <Grid item lg={3} md={3} sm={12} xs={12}>
                     <Typography variant="subtitle1" component="div">
-                      Product Name:
+                      Client Mobile No:
                     </Typography>
                   </Grid>
                   <Grid item lg={3} md={3} sm={12} xs={12}>
-                    {ticketDetail?.product?.name}
-                  </Grid>
-                  <Grid item lg={3} md={3} sm={12} xs={12}>
-                    <Typography variant="subtitle1" component="div">
-                      Product Code:
-                    </Typography>
-                  </Grid>
-                  <Grid item lg={3} md={3} sm={12} xs={12}>
-                    {ticketDetail?.product?.code}
+                    {detail?.client?.phone}
                   </Grid>
                 </Grid>
               </Card>
             </Container>
-          </Card>
-          <Card variant="outlined">
-            <CardContent>
-              <TicketTimeline total={totalHistory} histories={histories} />
-            </CardContent>
           </Card>
         </Stack>
       </Box>
@@ -196,5 +170,5 @@ const TicketHistory = () => {
   );
 };
 
-TicketHistory.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
-export default TicketHistory;
+ProductDetails.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+export default ProductDetails;
