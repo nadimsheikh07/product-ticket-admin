@@ -3,13 +3,15 @@ import { Box, Container, Grid, useTheme } from "@mui/material";
 import React, { useState } from "react";
 import AppWidget from "./widget";
 import axiosInstance from "@/utils/axios";
+import useCompany from "@/hooks/useCompany";
 
 const DashboardSection = () => {
   const [user, setUser] = useState([]);
+  const { companyId } = useCompany();
 
   const getUsers = async () => {
     await axiosInstance
-      .get("/api/total_count")
+      .get("admin/auth/total_count")
       .then((response) => {
         if (response.status === 200) {
           setUser(response.data);
@@ -21,7 +23,7 @@ const DashboardSection = () => {
   };
   React.useEffect(() => {
     getUsers();
-  }, []);
+  }, [companyId]);
 
   const theme = useTheme();
   return (
@@ -48,7 +50,7 @@ const DashboardSection = () => {
             // }}
           />
         </Grid>
-         <Grid item md={3} sm={6} xs={12}>
+        <Grid item md={3} sm={6} xs={12}>
           <AppWidget
             title="Total Company Employee"
             total={user?.totalEmployee}

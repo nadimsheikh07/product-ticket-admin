@@ -35,7 +35,7 @@ const AdminProfile = ({
               <CardContent>
                 <Stack direction="row" spacing={20}>
                   <Box>
-                    <Typography sx={{ fontSize: 14 }} variant="h6" gutterBottom>
+                    <Typography component="div" variant="h6" mt={1} mb={2} gutterBottom>
                       Profile Information
                     </Typography>
                    

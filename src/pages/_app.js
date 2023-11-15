@@ -11,6 +11,7 @@ import "react-chat-elements/dist/main.css";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { StepperProvider } from "@/components/stepper/stepperContext";
 import { CompanyProvider } from "@/contexts/CompanyContext";
+import PermissionGuard from "@/auth/permissionGuard";
 export default function App(props) {
   const { Component, pageProps } = props;
   const getLayout = Component.getLayout ?? ((page) => page);
@@ -18,21 +19,23 @@ export default function App(props) {
     <CompanyProvider>
       <AuthProvider>
         <ThemeProvider>
-          <CollapseDrawerProvider>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <SettingsProvider>
-                <MotionLazyContainer>
-                  <ThemeSettings>
-                    <SnackbarProvider>
-                      <StepperProvider>
-                        {getLayout(<Component {...pageProps} />)}
-                      </StepperProvider>
-                    </SnackbarProvider>
-                  </ThemeSettings>
-                </MotionLazyContainer>
-              </SettingsProvider>
-            </LocalizationProvider>
-          </CollapseDrawerProvider>
+          <PermissionGuard>
+            <CollapseDrawerProvider>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <SettingsProvider>
+                  <MotionLazyContainer>
+                    <ThemeSettings>
+                      <SnackbarProvider>
+                        <StepperProvider>
+                          {getLayout(<Component {...pageProps} />)}
+                        </StepperProvider>
+                      </SnackbarProvider>
+                    </ThemeSettings>
+                  </MotionLazyContainer>
+                </SettingsProvider>
+              </LocalizationProvider>
+            </CollapseDrawerProvider>
+          </PermissionGuard>
         </ThemeProvider>
       </AuthProvider>
     </CompanyProvider>

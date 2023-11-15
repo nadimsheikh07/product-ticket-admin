@@ -26,6 +26,7 @@ const TicketsList = () => {
   const formUrl = `${PATH_DASHBOARD.ticket.tickets}/form`;
   const chatUrl = `${PATH_DASHBOARD.ticket.tickets}/chat`;
   const historyUrl = `${PATH_DASHBOARD.ticket.tickets}/history`;
+  const detailUrl = `${PATH_DASHBOARD.ticket.tickets}/detail`;
   const actionUrl = "admin/catalog/tickets";
   const [refreshTicket, setRefreshTicket] = React.useState(false);
 
@@ -113,6 +114,16 @@ const TicketsList = () => {
           }
           label="History"
           onClick={() => push(`${historyUrl}/${params.id}`)}
+        />,
+         <GridActionsCellItem
+          key="viewAction"
+          icon={
+            <Tooltip title="Detail">
+              <Iconify icon="bx:detail" width={25} />
+            </Tooltip>
+          }
+          label="Detail"
+          onClick={() => push(`${detailUrl}/${params.id}`)}
         />,
       ],
     },

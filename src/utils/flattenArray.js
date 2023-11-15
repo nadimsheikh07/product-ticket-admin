@@ -14,3 +14,27 @@ export default function flattenArray(list, key = "children") {
     children.length ? flattenArray(children, key) : children
   );
 }
+
+export const flattenThreeDimensionalArray = (
+  list = [],
+  firstKey = "items",
+  secondKey = "children"
+) => {
+  let newArray = [];
+  list &&
+    list.forEach((subElement) => {
+      newArray.push(subElement);
+      if (subElement && subElement[firstKey]?.length > 0)
+        subElement[firstKey] &&
+          subElement[firstKey].forEach((itemElement) => {
+            newArray.push(itemElement);
+            if (itemElement && itemElement[secondKey]?.length > 0) {
+              itemElement[secondKey] &&
+                itemElement[secondKey].forEach((childElement) => {
+                  newArray.push(childElement);
+                });
+            }
+          });
+    });
+  return newArray;
+};

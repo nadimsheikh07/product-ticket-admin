@@ -2,15 +2,16 @@ import React from "react";
 import { useRouter } from "next/router";
 import navConfig from "@/layouts/dashboard/nav/config-navigation";
 import { useAuthContext } from "@/auth/useAuthContext";
+import { flattenThreeDimensionalArray } from "@/utils/flattenArray";
 
 const useMenu = () => {
   const { user } = useAuthContext();
   const { pathname } = useRouter();
   const [navConfigMenu, setNavConfigMenu] = React.useState([]);
+  const [permission, setPermission] = React.useState([]);
 
   const setMenu = async () => {
     let menus = [];
-
     navConfig.forEach((subHeader, subHeaderIndex) => {
       menus.push({
         subheader: subHeader?.subheader,
@@ -50,18 +51,38 @@ const useMenu = () => {
     await setNavConfigMenu(menus);
   };
 
+  const setPermissions = async () => {
+    let permissions = [];
+
+    let PermissionArray = await flattenThreeDimensionalArray(
+      navConfig,
+      "items",
+      "children"
+    );
+
+    PermissionArray && PermissionArray?.length > 0;
+    PermissionArray.forEach((element) => {
+      if (element?.isSuperAdmin) {
+        permissions.push(element?.path);
+      }
+    });
+
+    await setPermission(permissions);
+  };
+
   React.useEffect(() => {
     if (user && user?.user_type && user?.user_type !== "super_admin") {
       setMenu();
+      setPermissions();
     } else {
       setNavConfigMenu(navConfig);
+      setPermission([]);
     }
   }, [navConfig, user, pathname]);
 
-  console.log("navConfigMenu", navConfigMenu);
-
   return {
     navConfigMenu,
+    permission,
   };
 };
 
