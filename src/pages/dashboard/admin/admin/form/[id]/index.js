@@ -3,7 +3,7 @@ import { ContainerComponent } from "@/components/container";
 import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import { UserFormSection } from "@/sections/dashboard/user/users";
+import { AdminFormSection } from "@/sections/dashboard/admin/admin";
 import axiosInstance from "@/utils/axios";
 import { LoadingButton } from "@mui/lab";
 import { Stack } from "@mui/material";
@@ -12,12 +12,12 @@ import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import React from "react";
 
-const UserPageForm = () => {
+const AdminPageForm = () => {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
   const { id } = router.query;
-  const title = "User Form";
-  const backUrl = `${PATH_DASHBOARD.user.user}`;
+  const title = "Admin";
+  const backUrl = `${PATH_DASHBOARD.admin.admin}`;
   const actionUrl = "admin/user/users";
 
   const formik = useFormik({
@@ -27,7 +27,7 @@ const UserPageForm = () => {
       password: "",
       phone: "",
       photo: "",
-      user_type: "admin",
+      user_type: process.env.NEXT_PUBLIC_ADMIN_TYPE,
       is_active: true,
     },
     validate: (values) => {
@@ -115,7 +115,7 @@ const UserPageForm = () => {
     await axiosInstance
       .get(`${actionUrl}/${id}`, {
         params: {
-          user_type: "admin",
+          user_type: process.env.NEXT_PUBLIC_SUPER_ADMIN_TYPE,
         },
       })
       .then((response) => {
@@ -142,21 +142,21 @@ const UserPageForm = () => {
   return (
     <ContainerComponent>
       <CustomBreadcrumbs
-        heading={title}
+        heading={`${title} Form`}
         links={[
           {
             name: "Dashboard",
             href: PATH_DASHBOARD.app,
           },
           {
-            name: "User",
+            name: title,
             href: backUrl,
           },
-          { name: title },
+          { name: "Form" },
         ]}
       />
       <form noValidate onSubmit={formik.handleSubmit}>
-        <UserFormSection formik={formik} id={id} />
+        <AdminFormSection formik={formik} id={id} />
         <Stack alignItems="flex-end" sx={{ mt: 3 }}>
           <LoadingButton
             type="submit"
@@ -170,6 +170,6 @@ const UserPageForm = () => {
     </ContainerComponent>
   );
 };
-UserPageForm.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+AdminPageForm.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
-export default UserPageForm;
+export default AdminPageForm;

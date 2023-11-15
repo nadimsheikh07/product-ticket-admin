@@ -23,7 +23,7 @@ const ProductsFormSection = ({ formik, generateCode }) => {
       .get("/admin/user/users", {
         params: {
           isActive: true,
-          user_type: "client",
+          user_type: process.env.NEXT_PUBLIC_CLIENT_TYPE,
           ...params,
         },
       })

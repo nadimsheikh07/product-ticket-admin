@@ -36,7 +36,7 @@ export default function AuthLoginForm() {
   const defaultValues = {
     email: "",
     password: "",
-    user_type: "admin",
+    user_type: `${process.env.NEXT_PUBLIC_SUPER_ADMIN_TYPE},${process.env.NEXT_PUBLIC_ADMIN_TYPE}`,
   };
 
   const methods = useForm({
@@ -53,10 +53,18 @@ export default function AuthLoginForm() {
 
   const onSubmit = async (data) => {
     try {
-      await login(data);
+      const response = await login(data);
+      enqueueSnackbar(response?.data?.message, {
+        variant: "success",
+      });
     } catch (error) {
       console.error(error);
       const { response } = error;
+      // reset();
+      setError("afterSubmit", {
+        ...error,
+        message: response?.data?.message,
+      });
       enqueueSnackbar(
         response?.data?.message ||
           "Something went wrong please try again later.",
@@ -64,11 +72,6 @@ export default function AuthLoginForm() {
           variant: "error",
         }
       );
-      reset();
-      setError("afterSubmit", {
-        ...error,
-        message: response?.data?.message,
-      });
     }
   };
 

@@ -25,8 +25,9 @@ const TicketHistory = () => {
   const [page, setPage] = React.useState(1);
   const [pageSize, setPageSize] = React.useState(10);
   const [totalHistory, setTotalHistory] = React.useState(0);
+  const [ticketDetail, setTicketDetail] = React.useState({});
 
-  const TicketHistories = async () => {
+  const getTicketHistories = async () => {
     await axiosInstance
       .get(`admin/catalog/ticket_histories`, {
         params: { page: page, pageSize: pageSize, ticket_id: id },
@@ -41,9 +42,28 @@ const TicketHistory = () => {
         console.log("Ticket History Error", error);
       });
   };
+  const getTicketDetail = async () => {
+    await axiosInstance
+      .get(`admin/catalog/tickets/${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          setTicketDetail(response?.data);
+        }
+      })
+      .catch((error) => {
+        console.log("Ticket Detail Error", error);
+      });
+  };
+
   useEffect(() => {
     if (id) {
-      TicketHistories();
+      getTicketDetail();
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (id) {
+      getTicketHistories();
     }
   }, [id, page, pageSize]);
 
@@ -69,36 +89,103 @@ const TicketHistory = () => {
           // action={<Button variant="contained" >Back</Button>}
         />
         <Stack spacing={2}>
-          <Card>
+          <Card variant="outlined">
             <Container>
-              <Typography variant="h5" component="h5" m={2}>
-                {/* {histories[0]?.detail}  */}
-                <Typography>Ticket Created Date & Time:  {histories[0]?.created_at}</Typography>
+              <Typography component="div" variant="h6" mt={3} mb={2}>
+                Ticket Created Date & Time: {ticketDetail?.created_at}
               </Typography>
 
-              <Grid container spacing={2} m={2}>
-                <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>Client Email: {histories[0]?.client?.email}</Typography>
+              {/* <Grid container spacing={2} m={2}> */}
+              <Card sx={{ mb: 2 }} variant="outlined">
+                <Typography component="p" variant="h6" m={3}>
+                  Client Information
+                </Typography>
+                <Grid container spacing={2} m={2}>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    <Typography variant="subtitle1" component="div">
+                      Client Email:
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    {ticketDetail?.client?.email}
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    <Typography variant="subtitle1" component="div">
+                      Client Mobile No.
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    {ticketDetail?.client?.phone}
+                  </Grid>
                 </Grid>
-                <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>Client Mobile No. {histories[0]?.client?.phone}</Typography>
+              </Card>
+
+              <Card sx={{ mb: 2 }} variant="outlined">
+                <Typography component="p" variant="h6" m={3}>
+                  Company Information
+                </Typography>
+                <Grid container spacing={2} m={2}>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    <Typography variant="subtitle1" component="div">
+                      Company Email:
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    {ticketDetail?.company?.email}
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    <Typography variant="subtitle1" component="div">
+                      Company Mobile No.
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    {ticketDetail?.company?.phone_number}
+                  </Grid>
                 </Grid>
-                <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>Company Email: {histories[0]?.company?.email}</Typography>
+              </Card>
+
+              <Card sx={{ mb: 5 }} variant="outlined">
+                <Typography component="p" variant="h6" m={3}>
+                  Assign & Product Information
+                </Typography>
+                <Grid container spacing={2} m={2}>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    <Typography variant="subtitle1" component="div">
+                      Ticekt Assign To :
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    {ticketDetail?.user?.name}
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    <Typography variant="subtitle1" component="div">
+                      Ticekt Assign To :
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    {ticketDetail?.user?.email}
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    <Typography variant="subtitle1" component="div">
+                      Product Name:
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    {ticketDetail?.product?.name}
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    <Typography variant="subtitle1" component="div">
+                      Product Code:
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    {ticketDetail?.product?.code}
+                  </Grid>
                 </Grid>
-                <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>Company Mobile No. {histories[0]?.company?.phone_number}</Typography>
-                </Grid>
-                <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>Ticekt Assign To : {histories[0]?.user?.name}</Typography>
-                </Grid>
-                {/* <Grid item lg={6} md={6} sm={12} xs={12}>
-                  <Typography>User Mobile No.</Typography>
-                </Grid> */}
-              </Grid>
+              </Card>
             </Container>
           </Card>
-          <Card>
+          <Card variant="outlined">
             <CardContent>
               <TicketTimeline total={totalHistory} histories={histories} />
             </CardContent>

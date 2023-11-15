@@ -1,15 +1,17 @@
 "use client";
-import { Box, Grid, useTheme } from "@mui/material";
+import { Box, Container, Grid, useTheme } from "@mui/material";
 import React, { useState } from "react";
 import AppWidget from "./widget";
 import axiosInstance from "@/utils/axios";
+import useCompany from "@/hooks/useCompany";
 
 const DashboardSection = () => {
   const [user, setUser] = useState([]);
+  const { companyId } = useCompany();
 
   const getUsers = async () => {
     await axiosInstance
-      .get("/api/total_count")
+      .get("admin/auth/total_count")
       .then((response) => {
         if (response.status === 200) {
           setUser(response.data);
@@ -21,16 +23,16 @@ const DashboardSection = () => {
   };
   React.useEffect(() => {
     getUsers();
-  }, []);
+  }, [companyId]);
 
   const theme = useTheme();
   return (
-    <Box>
+    <Container>
       <Grid container spacing={2}>
         <Grid item md={3} sm={6} xs={12}>
           <AppWidget
-            title="Total Users"
-            total={user?.totalUsers}
+            title="Total Admin"
+            total={user?.totalAdmin}
             icon="eva:person-fill"
             // chart={{
             //   series: 48,
@@ -39,10 +41,32 @@ const DashboardSection = () => {
         </Grid>
         <Grid item md={3} sm={6} xs={12}>
           <AppWidget
+            title="Total Company"
+            total={user?.totalCompany}
+            icon="mdi:company"
+            color="info"
+            // chart={{
+            //   series: 75,
+            // }}
+          />
+        </Grid>
+        <Grid item md={3} sm={6} xs={12}>
+          <AppWidget
+            title="Total Company Employee"
+            total={user?.totalEmployee}
+            icon="clarity:employee-solid"
+            color="info"
+            // chart={{
+            //   series: 75,
+            // }}
+          />
+        </Grid>
+        <Grid item md={3} sm={6} xs={12}>
+          <AppWidget
             title="Total Clients"
             total={user?.totalClients}
-            icon="octicon:person-16"
-            color="info"
+            icon="material-symbols:person"
+            color="error"
             // chart={{
             //   series: 75,
             // }}
@@ -70,8 +94,19 @@ const DashboardSection = () => {
             // }}
           />
         </Grid>
+        <Grid item md={3} sm={6} xs={12}>
+          <AppWidget
+            title="Total Open Tickets"
+            total={user?.openTicketCount}
+            icon="lets-icons:ticket-duotone"
+            color="primary"
+            // chart={{
+            //   series: 75,
+            // }}
+          />
+        </Grid>
       </Grid>
-    </Box>
+    </Container>
   );
 };
 export default DashboardSection;

@@ -1,8 +1,10 @@
+import { useAuthContext } from "@/auth/useAuthContext";
 import { PasswordBox, TextBox } from "@/components/form";
-import { userType } from "@/utils/constant";
+// import { userType } from "@/utils/constant";
 import { Grid } from "@mui/material";
 
-const UserFormSection = ({ formik, id }) => {
+const AdminFormSection = ({ formik, id }) => {
+  const { user } = useAuthContext();
   return (
     <Grid container spacing={2}>
       {/* <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -36,6 +38,7 @@ const UserFormSection = ({ formik, id }) => {
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <TextBox
           fullWidth
+          disabled={user && user?.user_type != "super_admin"}
           isMaxLenght={50}
           label="Email"
           name="email"
@@ -77,7 +80,10 @@ const UserFormSection = ({ formik, id }) => {
             name="password"
             value={formik?.values?.password}
             onChange={(e) => {
-              formik.setFieldValue("password", e.target.value.trim().replace(" ",""));
+              formik.setFieldValue(
+                "password",
+                e.target.value.trim().replace(" ", "")
+              );
             }}
             error={formik.touched.password && formik.errors.password}
             helperText={formik.touched.password && formik.errors.password}
@@ -100,4 +106,4 @@ const UserFormSection = ({ formik, id }) => {
   );
 };
 
-export default UserFormSection;
+export default AdminFormSection;

@@ -6,6 +6,7 @@ import useCompany from "@/hooks/useCompany";
 import axiosInstance from "@/utils/axios";
 import { Box } from "@mui/material";
 import { useRouter } from "next/router";
+import { find } from "lodash";
 
 const NotAllowD = [
   "form",
@@ -16,14 +17,15 @@ const NotAllowD = [
   "company_statuses",
   "catalog",
   "user_statuses",
+  "detail",
+  "history",
 ];
 
 const isShowDropdown = [
   "/dashboard/company/companies",
   "/dashboard/company/companies/form/[id]",
   "/dashboard/company/companies/form/new",
-  "/dashboard/user/users",
-  "/dashboard/user/users/form/[id]",
+  "/dashboard/profile/my_profile",
 ];
 const AllowD = [];
 
@@ -56,7 +58,6 @@ const isShow = (path) => {
 const SelectCompany = () => {
   const { user } = useAuthContext();
   const { pathname } = useRouter();
-  // const [companies, setCompanies] = React.useState([]);
   const {
     companyId,
     setCompany,
@@ -70,34 +71,6 @@ const SelectCompany = () => {
     let isShow = isShowDropdown.includes(pathname);
     return isShow;
   };
-
-  // const getCompany = async (params) => {
-  //   await axiosInstance
-  //     .get("/admin/company/companies", {
-  //       params: {
-  //         isActive: true,
-  //         ...params,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       if (response.status === 200) {
-  //         let options = [];
-  //         response?.data &&
-  //           response?.data?.length > 0 &&
-  //           response?.data.forEach((item) => {
-  //             options.push({
-  //               label: item?.name,
-  //               value: item?.id,
-  //               ...item,
-  //             });
-  //           });
-  //         setCompanies(options);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log("Select Company Error", error);
-  //     });
-  // };
 
   React.useEffect(() => {
     getCompanies();
@@ -120,11 +93,25 @@ const SelectCompany = () => {
       const company_id =
         JSON.parse(window.localStorage.getItem("companyId")) ||
         user?.company_id;
-      let findCompany = find(companies, { id: Number(company_id) });
-      setCompanyDetail(JSON.stringify(findCompany));
+      let findCompanyDetail;
+      if (companies?.length > 0) {
+        findCompanyDetail = find(companies, { id: Number(company_id) }) || "";
+        console.log("findCompanyDetail", findCompanyDetail);
+
+        setCompanyDetail(findCompanyDetail);
+      } else {
+        findCompanyDetail = {
+          label: user?.company?.name,
+          value: user?.company_id,
+          ...user?.company,
+        };
+        setCompanyDetail(findCompanyDetail);
+      }
     }
-  }, [user, companies, user?.company_id]);
-  console.log("companies", companies);
+  }, [user, user?.company_id]);
+
+  console.log("companyDetail", companyDetail);
+
   return (
     <Box component="div" sx={{ flexGrow: 1 }}>
       {/* {!isShowCompanyDropdown() && (
@@ -151,14 +138,19 @@ const SelectCompany = () => {
           }}
         />
       )} */}
-      {!isShowCompanyDropdown() && (
+      {user && user?.user_type != "admin" && !isShowCompanyDropdown() && (
         <SelectMuiAutocomplete
           name="companyDetail"
           value={companyDetail}
           placeholder="Select Company"
           onChange={(e) => {
-            setCompany(e?.id || null);
-            setCompanyDetail(JSON.stringify(e));
+            if (e) {
+              setCompany(e?.value ? e?.value : null);
+              setCompanyDetail(e);
+            } else {
+              setCompany(null);
+              setCompanyDetail(null);
+            }
           }}
           disabled={!Allow() && NotAllow()}
           options={companies}

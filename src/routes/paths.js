@@ -41,9 +41,14 @@ export const PATH_PAGE = {
 export const PATH_DASHBOARD = {
   root: ROOTS_DASHBOARD,
   app: path(ROOTS_DASHBOARD, "/app"),
-  user: {
-    root: path(ROOTS_DASHBOARD, "/user"),
-    user: path(ROOTS_DASHBOARD, "/user/users"),
+  profie: {
+    root: path(ROOTS_DASHBOARD, "/profile"),
+    my_profile: path(ROOTS_DASHBOARD, "/profile/my_profile"),
+  },
+  admin: {
+    root: path(ROOTS_DASHBOARD, "/admin"),
+    admin: path(ROOTS_DASHBOARD, "/admin/admin"),
+    super_admin: path(ROOTS_DASHBOARD, "/admin/super_admin"),
   },
   company: {
     root: path(ROOTS_DASHBOARD, "/company"),

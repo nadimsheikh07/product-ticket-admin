@@ -1,23 +1,48 @@
-import {
-  DragDrop,
-  MuiAutocompleteBox,
-  SelectMuiAutocomplete,
-  TextBox,
-} from "@/components/form";
+import { DragDrop, SelectMuiAutocomplete, TextBox } from "@/components/form";
 import SelectBox from "@/components/form/select";
-import SelectAutocomplete from "@/components/form/selectAutocomplete";
 import axiosInstance from "@/utils/axios";
 import { status } from "@/utils/constant";
-import { Box, Grid } from "@mui/material";
-import { isEmpty } from "lodash";
-import React, { useMemo } from "react";
+import { Grid } from "@mui/material";
+import React from "react";
 
 const TicketsFormSection = ({ formik, id }) => {
-  const [users, setUsers] = React.useState([]);
+  const [user, setUser] = React.useState([]);
   const [client, setClient] = React.useState([]);
   const [products, setProducts] = React.useState([]);
 
-  const getUsers = async (params) => {
+  const getUsers = async (search = null) => {
+    await axiosInstance
+      .get("/admin/user/users", {
+        params: {
+          isActive: true,
+          search: search,
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          let options = [];
+          response?.data &&
+            response?.data?.length > 0 &&
+            response?.data.forEach((item) => {
+              options.push({
+                label: item?.name,
+                value: item?.id,
+                ...item,
+              });
+            });
+          setUser(options);
+        }
+      })
+      .catch((error) => {
+        console.log("Select Client Error", error);
+      });
+  };
+
+  React.useEffect(() => {
+    getUsers();
+  }, []);
+
+  const getUser = async (params) => {
     await axiosInstance
       .get("/admin/user/users", {
         params: {
@@ -50,12 +75,12 @@ const TicketsFormSection = ({ formik, id }) => {
     getUsers();
   }, []);
 
-  const getClient = async (params) => {
+  const getClients = async (params) => {
     setProducts([]);
     await axiosInstance
       .get("admin/user/users", {
         params: {
-          user_type: "client",
+          user_type: process.env.NEXT_PUBLIC_CLIENT_TYPE,
           isActive: true,
           ...params,
         },
@@ -72,7 +97,7 @@ const TicketsFormSection = ({ formik, id }) => {
                 ...item,
               });
             });
-          setClient(options);
+          setClients(options);
         }
       })
       .catch((error) => {
@@ -81,9 +106,10 @@ const TicketsFormSection = ({ formik, id }) => {
   };
 
   React.useEffect(() => {
-    getClient();
+    getClients();
   }, []);
-  const getProducts = async (params) => {
+
+  const getProduct = async (params) => {
     setProducts([]);
     await axiosInstance
     .get("admin/catalog/products", {
@@ -111,13 +137,10 @@ const TicketsFormSection = ({ formik, id }) => {
         console.log("Client Error", error);
       });
   };
-  // React.useEffect(() => {
-  //   getProducts();
-  // }, []);
 
   // React.useEffect(() => {
   //   if (formik.values.client_id) {
-  //     getProducts(null);
+  //     getProduct(null);
   //   }
   // }, [formik.values.client_id, id]);
 
@@ -167,8 +190,8 @@ const TicketsFormSection = ({ formik, id }) => {
               setProducts([]);
             }
           }}
-          options={client}
-          searchData={getClient}
+          options={clients}
+          searchData={getClients}
           helperText={formik.touched.client_id && formik.errors.client_id}
           required
         />

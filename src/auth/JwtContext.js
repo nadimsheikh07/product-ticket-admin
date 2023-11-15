@@ -15,6 +15,7 @@ import axiosInstance from "@/utils/axios";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/router";
 import useCompany from "@/hooks/useCompany";
+import { isEmpty } from "lodash";
 // ----------------------------------------------------------------------
 
 // NOTE:
@@ -74,9 +75,8 @@ AuthProvider.propTypes = {
 
 export function AuthProvider({ children }) {
   const { pathname } = useRouter();
-  const { setCompany, setCompanyDetail } = useCompany();
+  const { setCompany, setCompanyDetail, removeCompany } = useCompany();
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { enqueueSnackbar } = useSnackbar();
   const storageAvailable = localStorageAvailable();
   const initialize = useCallback(async () => {
     try {
@@ -92,17 +92,16 @@ export function AuthProvider({ children }) {
 
         const response = await axiosInstance.get("admin/auth/profile");
         const { user } = response.data;
-        if (user?.company_id) {
+        if (user?.company_id && user?.user_type != "super_admin") {
           setCompany(user?.company_id);
-          let companyDetail = {
-            value: user?.id,
-            label: user?.company?.name,
-            ...user?.company,
-          };
-          setCompanyDetail(companyDetail);
-          enqueueSnackbar("Success", {
-            variant: "success",
-          });
+          if (!isEmpty(user?.company)) {
+            let companyDetail = {
+              value: user?.company_id,
+              label: user?.company?.name,
+              ...user?.company,
+            };
+            setCompanyDetail(JSON.stringify(companyDetail));
+          }
         }
 
         dispatch({
@@ -145,16 +144,16 @@ export function AuthProvider({ children }) {
     const { accessToken, user } = response.data;
     if (user?.company_id) {
       setCompany(user?.company_id);
-      let companyDetail = {
-        value: user?.id,
-        label: user?.company?.name,
-        ...user?.company,
-      };
-      setCompanyDetail(companyDetail);
-      enqueueSnackbar("Success", {
-        variant: "success",
-      });
+      if (!isEmpty(user?.company)) {
+        let companyDetail = {
+          value: user?.company_id,
+          label: user?.company?.name,
+          ...user?.company,
+        };
+        setCompanyDetail(companyDetail);
+      }
     }
+
     setSession(accessToken);
 
     dispatch({
@@ -164,6 +163,8 @@ export function AuthProvider({ children }) {
         user,
       },
     });
+
+    return response;
   }, []);
 
   // REGISTER
@@ -188,6 +189,8 @@ export function AuthProvider({ children }) {
 
   // LOGOUT
   const logout = useCallback(() => {
+    localStorage.removeItem("companyId", null);
+    localStorage.removeItem("companyDetail", null);
     setSession(null);
     dispatch({
       type: "LOGOUT",
