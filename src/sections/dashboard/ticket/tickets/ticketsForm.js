@@ -6,48 +6,16 @@ import { Grid } from "@mui/material";
 import React from "react";
 
 const TicketsFormSection = ({ formik, id }) => {
-  const [user, setUser] = React.useState([]);
-  const [client, setClient] = React.useState([]);
+  const [users, setUsers] = React.useState([]);
+  const [clients, setClients] = React.useState([]);
   const [products, setProducts] = React.useState([]);
 
-  const getUsers = async (search = null) => {
+  const getUsers = async (params) => {
     await axiosInstance
       .get("/admin/user/users", {
         params: {
           isActive: true,
-          search: search,
-        },
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          let options = [];
-          response?.data &&
-            response?.data?.length > 0 &&
-            response?.data.forEach((item) => {
-              options.push({
-                label: item?.name,
-                value: item?.id,
-                ...item,
-              });
-            });
-          setUser(options);
-        }
-      })
-      .catch((error) => {
-        console.log("Select Client Error", error);
-      });
-  };
-
-  React.useEffect(() => {
-    getUsers();
-  }, []);
-
-  const getUser = async (params) => {
-    await axiosInstance
-      .get("/admin/user/users", {
-        params: {
-          isActive: true,
-          user_type: "admin,user",
+          user_type: `${process.env.NEXT_PUBLIC_ADMIN_TYPE},${process.env.NEXT_PUBLIC_EMPLOYEE_TYPE}`,
           ...params,
         },
       })
@@ -109,34 +77,35 @@ const TicketsFormSection = ({ formik, id }) => {
     getClients();
   }, []);
 
-  const getProduct = async (params) => {
+  const getProducts = async (params) => {
     setProducts([]);
     await axiosInstance
-    .get("admin/catalog/products", {
-      params: {
-        ...params,
-      },
-    })
-    .then((response) => {
-      if (response.status === 200) {
-        let options = [];
-        response?.data &&
-        response?.data?.length > 0 &&
-        response?.data.forEach((item) => {
-          options.push({
-            label: item?.name,
-            value: item?.id,
-            ...item,
-          });
-            });
-          setProducts(options);
-        }
+      .get("admin/catalog/products", {
+        params: {
+          ...params,
+        },
       })
-      .catch((error) => {
-        setProducts([]);
-        console.log("Client Error", error);
-      });
-  };
+      .then(async (response) => {
+        if (response.status === 200) {
+          let options = [];
+          {console.log("products",response?.data)}
+          response?.data &&
+            response?.data?.length > 0 &&
+            response?.data.forEach((item) => {
+              options.push({
+                label: item?.name,
+                value: item?.id,
+                ...item,
+              });
+            });
+            await setProducts(options);
+          }
+        })
+        .catch((error) => {
+          setProducts([]);
+          console.log("Client Error", error);
+        });
+      };
 
   // React.useEffect(() => {
   //   if (formik.values.client_id) {
