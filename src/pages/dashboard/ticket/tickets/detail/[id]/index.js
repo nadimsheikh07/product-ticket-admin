@@ -2,7 +2,7 @@ import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import axiosInstance from "@/utils/axios";
-import { Box, Card, Container, Grid, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Card, Container, Grid, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
@@ -61,25 +61,46 @@ const TicketDetails = () => {
 
               {/* <Grid container spacing={2} m={2}> */}
               <Card sx={{ mb: 2 }} variant="outlined">
+              <Grid item lg={3} md={3} sm={12} xs={12}>
                 <Typography component="div" variant="h6" m={3}>
                   Ticket Details
                 </Typography>
+                </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                  <Avatar src={detail?.file}/>
+                  </Grid>
                 <Grid container spacing={2} m={2}>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    <Typography variant="subtitle1" component="div">
+                      Client Name:
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    {detail?.client?.name}
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    <Typography variant="subtitle1" component="div">
+                      Company Name:
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    {detail?.company?.name}
+                  </Grid>
                   <Grid item lg={3} md={3} sm={12} xs={12}>
                     <Typography variant="subtitle1" component="div">
                       Product Name:
                     </Typography>
                   </Grid>
                   <Grid item lg={3} md={3} sm={12} xs={12}>
-                    {detail?.name}
+                    {detail?.product?.name}
                   </Grid>
                   <Grid item lg={3} md={3} sm={12} xs={12}>
                     <Typography variant="subtitle1" component="div">
-                      Product Code:
+                      Assign To:
                     </Typography>
                   </Grid>
                   <Grid item lg={3} md={3} sm={12} xs={12}>
-                    {detail?.code}
+                    {detail?.user?.name}
                   </Grid>
                   {/* {detail?.attributes &&
                     detail?.attributes.map((item, index) => {
