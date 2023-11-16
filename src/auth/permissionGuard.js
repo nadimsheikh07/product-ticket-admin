@@ -24,9 +24,15 @@ export default function PermissionGuard({ children }) {
 
   const [isPermission, setIsPermission] = useState(true);
   const [loader, setLoader] = useState(true);
-
+  console.log("isAuthenticated", isAuthenticated);
   useEffect(() => {
-    if (user && permission?.length > 0 && user?.user_type != "super_admin") {
+    if (
+      isAuthenticated &&
+      isInitialized &&
+      user &&
+      permission?.length > 0 &&
+      user?.user_type != "super_admin"
+    ) {
       if (some(permission, (item) => startsWith(pathname, item))) {
         setLoader(false);
         console.log("this is authenticated");
@@ -34,7 +40,7 @@ export default function PermissionGuard({ children }) {
       } else {
         setLoader(false);
       }
-    } else if (user?.user_type == "super_admin") {
+    } else {
       setLoader(false);
     }
   }, [permission, pathname, isAuthenticated, user]);

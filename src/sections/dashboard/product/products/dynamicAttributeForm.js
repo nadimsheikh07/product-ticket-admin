@@ -194,12 +194,12 @@ const DynamicAttributeForm = ({
                         <TableCell component="th" scope="row">
                           {item?.attribute_id?.label}
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell align="left">
                           <Typography
                             component="p"
                             variant="body2"
                             noWrap
-                            maxWidth="26px"
+                            maxWidth="100px"
                             width="100%"
                           >
                             {item.value}

@@ -89,6 +89,7 @@ const ProductsList = () => {
       field: "serial_number",
       headerName: "Serial No.",
       width: "150",
+      
     },
     {
       field: "invoice_number",

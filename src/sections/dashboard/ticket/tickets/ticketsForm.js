@@ -12,7 +12,7 @@ const TicketsFormSection = ({ formik, id }) => {
 
   const getUsers = async (params) => {
     await axiosInstance
-      .get("/admin/user/get_admins", {
+      .get("/admin/user/users", {
         params: {
           isActive: true,
           user_type: `${process.env.NEXT_PUBLIC_ADMIN_TYPE},${process.env.NEXT_PUBLIC_EMPLOYEE_TYPE}`,
@@ -85,9 +85,10 @@ const TicketsFormSection = ({ formik, id }) => {
           ...params,
         },
       })
-      .then((response) => {
+      .then(async (response) => {
         if (response.status === 200) {
           let options = [];
+          {console.log("products",response?.data)}
           response?.data &&
             response?.data?.length > 0 &&
             response?.data.forEach((item) => {
@@ -97,16 +98,22 @@ const TicketsFormSection = ({ formik, id }) => {
                 ...item,
               });
             });
-          setProducts(options);
-        }
-      })
-      .catch((error) => {
-        setProducts([]);
-        console.log("Client Error", error);
-      });
-  };
+            await setProducts(options);
+          }
+        })
+        .catch((error) => {
+          setProducts([]);
+          console.log("Client Error", error);
+        });
+      };
 
-  console.log("formik.values.status", formik.values);
+  // React.useEffect(() => {
+  //   if (formik.values.client_id) {
+  //     getProduct(null);
+  //   }
+  // }, [formik.values.client_id, id]);
+
+  // console.log("formik.values.status", formik.values);
   return (
     <Grid container spacing={2}>
       <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -158,6 +165,7 @@ const TicketsFormSection = ({ formik, id }) => {
           required
         />
       </Grid>
+      {console.log("productsproducts", getProducts)}
       <Grid item lg={6} md={6} sm={12} xs={12}>
         <SelectMuiAutocomplete
           fullWidth
@@ -167,19 +175,13 @@ const TicketsFormSection = ({ formik, id }) => {
           placeholder="Select Product"
           value={formik.values.product_id}
           onChange={(e) => {
-            if (e) {
-              formik.setFieldValue("product_id", e);
-            } else {
-              formik.setFieldValue("product_id", null);
-            }
+            formik.setFieldValue("product_id", e || null);
           }}
           options={products}
           searchData={getProducts}
           params={React.useMemo(
             () => ({
-              client_id: formik.values.client_id?.value
-                ? formik.values.client_id?.value
-                : "",
+              client_id: formik.values.client_id?.value || "",
             }),
             [formik.values.client_id]
           )}
