@@ -11,7 +11,6 @@ const CompanyProfile = ({
   open,
   setOpen,
 }) => {
-    
   return (
     <>
       <Box>
@@ -22,7 +21,7 @@ const CompanyProfile = ({
                 <Stack direction="row" spacing={20}>
                   <Box>
                     <Typography sx={{ fontSize: 14 }} variant="h6" gutterBottom>
-                    Company  Profile Information
+                      Company Information
                     </Typography>
                   </Box>
                   {/* <Box>
@@ -31,25 +30,46 @@ const CompanyProfile = ({
                     </Button>
                   </Box> */}
                 </Stack>
-                <Typography variant="body2" mt={5}>
-                  Code: 
-                  {formik?.values?.company?.code}
-                </Typography>
-                <Typography variant="body2" mt={5}>
-                  Name: 
-                  {formik?.values?.company?.name}
-                </Typography>               
-                <Typography variant="body2" mt={2}>
-                  Email:
-                   {formik.values.company?.email}
-                </Typography>
-                <Typography variant="body2" mt={2}>
-                  Mobile: 
-                  {formik.values.company?.phone_number}
-                </Typography>
-                {/* <Typography sx={{ mb: 1.5 }} color="text.secondary" mt={3}>
-                  {formik.values.address}
-                </Typography> */}
+                <Grid container spacing={2} m={2}>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    <Typography variant="subtitle1" component="div">
+                      Code:
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    {formik?.values?.company?.code}
+                  </Grid>
+                </Grid>
+                <Grid container spacing={2} m={2}>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    <Typography variant="subtitle1" component="div">
+                      Name:
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    {formik?.values?.company?.name}
+                  </Grid>
+                </Grid>
+                <Grid container spacing={2} m={2}>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    <Typography variant="subtitle1" component="div">
+                      Email:
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    {formik.values.company?.email}
+                  </Grid>
+                </Grid>
+                <Grid container spacing={2} m={2}>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    <Typography variant="subtitle1" component="div">
+                      Mobiel No:
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    {formik.values.company?.phone_number}
+                  </Grid>
+                </Grid>
               </CardContent>
             </Card>
           </Grid>
@@ -58,6 +78,5 @@ const CompanyProfile = ({
     </>
   );
 };
-
 
 export default CompanyProfile;

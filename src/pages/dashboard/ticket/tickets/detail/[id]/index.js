@@ -2,7 +2,16 @@ import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import axiosInstance from "@/utils/axios";
-import { Avatar, Box, Card, Container, Grid, Stack, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Card,
+  CardContent,
+  Container,
+  Grid,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
@@ -61,14 +70,18 @@ const TicketDetails = () => {
 
               {/* <Grid container spacing={2} m={2}> */}
               <Card sx={{ mb: 2 }} variant="outlined">
-              <Grid item lg={3} md={3} sm={12} xs={12}>
                 <Typography component="div" variant="h6" m={3}>
                   Ticket Details
                 </Typography>
-                </Grid>
-                  <Grid item lg={3} md={3} sm={12} xs={12}>
-                  <Avatar src={detail?.file}/>
-                  </Grid>
+                <Card sx={{ width: "max-content", ml: 5 }}>
+                  <CardContent>
+                    <Avatar
+                      src={detail?.file}
+                      variant="rounded"
+                      sx={{ width: 80, height: 80 }}
+                    />
+                  </CardContent>
+                </Card>
                 <Grid container spacing={2} m={2}>
                   <Grid item lg={3} md={3} sm={12} xs={12}>
                     <Typography variant="subtitle1" component="div">
@@ -102,6 +115,22 @@ const TicketDetails = () => {
                   <Grid item lg={3} md={3} sm={12} xs={12}>
                     {detail?.user?.name}
                   </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    <Typography variant="subtitle1" component="div">
+                      Status:
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    {detail?.status}
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    <Typography variant="subtitle1" component="div">
+                      Details:
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={3} md={3} sm={12} xs={12}>
+                    {detail?.detail}
+                  </Grid>
                   {/* {detail?.attributes &&
                     detail?.attributes.map((item, index) => {
                       return (
@@ -127,9 +156,6 @@ const TicketDetails = () => {
                     })} */}
                 </Grid>
               </Card>
-
-             
-              
             </Container>
           </Card>
         </Stack>

@@ -7,6 +7,7 @@ import {
   CardHeader,
   Container,
   Grid,
+  IconButton,
   Stack,
   Typography,
 } from "@mui/material";
@@ -17,8 +18,20 @@ import TicketTimeline from "@/sections/dashboard/ticket/tickets/ticketTimeline";
 import axiosInstance from "@/utils/axios";
 import { useRouter } from "next/router";
 import { enqueueSnackbar } from "notistack";
+import Iconify from "@/components/iconify";
+import TicketComment from "../../comment";
 
 const TicketHistory = () => {
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const { query } = useRouter();
   const { id } = query;
   const [histories, setHistories] = React.useState([]);
@@ -91,10 +104,19 @@ const TicketHistory = () => {
         <Stack spacing={2}>
           <Card variant="outlined">
             <Container>
-              <Typography component="div" variant="h6" mt={3} mb={2}>
-                Ticket Created Date & Time: {ticketDetail?.created_at}
-              </Typography>
-
+              <Stack justifyContent="center" spacing={80} direction="row" mt={2}>
+                <Typography component="div" variant="h6" mt={3} mb={2}>
+                  Ticket Created Date & Time: {ticketDetail?.created_at}
+                </Typography>
+                <Button
+                  size="large"
+                   onClick={handleClickOpen}
+                  sx={{ width: "60px", height: "60px" }}
+                >
+                  Add Comment
+                  {/* <Iconify icon="carbon:task" width={35}/> */}
+                </Button>
+              </Stack>
               {/* <Grid container spacing={2} m={2}> */}
               <Card sx={{ mb: 2 }} variant="outlined">
                 <Typography component="p" variant="h6" m={3}>
@@ -192,6 +214,7 @@ const TicketHistory = () => {
           </Card>
         </Stack>
       </Box>
+      <TicketComment open={open} handleClose={handleClose}/>
     </>
   );
 };
