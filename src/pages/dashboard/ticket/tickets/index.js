@@ -97,7 +97,7 @@ const TicketsList = () => {
                   variant="standard"
                   badgeContent={params?.row?.chats_count}
                 >
-                  <Iconify icon="material-symbols:chat-outline" width={25} />
+                  <Iconify icon="quill:chat" width={25} />
                 </Badge>
               </Tooltip>
             }

@@ -107,7 +107,7 @@ const ProductDetails = () => {
                 </Grid>
               </Card>
 
-              <Card sx={{ mb: 2 }} variant="outlined">
+              {/* <Card sx={{ mb: 2 }} variant="outlined">
                 <Typography component="p" variant="h6" m={3}>
                   Company Information
                 </Typography>
@@ -129,7 +129,7 @@ const ProductDetails = () => {
                     {detail?.company?.phone_number}
                   </Grid>
                 </Grid>
-              </Card>
+              </Card> */}
 
               <Card sx={{ mb: 5 }} variant="outlined">
                 <Typography component="p" variant="h6" m={3}>
