@@ -104,10 +104,11 @@ const TicketHistory = () => {
           <Card variant="outlined">
             <Container>
               <Stack
-                justifyContent="center"
-                spacing={60}
+                justifyContent="space-between"
+                // spacing={60}
                 direction="row"
-                mt={2}
+                my={2}
+                alignItems="center"
               >
                 <Typography component="div" variant="h6" mt={3} mb={2}>
                   Ticket Created Date & Time: {ticketDetail?.created_at}
@@ -115,7 +116,8 @@ const TicketHistory = () => {
                 <Button
                   size="large"
                   onClick={handleClickOpen}
-                  sx={{ width: "60px", height: "60px" }}
+                  // sx={{ width: "60px", height: "60px" }}
+                  // fullWidth
                 >
                   Add Comment
                   {/* <Iconify icon="carbon:task" width={35}/> */}
