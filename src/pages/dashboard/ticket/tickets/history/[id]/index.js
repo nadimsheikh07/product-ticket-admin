@@ -119,10 +119,8 @@ const TicketHistory = () => {
                   variant="contained"
                 >
                   Add Comment
-                  {/* <Iconify icon="carbon:task" width={35}/> */}
                 </Button>
               </Stack>
-              {/* <Grid container spacing={2} m={2}> */}
               <Card sx={{ mb: 2 }} variant="outlined">
                 <Typography component="p" variant="h6" m={3}>
                   Client Information
