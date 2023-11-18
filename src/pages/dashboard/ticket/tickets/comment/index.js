@@ -36,10 +36,6 @@ const TicketComment = ({
     onSubmit: async (values) => {
       let method = "POST";
       let url = actionUrl;
-      if (id != "new") {
-        method = "PUT";
-        url = `${actionUrl}/${id}`;
-      }
 
       await axiosInstance
         .request({

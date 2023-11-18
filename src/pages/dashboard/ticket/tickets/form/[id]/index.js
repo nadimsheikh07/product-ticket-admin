@@ -106,8 +106,7 @@ const TicketsPageForm = () => {
                 ...data?.user,
               };
               formik.setFieldValue(key, client);
-            }
-            else if (key == "product_id") {
+            } else if (key == "product_id") {
               let product = {
                 label: data?.product?.name,
                 value: data?.product?.id,
