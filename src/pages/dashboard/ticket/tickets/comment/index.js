@@ -1,39 +1,37 @@
 import { TextBox } from "@/components/form";
 import {
   Box,
-  Button,
-  Card,
   Container,
   Dialog,
   DialogActions,
-  DialogContent,
-  DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import { ContainerComponent } from "@/components/container";
-import CustomBreadcrumbs from "@/components/custom-breadcrumbs/CustomBreadcrumbs";
-import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
-import { PATH_DASHBOARD } from "@/routes/paths";
-import { TicketsFormSection } from "@/sections/dashboard/ticket/tickets";
 import axiosInstance from "@/utils/axios";
 import { LoadingButton } from "@mui/lab";
-import { Stack } from "@mui/material";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
-import { useSnackbar } from "notistack";
 import React from "react";
 import SelectBox from "@/components/form/select";
 import { status } from "@/utils/constant";
+import { useSnackbar } from "notistack";
 
-const TicketComment = ({ open, handleClose }) => {
+const TicketComment = ({
+  open,
+  handleClose,
+  ticket_id,
+  getTicketDetail,
+  getTicketComment,
+}) => {
+  const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
   const { id } = router.query;
-  const actionUrl = "admin/catalog/tickets";
+  const actionUrl = "admin/ticket_comment/ticket_comments";
 
   const formik = useFormik({
     initialValues: {
       detail: "",
       status: "pending",
+      ticket_id: ticket_id,
     },
     onSubmit: async (values) => {
       let method = "POST";
@@ -43,14 +41,33 @@ const TicketComment = ({ open, handleClose }) => {
         url = `${actionUrl}/${id}`;
       }
 
-      await axiosInstance.request({
-        method: method,
-        url: url,
-        data: values,
-      });
+      await axiosInstance
+        .request({
+          method: method,
+          url: url,
+          data: values,
+        })
+        .then((response) => {
+          if (response?.status === 200) {
+            if (response?.data?.message) {
+              enqueueSnackbar(response?.data?.message, { variant: "success" });
+              getTicketDetail();
+              getTicketComment();
+            }
+          }
+        })
+        .catch((error) => {
+          const { response } = error;
+          if (response?.data?.message) {
+            enqueueSnackbar(response?.data?.message, { variant: "error" });
+          }
+        });
     },
   });
 
+  React.useEffect(() => {
+    formik.setFieldValue("ticket_id", ticket_id);
+  }, [ticket_id]);
   return (
     <>
       <Box>
@@ -62,45 +79,47 @@ const TicketComment = ({ open, handleClose }) => {
           fullWidth={true}
           maxWidth="sm"
         >
-          <DialogTitle id="alert-dialog-title">
-            {"Please Add Your Comment"}
-          </DialogTitle>
-          <Container>
-            <SelectBox
-              fullWidth
-              label="Status"
-              placeholder="Select"
-              name="status"
-              options={status}
-              value={String(formik.values.status)}
-              onChange={formik.handleChange}
-              error={formik.touched.status && formik.errors.status}
-              helperText={formik.touched.status && formik.errors.status}
-            />
-            <TextBox
-              fullWidth
-              label="Commant"
-              isMaxLenght={250}
-              placeholder="Enter Comment"
-              name="detail"
-              multiline={true}
-              rows={4}
-              value={formik.values.detail}
-              onChange={formik.handleChange}
-              error={formik.touched.detail && formik.errors.detail}
-              helperText={formik.touched.detail && formik.errors.detail}
-            />
-          </Container>
+          <form noValidate onSubmit={formik.handleSubmit}>
+            <DialogTitle id="alert-dialog-title">
+              {"Please Add Your Comment"}
+            </DialogTitle>
+            <Container>
+              <SelectBox
+                fullWidth
+                label="Status"
+                placeholder="Select"
+                name="status"
+                options={status}
+                value={String(formik.values.status)}
+                onChange={formik.handleChange}
+                error={formik.touched.status && formik.errors.status}
+                helperText={formik.touched.status && formik.errors.status}
+              />
+              <TextBox
+                fullWidth
+                label="Commant"
+                isMaxLenght={250}
+                placeholder="Enter Comment"
+                name="detail"
+                multiline={true}
+                rows={4}
+                value={formik.values.detail}
+                onChange={formik.handleChange}
+                error={formik.touched.detail && formik.errors.detail}
+                helperText={formik.touched.detail && formik.errors.detail}
+              />
+            </Container>
 
-          <DialogActions>
-            <LoadingButton
-              type="submit"
-              variant="contained"
-              loading={formik?.isSubmitting}
-            >
-              Submit
-            </LoadingButton>
-          </DialogActions>
+            <DialogActions>
+              <LoadingButton
+                type="submit"
+                variant="contained"
+                loading={formik?.isSubmitting}
+              >
+                Submit
+              </LoadingButton>
+            </DialogActions>
+          </form>
         </Dialog>
       </Box>
     </>

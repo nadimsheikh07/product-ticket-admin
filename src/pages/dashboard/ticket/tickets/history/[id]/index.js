@@ -17,12 +17,11 @@ import { PATH_DASHBOARD } from "@/routes/paths";
 import TicketTimeline from "@/sections/dashboard/ticket/tickets/ticketTimeline";
 import axiosInstance from "@/utils/axios";
 import { useRouter } from "next/router";
-import { enqueueSnackbar } from "notistack";
+// import { enqueueSnackbar } from "notistack";
 import Iconify from "@/components/iconify";
 import TicketComment from "../../comment";
 
 const TicketHistory = () => {
-
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -40,9 +39,9 @@ const TicketHistory = () => {
   const [totalHistory, setTotalHistory] = React.useState(0);
   const [ticketDetail, setTicketDetail] = React.useState({});
 
-  const getTicketHistories = async () => {
+  const getTicketComment = async () => {
     await axiosInstance
-      .get(`admin/catalog/ticket_histories`, {
+      .get(`admin/ticket_comment/ticket_comments`, {
         params: { page: page, pageSize: pageSize, ticket_id: id },
       })
       .then((response) => {
@@ -76,7 +75,7 @@ const TicketHistory = () => {
 
   useEffect(() => {
     if (id) {
-      getTicketHistories();
+      getTicketComment();
     }
   }, [id, page, pageSize]);
 
@@ -104,13 +103,18 @@ const TicketHistory = () => {
         <Stack spacing={2}>
           <Card variant="outlined">
             <Container>
-              <Stack justifyContent="center" spacing={80} direction="row" mt={2}>
+              <Stack
+                justifyContent="center"
+                spacing={60}
+                direction="row"
+                mt={2}
+              >
                 <Typography component="div" variant="h6" mt={3} mb={2}>
                   Ticket Created Date & Time: {ticketDetail?.created_at}
                 </Typography>
                 <Button
                   size="large"
-                   onClick={handleClickOpen}
+                  onClick={handleClickOpen}
                   sx={{ width: "60px", height: "60px" }}
                 >
                   Add Comment
@@ -209,12 +213,23 @@ const TicketHistory = () => {
           </Card>
           <Card variant="outlined">
             <CardContent>
-              <TicketTimeline total={totalHistory} histories={histories} />
+              <TicketTimeline
+                total={totalHistory}
+                histories={histories}
+                setPageSize={setPageSize}
+                pageSize={pageSize}
+              />
             </CardContent>
           </Card>
         </Stack>
       </Box>
-      <TicketComment open={open} handleClose={handleClose}/>
+      <TicketComment
+        open={open}
+        handleClose={handleClose}
+        ticket_id={id}
+        getTicketComment={getTicketComment}
+        getTicketDetail={getTicketDetail}
+      />
     </>
   );
 };

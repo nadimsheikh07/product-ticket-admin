@@ -10,13 +10,13 @@ import TimelineSeparator from "@mui/lab/TimelineSeparator";
 import { Box, Card, IconButton, Pagination, Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
-const TicketTimeline = ({ histories, total }) => {
+const TicketTimeline = ({ histories, total, setPageSize, pageSize }) => {
   return (
     <>
       <Box>
         <Timeline position="alternate">
           {histories?.length > 10 && (
-            <TimelineItem>
+            <TimelineItem onClick={() => setPageSize(pageSize - 10)}>
               <TimelineSeparator>
                 <TimelineConnector />
                 <TimelineDot
@@ -75,13 +75,13 @@ const TicketTimeline = ({ histories, total }) => {
                     <Typography variant="h6" component="span">
                       {item?.status}
                     </Typography>
-                    <Typography>{item?.detail}</Typography>
+                    <Typography>{item?.comment}</Typography>
                   </TimelineContent>
                 </TimelineItem>
               );
             })}
           {total != histories?.length && (
-            <TimelineItem>
+            <TimelineItem onClick={() => setPageSize(pageSize + 10)}>
               <TimelineSeparator>
                 <TimelineConnector />
                 <TimelineDot
