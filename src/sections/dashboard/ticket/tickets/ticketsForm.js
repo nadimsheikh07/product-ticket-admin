@@ -44,7 +44,6 @@ const TicketsFormSection = ({ formik, id }) => {
   }, []);
 
   const getClients = async (params) => {
-    setProducts([]);
     await axiosInstance
       .get("admin/user/users", {
         params: {
@@ -78,7 +77,6 @@ const TicketsFormSection = ({ formik, id }) => {
   }, []);
 
   const getProducts = async (params) => {
-    setProducts([]);
     await axiosInstance
       .get("admin/catalog/products", {
         params: {
@@ -88,7 +86,6 @@ const TicketsFormSection = ({ formik, id }) => {
       .then(async (response) => {
         if (response.status === 200) {
           let options = [];
-          {console.log("products",response?.data)}
           response?.data &&
             response?.data?.length > 0 &&
             response?.data.forEach((item) => {
@@ -98,14 +95,15 @@ const TicketsFormSection = ({ formik, id }) => {
                 ...item,
               });
             });
-            await setProducts(options);
-          }
-        })
-        .catch((error) => {
-          setProducts([]);
-          console.log("Client Error", error);
-        });
-      };
+          console.log("productshrtyr", options);
+          setProducts(options);
+        }
+      })
+      .catch((error) => {
+        setProducts([]);
+        console.log("Client Error", error);
+      });
+  };
 
   // React.useEffect(() => {
   //   if (formik.values.client_id) {
@@ -114,6 +112,9 @@ const TicketsFormSection = ({ formik, id }) => {
   // }, [formik.values.client_id, id]);
 
   // console.log("formik.values.status", formik.values);
+
+  console.log("productshrtyr", products);
+
   return (
     <Grid container spacing={2}>
       <Grid item lg={6} md={6} sm={12} xs={12}>
