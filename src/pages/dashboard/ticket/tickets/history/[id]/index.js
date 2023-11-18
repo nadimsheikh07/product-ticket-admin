@@ -114,10 +114,9 @@ const TicketHistory = () => {
                   Ticket Created Date & Time: {ticketDetail?.created_at}
                 </Typography>
                 <Button
-                  size="large"
+                  size="medium"
                   onClick={handleClickOpen}
-                  // sx={{ width: "60px", height: "60px" }}
-                  // fullWidth
+                  variant="contained"
                 >
                   Add Comment
                   {/* <Iconify icon="carbon:task" width={35}/> */}
