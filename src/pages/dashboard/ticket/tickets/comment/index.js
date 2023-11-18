@@ -45,6 +45,7 @@ const TicketComment = ({
         })
         .then((response) => {
           if (response?.status === 200) {
+            handleClose();
             if (response?.data?.message) {
               enqueueSnackbar(response?.data?.message, { variant: "success" });
               getTicketDetail();
