@@ -58,6 +58,7 @@ const CompanyContext = createContext({
   setCompany: () => Promise.resolve(),
   removeCompany: () => Promise.resolve(),
   getCompanies: () => Promise.resolve(),
+  setCompanyDetail: () => Promise.resolve(),
 });
 
 // ----------------------------------------------------------------------
@@ -123,7 +124,8 @@ function CompanyProvider({ children }) {
 
   const setCompany = (companyId) => {
     axiosInstance.defaults.headers.common.company_id = companyId;
-    localStorage.setItem("companyId", companyId);
+    localStorage.setItem("companyId", companyId || null);
+    console.log("companyId", companyId, axiosInstance.defaults.headers.common);
     dispatch({
       type: "SET_COMPANY",
       payload: {
@@ -133,11 +135,11 @@ function CompanyProvider({ children }) {
   };
 
   const setCompanyDetail = (companyDetail) => {
-    localStorage.setItem("companyDetail", companyDetail);
+    localStorage.setItem("companyDetail", JSON.stringify(companyDetail));
     dispatch({
       type: "SET_COMPANY_DETAIL",
       payload: {
-        companyDetail: companyDetail ? JSON.parse(companyDetail) : null,
+        companyDetail: companyDetail ? companyDetail : "",
       },
     });
   };

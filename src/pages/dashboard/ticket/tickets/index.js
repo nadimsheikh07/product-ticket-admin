@@ -26,6 +26,7 @@ const TicketsList = () => {
   const formUrl = `${PATH_DASHBOARD.ticket.tickets}/form`;
   const chatUrl = `${PATH_DASHBOARD.ticket.tickets}/chat`;
   const historyUrl = `${PATH_DASHBOARD.ticket.tickets}/history`;
+  const detailUrl = `${PATH_DASHBOARD.ticket.tickets}/detail`;
   const actionUrl = "admin/catalog/tickets";
   const [refreshTicket, setRefreshTicket] = React.useState(false);
 
@@ -69,7 +70,7 @@ const TicketsList = () => {
           label="Edit"
           onClick={() => push(`${formUrl}/${params.id}`)}
         />,
-        ["closed", "cancled"].includes(params?.row?.status) ? (
+        ["closed", "cancelled"].includes(params?.row?.status) ? (
           <GridActionsCellItem
             key="relaunch"
             icon={
@@ -96,7 +97,7 @@ const TicketsList = () => {
                   variant="standard"
                   badgeContent={params?.row?.chats_count}
                 >
-                  <Iconify icon="material-symbols:chat-outline" width={25} />
+                  <Iconify icon="quill:chat" width={25} />
                 </Badge>
               </Tooltip>
             }
@@ -112,7 +113,17 @@ const TicketsList = () => {
             </Tooltip>
           }
           label="History"
-          onClick={() => push(`${historyUrl}/${""}`)}
+          onClick={() => push(`${historyUrl}/${params.id}`)}
+        />,
+         <GridActionsCellItem
+          key="viewAction"
+          icon={
+            <Tooltip title="Detail">
+              <Iconify icon="bx:detail" width={25} />
+            </Tooltip>
+          }
+          label="Detail"
+          onClick={() => push(`${detailUrl}/${params.id}`)}
         />,
       ],
     },
@@ -140,7 +151,7 @@ const TicketsList = () => {
               color="success"
             />
           );
-        } else if (row?.status == "cancled") {
+        } else if (row?.status == "cancelled") {
           return (
             <Chip
               sx={{ textTransform: "capitalize" }}
@@ -149,7 +160,17 @@ const TicketsList = () => {
               color="error"
             />
           );
-        } else if (row?.status == "closed") {
+        }
+        else if (row?.status == "hold") {
+          return (
+            <Chip
+              sx={{ textTransform: "capitalize" }}
+              label={row?.status}
+              variant="outlined"
+              color="primary"
+            />
+          );
+        }  else if (row?.status == "closed") {
           return (
             <Chip
               sx={{

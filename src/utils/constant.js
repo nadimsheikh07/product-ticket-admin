@@ -37,11 +37,15 @@ export const status = [
   },
   {
     label: "Cancelled",
-    value: "cancled",
+    value: "cancelled",
   },
   {
     label: "Closed",
     value: "closed",
+  },
+  {
+    label: "Hold",
+    value: "hold",
   },
 ];
 export const userType = [

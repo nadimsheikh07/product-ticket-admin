@@ -23,7 +23,7 @@ const CompanyEmployeesPageForm = () => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      is_active: false,
+      is_active: true,
     },
     validate: (values) => {
       const errors = {};

@@ -5,7 +5,7 @@ import useCompany from "@/hooks/useCompany";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import CompanyFormSection from "@/sections/dashboard/company/companies/companyForm";
-import { UserFormSection } from "@/sections/dashboard/user/users";
+import { UserFormSection } from "@/sections/dashboard/admin/admin";
 import axiosInstance from "@/utils/axios";
 import { LoadingButton } from "@mui/lab";
 import { Stack } from "@mui/material";
@@ -29,6 +29,7 @@ const CompanyPageForm = () => {
       email: "",
       phone_number: "",
       is_active: true,
+      logo:"",
     },
     validate: (values) => {
       const errors = {};
@@ -47,9 +48,10 @@ const CompanyPageForm = () => {
       if (!values.phone_number) {
         errors.phone_number = "Phone is required";
       } else if (!phoneRegex.test(values.phone_number)) {
-        errors.phone_number = "Invalid phone number";
+        errors.phone_number = "Invalid phone_number number";
       } else if (
-        values.phone_number.length == 10
+        values.phone_number.length < 10 ||
+        values.phone_number.length > 10
       ) {
         errors.phone_number = "Phone number must be 10 digit";
       }
@@ -121,6 +123,19 @@ const CompanyPageForm = () => {
     }
   }, [id]);
 
+  const generateCode = async () => {
+    await axiosInstance
+      .get("admin/catalog/generate-auto-code")
+      .then((response) => {
+        if (response.status === 200) {
+          formik.setFieldValue("code", response?.data?.code);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <ContainerComponent>
       <CustomBreadcrumbs
@@ -138,7 +153,11 @@ const CompanyPageForm = () => {
         ]}
       />
       <form noValidate onSubmit={formik.handleSubmit}>
-        <CompanyFormSection formik={formik} id={id} />
+        <CompanyFormSection
+          formik={formik}
+          id={id}
+          generateCode={generateCode}
+        />
         <Stack alignItems="flex-end" sx={{ mt: 3 }}>
           <LoadingButton
             type="submit"

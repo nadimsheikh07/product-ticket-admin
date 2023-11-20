@@ -1,16 +1,20 @@
 "use client";
 import GuestGuard from "@/auth/GuestGuard";
+import { setSession } from "@/auth/utils";
 import ResetPassword from "@/sections/auth/resetPassword";
 import axiosInstance from "@/utils/axios";
+import { PATH_AFTER_RESET } from "@/utils/config-global";
 import { Box } from "@mui/material";
 import { useFormik } from "formik";
+import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import React from "react";
 
-const ResetPasswords = ({ params, searchParams }) => {
+const ResetPasswords = () => {
   const actionUrl = "admin/auth/reset_password";
   const { enqueueSnackbar } = useSnackbar();
-  const  token  = searchParams;
+  const { query, push } = useRouter();
+  const { token } = query;
   const title = "Forget Password";
   const formik = useFormik({
     initialValues: {
@@ -39,7 +43,7 @@ const ResetPasswords = ({ params, searchParams }) => {
         errors.password =
           "Must Contain 10 Characters, One Uppercase, One Lowercase, One Number and one special case Character";
       }
-    
+
       //   if (!values.new_password) {
       //   errors.new_password = "Confirm Password is required";
       // } else if (values.new_password.length > 10) {
@@ -48,8 +52,9 @@ const ResetPasswords = ({ params, searchParams }) => {
       //   errors.new_password =
       //     "Must Contain 10 Characters, One Uppercase, One Lowercase, One Number and one special case Character";
       // }
-      if(values.password !== values.new_password){
-        errors.new_password="Current password does not match with previous password"
+      if (values.password !== values.new_password) {
+        errors.new_password =
+          "Current password does not match with previous password";
       }
 
       return errors;
@@ -67,6 +72,8 @@ const ResetPasswords = ({ params, searchParams }) => {
         })
         .then((response) => {
           if (response.status === 200) {
+            push(PATH_AFTER_RESET);
+            setSession(null);
             enqueueSnackbar(response.data.message, {
               variant: "success",
             });
@@ -74,7 +81,7 @@ const ResetPasswords = ({ params, searchParams }) => {
           if (password === new_password) {
             // Passwords match, continue with your logic
           } else {
-            errors.password='Passwords did not match';
+            errors.password = "Passwords did not match";
           }
         })
         .catch((error) => {

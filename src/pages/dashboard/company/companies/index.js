@@ -6,7 +6,7 @@ import Iconify from "@/components/iconify/Iconify";
 import Label from "@/components/label";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
-import { Button, Tooltip } from "@mui/material";
+import { Avatar, Button, Tooltip } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
@@ -35,6 +35,29 @@ const CompanyList = () => {
           onClick={() => push(`${formUrl}/${params.id}`)}
         />,
       ],
+    },
+    {
+      field: "logo",
+      headerName: "Company Logo",
+      width: "200",
+      renderCell: ({ row }) => {
+        return (
+          <Avatar
+            url="api/upload/image"
+            variant="rounded"
+            sx={{
+              "&.MuiAvatar-root": {
+                width: "80px !important",
+                "& .MuiAvatar-img": {
+                  objectFit: "contain",
+                },
+              },
+            }}
+            src={row?.logo}
+            alt={row?.company?.name}
+          />
+        );
+      },
     },
     {
       field: "name",
@@ -106,7 +129,7 @@ const CompanyList = () => {
           }}
           columns={columns}
           checkboxSelection={true}
-          isRowSelectable={(params) => params?.row?.id !== 0}
+          isRowSelectable={(params) => params?.row?.id !== 1}
           disableRowSelectionOnClick={true}
         />
       </ContainerComponent>

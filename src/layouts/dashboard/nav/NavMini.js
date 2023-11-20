@@ -13,7 +13,7 @@ import NavToggleButton from "./NavToggleButton";
 
 // ----------------------------------------------------------------------
 
-export default function NavMini({ isNavMini }) {
+export default function NavMini({ isNavMini, navConfig = [] }) {
   return (
     <Box
       component="nav"

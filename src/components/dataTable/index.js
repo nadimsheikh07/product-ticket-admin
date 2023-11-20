@@ -157,9 +157,11 @@ export const DataTable = (props) => {
       .catch((error) => {
         handleCloseConfirm();
         const { response } = error;
+        if(response?.data?.message){
         enqueueSnackbar(response?.data?.message, {
           variant: "error",
         });
+      }
       });
   };
 
