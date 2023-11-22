@@ -16,7 +16,7 @@ const TicketTimeline = ({ histories, total, setPageSize, pageSize }) => {
       <Box>
         <Timeline position="alternate">
           {histories?.length > 10 && (
-            <TimelineItem onClick={() => setPageSize(pageSize - 10)}>
+            <TimelineItem>
               <TimelineSeparator>
                 <TimelineConnector />
                 <TimelineDot
@@ -26,7 +26,7 @@ const TicketTimeline = ({ histories, total, setPageSize, pageSize }) => {
                     padding: 0,
                   }}
                 >
-                  <IconButton size="small">
+                  <IconButton size="small" onClick={() => setPageSize(pageSize - 10)}>
                     <KeyboardDoubleArrowUpIcon fontSize="small" />
                   </IconButton>
                 </TimelineDot>
@@ -81,7 +81,7 @@ const TicketTimeline = ({ histories, total, setPageSize, pageSize }) => {
               );
             })}
           {total != histories?.length && (
-            <TimelineItem onClick={() => setPageSize(pageSize + 10)}>
+            <TimelineItem>
               <TimelineSeparator>
                 <TimelineConnector />
                 <TimelineDot
@@ -91,7 +91,10 @@ const TicketTimeline = ({ histories, total, setPageSize, pageSize }) => {
                     padding: 0,
                   }}
                 >
-                  <IconButton size="small">
+                  <IconButton
+                    size="small"
+                    onClick={() => setPageSize(pageSize + 10)}
+                  >
                     <KeyboardDoubleArrowDownIcon fontSize="small" />
                   </IconButton>
                 </TimelineDot>
