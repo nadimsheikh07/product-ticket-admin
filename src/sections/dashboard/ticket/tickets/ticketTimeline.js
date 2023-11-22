@@ -74,13 +74,13 @@ const TicketTimeline = ({ histories, total, setPageSize, pageSize }) => {
                     />
                   );
                 } else if (item?.status == "hold") {
-                  color = "primary";
+                  color = "info";
                   return (
                     <Chip
                       sx={{ textTransform: "capitalize" }}
                       label={item?.status}
                       variant="outlined"
-                      color="primary"
+                      color="info"
                     />
                   );
                 } else if (item?.status == "closed") {

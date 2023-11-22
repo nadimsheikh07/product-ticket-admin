@@ -167,7 +167,7 @@ const TicketsList = () => {
               sx={{ textTransform: "capitalize" }}
               label={row?.status}
               variant="outlined"
-              color="primary"
+              color="info"
             />
           );
         }  else if (row?.status == "closed") {
