@@ -7,6 +7,7 @@ import { useSnackbar } from "notistack";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import { PATH_DASHBOARD } from "@/routes/paths";
 import { AdminProfile, CompanyProfile } from "@/sections/dashboard/profile";
+import { Grid } from "@mui/material";
 
 const AdminProfiles = () => {
   const actionUrl = "admin/user/profile";
@@ -128,22 +129,28 @@ const AdminProfiles = () => {
             },
           ]}
         />
-        <AdminProfile
-          formik={formik}
-          open={open}
-          setOpen={setOpen}
-          handleClickOpen={handleClickOpen}
-          handleClose={handleClose}
-          handleClickUpdatePassword={handleClickUpdatePassword}
-          openUpdatePassword={openUpdatePassword}
-        />
-        <CompanyProfile
-          formik={formik}
-          open={open}
-          setOpen={setOpen}
-          handleClickOpen={handleClickOpen}
-          handleClose={handleClose}
-        />
+        <Grid container spacing={2}>
+          <Grid item lg={6} md={6} sm={12} xs={12}>
+            <AdminProfile
+              formik={formik}
+              open={open}
+              setOpen={setOpen}
+              handleClickOpen={handleClickOpen}
+              handleClose={handleClose}
+              handleClickUpdatePassword={handleClickUpdatePassword}
+              openUpdatePassword={openUpdatePassword}
+            />
+          </Grid>
+          <Grid item lg={6} md={6} sm={12} xs={12}>
+            <CompanyProfile
+              formik={formik}
+              open={open}
+              setOpen={setOpen}
+              handleClickOpen={handleClickOpen}
+              handleClose={handleClose}
+            />
+          </Grid>
+        </Grid>
       </ContainerComponent>
     </>
   );

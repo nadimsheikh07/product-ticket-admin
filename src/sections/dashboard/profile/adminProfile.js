@@ -33,7 +33,7 @@ const AdminProfile = ({
           <Grid item xs={12}>
             <Card>
               <CardContent>
-                <Stack direction="row" spacing={20}>
+                <Stack direction="row" spacing={18}>
                   <Box>
                     <Typography component="div" variant="h6" mt={1} mb={2} gutterBottom>
                       Profile Information
@@ -77,16 +77,6 @@ const AdminProfile = ({
                   </Grid>
                   <Grid item lg={3} md={3} sm={12} xs={12}>
                   {formik.values.phone}
-                  </Grid>
-                </Grid>
-                <Grid container spacing={2} m={2}>
-                  <Grid item lg={3} md={3} sm={12} xs={12}>
-                    <Typography variant="subtitle1" component="div">
-                    Address:
-                    </Typography>
-                  </Grid>
-                  <Grid item lg={3} md={3} sm={12} xs={12}>
-                  {formik.values.address}
                   </Grid>
                 </Grid>
               </CardContent>
