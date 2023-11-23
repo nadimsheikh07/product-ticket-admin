@@ -97,13 +97,13 @@ const TicketComment = ({
                 label="Commant"
                 isMaxLenght={250}
                 placeholder="Enter Comment"
-                name="detail"
+                name="comment"
                 multiline={true}
                 rows={4}
-                value={formik.values.detail}
+                value={formik.values.comment}
                 onChange={formik.handleChange}
-                error={formik.touched.detail && formik.errors.detail}
-                helperText={formik.touched.detail && formik.errors.detail}
+                error={formik.touched.comment && formik.errors.comment}
+                helperText={formik.touched.comment && formik.errors.comment}
               />
             </Container>
 

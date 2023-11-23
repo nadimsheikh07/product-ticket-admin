@@ -103,24 +103,24 @@ const TicketHistory = () => {
         <Stack spacing={2}>
           <Card variant="outlined">
             <Container>
-              <Stack
-                justifyContent="space-between"
-                // spacing={60}
-                direction="row"
-                my={2}
-                alignItems="center"
-              >
-                <Typography component="div" variant="h6" mt={3} mb={2}>
-                  Ticket Created Date & Time: {ticketDetail?.created_at}
-                </Typography>
-                <Button
-                  size="medium"
-                  onClick={handleClickOpen}
-                  variant="contained"
+                <Stack
+                  justifyContent="space-between"
+                  // spacing={60}
+                  direction="row"
+                  my={2}
+                  alignItems="center"
                 >
-                  Add Comment
-                </Button>
-              </Stack>
+                  <Typography component="div" variant="h6" mt={3} mb={2}>
+                    Ticket Created Date & Time: {ticketDetail?.created_at}
+                  </Typography>
+                  <Button
+                    size="medium"
+                    onClick={handleClickOpen}
+                    variant="contained"
+                  >
+                    Add Comment
+                  </Button>
+                </Stack>
               <Card sx={{ mb: 2 }} variant="outlined">
                 <Typography component="p" variant="h6" m={3}>
                   Client Information

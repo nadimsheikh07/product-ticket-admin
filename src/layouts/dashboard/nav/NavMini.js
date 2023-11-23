@@ -8,7 +8,6 @@ import { hideScrollbarX } from "@/utils/cssStyles";
 import Logo from "@/components/logo/Logo";
 import { NavSectionMini } from "@/components/nav-section";
 //
-import navConfig from "./config-navigation";
 import NavToggleButton from "./NavToggleButton";
 
 // ----------------------------------------------------------------------

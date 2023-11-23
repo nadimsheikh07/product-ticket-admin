@@ -7,7 +7,7 @@ import TimelineDot from "@mui/lab/TimelineDot";
 import TimelineItem from "@mui/lab/TimelineItem";
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";
-import { Box, Card, IconButton, Pagination, Stack } from "@mui/material";
+import { Box, Card, Chip, IconButton, Pagination, Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
 const TicketTimeline = ({ histories, total, setPageSize, pageSize }) => {
@@ -16,7 +16,7 @@ const TicketTimeline = ({ histories, total, setPageSize, pageSize }) => {
       <Box>
         <Timeline position="alternate">
           {histories?.length > 10 && (
-            <TimelineItem onClick={() => setPageSize(pageSize - 10)}>
+            <TimelineItem>
               <TimelineSeparator>
                 <TimelineConnector />
                 <TimelineDot
@@ -26,7 +26,10 @@ const TicketTimeline = ({ histories, total, setPageSize, pageSize }) => {
                     padding: 0,
                   }}
                 >
-                  <IconButton size="small">
+                  <IconButton
+                    size="small"
+                    onClick={() => setPageSize(pageSize - 10)}
+                  >
                     <KeyboardDoubleArrowUpIcon fontSize="small" />
                   </IconButton>
                 </TimelineDot>
@@ -38,6 +41,74 @@ const TicketTimeline = ({ histories, total, setPageSize, pageSize }) => {
           {histories &&
             histories?.length > 0 &&
             histories.map((item, index) => {
+              let color = "primary";
+              const getStatus = () => {
+                if (item?.status == "pending") {
+                  color = "warning";
+                  return (
+                    <Chip
+                      sx={{ textTransform: "capitalize" }}
+                      label={item?.status}
+                      variant="outlined"
+                      color="warning"
+                    />
+                  );
+                } else if (item?.status === "processing") {
+                  color = "success";
+                  return (
+                    <Chip
+                      sx={{ textTransform: "capitalize" }}
+                      label={item?.status}
+                      variant="outlined"
+                      color="success"
+                    />
+                  );
+                } else if (item?.status == "cancelled") {
+                  color = "error";
+                  return (
+                    <Chip
+                      sx={{ textTransform: "capitalize" }}
+                      label={item?.status}
+                      variant="outlined"
+                      color="error"
+                    />
+                  );
+                } else if (item?.status == "hold") {
+                  color = "info";
+                  return (
+                    <Chip
+                      sx={{ textTransform: "capitalize" }}
+                      label={item?.status}
+                      variant="outlined"
+                      color="info"
+                    />
+                  );
+                } else if (item?.status == "closed") {
+                  color = "error";
+                  return (
+                    <Chip
+                      sx={{
+                        textTransform: "capitalize",
+                        color: (theme) => theme.palette.error.darker,
+                        borderColor: (theme) => theme.palette.error.darker,
+                      }}
+                      label={item?.status}
+                      variant="outlined"
+                    />
+                  );
+                } else {
+                  color = "inherit";
+                  return (
+                    <Chip
+                      sx={{ textTransform: "capitalize" }}
+                      label={item?.status}
+                      variant="outlined"
+                      color="inherit"
+                    />
+                  );
+                }
+              };
+
               return (
                 <TimelineItem key={`histories?.length-${{ index }}`}>
                   <TimelineOppositeContent
@@ -53,7 +124,7 @@ const TicketTimeline = ({ histories, total, setPageSize, pageSize }) => {
                     <TimelineDot
                       sx={(theme) => ({
                         "&.MuiTimelineDot-root": {
-                          borderColor: theme.palette.primary.light,
+                          borderColor: theme.palette[color]?.light,
                         },
                       })}
                     >
@@ -64,7 +135,7 @@ const TicketTimeline = ({ histories, total, setPageSize, pageSize }) => {
                             borderRadius: "50%",
                             width: "10px",
                             height: "10px",
-                            bgcolor: theme.palette.primary.main,
+                            bgcolor: theme.palette[color]?.main,
                           },
                         })}
                       />
@@ -73,7 +144,7 @@ const TicketTimeline = ({ histories, total, setPageSize, pageSize }) => {
                   </TimelineSeparator>
                   <TimelineContent sx={{ py: "12px", px: 2 }}>
                     <Typography variant="h6" component="span">
-                      {item?.status}
+                      {getStatus()}
                     </Typography>
                     <Typography>{item?.comment}</Typography>
                   </TimelineContent>
@@ -81,7 +152,7 @@ const TicketTimeline = ({ histories, total, setPageSize, pageSize }) => {
               );
             })}
           {total != histories?.length && (
-            <TimelineItem onClick={() => setPageSize(pageSize + 10)}>
+            <TimelineItem>
               <TimelineSeparator>
                 <TimelineConnector />
                 <TimelineDot
@@ -91,7 +162,10 @@ const TicketTimeline = ({ histories, total, setPageSize, pageSize }) => {
                     padding: 0,
                   }}
                 >
-                  <IconButton size="small">
+                  <IconButton
+                    size="small"
+                    onClick={() => setPageSize(pageSize + 10)}
+                  >
                     <KeyboardDoubleArrowDownIcon fontSize="small" />
                   </IconButton>
                 </TimelineDot>

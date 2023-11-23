@@ -1,3 +1,4 @@
+import { useAuthContext } from "@/auth/useAuthContext";
 import { Grid, Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -11,6 +12,7 @@ const CompanyProfile = ({
   open,
   setOpen,
 }) => {
+  const { user } = useAuthContext();
   return (
     <>
       <Box>
@@ -30,16 +32,18 @@ const CompanyProfile = ({
                     </Button>
                   </Box> */}
                 </Stack>
-                <Grid container spacing={2} m={2}>
-                  <Grid item lg={3} md={3} sm={12} xs={12}>
-                    <Typography variant="subtitle1" component="div">
-                      Code:
-                    </Typography>
+                {user?.user_type === "admin" && (
+                  <Grid container spacing={2} m={2}>
+                    <Grid item lg={3} md={3} sm={12} xs={12}>
+                      <Typography variant="subtitle1" component="div">
+                        Code:
+                      </Typography>
+                    </Grid>
+                    <Grid item lg={3} md={3} sm={12} xs={12}>
+                      {formik?.values?.company?.code}
+                    </Grid>
                   </Grid>
-                  <Grid item lg={3} md={3} sm={12} xs={12}>
-                    {formik?.values?.company?.code}
-                  </Grid>
-                </Grid>
+                )}
                 <Grid container spacing={2} m={2}>
                   <Grid item lg={3} md={3} sm={12} xs={12}>
                     <Typography variant="subtitle1" component="div">

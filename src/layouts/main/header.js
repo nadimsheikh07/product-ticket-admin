@@ -16,15 +16,17 @@ import { PATH_DOCS, PATH_PAGE } from "@/routes/paths";
 import Logo from "@/components/logo/Logo";
 //
 import NavMobile from "./nav/mobile";
-import navConfig from "./nav/config-navigation";
+// import navConfig from "./nav/config-navigation";
 import NavDesktop from "./nav/desktop";
 import { useRouter } from "next/router";
+import useMenu from "@/hooks/useMenu";
 
 // ----------------------------------------------------------------------
 
 const MainHeader = () => {
   const theme = useTheme();
   const router = useRouter();
+  const { navConfigMenu } = useMenu();
 
   const isDesktop = useResponsive("up", "md");
 
@@ -64,7 +66,7 @@ const MainHeader = () => {
 
           <Box sx={{ flexGrow: 1 }} />
 
-          {isDesktop && <NavDesktop isOffset={isOffset} data={navConfig} />}
+          {isDesktop && <NavDesktop isOffset={isOffset} data={navConfigMenu} />}
 
           <Button
             variant="contained"
@@ -73,7 +75,7 @@ const MainHeader = () => {
             Login
           </Button>
 
-          {!isDesktop && <NavMobile isOffset={isOffset} data={navConfig} />}
+          {!isDesktop && <NavMobile isOffset={isOffset} data={navConfigMenu} />}
         </Container>
       </Toolbar>
 

@@ -2,7 +2,7 @@ import { useState, memo, useEffect } from "react";
 import parse from "autosuggest-highlight/parse";
 import match from "autosuggest-highlight/match";
 // next
-import {  useRouter } from "next/router";
+import { useRouter } from "next/router";
 // @mui
 import { alpha, styled } from "@mui/material/styles";
 import {
@@ -22,8 +22,9 @@ import Iconify from "@/components/iconify/Iconify";
 import { IconButtonAnimate } from "@/components/animate";
 import SearchNotFound from "@/components/search-not-found/SearchNotFound";
 //
-import NavConfig from "../nav/config-navigation";
+// import NavConfig from "../nav/config-navigation";
 import SearchIcon from "@mui/icons-material/Search";
+import useMenu from "@/hooks/useMenu";
 
 // ----------------------------------------------------------------------
 
@@ -94,6 +95,7 @@ const StyledPopper = styled((props) => <Popper {...props} />)(({ theme }) => ({
 
 function Searchbar() {
   const { push, pathname } = useRouter();
+  const { navConfigMenu } = useMenu();
 
   const [open, setOpen] = useState(false);
 
