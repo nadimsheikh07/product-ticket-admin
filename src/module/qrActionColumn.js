@@ -65,7 +65,13 @@ const ActionMenu = ({ row, field }) => {
             </MenuItem>
           )} */}
           {row[field].view_url && (
-            <MenuItem onClick={() => viewUrl(`${row[field].view_url}`)}>
+            <MenuItem
+              onClick={() =>
+                viewUrl(
+                  `${row[field].view_url}?company_code=${row?.company?.code}`
+                )
+              }
+            >
               View Url
             </MenuItem>
           )}

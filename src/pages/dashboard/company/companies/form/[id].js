@@ -28,6 +28,7 @@ const CompanyPageForm = () => {
       name: "",
       email: "",
       phone_number: "",
+      code: "",
       is_active: true,
       logo:"",
     },
@@ -35,6 +36,9 @@ const CompanyPageForm = () => {
       const errors = {};
       if (!values.name) {
         errors.name = "Company Name is required";
+      }
+      if (!values.code) {
+        errors.code = "Company Code is required";
       }
 
       if (!values.email) {
