@@ -64,6 +64,11 @@ const CompanyList = () => {
       headerName: "Company Name",
       width: "200",
     },
+    {
+      field: "code",
+      headerName: "Company Code",
+      width: "200",
+    },
    
     {
       field: "email",
