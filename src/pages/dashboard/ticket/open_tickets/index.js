@@ -127,7 +127,7 @@ const TicketsList = () => {
     {
       field: "email",
       headerName: "Client Email",
-      width: 140,
+      width: 180,
     },
     {
       field: "phone",
