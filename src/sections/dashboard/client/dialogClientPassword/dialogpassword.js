@@ -96,7 +96,7 @@ const DialogClientPasswords = ({ handleClose, open }) => {
   return (
     <>
       <Dialog open={open?.open} onClose={handleClose} fullWidth maxWidth="xs">
-        <DialogTitle sx={{ m: 0, p: 2, mb: 2 }}>Update Password</DialogTitle>
+        <DialogTitle sx={{ m: 0, p: 2, mb: 2 }}>{title}</DialogTitle>
         <IconButton
           aria-label="close"
           onClick={handleClose}

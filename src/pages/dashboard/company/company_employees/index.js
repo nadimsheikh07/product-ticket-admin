@@ -17,7 +17,10 @@ import React from "react";
 // import Head from "next/document";
 
 const CompanyEmployeesLists = (formik) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState({
+    open: false,
+    id: "",
+  });
 
   const { push } = useRouter();
   const title = "Employees";
@@ -25,12 +28,12 @@ const CompanyEmployeesLists = (formik) => {
   const actionUrl = "admin/user/users";
   const { companyId } = useCompany();
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpen = (id) => {
+    setOpen({ open: true, id: id });
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpen({ open: false, id: "" });
   };
 
   const columns = [
